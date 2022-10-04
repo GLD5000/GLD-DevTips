@@ -1,10 +1,10 @@
+import Header from "./components/Header";
+
 function App() {
-  const name = "Gfunk"
   return (
-    <container className="container">
-      <h1>Hello from {name}</h1>
-      <h1>Hi there</h1>
-    </container>
+    <section className="container">
+      <Header title="Task Tracker" />
+    </section>
   );
 }
 
