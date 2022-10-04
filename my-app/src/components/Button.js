@@ -1,16 +1,17 @@
 import PropTypes from "prop-types";
+function defaultOnClick(e) {
+  console.log(e.target);
+}
 
 const Button = ({
   color = "white",
   backgroundColor = "black",
   text = "Add",
+  clickFunction = defaultOnClick,
 }) => {
-  const onClick = (e) => {
-    console.log(e.target);
-  };
   return (
     <button
-      onClick={onClick}
+      onClick={clickFunction}
       className="btn"
       style={{ color: color, backgroundColor: backgroundColor }}
     >
