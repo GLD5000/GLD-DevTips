@@ -10,18 +10,19 @@ function App() {
      "date": "4th Feb 2022",
      "tags": ["JavaScript", "Pitfall"],
      "title": "Title",
-      "sections": [{"section-title": "optional title",
+      "sections": [{"section-title": "Optional Title",
       "type": "code",
-      "content": "string"},
+      "content": `const constant = magic number;
+      return constant + 1;`},
       {"type": "table",
-       "content": [["array", "of", "strings"],
-        ["array", "of", "strings"]]}]
+       "content": [["Name", "Job", "ID"],
+        ["Bob", "Builder", "685163516"]]}]
     }, 
     { "id": 2,
      "date": "4th Feb 2022",
      "tags": ["JavaScript", "Pitfall"],
      "title": "Title",
-      "sections": [{"section-title": "optional title",
+      "sections": [{"section-title": "Optional Title",
       "type": "code",
       "content": "string"},
       {"type": "table",
@@ -32,7 +33,7 @@ function App() {
      "date": "4th Feb 2022",
      "tags": ["JavaScript", "Pitfall"],
      "title": "Title",
-      "sections": [{"section-title": "optional title",
+      "sections": [{"section-title": "Optional Title",
       "type": "code",
       "content": "string"},
       {"type": "table",
@@ -43,7 +44,7 @@ function App() {
   
   return (
     <section className="container">
-      <Header title="Tip Tracker" />
+      <Header title="Tip Town 5000" />
       <Tips tipList={tipList}/>
     </section>
   );
