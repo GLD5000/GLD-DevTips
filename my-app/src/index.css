@@ -11,8 +11,10 @@ code {
   display: flex;
 }
 
-
-
+table, th, td {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
 a {
   color: white;
 }
@@ -106,7 +108,7 @@ body {
   border-left: 5px solid green;
 }
 
-.tip h3 {
+.tip, h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -354,8 +356,13 @@ li:nth-child(7) {
 h1,
 h3,
 p,
-label {
+label,
+thead {
   color: whitesmoke;
+}
+
+thead {
+  font-size: 18px;
 }
 
 @keyframes particleAnimation {
