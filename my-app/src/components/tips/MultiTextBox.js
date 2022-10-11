@@ -2,6 +2,7 @@ import CodeBox from "../../elements/CodeBox"
 import Table from "./Table";
 import TextBox from "../../elements/TextBox";
 import SectionTitle from "../../elements/SectionTitle";
+import Hint from "../../elements/Hint";
 const MultiTextBox = ({object}) => {
     const title = object["section-title"];
     const hasTitle = object["section-title"] != null;
@@ -9,7 +10,8 @@ const MultiTextBox = ({object}) => {
     const typeHandler = {
         code: <CodeBox code={content}/>,
         text: <TextBox text={content}/>,
-        table: <Table dataArray={content}/>
+        table: <Table dataArray={content}/>,
+        hint: <Hint hint={content}/>
     }
     if (hasTitle) {
         return <>

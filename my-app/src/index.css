@@ -89,6 +89,7 @@ body {
 }
 
 .tip {
+  border-radius: 7px;
   gap: 8px;
   display: flex;
   flex-direction: column;
@@ -96,6 +97,7 @@ body {
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
+  min-width: 280px;
 }
 
 .tip.reminder {
@@ -149,9 +151,14 @@ label,
 thead {
   color: whitesmoke;
   white-space: pre-wrap;
-
 }
-
+.hint {
+  border-radius: 7px;
+  padding: 8px;
+  color: black;
+  background-color: cornsilk;
+  white-space: pre-wrap;
+}
 thead {
   font-size: 18px;
   background:#585a5d;
