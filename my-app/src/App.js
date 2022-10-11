@@ -14,9 +14,14 @@ function App() {
       "type": "code",
       "content": `const constant = magic number;
 return constant + 1;`},
-      {"type": "table",
-       "content": [["Name", "Job", "ID"],
-        ["Bob", "Builder", "685163516"]]}]
+      {"type": "text",
+       "content": `Here is the place where we write some text.
+       
+We can also have paragraphs etc...`},
+        {"type": "table",
+        "content": [["Name", "Job", "ID"],
+         ["Bob", "Builder", "685163516"]]}]
+ 
     }, 
     { "id": 2,
      "date": "4th Feb 2022",

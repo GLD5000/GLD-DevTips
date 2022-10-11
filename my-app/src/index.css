@@ -5,6 +5,7 @@ code {
   padding: 8px;
   background-color: #000;
   color: rgb(140, 172, 135);
+  border-radius: 7px;
   font-family: 'Source Code Pro', monospace;
   white-space: pre-wrap;
 }
@@ -16,7 +17,7 @@ code {
 }
 
 table, th, td {
-  padding: 4px;
+  padding: 8px;
   text-align: center;
   border: 2px solid black;
   border-collapse: collapse;
@@ -147,6 +148,8 @@ p,
 label,
 thead {
   color: whitesmoke;
+  white-space: pre-wrap;
+
 }
 
 thead {
