@@ -1,7 +1,7 @@
-import CodeBox from "../elements/CodeBox"
+import CodeBox from "../../elements/CodeBox"
 import Table from "./Table";
-import TextBox from "../elements/TextBox";
-import SectionTitle from "../elements/SectionTitle";
+import TextBox from "../../elements/TextBox";
+import SectionTitle from "../../elements/SectionTitle";
 const MultiTextBox = ({object}) => {
     const title = object["section-title"];
     const hasTitle = object["section-title"] != null;

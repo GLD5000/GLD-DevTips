@@ -1,5 +1,5 @@
 import MultiTextBox from "./MultiTextBox";
-import TipTitle from "../elements/TipTitle";
+import TipTitle from "../../elements/TipTitle";
 
 const Tip = ({ tip }) => {
   return (

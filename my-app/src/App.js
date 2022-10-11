@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import Header from "./components/Header";
-import Tips from "./components/Tips";
+import Header from "./components/header/Header";
+import Tips from "./components/tips/Tips";
 
 
 function App() {
