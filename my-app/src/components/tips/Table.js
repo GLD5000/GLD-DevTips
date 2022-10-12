@@ -8,6 +8,8 @@ const Table = ({ dataArray }) => {
 
     };
   return (
+    <section className="table-wrapper">
+
     <table>
     <thead>
     <Tr key="0" row={dataArray[0]} rowIndex="0" />
@@ -19,6 +21,7 @@ const Table = ({ dataArray }) => {
 
     </tbody>
     </table>
+    </section>
   )
 };
 

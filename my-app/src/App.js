@@ -45,18 +45,27 @@ The above command will clone or copy the repo to your default path.`},
       
 const object = createObject("A", "B");
       `},
+      {"type": "hint", "content": "You can also add 'Object.freeze' to your return object to make it immutable!"},
+      {"type": "code", "content": `return Object.freeze({
+  parameterA,
+  parameterB,
+  concatenateValues,
+});`}
       ]
     }, 
     { "id": 3,
      "date": "4th Feb 2022",
-     "tags": ["JavaScript", "Pitfall"],
-     "title": "Third Tip",
-      "sections": [{"section-title": "Optional Title",
-      "type": "code",
-      "content": "string"},
+     "tags": ["JavaScript", "Nomenclature"],
+     "title": "Parameters Vs Arguments",
+      "sections": [{"section-title": "Parameters",
+      "type": "text",
+      "content": "These are the names for values passed into a function."},
+      {"section-title": "Arguments",
+      "type": "text",
+      "content": "These are the actual values passed into a function."},
       {"type": "table",
-       "content": [["array", "of", "strings"],
-        ["array", "of", "strings"]]}]
+       "content": [["Parameter", "Argument", "Variable", "Constant"],
+        ["Name / Placeholder for values of a function.", "Actual value given to a function.", "A named reference to a value that can change.", "A value that cannot change."]]}]
     }
   ]);
   
