@@ -2,12 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400&display=swap');
 
 code {
+  width: 100%;
   padding: 8px;
   background-color: #000;
   color: rgb(140, 172, 135);
   border-radius: 7px;
   font-family: 'Source Code Pro', monospace;
-  white-space: pre-wrap;
+  white-space: pre;
+  overflow-x: auto;
 }
 
 .centered {
@@ -41,17 +43,19 @@ body {
   min-height: 100vh;
   background-color: #585a5d;
 }
-
 .container {
   display: grid;
-  width: min-content;
-  margin: 1px auto;
-  overflow: auto;
-  min-height: 300px;
+  width: 90vw;
   border: 1px solid rgb(53, 53, 53);
-  padding: 1px;
   border-radius: 5px;
   background-color: #313133;
+}
+
+.tip-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, 380px);
+  overflow: auto;
 }
 
 .header {

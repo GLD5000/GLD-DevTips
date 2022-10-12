@@ -26,14 +26,26 @@ The above command will clone or copy the repo to your default path.`},
     }, 
     { "id": 2,
      "date": "4th Feb 2022",
-     "tags": ["JavaScript", "Pitfall"],
-     "title": "Tip B",
-      "sections": [{"section-title": "Optional Title",
+     "tags": ["JavaScript", "How-To"],
+     "title": "Crockford Objects",
+      "sections": [{
       "type": "code",
-      "content": "string"},
-      {"type": "table",
-       "content": [["array", "of", "strings"],
-        ["array", "of", "strings"]]}]
+      "content": `function createObject(parameterA, parameterB) {
+  
+  function concatenateValues() {
+    return \`\${parameterA}\${parameterB}\`;
+  }
+      
+  return {
+    parameterA,
+    parameterB,
+    concatenateValues,
+  };
+}
+      
+const object = createObject("A", "B");
+      `},
+      ]
     }, 
     { "id": 3,
      "date": "4th Feb 2022",
@@ -51,8 +63,12 @@ The above command will clone or copy the repo to your default path.`},
   return (
     <section className="container">
       <Header title="Tip Town 5000" />
+    <section className="tip-container">
       <Tips tipList={tipList}/>
     </section>
+
+    </section>
+
   );
 }
 
