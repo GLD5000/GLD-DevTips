@@ -66,7 +66,22 @@ const object = createObject("A", "B");
       {"type": "table",
        "content": [["Parameter", "Argument", "Variable", "Constant"],
         ["Name / Placeholder for values of a function.", "Actual value given to a function.", "A named reference to a value that can change.", "A value that cannot change."]]}]
+    },
+    {"id": 4,
+    "title": "Pure Functions",
+    "date": "4th Feb 2022",
+    "tags": ["JavaScript", "Fundamentals"],
+    "sections": [
+      {"type": "text", "content": `Similar to mathematical functions. 
+
+A given input will always return the same output. 
+
+They only return values and do not mutate objects or create side effects. 
+
+This means they are easy to test, can be composed and can be run in parallel without blocking each other.`}
+    ],
     }
+
   ]);
   
   return (

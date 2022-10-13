@@ -57,7 +57,7 @@ body {
 .tip-container {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fill, 380px);
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   overflow: auto;
 }
 
