@@ -1,18 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400&display=swap");
 
 code {
   background-color: #000;
   color: rgb(140, 172, 135);
   border-radius: 7px;
-  font-family: 'Source Code Pro', monospace;
+  font-family: "Source Code Pro", monospace;
   white-space: pre;
 }
-.table-wrapper, code {
+.table-wrapper,
+code {
   padding: 8px;
   width: 100%;
   overflow-x: auto;
-
 }
 
 .centered {
@@ -21,7 +21,9 @@ code {
   display: flex;
 }
 
-table, th, td {
+table,
+th,
+td {
   padding: 8px;
   text-align: center;
   border: 2px solid black;
@@ -111,7 +113,8 @@ body {
   border-left: 5px solid green;
 }
 
-.tip, h3 {
+.tip,
+h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -168,9 +171,8 @@ thead {
 }
 thead {
   font-size: 18px;
-  background:#585a5d;
+  background: #585a5d;
 }
 h1 {
   padding: 1vh;
 }
-
