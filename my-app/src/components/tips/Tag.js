@@ -1,7 +1,9 @@
 import Button from "../../elements/Button";
 
 const tagHexLookup = {
-  JavaScript: "#EAD41C",
+  javascript: ["#EAD41C"],
+  github: ["#175A24", "#ffffff"],
+  vscode: ["#48AAEB"],
 };
 
 function generateRandomHex() {
@@ -16,12 +18,14 @@ function tagOnClick() {
 }
 
 const Tag = ({ tag }) => {
-  const backgroundColor = tagHexLookup[tag] || generateRandomHex();
+  const lookupColours = tagHexLookup[tag.toLowerCase()] || [generateRandomHex(), "#000000"];
+  const backgroundColour = lookupColours[0] || generateRandomHex();
+  const textColour = lookupColours[1] || "#000000";
 
   return (
     <Button
-      color="black"
-      backgroundColor={backgroundColor}
+      color={textColour}
+      backgroundColor={backgroundColour}
       text={tag}
       clickFunction={tagOnClick}
     />

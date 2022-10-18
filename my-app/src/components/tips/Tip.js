@@ -1,4 +1,4 @@
-import MultiTextBox from "./MultiTextBox";
+import MultiTextBoxes from "./MultiTextBoxes";
 import TipTitle from "../../elements/TipTitle";
 import Tags from "./Tags";
 
@@ -6,10 +6,8 @@ const Tip = ({ tip }) => {
 	return (
 		<div className="tip">
 				<TipTitle title={tip.title} />
-				{tip.sections.map((object, index) => (
-					<MultiTextBox key={index} object={object} />
-				))}
 				<Tags tagArray={tip.tags}/>
+				<MultiTextBoxes tip={tip}/>
 		</div>
 	);
 };

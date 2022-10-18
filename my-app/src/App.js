@@ -8,7 +8,7 @@ function App() {
   const [tipList, setTip] = useState([
     { "id": 1,
      "date": "11th Oct 2022",
-     "tags": ["Github", "Bash", "Beginner"],
+     "tags": ["Github", "Bash", "Beginner", "VSCode"],
      "title": "Cloning a Repo from Github",
       "sections": [{
       "type": "code",
