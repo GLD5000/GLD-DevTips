@@ -2,12 +2,12 @@ import MultiTextBox from './MultiTextBox'
 
 const MultiTextBoxes = ({tip}) => {
   return (
-    <container className="MultiTextContainer">
+    <section className="MultiTextContainer">
             {tip.sections.map((object, index) => (
                 <MultiTextBox key={index} object={object} />
             ))}
 
-    </container>
+    </section>
   )
 }
 
