@@ -14,7 +14,7 @@ const Header = ({ title, setSearchQuery }) => {
   return (
     <header className="header">
       <h1>{title}</h1>
-      <InputText placeholder="Search Topic..." onInput={setSearchQuery} />
+      <InputText placeholder="Search Topic..." onInput={setSearchQuery} type="search"/>
       <Button
         color="black"
         backgroundColor="white"
