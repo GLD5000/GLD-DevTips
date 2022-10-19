@@ -18,7 +18,7 @@ const InputText = ({
     };
   };
   const handler = (value) => {
-    console.log(`Input Value = ${value}`);
+    //console.log(`Input Value = ${value}`);
     onInput(value);
   };
   // eslint-disable-next-line

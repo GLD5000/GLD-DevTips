@@ -57,10 +57,12 @@ body {
 }
 
 .tip-container {
-  display: grid;
+  display: flex;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  /* display: grid; */
+  /* grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); */
   overflow: auto;
+
 }
 
 .header {
@@ -106,6 +108,7 @@ body {
   padding: 10px 20px;
   cursor: pointer;
   min-width: 280px;
+  max-width: 680px;
   justify-content: flex-start;
   align-content: flex-start;
 }

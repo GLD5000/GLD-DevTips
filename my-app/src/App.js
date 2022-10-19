@@ -84,13 +84,38 @@ This means they are easy to test, can be composed and can be run in parallel wit
 
   ]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filterQuery, setfilterQuery] = useState("");
+  const [filterQuerySet, setFilterQuerySet] = useState("");
+  function testfilterQuerySet(filterQuerySet, tagArray){
+    if (filterQuerySet.length === 0) return true;
+    let returnBoolean = false;
+  tagArray.forEach(tag =>  {if (filterQuerySet.includes(tag)) returnBoolean = true});
+    return returnBoolean;
+  }
+  function filterSearchTip(tip){
+
+    return tip.title.toLowerCase().includes(searchQuery.toLowerCase()) && testfilterQuerySet(filterQuerySet, tip.tags);
+  }
+  function filterTiplist(tipList){
+    return tipList.filter(tip => filterSearchTip(tip));
+  }
+  const filteredTipList = filterTiplist(tipList);
+
+  function createTagSet(filteredTipList){
+    let tagArray = [];
+    filteredTipList.forEach(tip => {
+      tagArray.push(...tip.tags);
+    });    
+  
+    return new Set(tagArray);
+  }
+  const tagSet = createTagSet(filteredTipList);
+  console.log(tagSet);
   return (
     <section className="container">
-      <Header title="Tip Town 5000" setSearchQuery={setSearchQuery} />
+      <Header title="Tip Town 5000" setSearchQuery={setSearchQuery} setFilterQuerySet={setFilterQuerySet} tagSet={tagSet}/>
     <section className="tip-container">
-      <div style={{color: "white"}}>{searchQuery}</div>
-      <Tips tipList={tipList}/>
+      {/* <div style={{color: "white"}}>{searchQuery}</div> */}
+      <Tips tipList={filteredTipList} />
     </section>
 
     </section>
