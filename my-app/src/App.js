@@ -109,7 +109,6 @@ This means they are easy to test, can be composed and can be run in parallel wit
     return new Set(tagArray);
   }
   const tagSet = createTagSet(filteredTipList);
-  console.log(tagSet);
   return (
     <section className="container">
       <Header title="Tip Town 5000" setSearchQuery={setSearchQuery} setFilterQuerySet={setFilterQuerySet} tagSet={tagSet}/>
