@@ -11,12 +11,12 @@ function onClickSearch(e) {
   console.log("Search Added: " + e.target.value);
 }
 
-const Header = ({ title, setSearchQuery ,tagSet}) => {
+const Header = ({ title, setSearchQuery ,tagSet, setFilterQuerySet, filterQuerySet}) => {
   return (
     <header className="header">
       <h1>{title}</h1>
       <InputText placeholder="Search Topic..." onInput={setSearchQuery} type="search"/>
-      <TagSet tagSet={tagSet} />
+      <TagSet tagSet={tagSet} setFilterQuerySet={setFilterQuerySet} filterQuerySet={filterQuerySet} />
       <Button
         color="black"
         backgroundColor="white"

@@ -83,8 +83,12 @@ This means they are easy to test, can be composed and can be run in parallel wit
     }
 
   ]);
+  //const tagList = tipList.flatMap(tip => tip.tags).reduce((acc, curr) => {if (!acc.includes(curr)) acc.push(curr)
+  //return acc;}, []);
+  const tagList = Object.fromEntries([...new Set(tipList.flatMap(tip => tip.tags).map(x => [x, "visible"]))]);
+  console.log(tagList);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filterQuerySet, setFilterQuerySet] = useState("");
+  const [filterQuerySet, setFilterQuerySet] = useState([]);
   function testfilterQuerySet(filterQuerySet, tagArray){
     if (filterQuerySet.length === 0) return true;
     let returnBoolean = false;
@@ -100,8 +104,8 @@ This means they are easy to test, can be composed and can be run in parallel wit
   }
   const filteredTipList = filterTiplist(tipList);
 
+  let tagArray = [];
   function createTagSet(filteredTipList){
-    let tagArray = [];
     filteredTipList.forEach(tip => {
       tagArray.push(...tip.tags);
     });    
@@ -111,7 +115,7 @@ This means they are easy to test, can be composed and can be run in parallel wit
   const tagSet = createTagSet(filteredTipList);
   return (
     <section className="container">
-      <Header title="Tip Town 5000" setSearchQuery={setSearchQuery} setFilterQuerySet={setFilterQuerySet} tagSet={tagSet}/>
+      <Header title="Tip Town 5000" setSearchQuery={setSearchQuery} setFilterQuerySet={setFilterQuerySet} filterQuerySet={filterQuerySet} tagSet={tagSet}/>
     <section className="tip-container">
       {/* <div style={{color: "white"}}>{searchQuery}</div> */}
       <Tips tipList={filteredTipList} />
