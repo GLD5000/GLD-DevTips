@@ -6,7 +6,6 @@ export function throttle(callbackFunction, delayTime = 250) {
         execute = true;
       } else {
         callbackFunction(...waitingArgs);
-        //callbackFunction(waitingArgs);
         waitingArgs = null;
         setTimeout(waitHandler, delayTime);
       }
