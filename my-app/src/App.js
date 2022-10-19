@@ -83,11 +83,13 @@ This means they are easy to test, can be composed and can be run in parallel wit
     }
 
   ]);
-  
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterQuery, setfilterQuery] = useState("");
   return (
     <section className="container">
-      <Header title="Tip Town 5000" />
+      <Header title="Tip Town 5000" setSearchQuery={setSearchQuery} />
     <section className="tip-container">
+      <div style={{color: "white"}}>{searchQuery}</div>
       <Tips tipList={tipList}/>
     </section>
 
