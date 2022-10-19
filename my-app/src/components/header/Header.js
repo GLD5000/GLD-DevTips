@@ -20,7 +20,7 @@ const Header = ({ title, setSearchQuery ,tagSet}) => {
       <Button
         color="black"
         backgroundColor="white"
-        text="add"
+        text="Add A New Tip To The Collection!"
         clickFunction={onClickAdd}
       />
     </header>
