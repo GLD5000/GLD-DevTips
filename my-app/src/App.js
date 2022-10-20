@@ -122,15 +122,19 @@ This means they are easy to test, can be composed and can be run in parallel wit
   const tagList = Object.fromEntries([
     ...new Set(tipList.flatMap((tip) => tip.tags).map((x) => [x, "visible"])),
   ]);
-  const [tagState, setTagState] = useState(() => {return tagList});
+  const [tagState, setTagState] = useState(() => {return tagList});// Tip init functions only run once
 
   const [searchQuery, setSearchQuery] = useState("");
   function testtagState(tagState, tagArray) {
     const tagStateValue = Object.values(tagState);
     if (!tagStateValue.includes("active")) return true;
-    let returnBoolean = false;
-    tagArray.forEach((tag) => {
-      if (tagState[tag] === "active") returnBoolean = true;
+    let returnBoolean = true;
+    const activeTags = Object.entries(tagState).reduce((acc, entry) => {
+      if (entry[1] === "active") acc.push(entry[0]);// Tip push returns length not array
+      return acc;
+    },[]);
+    activeTags.forEach(activeTag => {
+      if (!tagArray.includes(activeTag)) returnBoolean = false;
     });
     return returnBoolean;
   }

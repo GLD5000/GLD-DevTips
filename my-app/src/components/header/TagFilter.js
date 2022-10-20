@@ -23,7 +23,7 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
 
   function updateTagState(tag, newValue){
     setTagState((object) => {
-      return {...object, [tag]: newValue};
+      return {...object, [tag]: newValue}; // Tip return new object to trigger re-render
     });
   }
 
