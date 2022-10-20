@@ -11,23 +11,17 @@ function generateRandomHex() {
   return "#dddddd";
 }
 
-
-
-const TagFilter = ({ tag, setFilterQuerySet, filterQuerySet}) => {
-
-
-
-  
+const TagFilter = ({ tag, setFilterQuerySet, filterQuerySet }) => {
   const isClicked = filterQuerySet.includes(tag);
-  function tagOnClick() {
+  function tagOnClick(e) {
     // filter by tag
-    console.log("Tag has been clicked");
+    console.log("Tag has been clicked " + e.target.innerHTML);
   }
-  const lookupColours = isClicked? tagHexLookup[tag.toLowerCase()] || [generateRandomHex(), "#000000"]: ["#dddddd", "#000000"];
+  const lookupColours = isClicked
+    ? tagHexLookup[tag.toLowerCase()] || [generateRandomHex(), "#000000"]
+    : ["#dddddd", "#000000"];
   const backgroundColour = lookupColours[0];
   const textColour = lookupColours[1] || "#000000";
-
-  
 
   return (
     <Button
