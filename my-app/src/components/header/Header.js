@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Button from "../../elements/Button";
 import InputText from "../../elements/InputText";
-import setSearchQuery from "../../App"
+import setSearchQuery from "../../App";
 import TagSet from "./TagSet";
 
 function onClickAdd(e) {
@@ -11,12 +11,16 @@ function onClickSearch(e) {
   console.log("Search Added: " + e.target.value);
 }
 
-const Header = ({ title, setSearchQuery ,tagSet, setFilterQuerySet, filterQuerySet}) => {
+const Header = ({ title, setSearchQuery, tagSet, setTagState, tagState }) => {
   return (
     <header className="header">
       <h1>{title}</h1>
-      <InputText placeholder="Search Topic..." onInput={setSearchQuery} type="search"/>
-      <TagSet tagSet={tagSet} setFilterQuerySet={setFilterQuerySet} filterQuerySet={filterQuerySet} />
+      <InputText
+        placeholder="Search Topic..."
+        onInput={setSearchQuery}
+        type="search"
+      />
+      <TagSet tagSet={tagSet} setTagState={setTagState} tagState={tagState} />
       <Button
         color="black"
         backgroundColor="white"
