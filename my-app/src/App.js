@@ -86,7 +86,15 @@ This means they are easy to test, can be composed and can be run in parallel wit
   //const tagList = tipList.flatMap(tip => tip.tags).reduce((acc, curr) => {if (!acc.includes(curr)) acc.push(curr)
   //return acc;}, []);
   const tagList = Object.fromEntries([...new Set(tipList.flatMap(tip => tip.tags).map(x => [x, "visible"]))]);
-  console.log(tagList);
+  //console.log(tagList);
+  const active = "active";
+  const [tagState, setTagState] = useState(tagList);
+  if (tagState.JavaScript !== "active") setTagState((object) => {
+    object.JavaScript = active;
+    return object;
+  });
+  console.log(tagState);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [filterQuerySet, setFilterQuerySet] = useState([]);
   function testfilterQuerySet(filterQuerySet, tagArray){
