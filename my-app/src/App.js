@@ -126,7 +126,7 @@ This means they are easy to test, can be composed and can be run in parallel wit
   ]);
   //console.log(tagList);
   // const active = "active";
-  const [tagState, setTagState] = useState({});
+  const [tagState, setTagState] = useState(() => {return tagList});
   // if (tagState.JavaScript !== "active")
   //   setTagState((object) => {
   //     object.JavaScript = active;

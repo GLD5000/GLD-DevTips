@@ -1,4 +1,5 @@
 import Button from "../../elements/Button";
+import {useState} from "react";
 function tagHexLookup(tag){
   const tagHexLookup = {
     javascript: ["#EAD41C"],
@@ -16,18 +17,9 @@ function generateRandomHex() {
   // Generate a random Hex and add it to the tagHexLookup for any new tags
   return "#dd0dd0";
 }
-let isClicked;
 const TagFilter = ({ tag, setTagState, tagState }) => {
-  if (tagState[tag] === undefined) {
-    initButton(tag);
-  } else {
-    isClicked = tagState[tag] === "active";
-  }
+  const [isClicked, setIsClicked] = useState(() => false);
 
-  function initButton(tag){
-    updateTagState(tag, "visible");
-    isClicked = false;
-  }
 
   function updateTagState(tag, newValue){
     setTagState((object) => {
@@ -40,11 +32,11 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
 
   function tagOnClick(e) {
     // filter by tag
-    console.log("Tag has been clicked " + e.target.innerHTML);
     const tag = e.target.innerHTML;
     const newValue = isClicked ? "visible" : "active";
-    isClicked = !isClicked;
+    console.log(`${e.target.innerHTML}  = ${newValue}`);
     updateTagState(tag, newValue);
+    setIsClicked(!isClicked);
   }
   const [backgroundColour, textColour] = tagHexLookup(tag);
 
