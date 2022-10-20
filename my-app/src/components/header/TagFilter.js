@@ -23,18 +23,14 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
 
   function updateTagState(tag, newValue){
     setTagState((object) => {
-      console.log(object);
-      object[tag] = newValue;
-      return object;
+      return {...object, [tag]: newValue};
     });
   }
 
 
   function tagOnClick(e) {
-    // filter by tag
     const tag = e.target.innerHTML;
     const newValue = isClicked ? "visible" : "active";
-    console.log(`${e.target.innerHTML}  = ${newValue}`);
     updateTagState(tag, newValue);
     setIsClicked(!isClicked);
   }
