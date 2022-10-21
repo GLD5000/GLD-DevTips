@@ -4,6 +4,7 @@ function defaultOnClick(e) {
 }
 
 const Button = ({
+  borderRadius = "4px",
   color = "white",
   backgroundColor = "black",
   text = "Add",
@@ -13,7 +14,7 @@ const Button = ({
     <button
       onClick={clickFunction}
       className="btn"
-      style={{ color: color, backgroundColor: backgroundColor }}
+      style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
     >
       {text}
     </button>

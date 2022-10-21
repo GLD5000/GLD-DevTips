@@ -160,18 +160,25 @@ This means they are easy to test, can be composed and can be run in parallel wit
     filteredTipList.forEach((tip) => {
       tagArray.push(...tip.tags);
     });
-
     return new Set(tagArray);
   }
+
+  function createTitleSet(filteredTipList) {
+    return filteredTipList.map(x => x.title);
+  }
+  
   const tagSet = createTagSet(filteredTipList);
+  const titleSet = createTitleSet(filteredTipList);
   return (
     <section className="container">
       <Header
         title="Tip Town 5000"
+        searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         setTagState={setTagState}
         tagState={tagState}
         tagSet={tagSet}
+        titleSet={titleSet}
       />
       <section className="tip-container">
         {/* <div style={{color: "white"}}>{searchQuery}</div> */}
