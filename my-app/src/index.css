@@ -30,6 +30,7 @@ td {
   border-collapse: collapse;
 }
 a {
+  display: inline;
   color: white;
 }
 
