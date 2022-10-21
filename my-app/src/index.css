@@ -42,16 +42,20 @@ a {
 
 body {
   font-family: "Poppins", sans-serif;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100%;
+  width: 100%;
   background-color: #585a5d;
 }
 .container {
   display: grid;
-  width: 90vw;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  min-height: 100%;
+  height: max-content;
   border: 1px solid rgb(53, 53, 53);
   border-radius: 5px;
   background-color: #313133;
@@ -60,8 +64,6 @@ body {
 .tip-container {
   display: flex;
   width: 100%;
-  /* display: grid; */
-  /* grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); */
   overflow: auto;
 
 }
