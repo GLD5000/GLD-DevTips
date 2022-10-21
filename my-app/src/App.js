@@ -29,6 +29,10 @@ The above command will clone or copy the repo to your default path.`,
           type: "text",
           content: `You can open the cloned repo within VSCode by using the open folder option from the 'File' menu.`,
         },
+        {
+          type: "text",
+          content: `Tester Text Containing a {link}[link](www.google.com){link}.`,
+        },
       ],
     },
     {
