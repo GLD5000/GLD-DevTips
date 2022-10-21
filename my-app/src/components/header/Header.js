@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import Button from "../../elements/Button";
 import TitleFilter from "./TitleFilter";
 import TagSet from "./TagSet";
 import { useState } from "react";
+import AddTip from "./AddTip";
 
 
 const Header = ({
@@ -15,10 +15,6 @@ const Header = ({
   titleSet,
   setTip
 }) => {
-  const [showNewTip, setShowNewTip] = useState(() => false);
-  function onClickAdd(e) {
-    setShowNewTip(state => !state);
-  }
   return (
     <header className="header">
       <h1>{title}</h1>
@@ -28,12 +24,7 @@ const Header = ({
         titleSet={titleSet}
       />
       <TagSet tagSet={tagSet} setTagState={setTagState} tagState={tagState} />
-      <Button
-        color="black"
-        backgroundColor="white"
-        text="Add A New Tip To The Collection!"
-        clickFunction={onClickAdd}
-      />
+      <AddTip setTip={setTip} />
     </header>
   );
 };

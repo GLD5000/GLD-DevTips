@@ -1,20 +1,38 @@
-const AddTip = () => {
+import Button from "../../elements/Button";
+import AddForm from "./AddForm";
+import { useState } from "react";
+
+const AddTip = ({setTip}) => {
+  const [showNewTip, setShowNewTip] = useState(() => false);
+  function onClickAdd(e) {
+    setShowNewTip(state => !state);
+  }
+  
+
   return (
-    <form className="add-form">
-      <div className="form-control">
-        <label>Title</label>
-        <input type="text" placeholder="Add Title" />
-      </div>
-      <div className="form-control">
-        <label>Title</label>
-        <input type="text" placeholder="Add Title" />
-      </div>
-      <div className="form-control">
-        <label>Title</label>
-        <input type="text" placeholder="Add Title" />
-      </div>
-    </form>
-  );
+    <div>
+      {showNewTip ? (
+      <>
+      <Button
+  color="black"
+  backgroundColor="white"
+  text="Add A New Tip To The Collection!"
+  clickFunction={onClickAdd}
+    /> 
+    <AddForm setTip={setTip}/>       
+      </>
+
+    ) : (
+
+      <Button
+    color="black"
+    backgroundColor="white"
+    text="Add A New Tip To The Collection!"
+    clickFunction={onClickAdd}
+      />  
+    )}
+  </div>
+);
 };
 
 export default AddTip;
