@@ -1,15 +1,9 @@
 import PropTypes from "prop-types";
 import Button from "../../elements/Button";
 import TitleFilter from "./TitleFilter";
-import setSearchQuery from "../../App";
 import TagSet from "./TagSet";
+import { useState } from "react";
 
-function onClickAdd(e) {
-  console.log("Add Clicked " + e.target.innerHTML);
-}
-function onClickSearch(e) {
-  console.log("Search Added: " + e.target.value);
-}
 
 const Header = ({
   title,
@@ -19,7 +13,12 @@ const Header = ({
   setTagState,
   tagState,
   titleSet,
+  setTip
 }) => {
+  const [showNewTip, setShowNewTip] = useState(() => false);
+  function onClickAdd(e) {
+    setShowNewTip(state => !state);
+  }
   return (
     <header className="header">
       <h1>{title}</h1>

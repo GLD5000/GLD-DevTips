@@ -170,7 +170,7 @@ This means they are easy to test, can be composed and can be run in parallel wit
   const tagSet = createTagSet(filteredTipList);
   const titleSet = createTitleSet(filteredTipList);
   return (
-    <section className="container">
+    <section className="body-container">
       <Header
         title="Tip Town 5000"
         searchQuery={searchQuery}
@@ -179,6 +179,7 @@ This means they are easy to test, can be composed and can be run in parallel wit
         tagState={tagState}
         tagSet={tagSet}
         titleSet={titleSet}
+        setTip={setTip}
       />
       <section className="tip-container">
         {/* <div style={{color: "white"}}>{searchQuery}</div> */}
