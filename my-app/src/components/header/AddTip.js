@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const AddTip = ({setTip}) => {
   const [showNewTip, setShowNewTip] = useState(() => false);
-  function onClickAdd(e) {
+  function onClickAdd() {
     setShowNewTip(state => !state);
   }
   
