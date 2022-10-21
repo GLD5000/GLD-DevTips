@@ -126,7 +126,9 @@ This means they are easy to test, can be composed and can be run in parallel wit
   const tagList = Object.fromEntries([
     ...new Set(tipList.flatMap((tip) => tip.tags).map((x) => [x, "visible"])),
   ]);
-  const [tagState, setTagState] = useState(() => {return tagList});// Tip init functions only run once
+  const [tagState, setTagState] = useState(() => {
+    return tagList;
+  }); // Tip init functions only run once
 
   const [searchQuery, setSearchQuery] = useState("");
   function testtagState(tagState, tagArray) {
@@ -134,10 +136,10 @@ This means they are easy to test, can be composed and can be run in parallel wit
     if (!tagStateValue.includes("active")) return true;
     let returnBoolean = true;
     const activeTags = Object.entries(tagState).reduce((acc, entry) => {
-      if (entry[1] === "active") acc.push(entry[0]);// Tip push returns length not array
+      if (entry[1] === "active") acc.push(entry[0]); // Tip push returns length not array
       return acc;
-    },[]);
-    activeTags.forEach(activeTag => {
+    }, []);
+    activeTags.forEach((activeTag) => {
       if (!tagArray.includes(activeTag)) returnBoolean = false;
     });
     return returnBoolean;
@@ -173,7 +175,10 @@ This means they are easy to test, can be composed and can be run in parallel wit
       />
       <section className="tip-container">
         {/* <div style={{color: "white"}}>{searchQuery}</div> */}
-        <Tips tipList={filteredTipList} />
+        <Tips
+          tipList={filteredTipList}
+          setTagState={setTagState}
+        />
       </section>
     </section>
   );

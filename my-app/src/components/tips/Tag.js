@@ -12,15 +12,20 @@ function generateRandomHex() {
   return "#dddddd";
 }
 
-function tagOnClick() {
-  // filter by tag
-  console.log("Tag has been clicked");
-}
 
-const Tag = ({ tag }) => {
+const Tag = ({ tag, setTagState}) => {
   const lookupColours = tagHexLookup[tag.toLowerCase()] || [generateRandomHex(), "#000000"];
   const backgroundColour = lookupColours[0] || generateRandomHex();
   const textColour = lookupColours[1] || "#000000";
+  function updateTagState(tag, newValue){
+    setTagState((object) => {
+      return {...object, [tag]: newValue}; // Tip return new object to trigger re-render
+    });
+  }
+  function tagOnClick(e) {
+    const tag = e.target.innerHTML;
+    updateTagState(tag, "active");
+  }
 
   return (
     <Button
