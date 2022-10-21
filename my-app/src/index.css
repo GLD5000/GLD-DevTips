@@ -52,10 +52,9 @@ body {
 }
 .container {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr 64px;
   width: 100%;
-  min-height: 100%;
-  height: max-content;
+  height: 100vh;
   border: 1px solid rgb(53, 53, 53);
   border-radius: 5px;
   background-color: #313133;
@@ -63,9 +62,10 @@ body {
 
 .tip-container {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
   overflow: auto;
-
 }
 
 .header {
@@ -113,7 +113,8 @@ body {
   padding: 10px 20px;
   cursor: pointer;
   min-width: 280px;
-  max-width: 680px;
+  max-width: 800px;
+  height: fit-content;
   justify-content: flex-start;
   align-content: flex-start;
 }
