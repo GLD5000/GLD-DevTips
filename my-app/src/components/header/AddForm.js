@@ -7,7 +7,7 @@ const AddForm = ({setTip}) => {
     <div className="add-form">
           <div className="form-control">
             <label>Title</label>
-            <input type="text" placeholder="Add Title" />
+            <input className="titleInput" type="text" placeholder="Add Title" />
           </div>
           < MultiInput />
         </div>

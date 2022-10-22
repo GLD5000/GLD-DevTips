@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400&display=swap");
 
-code {
+.code {
   background-color: #000;
   color: rgb(140, 172, 135);
   border-radius: 7px;
@@ -9,10 +9,15 @@ code {
   white-space: pre;
 }
 .table-wrapper,
-code {
-  padding: 8px;
+.code,
+.hint,
+.text,
+.table,
+.titleInput {
+  padding: 12px;
   width: 100%;
   overflow-x: auto;
+  margin: 0;
 }
 
 .centered {
@@ -172,7 +177,7 @@ h3 {
 .form-control input {
   width: 100%;
   height: 40px;
-  margin: 5px;
+  /* margin: 5px; */
   padding: 3px 7px;
   font-size: 17px;
 }

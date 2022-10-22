@@ -34,7 +34,7 @@ const InputField = ({type, content, changeText, name}) => {
 
     
 
-    return <textarea placeholder={placeHolder} name={name} className={type} rows="20" cols="70" onInput={handleChange}>
+    return <textarea placeholder={placeHolder} name={name} className={type} rows="8" cols="70" onInput={handleChange}>
         {content}
         </textarea>
 

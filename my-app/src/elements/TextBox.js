@@ -21,7 +21,7 @@ const TextBox = ({ text }) => {
   parseLinks(text);
   
   return (
-  <p>
+  <p className="text">
   {returnArray}
   </p>);
 };

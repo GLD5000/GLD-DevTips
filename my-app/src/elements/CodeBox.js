@@ -2,7 +2,7 @@ import React from 'react'
 
 const CodeBox = ({code}) => {
   return (
-    <code>{code}</code>
+    <code className="code">{code}</code>
   )
 }
 
