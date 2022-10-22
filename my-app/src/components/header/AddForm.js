@@ -5,7 +5,10 @@ const AddForm = ({setTip}) => {
   const [inputState, setInputState] = useState(() => { return {0:
     { type: "text", content: null },
   }});
-
+  function parseNewTip(){
+    //add title to state
+    //Parse new tip from state
+  }
   return (
     <div className="add-form">
           <div className="form-control">
