@@ -8,9 +8,9 @@ const InputText = ({
   placeholder = "Type here...",
   onInput = defaultOnInput,
   type = "text",
-  value
+  value= null
 }) => {
-  const delay = 250;
+  const delay = 700;
 
   const debounce = (handler, delay = 250) => {
     let timerId;
@@ -33,7 +33,7 @@ const InputText = ({
 
   return (
     <input
-      value={value}
+      //value={value} // screws up input display
       type={type}
       onFocus={(e) => e.target.select()}
       onChange={(e) => debouncedHandler(e.target.value)}
