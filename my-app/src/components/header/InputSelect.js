@@ -1,4 +1,4 @@
-const InputSelect = ({ type, index, changeType }) => {
+const InputSelect = ({ type, name, changeType }) => {
   function makeOptionsArray(type) {
     //Add selected="true" to type
     const options = ["text", "code", "hint", "table"];
@@ -9,7 +9,9 @@ const InputSelect = ({ type, index, changeType }) => {
   
   function handleChange(e){
     const value = e.target.value;
-    changeType(value);
+    const index = e.target.name;
+    console.log(e.target)
+    changeType(value, index);
 
   }
   function setPlaceHolder(type){
@@ -18,7 +20,7 @@ const InputSelect = ({ type, index, changeType }) => {
   const placeHolder = setPlaceHolder(type);
   const optionsArray = makeOptionsArray(type);
   return (
-    <select name="" id="" onChange={handleChange}>
+    <select name={name} id="" onChange={handleChange}>
       {optionsArray}
     </select>
   );
