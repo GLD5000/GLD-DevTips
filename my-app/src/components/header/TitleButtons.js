@@ -12,7 +12,7 @@ const TitleButtons = ({ titleSet, onClick, listId }) => {
   }
 
   const buttonArray = makeButtonArray();
-  return <datalist id={listId}>{buttonArray}</datalist>;
+  return <datalist className="datalist" id={listId}>{buttonArray}</datalist>;
 };
 
 export default TitleButtons;

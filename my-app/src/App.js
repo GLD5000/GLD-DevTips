@@ -42,6 +42,8 @@ The above command will clone or copy the repo to your default path.`,
       title: "Crockford Objects",
       sections: [
         {
+          title: "Test Title",
+
           type: "code",
           content: `function createObject(parameterA, parameterB) {
   
@@ -81,17 +83,19 @@ const object = createObject("A", "B");
       title: "Parameters Vs Arguments",
       sections: [
         {
-          "section-title": "Parameters",
+          title: "Parameters",
           type: "text",
           content: "These are the names for values passed into a function.",
         },
         {
-          "section-title": "Arguments",
+          title: "Arguments",
           type: "text",
           content: "These are the actual values passed into a function.",
         },
         {
           type: "table",
+          title: "Test Title",
+
           content: [
             ["Parameter", "Argument", "Variable", "Constant"],
             [
@@ -164,9 +168,9 @@ This means they are easy to test, can be composed and can be run in parallel wit
   }
 
   function createTitleSet(filteredTipList) {
-    return filteredTipList.map(x => x.title);
+    return filteredTipList.map((x) => x.title);
   }
-  
+
   const tagSet = createTagSet(filteredTipList);
   const titleSet = createTitleSet(filteredTipList);
   return (
@@ -183,10 +187,7 @@ This means they are easy to test, can be composed and can be run in parallel wit
       />
       <section className="tip-container">
         {/* <div style={{color: "white"}}>{searchQuery}</div> */}
-        <Tips
-          tipList={filteredTipList}
-          setTagState={setTagState}
-        />
+        <Tips tipList={filteredTipList} setTagState={setTagState} />
       </section>
     </section>
   );

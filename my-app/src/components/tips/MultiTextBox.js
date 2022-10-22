@@ -4,8 +4,8 @@ import TextBox from "../../elements/TextBox";
 import SectionTitle from "../../elements/SectionTitle";
 import Hint from "../../elements/Hint";
 const MultiTextBox = ({ object }) => {
-  const title = object["section-title"];
-  const hasTitle = object["section-title"] != null;
+  const title = object["title"];
+  const hasTitle = object["title"] != null;
   const content = object.content;
   const typeHandler = {
     code: <CodeBox code={content} />,
