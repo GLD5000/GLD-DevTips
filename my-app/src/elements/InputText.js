@@ -25,10 +25,9 @@ const InputText = ({
     onInput(value);
   };
 
-  // eslint-disable-next-line
   const debouncedHandler = useCallback(debounce(handler, delay), [
     handler,
-    delay,
+    delay
   ]);
 
   return (
