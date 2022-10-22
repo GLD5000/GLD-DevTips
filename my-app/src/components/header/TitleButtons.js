@@ -1,5 +1,3 @@
-import Button from "../../elements/Button";
-
 const TitleButtons = ({ titleSet, onClick, listId }) => {
 
   function makeButtonArray() {
