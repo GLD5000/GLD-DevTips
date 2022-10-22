@@ -1,16 +1,27 @@
-
-const InputSelect = ({type, index, changeType}) => {
-    function makeOptionsArray(type){
-        //Add selected="true" to type
+const InputSelect = ({ type, index, changeType }) => {
+  function makeOptionsArray(type) {
+    //Add selected="true" to type
+    const options = ["text", "code", "hint", "table"];
+    return options.map((option, index) => 
+       <option key={index} value={option}>{option}</option>
+      );
     }
-  return (
-    <select name="" id="">
-        <option value="text">Volvo</option>
-        <option value="code">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
-    </select>
-  )
-}
+  
+  function handleChange(e){
+    const value = e.target.value;
+    changeType(value);
 
-export default InputSelect
+  }
+  function setPlaceHolder(type){
+    // conditionally set placeholder based on type
+  }
+  const placeHolder = setPlaceHolder(type);
+  const optionsArray = makeOptionsArray(type);
+  return (
+    <select name="" id="" onChange={handleChange}>
+      {optionsArray}
+    </select>
+  );
+};
+
+export default InputSelect;
