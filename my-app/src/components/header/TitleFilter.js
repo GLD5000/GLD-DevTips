@@ -2,6 +2,7 @@ import InputText from "../../elements/InputText";
 import TitleButtons from "./TitleButtons";
 
 const TitleFilter = ({ setSearchQuery, titleSet, searchQuery }) => {
+  const listId = "searchTitleList";
   return (
     <div className="titleFilter-container">
       <InputText
@@ -9,8 +10,9 @@ const TitleFilter = ({ setSearchQuery, titleSet, searchQuery }) => {
         onInput={setSearchQuery}
         type="search"
         value={searchQuery}
+        listId={listId}
       />
-      <TitleButtons onClick={setSearchQuery} titleSet={titleSet} />
+      <TitleButtons titleSet={titleSet} listId={listId} />
     </div>
   );
 };

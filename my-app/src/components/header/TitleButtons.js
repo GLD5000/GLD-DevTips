@@ -1,27 +1,20 @@
 import Button from "../../elements/Button";
 
-const TitleButtons = ({ titleSet, onClick }) => {
-    function handleClick(e){
-        onClick(e.target.innerHTML);
-    }
+const TitleButtons = ({ titleSet, onClick, listId }) => {
 
   function makeButtonArray() {
     return titleSet.map((title, index) => {
-        const object =         <Button
-        color="#000000"
-        backgroundColor="#d0d0d0"
-        text={title}
-        clickFunction={handleClick}
-        key={index}
-        borderRadius="1000px"
-        />
+        const object =         <option key={index} value={title}>
+
+        </option>
+        
         
       return object;
     });
   }
 
   const buttonArray = makeButtonArray();
-  return <div>{buttonArray}</div>;
+  return <datalist id={listId}>{buttonArray}</datalist>;
 };
 
 export default TitleButtons;
