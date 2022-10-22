@@ -4,6 +4,7 @@ import TextBox from "../../elements/TextBox";
 import SectionTitle from "../../elements/SectionTitle";
 import Hint from "../../elements/Hint";
 const MultiTextBox = ({ object }) => {
+  const type = object.type;
   const title = object["title"];
   const hasTitle = object["title"] != null;
   const content = object.content;
@@ -16,12 +17,12 @@ const MultiTextBox = ({ object }) => {
   if (hasTitle) {
     return (
       <>
-        <SectionTitle title={title} />
-        {typeHandler[object.type]}
+        <SectionTitle title={title} type={type} />
+        {typeHandler[type]}
       </>
     );
   }
-  return typeHandler[object.type];
+  return typeHandler[type];
 };
 
 export default MultiTextBox;

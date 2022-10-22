@@ -38,7 +38,7 @@ const InputText = ({
       onChange={(e) => debouncedHandler(e.target.value)}
       placeholder={placeholder}
       list={listId}
-      autocomplete="off"
+      autoComplete="off"
 
     ></input>
   );
