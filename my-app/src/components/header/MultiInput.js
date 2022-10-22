@@ -4,23 +4,36 @@ import Button from "../../elements/Button";
 import InputSelect from "./InputSelect";
 
 const MultiInput = () => {
-  const [inputState, setInputState] = useState(() => [
+  const [inputState, setInputState] = useState(() => { return {0:
     { type: "text", content: null },
-  ]);
+  }});
   function addField() {
     setInputState((object) => {
-      //const key = object.length;
+      const key = Object.keys(object).length;
       const newPart = { type: "text", content: null };
-      return [...object, newPart];
+      return {...object, [key]: newPart};
     });
+
   }
   function changeType(value, index) {
-    console.log(`index: ${index} - type changed to ${value}`);
-    console.log(inputState);
+
+    setInputState((object) =>{
+      const text = object[index]["content"];
+      return {...object, [index]: {type: value, content:text}};
+    });
   }
 
+  function changeText(value, index) {
+
+    setInputState((object) =>{
+      const type = object[index]["type"];
+      return {...object, [index]: {type: type, content:value}};
+    });
+  }
+
+  console.log(inputState)
   function makeInputArray() {
-    return inputState.map((object, index) => {
+    return Object.values(inputState).map((object, index) => {
       const returnObject = (
         <div key={index}>
           <InputSelect
@@ -35,6 +48,7 @@ const MultiInput = () => {
             name={index}
             type={object.type}
             content={object.content}
+            changeText={changeText}
           />
         </div>
       );
