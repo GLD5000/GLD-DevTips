@@ -1,12 +1,8 @@
-import { useState } from "react";
 import InputField from "./InputField";
 import Button from "../../elements/Button";
 import InputSelect from "./InputSelect";
 
-const MultiInput = () => {
-  const [inputState, setInputState] = useState(() => { return {0:
-    { type: "text", content: null },
-  }});
+const MultiInput = ({inputState, setInputState}) => {
   function addField() {
     setInputState((object) => {
       const key = Object.keys(object).length;
@@ -30,7 +26,6 @@ const MultiInput = () => {
       return {...object, [index]: {type: type, content:value}};
     });
   }
-
   console.log(inputState)
   function makeInputArray() {
     return Object.values(inputState).map((object, index) => {
