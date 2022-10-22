@@ -181,10 +181,10 @@ h3 {
   padding: 3px 7px;
   font-size: 17px;
 }
-.titleFilter-container{
+/*.titleFilter-container{
   position: relative;
 }
-datalist {
+ datalist {
   position: absolute;
   left:-100px;
   max-height: 20em;
@@ -203,7 +203,7 @@ datalist option:hover, datalist option:focus {
   color: #fff;
   background-color: #036;
   outline: 0 none;
-}
+} */
 
 .form-control-check {
   display: flex;
