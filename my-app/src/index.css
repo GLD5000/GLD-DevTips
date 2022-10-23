@@ -20,6 +20,10 @@
   margin: 0;
 }
 
+textarea {
+  resize: vertical;
+}
+
 .centered {
   justify-content: center; /* center items horizontally, in this case */
   align-items: center; /* center items vertically, in this case */
