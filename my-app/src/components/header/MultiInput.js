@@ -30,7 +30,7 @@ const MultiInput = ({inputState, setInputState}) => {
   function makeInputArray() {
     return Object.values(inputState).map((object, index) => {
       const returnObject = (
-        <div key={index}>
+        <div key={index} className="field-container">
           <InputSelect
             key={index + "InputSelect"}
             name={index}

@@ -154,6 +154,12 @@ body {
   justify-content: space-evenly;
   align-items: center;
 }
+.field-container{
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 8px;
+}
+
 
 .tip,
 h3 {
@@ -163,7 +169,11 @@ h3 {
 }
 
 .add-form {
+  display: grid;
+  gap: 16px;
   margin-bottom: 40px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .form-control {
