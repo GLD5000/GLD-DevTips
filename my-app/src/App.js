@@ -31,7 +31,9 @@ The above command will clone or copy the repo to your default path.`,
         },
         {
           type: "text",
-          content: `[Tester T](ext Containing a {link}[Another text of link](https://www.google.com/){link} {link}[Text of link](https://www.google.com/){link}.`,
+          content: `[Tester T](ext Containing a {link}[**Bold** _**bolditalic**_ of link](https://www.google.com/){link} {link}[Text of link](https://www.google.com/){link}.
+          > bullet points
+          > bullet points`,
         },
       ],
     },

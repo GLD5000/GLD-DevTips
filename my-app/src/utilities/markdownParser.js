@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default function markdownParser() {
   function makeRegex(){
     const regexArrayOpen = [
@@ -16,7 +17,7 @@ export default function markdownParser() {
 
     return regexArrayOpen;
   }
-  console.log(makeRegex());
+    console.log(makeRegex());
 
   function loopThroughString(string){
 
