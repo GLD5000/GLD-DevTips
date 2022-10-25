@@ -33,32 +33,23 @@ function stringHasFlag(string){
   return {firstFlag, firstFlagIndex};
 }
 
+function sliceFlaggedText(text, flag, indexOfFlag){
+  const flaggedTextStart = indexOfFlag + flag.length;
+  const indexOfSecondFlag = text.indexOf(flag, flaggedTextStart) || text.length;
+
+  const beforeFlag = indexOfFlag === 0? null: text.slice(0, indexOfFlag);
+  const flaggedText = text.slice(flaggedTextStart, indexOfSecondFlag);
+  const afterFlag = indexOfSecondFlag > 0 ? text.slice(indexOfSecondFlag + flag.length) : null;
+
+  return {beforeFlag, flaggedText, afterFlag};
+
+}
+
+
+
 function parseFlags(text) {
 
-  function stringHasFlag(string){
-    let firstFlag = undefined; 
-    let firstFlagIndex = string.length;
-    Object.keys(flagMap).forEach(flag =>{
-      const indexOfFlag = string.indexOf(flag);
-      if (indexOfFlag >= 0 && indexOfFlag < firstFlagIndex) {
-        firstFlag = flag;
-        firstFlagIndex = indexOfFlag;
-      }
-    });
-    return {firstFlag, firstFlagIndex};
-  }
   
-  function sliceFlaggedText(text, flag, indexOfFlag){
-    const flaggedTextStart = indexOfFlag + flag.length;
-    const indexOfSecondFlag = text.indexOf(flag, flaggedTextStart) || text.length;
-
-    const beforeFlag = indexOfFlag === 0? null: text.slice(0, indexOfFlag);
-    const flaggedText = text.slice(flaggedTextStart, indexOfSecondFlag);
-    const afterFlag = indexOfSecondFlag > 0 ? text.slice(indexOfSecondFlag + flag.length) : null;
-
-    return {beforeFlag, flaggedText, afterFlag};
-
-  }
 
 
   const {firstFlag: flag, firstFlagIndex: indexOfFlag } = stringHasFlag(text);
@@ -66,6 +57,8 @@ function parseFlags(text) {
   const firstSegmentFlagged = indexOfFlag === 0;
   const secondSegmentFlagged = !firstSegmentFlagged;
   const splitFlagged = text.split(flag, 3);
+
+
   const returnArray = splitFlagged.map((text, index) => {
     const indexIsEven = index % 2 === 0;
     const indexIsOdd = !indexIsEven;
