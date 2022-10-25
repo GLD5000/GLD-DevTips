@@ -1,5 +1,3 @@
-export default function Italic({content}) {
-  return (
-    <i>{content}</i>
-  )
+export default function Italic({ content }) {
+  return <i>{content}</i>;
 }
