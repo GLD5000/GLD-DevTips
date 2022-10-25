@@ -1,4 +1,6 @@
-import React from "react";
+import Link from "./Link";
+import Bold from "./Bold";
+import Italic from "./Italic";
 
 function parseBoldItalic(text, flag){
   
@@ -13,7 +15,7 @@ function parseBoldItalic(text, flag){
  console.log(shouldReturnText)   
  if (shouldReturnText) return text;
 
-    return flag === "**"? <strong key={index}>{text}</strong> : <i key={index}>{text}</i>
+    return flag === "**"? <Bold key={index} content={text}/> : <Italic key={index} content={text}/>
 
   });
   return returnArray;
@@ -32,7 +34,7 @@ const TextBox = ({ text }) => {
         const text = splitTextLink[0].slice(1);
         const textBold = parseBoldItalic(text, "_");
         const link = splitTextLink[1].slice(0, splitTextLink[1].length - 1);
-        const pushValue = <a href={link} key={index} target="_blank" rel="noreferrer">{textBold}</a>;
+        const pushValue = <Link link={link} key={index} content={textBold}/>;
         returnArray.push(pushValue);
       } else {
         const text = segment;
