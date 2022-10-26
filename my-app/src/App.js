@@ -34,6 +34,10 @@ The above command will clone or copy the repo to your default path.`,
           content: `#[Tester T](ext Containing a {link}[**Bold** _**bolditalic**_ of link](https://www.google.co.uk/){link} {link}[Text of link](https://www.google.com/){link}.
           
           1. ordered list item
+          2. ordered list item
+          3. ordered list item
+          - bullet points
+          - bullet points
           - bullet points`,
         },
       ],
