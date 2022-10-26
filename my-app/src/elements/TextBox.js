@@ -7,33 +7,42 @@ import H3 from "./H3";
 import H4 from "./H4";
 import H5 from "./H5";
 import H6 from "./H6";
+import Li from "./Li";
+import Ol from "./Ol";
+import Ul from "./Ul";
 
-const flagMap = {
-  "######": "h6",
-  "#####": "h5",
-  "####": "h4",
-  "###": "h3",
-  "##": "h2",
-  "#": "h1",
-  "**": "bold",
-  _: "italic",
-  "{link}": "link",
-};
-
-function stringHasFlag(string) {
-  let firstFlag = undefined;
-  let firstFlagIndex = undefined;
-  if (string == null) return { firstFlag, firstFlagIndex };
-
-  firstFlagIndex = string.length;
-  Object.keys(flagMap).forEach((flag) => {
-    const indexOfFlag = string.indexOf(flag);
+const flagMap = new Map(
+  [["######", "h6"],
+  ["#####", "h5"],
+  ["####", "h4"],
+  ["###", "h3"],
+  ["##", "h2"],
+  ["#", "h1"],
+  [/\s*-\s+/,"liUl"],
+  [/\s*[0-9]+\.\s+/,"liOl"],
+  ["**", "bold"],
+  ["_", "italic"],
+  ["{link}", "link"]]
+  );
+  
+  function stringHasFlag(string) {
+    let firstFlag = undefined;
+    let firstFlagIndex = undefined;
+    let flagFromMap = undefined;
+    if (string == null) return { firstFlag, firstFlagIndex };
+    
+    firstFlagIndex = string.length;
+    flagMap.forEach((_, flag) => {
+    let flagText = typeof flag === "string"? flag : null;
+    if  (typeof flag === "object" && string.match(flag) !== null) flagText = string.match(flag)[0];
+    const indexOfFlag = string.indexOf(flagText);
     if (indexOfFlag >= 0 && indexOfFlag < firstFlagIndex) {
-      firstFlag = flag;
+      firstFlag = flagText;
       firstFlagIndex = indexOfFlag;
+      flagFromMap = flag;
     }
   });
-  return { firstFlag, firstFlagIndex };
+  return { firstFlag, firstFlagIndex, flagFromMap };
 }
 
 function sliceFlaggedText(text, flag, indexOfFlag) {
@@ -58,13 +67,15 @@ function wrapText(index, text, type) {
     h4: <H4 key={"h" + index} content={text} />,
     h5: <H5 key={"h" + index} content={text} />,
     h6: <H6 key={"h" + index} content={text} />,
+    liUl: <Li key={"Ul" + index} content={text} />,
+    liOl: <Li key={"Ol" + index} content={text} />,
   };
   return typeHandler[type];
 }
 
 function recursiveParser(text, index) {
   //Can return text or array
-  const { firstFlag: flag, firstFlagIndex: indexOfFlag } = stringHasFlag(text);
+  const { firstFlag: flag, firstFlagIndex: indexOfFlag, flagFromMap } = stringHasFlag(text);
   //guard clause
   if (flag === undefined) return text;
 
@@ -76,7 +87,7 @@ function recursiveParser(text, index) {
   //pre-process flagged text
   const processedflaggedText = recursiveParser(flaggedText);
   // wrap flagged text
-  const type = flagMap[flag];
+  const type = flagMap.get(flagFromMap);
   index += 1;
   const wrappedFlaggedText = wrapText(index, processedflaggedText, type);
   //pre-process remaining text
@@ -96,7 +107,7 @@ function wrapIncomingParagraphs(paragraph, index){
 
 const TextBox = ({ text }) => {
   //split into paragraphs
-  const paragraphs = text.split(/\n\s+/); //not splitting string literals correctly
+  const paragraphs = text.split(/\r?\n\s*/); //not splitting string literals correctly
   // map paragraphs calling recursive function on each
   const returnArray = paragraphs.map((paragraph, index) => {
     return wrapIncomingParagraphs(paragraph, index);
