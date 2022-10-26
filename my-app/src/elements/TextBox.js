@@ -106,15 +106,62 @@ function wrapIncomingParagraphs(paragraph, index){
 }
 
 const TextBox = ({ text }) => {
+  function findObjectType(wrappedObject){
+    const keyCharacter = wrappedObject.key[0]; 
+    const isOrdered = keyCharacter === "O";
+    const isUnordered = keyCharacter === "U";
+    if (!isOrdered && !isUnordered) return "nonList";
+    return keyCharacter;
+  }
   //split into paragraphs
   const paragraphs = text.split(/\r?\n\s*/); //not splitting string literals correctly
   // map paragraphs calling recursive function on each
-  const returnArray = paragraphs.map((paragraph, index) => {
-    return wrapIncomingParagraphs(paragraph, index);
+  let listItemArray = [];
+  let listType = null;
+  const returnArray = [];
+  paragraphs.forEach((paragraph, index, arr) => {
+    // wrap text in <p
+    const wrappedObject =  wrapIncomingParagraphs(paragraph, index);
+    const keyCharacter = wrappedObject.key[0]; 
+    const notListObject = keyCharacter !== "O" && keyCharacter !== "U";
+    const type = findObjectType(wrappedObject);
+    if (type === "nonList") {
+      returnArray.push(wrappedObject);
+      if (listType !== type) { // list type just changed
+        // make ol or ul object
+        const list = listType === "O"? <Ol key={"Ol" + index} content={listItemArray} />: <Ul key={"Ul" + index} content={listItemArray} />;
+        returnArray.push(list);
+        listType = type;
+        listItemArray = [];
+      }
+    }
+    if (type === "O") {
+      if (listType !== type && listItemArray.length > 0) {
+        returnArray.push(<Ul key={"Ol" + index} content={listItemArray} />);
+        listItemArray = [];
+      }
+      listType = type;
+      listItemArray.push(wrappedObject);
+    }
+    if (type === "U") {
+      if (listType !== type && listItemArray.length > 0) {
+        returnArray.push(<Ol key={"Ol" + index} content={listItemArray} />);
+        listItemArray = [];
+      }
+      
+      listType = type;
+      listItemArray.push(wrappedObject);
+    }
+    if (index === arr.length -1 && listItemArray.length > 0) {
+      const list = listType === "O"? <Ol key={"Ol" + index} content={listItemArray} />: <Ul key={"Ul" + index} content={listItemArray} />;
+      returnArray.push(list);
+      listItemArray = [];
+    }
+
+
     // return recursiveParser(paragraph, index)
   });
   // Find out if the return includes a header
-
   return (
     <>
    {returnArray}
