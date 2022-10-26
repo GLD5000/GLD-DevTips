@@ -91,7 +91,6 @@ function recursiveParser(text, index) {
 function wrapIncomingParagraphs(paragraph, index){
   const parserOutput  = recursiveParser(paragraph, index);
   const returnValue = typeof parserOutput === "object" ? parserOutput: <p key={index} className="text">{parserOutput}</p>;
-  console.log(returnValue);
   return returnValue;
 }
 
@@ -104,10 +103,6 @@ const TextBox = ({ text }) => {
     // return recursiveParser(paragraph, index)
   });
   // Find out if the return includes a header
-  const includesHeader = !Array.isArray(returnArray) &&
-  typeof returnArray[0][0] === "object" &&
-  returnArray[0][0].key[0] === "h"
-;
 
   return (
     <>
