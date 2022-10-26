@@ -1,6 +1,6 @@
 export default function H5({content}) {
     return (
-      <H5>{content}</H5>
+      <h5 className="h5">{content}</h5>
     )
   }
   

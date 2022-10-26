@@ -9,100 +9,111 @@ import H5 from "./H5";
 import H6 from "./H6";
 
 const flagMap = {
+  "######": "h6",
+  "#####": "h5",
+  "####": "h4",
+  "###": "h3",
+  "##": "h2",
+  "#": "h1",
   "**": "bold",
   _: "italic",
   "{link}": "link",
-  "#": "h1",
-  "##": "h2",
-  "###": "h3",
-  "####": "h4",
-  "#####": "h5",
-  "######": "h6",
 };
 
-function stringHasFlag(string){
-  let firstFlag = undefined; 
-  let firstFlagIndex = string.length;
-  Object.keys(flagMap).forEach(flag =>{
+function stringHasFlag(string) {
+  let firstFlag = undefined;
+  let firstFlagIndex = undefined;
+  if (string == null) return { firstFlag, firstFlagIndex };
+
+  firstFlagIndex = string.length;
+  Object.keys(flagMap).forEach((flag) => {
     const indexOfFlag = string.indexOf(flag);
     if (indexOfFlag >= 0 && indexOfFlag < firstFlagIndex) {
       firstFlag = flag;
       firstFlagIndex = indexOfFlag;
     }
   });
-  return {firstFlag, firstFlagIndex};
+  return { firstFlag, firstFlagIndex };
 }
 
-function sliceFlaggedText(text, flag, indexOfFlag){
+function sliceFlaggedText(text, flag, indexOfFlag) {
   const flaggedTextStart = indexOfFlag + flag.length;
-  const indexOfSecondFlag = text.indexOf(flag, flaggedTextStart) || text.length;
+  const indexOfSecondFlag = text.indexOf(flag, flaggedTextStart);
+  const hasSecondFlag = indexOfSecondFlag > 0 && indexOfSecondFlag;
+  const beforeFlag = indexOfFlag === 0 ? null : text.slice(0, indexOfFlag);
+  const flaggedText = hasSecondFlag? text.slice(flaggedTextStart, indexOfSecondFlag ): text.slice(flaggedTextStart);
+  const afterFlag =
+    indexOfSecondFlag > 0 ? text.slice(indexOfSecondFlag + flag.length) : null;
 
-  const beforeFlag = indexOfFlag === 0? null: text.slice(0, indexOfFlag);
-  const flaggedText = text.slice(flaggedTextStart, indexOfSecondFlag);
-  const afterFlag = indexOfSecondFlag > 0 ? text.slice(indexOfSecondFlag + flag.length) : null;
-
-  return {beforeFlag, flaggedText, afterFlag};
-
+  return { beforeFlag, flaggedText, afterFlag };
+}
+function wrapText(index, text, type) {
+  const typeHandler = {
+    bold: <Bold key={index} content={text} />,
+    italic: <Italic key={index} content={text} />,
+    link: <Link key={index} content={text} />,
+    h1: <H1 key={"h" + index} content={text} />,
+    h2: <H2 key={"h" + index} content={text} />,
+    h3: <H3 key={"h" + index} content={text} />,
+    h4: <H4 key={"h" + index} content={text} />,
+    h5: <H5 key={"h" + index} content={text} />,
+    h6: <H6 key={"h" + index} content={text} />,
+  };
+  return typeHandler[type];
 }
 
+function recursiveParser(text, index) {
+  //Can return text or array
+  const { firstFlag: flag, firstFlagIndex: indexOfFlag } = stringHasFlag(text);
+  //guard clause
+  if (flag === undefined) return text;
 
+  const { beforeFlag, flaggedText, afterFlag } = sliceFlaggedText(
+    text,
+    flag,
+    indexOfFlag
+  );
+  //pre-process flagged text
+  const processedflaggedText = recursiveParser(flaggedText);
+  // wrap flagged text
+  const type = flagMap[flag];
+  index += 1;
+  const wrappedFlaggedText = wrapText(index, processedflaggedText, type);
+  //pre-process remaining text
+  const returnArray = [];
+  // returnArray.push() = [beforeFlag, wrappedFlaggedText, recursiveParser(afterFlag) ]
+  if (beforeFlag !== null) returnArray.push(beforeFlag);
+  returnArray.push(wrappedFlaggedText);
+  if (afterFlag !== null) returnArray.push(recursiveParser(afterFlag));
+  return returnArray.length === 1? returnArray[0]: returnArray;
+}
 
-function parseFlags(text) {
-
-  
-
-
-  const {firstFlag: flag, firstFlagIndex: indexOfFlag } = stringHasFlag(text);
-
-  const firstSegmentFlagged = indexOfFlag === 0;
-  const secondSegmentFlagged = !firstSegmentFlagged;
-  const splitFlagged = text.split(flag, 3);
-
-
-  const returnArray = splitFlagged.map((text, index) => {
-    const indexIsEven = index % 2 === 0;
-    const indexIsOdd = !indexIsEven;
-    const shouldReturnText =
-      (firstSegmentFlagged && indexIsOdd) || (secondSegmentFlagged && indexIsEven);
-
-    const typeHandler = {
-      bold: <Bold key={index} content={text} />,
-      italic: <Italic key={index} content={text} />,
-      link: <Link key={index} content={text} />,
-      h1: <H1 key={index} content={text} />,
-      h2: <H2 key={index} content={text} />,
-      h3: <H3 key={index} content={text} />,
-      h4: <H4 key={index} content={text} />,
-      h5: <H5 key={index} content={text} />,
-      h6: <H6 key={index} content={text} />,
-    };
-    const type = flagMap[flag];
-    if (shouldReturnText) return text;
-
-    return typeHandler[type];
-  });
-  return returnArray;
+function wrapIncomingParagraphs(paragraph, index){
+  const parserOutput  = recursiveParser(paragraph, index);
+  const returnValue = typeof parserOutput === "object" ? parserOutput: <p key={index} className="text">{parserOutput}</p>;
+  console.log(returnValue);
+  return returnValue;
 }
 
 const TextBox = ({ text }) => {
-  const returnArray = [];
+  //split into paragraphs
+  const paragraphs = text.split(/\n\s+/); //not splitting string literals correctly
+  // map paragraphs calling recursive function on each
+  const returnArray = paragraphs.map((paragraph, index) => {
+    return wrapIncomingParagraphs(paragraph, index);
+    // return recursiveParser(paragraph, index)
+  });
+  // Find out if the return includes a header
+  const includesHeader = !Array.isArray(returnArray) &&
+  typeof returnArray[0][0] === "object" &&
+  returnArray[0][0].key[0] === "h"
+;
 
-  function parseLinks(text) {
-    const linkTextArray = text.split("{link}");
-    linkTextArray.forEach((segment, index) => {
-      if (segment.includes("https://www.")) {
-        const pushValue = <Link key={index} content={segment} />;
-        returnArray.push(pushValue);
-      } else {
-        const text = segment;
-        const pushValue = text;
-        returnArray.push(pushValue);
-      }
-    });
-  }
-  parseLinks(text);
-
-  return <p className="text">{returnArray}</p>;
+  return (
+    <>
+   {returnArray}
+    </>
+  ); 
 };
 
 export default TextBox;

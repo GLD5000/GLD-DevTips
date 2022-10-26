@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import TitleFilter from "./TitleFilter";
 import TagSet from "./TagSet";
-import { useState } from "react";
 import AddTip from "./AddTip";
 
 

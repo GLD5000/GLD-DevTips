@@ -17,7 +17,7 @@ function App() {
         },
         {
           type: "text",
-          content: `This makes a linked copy of a repo from your Github Account to your computer.
+          content: `##This makes a linked copy of a repo from your Github Account to your computer.
 
 The above command will clone or copy the repo to your default path.`,
         },
@@ -27,11 +27,11 @@ The above command will clone or copy the repo to your default path.`,
         },
         {
           type: "text",
-          content: `You can open the cloned repo within VSCode by using the open folder option from the 'File' menu.`,
+          content: `#You can open the cloned repo within VSCode by using the open folder option from the 'File' menu.`,
         },
         {
           type: "text",
-          content: `[Tester T](ext Containing a {link}[**Bold** _**bolditalic**_ of link](https://www.google.com/){link} {link}[Text of link](https://www.google.com/){link}.
+          content: `#[Tester T](ext Containing a {link}[**Bold** _**bolditalic**_ of link](https://www.google.co.uk/){link} {link}[Text of link](https://www.google.com/){link}.
           > bullet points
           > bullet points`,
         },

@@ -1,6 +1,6 @@
 export default function H3({content}) {
     return (
-      <H3>{content}</H3>
+      <h3 className="h3">{content}</h3>
     )
   }
   

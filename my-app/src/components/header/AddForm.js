@@ -1,6 +1,5 @@
 import { useState } from "react"
 import MultiInput from "./MultiInput"
-import markdownParser from "../../utilities/markdownParser";
 
 const AddForm = ({setTip}) => {
   const [inputState, setInputState] = useState(() => { return {0:
@@ -20,5 +19,4 @@ const AddForm = ({setTip}) => {
         </div>
   )
 }
-markdownParser();
 export default AddForm
