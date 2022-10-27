@@ -19,7 +19,7 @@ const flagMap = new Map(
   ["##", "h2"],
   ["#", "h1"],
   [/\s*-\s+/,"liUl"],
-  [/\s*[0-9]+\.\s+/,"liOl"],
+  [/\s*[0-9n]+\.\s+/,"liOl"],
   ["**", "bold"],
   ["_", "italic"],
   ["{link}", "link"]]
@@ -124,7 +124,6 @@ const TextBox = ({ text }) => {
     const wrappedObject =  wrapIncomingParagraphs(paragraph, index);
     const type = findObjectType(wrappedObject);
     if (type === "nonList") {
-      returnArray.push(wrappedObject);
       if (listType !== type) { // list type just changed
         // make ol or ul object
         const list = listType === "O"? <Ol key={"Ol" + index} content={listItemArray} />: <Ul key={"Ul" + index} content={listItemArray} />;
@@ -132,6 +131,7 @@ const TextBox = ({ text }) => {
         listType = type;
         listItemArray = [];
       }
+      returnArray.push(wrappedObject);
     }
     if (type === "O") {
       if (listType !== type && listItemArray.length > 0) {

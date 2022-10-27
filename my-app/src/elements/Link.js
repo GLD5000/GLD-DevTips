@@ -15,49 +15,6 @@ function cloneContent(content){
   itemHandler(content);
 }
 
-
-function sliceLink(x){
-  const startSlice = x.indexOf("(") + 1 || false;
-  const endSlice = x.indexOf(")") || false;
-  const link = x.slice(startSlice, endSlice);
-  const text = x.slice(0, startSlice);
-  return {text, link};
-} 
-const returnArray = [];
-function recursiveLinkFinder(x){
-  const isArray = Array.isArray(x);
-  if (isArray === false && typeof x === "string" && x.indexOf(")") >= 0){ //found link segment
-   const {text, link} = sliceLink(x);
-   returnArray.push(text);
-   returnArray.push("WwWwWw" + link);
-   return returnArray;
-  }
-  // else if array loop
-  isArray? x.map(recursiveLinkFinder):
-  //else push to returnArray
-  returnArray.push(x);
-  return returnArray;
-}
-
-function processLinkArray(content){
-  const arrayAll = recursiveLinkFinder(content);
-  console.log(arrayAll); 
-  if (arrayAll.includes("WwWwWw")) console.log(true);
-  // const text = content;
-  // const link = content.filter(x => {
-  //   const startSlice = x.indexOf("(") + 1 || false;
-  //   const endSlice = x.indexOf(")") || false;
-  //   if (startSlice && endSlice) return x.slice(startSlice, endSlice)
-  // });
-  // return {link, text};
-}
-function processLinkContent(content) {
-  const splitTextLink = content.split("](");
-  const text = splitTextLink[0].slice(1);
-  const link = splitTextLink[1].slice(0, splitTextLink[1].length - 1);
-  return { link, text };
-}
-
 export default function Link({ content }) {
   const text  = cloneContent(content);
   const link = linkString;

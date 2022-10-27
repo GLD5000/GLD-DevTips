@@ -3,7 +3,8 @@
 
 .code {
   background-color: #000;
-  color: rgb(140, 172, 135);
+  color: rgb(140, 241, 124);
+  border: solid whitesmoke 2px;
   border-radius: 7px;
   font-family: "Source Code Pro", monospace;
   white-space: pre;
@@ -35,7 +36,7 @@ th,
 td {
   padding: 8px;
   text-align: center;
-  border: 2px solid black;
+  border: 2px solid whitesmoke;
   border-collapse: collapse;
 }
 a {
@@ -66,7 +67,6 @@ body {
   height: 100vh;
   border: 1px solid rgb(53, 53, 53);
   border-radius: 5px;
-  background-color: #313133;
 }
 
 .tip-container {
@@ -113,7 +113,7 @@ body {
   gap: 8px;
   display: flex;
   flex-direction: column;
-  background: #828181;
+  background-color: rgb(49, 49, 49);
   margin: 5px;
   padding: 10px 20px;
   min-width: 55ch;
@@ -124,6 +124,9 @@ body {
 }
 ul, ol {
   padding-left: 3em;
+}
+ul {
+  list-style-type:square;
 }
 li {
   padding-left: 1em;
@@ -195,30 +198,6 @@ h3 {
   padding: 3px 7px;
   font-size: 17px;
 }
-/*.titleFilter-container{
-  position: relative;
-}
- datalist {
-  position: absolute;
-  left:-100px;
-  max-height: 20em;
-  border: 0 none;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-datalist option {
-  font-size: 0.8em;
-  padding: 0.3em 1em;
-  background-color: #ccc;
-  cursor: pointer;
-}
-
-datalist option:hover, datalist option:focus {
-  color: #fff;
-  background-color: #036;
-  outline: 0 none;
-} */
-
 .form-control-check {
   display: flex;
   align-items: center;
@@ -234,6 +213,9 @@ datalist option:hover, datalist option:focus {
   height: 20px;
 }
 h1,
+h2,
+li,
+td,
 h3,
 p,
 label,
@@ -250,7 +232,7 @@ thead {
 }
 thead {
   font-size: 18px;
-  background: #585a5d;
+  background: #424242;
 }
 h1 {
   padding: 1vh;

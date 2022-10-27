@@ -1,5 +1,3 @@
-import {useState} from 'react'
-
 const InputField = ({type, content, changeText, name}) => {
 
     function handleChange(e){
