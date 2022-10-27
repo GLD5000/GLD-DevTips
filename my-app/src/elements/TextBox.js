@@ -122,8 +122,6 @@ const TextBox = ({ text }) => {
   paragraphs.forEach((paragraph, index, arr) => {
     // wrap text in <p
     const wrappedObject =  wrapIncomingParagraphs(paragraph, index);
-    const keyCharacter = wrappedObject.key[0]; 
-    const notListObject = keyCharacter !== "O" && keyCharacter !== "U";
     const type = findObjectType(wrappedObject);
     if (type === "nonList") {
       returnArray.push(wrappedObject);
