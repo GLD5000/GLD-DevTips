@@ -122,7 +122,13 @@ body {
   justify-content: flex-start;
   align-content: flex-start;
 }
-.tagsList{
+ul, ol {
+  padding-left: 3em;
+}
+li {
+  padding-left: 1em;
+}
+.tagsList {
   display: flex;
   width: 100%;
   height: min-content;
@@ -136,7 +142,7 @@ body {
   border-left: 5px solid green;
 }
 
-.MultiTextContainer{
+.MultiTextContainer {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -145,7 +151,7 @@ body {
   margin-bottom: auto;
   gap: 1rem;
 }
-.filter-container{
+.filter-container {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
@@ -153,12 +159,11 @@ body {
   justify-content: space-evenly;
   align-items: center;
 }
-.field-container{
+.field-container {
   display: grid;
   grid-template-rows: auto auto;
   gap: 8px;
 }
-
 
 .tip,
 h3 {
