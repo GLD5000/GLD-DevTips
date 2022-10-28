@@ -1,6 +1,7 @@
 import InputField from "./InputField";
 import Button from "../../elements/Button";
 import InputSelect from "./InputSelect";
+import InputButtons from "./InputButtons";
 
 const MultiInput = ({inputState, setInputState}) => {
   function addField() {
@@ -19,31 +20,35 @@ const MultiInput = ({inputState, setInputState}) => {
     });
   }
 
-  function changeText(value, index) {
-
+  function changeValue(inputObject, index) {
     setInputState((object) =>{
-      const type = object[index]["type"];
-      return {...object, [index]: {type: type, content:value}};
+      const title = inputObject.title || object[index]["title"];
+      const type = inputObject.type || object[index]["type"];
+      const content = inputObject.content || object[index]["content"];
+
+      return {...object, [index]: {title: title, type: type, content: content}};
     });
   }
+
+
   console.log(inputState)
   function makeInputArray() {
     return Object.values(inputState).map((object, index) => {
       const returnObject = (
         <div key={index} className="field-container">
-          <InputSelect
-            key={index + "InputSelect"}
-            name={index}
+          <h2>Section {index +1}</h2>
+          <InputButtons
+            key={index + "InputButtons"}
             type={object.type}
             index={index}
-            changeType={changeType}
+            changeValue={changeValue}
           />
           <InputField
             key={index + "InputField"}
             name={index}
             type={object.type}
             content={object.content}
-            changeText={changeText}
+            changeText={changeValue}
           />
         </div>
       );
@@ -64,14 +69,14 @@ const MultiInput = ({inputState, setInputState}) => {
         key="addField"
         color="black"
         backgroundColor="white"
-        text="Add Input Field"
+        text="Add Another Section"
         clickFunction={addField}
       />
       <Button
         key="saveTip"
         color="black"
         backgroundColor="white"
-        text="Save Tip"
+        text="Save Your Tip"
         clickFunction={submit}
       />
     </>

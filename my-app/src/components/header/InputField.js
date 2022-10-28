@@ -3,7 +3,7 @@ const InputField = ({type, content, changeText, name}) => {
     function handleChange(e){
         const value = e.target.value;
         const index = e.target.name;
-        changeText(value, index);
+        changeText({content: value}, index);
     
       }
         const placeHolderObject = {

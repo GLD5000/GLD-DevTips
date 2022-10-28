@@ -4,11 +4,11 @@ function defaultOnInput(value) {
   Value is: ${value}`);
 }
 
-const InputText = ({
+const InputTitle = ({
   placeholder = "Type here...",
   onInput = defaultOnInput,
   type = "text",
-  listId= null
+  name= undefined
 }) => {
   const delay = 500;
 
@@ -20,9 +20,10 @@ const InputText = ({
     };
   };
 
-  const handler = (value) => {
-    //console.log(`Input Value = ${value}`);
-    onInput(value);
+  const handler = (e) => {
+    const value = e.target.value;
+    const index = e.target.name;
+    onInput({title: value}, index);
   };
 
   const debouncedHandler = useCallback(debounce(handler, delay), [
@@ -33,14 +34,12 @@ const InputText = ({
   return (
     <input
       type={type}
-      onFocus={(e) => e.target.select()}
-      onChange={(e) => debouncedHandler(e.target.value)}
+      onChange={(e) => debouncedHandler(e)}
       placeholder={placeholder}
-      list={listId}
+      name={name}
       autoComplete="off"
-
     ></input>
   );
 };
 
-export default InputText;
+export default InputTitle;

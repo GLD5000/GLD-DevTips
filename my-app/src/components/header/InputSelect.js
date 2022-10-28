@@ -1,4 +1,5 @@
 const InputSelect = ({ type, name, changeType }) => {
+
   function makeOptionsArray(type) {
     const options = ["text", "code", "hint", "table"];
     return options.map((option, index) => 
@@ -9,7 +10,7 @@ const InputSelect = ({ type, name, changeType }) => {
   function handleChange(e){
     const value = e.target.value;
     const index = e.target.name;
-    changeType(value, index);
+    changeType({type: value}, index);
 
   }
   const optionsArray = makeOptionsArray(type);
