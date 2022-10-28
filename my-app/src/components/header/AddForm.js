@@ -28,7 +28,7 @@ const AddForm = ({setTip}) => {
     <div className="add-form">
           <div className="form-control">
             <h2>Main Title</h2>
-            <input className="titleInput" type="text" placeholder="Add a title or topic for your tip..." />
+            <input autoFocus className="titleInput" type="text" placeholder="Add a title or topic for your tip..." />
           </div>
           < MultiInput inputState={inputState} setInputState={setInputState} />
         </div>
