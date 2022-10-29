@@ -28,7 +28,7 @@ const AddForm = ({ setTip, newTipId }) => {
     console.log(newTipId);
     console.log(modelObject);
   }
-  
+
   return (
     <div className="add-form">
       <div className="form-control">
@@ -40,13 +40,16 @@ const AddForm = ({ setTip, newTipId }) => {
           placeholder="Add a title or topic for your tip..."
         />
       </div>
-      <MultiInput inputState={inputState} setInputState={setInputState} onSubmit={onSubmit} />
+      <MultiInput
+        inputState={inputState}
+        setInputState={setInputState}
+        onSubmit={onSubmit}
+      />
     </div>
   );
 
-  function onSubmit(){
+  function onSubmit() {
     parseNewTip();
   }
-
 };
 export default AddForm;
