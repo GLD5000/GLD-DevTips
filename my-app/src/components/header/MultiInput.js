@@ -2,7 +2,7 @@ import InputField from "./InputField";
 import Button from "../../elements/Button";
 import InputButtons from "./InputButtons";
 
-const MultiInput = ({inputState, setInputState}) => {
+const MultiInput = ({inputState, setInputState, onSubmit }) => {
   function addField() {
     setInputState((object) => {
       const key = Object.keys(object).length;
@@ -48,9 +48,6 @@ const MultiInput = ({inputState, setInputState}) => {
       return returnObject;
     });
   }
-  function submit() {
-    console.log(`thanks for your help with the submissions`);
-  }
 
   const inputArray = makeInputArray();
 
@@ -69,7 +66,7 @@ const MultiInput = ({inputState, setInputState}) => {
         color="black"
         backgroundColor="white"
         text="Save Your Tip"
-        clickFunction={submit}
+        clickFunction={onSubmit}
       />
     </>
   );

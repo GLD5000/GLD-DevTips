@@ -12,7 +12,8 @@ const Header = ({
   setTagState,
   tagState,
   titleSet,
-  setTip
+  setTip,
+  newTipId
 }) => {
   return (
     <header className="header">
@@ -23,7 +24,7 @@ const Header = ({
         titleSet={titleSet}
       />
       <TagSet tagSet={tagSet} setTagState={setTagState} tagState={tagState} />
-      <AddTip setTip={setTip} />
+      <AddTip setTip={setTip} newTipId={newTipId} />
     </header>
   );
 };

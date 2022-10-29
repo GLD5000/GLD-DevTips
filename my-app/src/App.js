@@ -192,6 +192,7 @@ This means they are easy to test, can be composed and can be run in parallel wit
         tagSet={tagSet}
         titleSet={titleSet}
         setTip={setTip}
+        newTipId={newTipId}
       />
       <section className="tip-container">
         {/* <div style={{color: "white"}}>{searchQuery}</div> */}
