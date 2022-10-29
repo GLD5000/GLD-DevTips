@@ -1,6 +1,5 @@
 import InputField from "./InputField";
 import Button from "../../elements/Button";
-import InputSelect from "./InputSelect";
 import InputButtons from "./InputButtons";
 
 const MultiInput = ({inputState, setInputState}) => {
@@ -11,13 +10,6 @@ const MultiInput = ({inputState, setInputState}) => {
       return {...object, [key]: newPart};
     });
 
-  }
-  function changeType(value, index) {
-
-    setInputState((object) =>{
-      const text = object[index]["content"];
-      return {...object, [index]: {type: value, content:text}};
-    });
   }
 
   function changeValue(inputObject, index) {
