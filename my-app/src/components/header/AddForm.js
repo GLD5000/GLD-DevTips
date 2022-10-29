@@ -15,17 +15,11 @@ const AddForm = ({ setTip, newTipId }) => {
       id: newTipId, //string
       date: formattedDate, // string
       tags: ["JavaScript", "How-To"], // array of strings
-      title: "Crockford Objects", // string
-      sections: [
-        // array of objects
-        {
-          title: "", //string
-          type: "", //string
-          content: "", //string
-        },
-      ],
+      title: "title", // string
+      sections: Object.values(inputState)
+      ,
     };
-    console.log(newTipId);
+    console.log(Object.values(inputState));
     console.log(modelObject);
   }
 
