@@ -141,7 +141,6 @@ This means they are easy to test, can be composed and can be run in parallel wit
     return tagList;
   }); // Tip init functions only run once
   const newTipId = tipList.length + 1;
-  console.log(newTipId);
   const [searchQuery, setSearchQuery] = useState("");
   function testtagState(tagState, tagArray) {
     const tagStateValue = Object.values(tagState);

@@ -15,6 +15,7 @@ const Header = ({
   setTip,
   newTipId
 }) => {
+  
   return (
     <header className="header">
       <h1>{title}</h1>

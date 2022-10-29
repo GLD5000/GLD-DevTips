@@ -5,13 +5,15 @@ const AddForm = ({ setTip, newTipId }) => {
   const [inputState, setInputState] = useState(() => {
     return { 0: { type: "text", content: null } };
   });
-
+  console.log(newTipId);
   function parseNewTip() {
     //add title to state
     //Parse new tip from state
+    const dateRaw = new Date();
+    const formattedDate = `${dateRaw.getDate()}/${dateRaw.getMonth()}/${dateRaw.getFullYear()}`;
     const modelObject = {
-      id: "", //string
-      date: "4th Feb 2022", // string
+      id: newTipId, //string
+      date: formattedDate, // string
       tags: ["JavaScript", "How-To"], // array of strings
       title: "Crockford Objects", // string
       sections: [
@@ -23,6 +25,7 @@ const AddForm = ({ setTip, newTipId }) => {
         },
       ],
     };
+    console.log(newTipId);
     console.log(modelObject);
   }
   
