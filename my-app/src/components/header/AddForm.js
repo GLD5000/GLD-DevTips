@@ -1,7 +1,8 @@
 import { useState } from "react";
 import MultiInput from "./MultiInput";
+import SelectMulti from "../../elements/SelectMulti";
 
-const AddForm = ({ setTip, newTipId }) => {
+const AddForm = ({ setTip, newTipId, tagListAll }) => {
   const [inputState, setInputState] = useState(() => {
     return { 0: { type: "text", content: null } };
   });
@@ -33,6 +34,7 @@ const AddForm = ({ setTip, newTipId }) => {
           type="text"
           placeholder="Add a title or topic for your tip..."
         />
+        <SelectMulti tagListAll={tagListAll}/>
       </div>
       <MultiInput
         inputState={inputState}

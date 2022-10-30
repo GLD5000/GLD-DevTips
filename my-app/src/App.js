@@ -137,6 +137,7 @@ This means they are easy to test, can be composed and can be run in parallel wit
   const tagList = Object.fromEntries([
     ...new Set(tipList.flatMap((tip) => tip.tags).map((x) => [x, "visible"])),
   ]);
+  const tagListAll = Object.keys(tagList);
   const [tagState, setTagState] = useState(() => {
     return tagList;
   }); // Tip init functions only run once
@@ -192,6 +193,7 @@ This means they are easy to test, can be composed and can be run in parallel wit
         titleSet={titleSet}
         setTip={setTip}
         newTipId={newTipId}
+        tagListAll={tagListAll}
       />
       <section className="tip-container">
         {/* <div style={{color: "white"}}>{searchQuery}</div> */}

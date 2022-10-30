@@ -9,16 +9,19 @@
   font-family: "Source Code Pro", monospace;
   white-space: pre;
 }
-.code::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.code::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: rgb(140, 241, 124);
   opacity: 1; /* Firefox */
 }
 
-.code:-ms-input-placeholder { /* Internet Explorer 10-11 */
+.code:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: rgb(140, 241, 124);
 }
 
-.code::-ms-input-placeholder { /* Microsoft Edge */
+.code::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: rgb(140, 241, 124);
 }
 
@@ -135,11 +138,12 @@ body {
   justify-content: flex-start;
   align-content: flex-start;
 }
-ul, ol {
+ul,
+ol {
   padding-left: 3em;
 }
 ul {
-  list-style-type:square;
+  list-style-type: square;
 }
 li {
   padding-left: 1em;
@@ -198,6 +202,9 @@ h3 {
 
 .form-control {
   margin: 20px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
 }
 
 .form-control label {
@@ -251,6 +258,9 @@ h1 {
   padding: 1vh;
 }
 .input-buttons {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(min-content,50%));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min-content, 50%));
+}
+select {
+  width: 100%;
 }

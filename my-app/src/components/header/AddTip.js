@@ -2,7 +2,7 @@ import Button from "../../elements/Button";
 import AddForm from "./AddForm";
 import { useState } from "react";
 
-const AddTip = ({setTip, newTipId}) => {
+const AddTip = ({setTip, newTipId, tagListAll}) => {
   const [showNewTip, setShowNewTip] = useState(() => false);
   function onClickAdd() {
     setShowNewTip(state => !state);
@@ -19,7 +19,7 @@ const AddTip = ({setTip, newTipId}) => {
   text="Add A New Tip To The Collection!"
   clickFunction={onClickAdd}
     /> 
-    <AddForm setTip={setTip} newTipId={newTipId}/>       
+    <AddForm setTip={setTip} newTipId={newTipId} tagListAll={tagListAll}/>       
       </>
 
     ) : (
