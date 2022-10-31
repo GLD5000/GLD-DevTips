@@ -7,10 +7,18 @@ const AddForm = ({ setTip, newTipId, tagListAll }) => {
   const [inputState, setInputState] = useState(() => {
     return { 0: { type: "text", content: null } };
   });
+  const [tagsState, setTagsState] = useState(() => []);
+
+
   function setTags(e){
-    console.log(e.target);
-    console.log(e.target.selectedOptions.map(x => x.value));
+    const collection = e.target.selectedOptions;
+    const tags = Object.values(collection).map(x => x.value);
+    setTagsState(object => {
+      const newObject = [...tags]
+    return newObject
+    });
   }
+  console.log(tagsState);
 
 
   function parseNewTip() {
