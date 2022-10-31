@@ -3,10 +3,16 @@ import MultiInput from "./MultiInput";
 import SelectMulti from "../../elements/SelectMulti";
 
 const AddForm = ({ setTip, newTipId, tagListAll }) => {
+
   const [inputState, setInputState] = useState(() => {
     return { 0: { type: "text", content: null } };
   });
-  console.log(newTipId);
+  function setTags(e){
+    console.log(e.target);
+    console.log(e.target.selectedOptions.map(x => x.value));
+  }
+
+
   function parseNewTip() {
     //add title to state
     //Parse new tip from state
@@ -34,7 +40,7 @@ const AddForm = ({ setTip, newTipId, tagListAll }) => {
           type="text"
           placeholder="Add a title or topic for your tip..."
         />
-        <SelectMulti tagListAll={tagListAll}/>
+        <SelectMulti tagListAll={tagListAll} setTags={setTags}/>
       </div>
       <MultiInput
         inputState={inputState}

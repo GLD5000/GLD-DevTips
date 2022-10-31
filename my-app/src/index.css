@@ -202,6 +202,7 @@ h3 {
 
 .form-control {
   margin: 20px 0;
+  gap: 8px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;

@@ -1,4 +1,4 @@
-export default function SelectMulti({tagListAll}) {
+export default function SelectMulti({tagListAll, setTags}) {
   console.log(tagListAll);
 
   function makeOptionsArray() {
@@ -9,8 +9,11 @@ export default function SelectMulti({tagListAll}) {
     const optionsArray = makeOptionsArray();
 
   return (
-    <select name="tags" id="tags" multiple> 
+    <>
+    <label htmlFor="tags">Chosen Tags</label>
+    <select name="tags" id="tags" multiple onInput={setTags}> 
         {optionsArray}
     </select>
+    </>
   )
 }
