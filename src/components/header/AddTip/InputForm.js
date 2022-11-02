@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MultiInput from "./MultiInput";
 import SelectMulti from "../../../elements/SelectMulti";
+import MainTitle from "./MainTitle";
 
 const InputForm = ({ setTip, newTipId, tagListAll }) => {
 
@@ -42,12 +43,7 @@ const InputForm = ({ setTip, newTipId, tagListAll }) => {
     <div className="add-form">
       <div className="form-control">
         <h2>Main Title</h2>
-        <input
-          autoFocus
-          className="titleInput"
-          type="text"
-          placeholder="Add a title or topic for your tip..."
-        />
+        <MainTitle name={newTipId + "MainTitle"} />
         <SelectMulti tagListAll={tagListAll} setTags={setTags}/>
       </div>
       <MultiInput
