@@ -1,6 +1,4 @@
 export default function SelectMulti({tagListAll, setTags}) {
-  console.log(tagListAll);
-
   function makeOptionsArray() {
     return tagListAll.map((option, index) => 
        <option key={index} value={option}>{option}</option>

@@ -23,7 +23,6 @@ const MultiInput = ({inputState, setInputState, onSubmit }) => {
   }
 
 
-  console.log(inputState)
   function makeInputArray() {
     return Object.values(inputState).map((object, index) => {
       const returnObject = (

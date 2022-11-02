@@ -19,7 +19,6 @@ const InputForm = ({ setTip, newTipId, tagListAll }) => {
     return newObject
     });
   }
-  console.log(tagsState);
 
 
   function parseNewTip() {
@@ -30,7 +29,7 @@ const InputForm = ({ setTip, newTipId, tagListAll }) => {
     const modelObject = {
       id: newTipId, //string
       date: formattedDate, // string
-      tags: ["JavaScript", "How-To"], // array of strings
+      tags: tagsState, // array of strings
       title: "title", // string
       sections: Object.values(inputState)
       ,
