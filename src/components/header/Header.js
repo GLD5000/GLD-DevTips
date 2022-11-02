@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import TitleFilter from "./TitleFilter";
 import TagSet from "./TagSet";
-import AddTip from "./AddTip";
+import AddTip from "./AddTip/AddTip";
 
 
 const Header = ({

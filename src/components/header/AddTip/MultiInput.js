@@ -1,5 +1,5 @@
 import InputField from "./InputField";
-import Button from "../../elements/Button";
+import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
 
 const MultiInput = ({inputState, setInputState, onSubmit }) => {

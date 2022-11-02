@@ -1,8 +1,8 @@
 import { useState } from "react";
 import MultiInput from "./MultiInput";
-import SelectMulti from "../../elements/SelectMulti";
+import SelectMulti from "../../../elements/SelectMulti";
 
-const AddForm = ({ setTip, newTipId, tagListAll }) => {
+const InputForm = ({ setTip, newTipId, tagListAll }) => {
 
   const [inputState, setInputState] = useState(() => {
     return { 0: { type: "text", content: null } };
@@ -62,4 +62,4 @@ const AddForm = ({ setTip, newTipId, tagListAll }) => {
     parseNewTip();
   }
 };
-export default AddForm;
+export default InputForm;

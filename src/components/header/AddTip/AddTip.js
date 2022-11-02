@@ -1,5 +1,5 @@
-import Button from "../../elements/Button";
-import AddForm from "./AddForm";
+import Button from "../../../elements/Button";
+import InputForm from "./InputForm";
 import { useState } from "react";
 
 const AddTip = ({setTip, newTipId, tagListAll}) => {
@@ -19,7 +19,7 @@ const AddTip = ({setTip, newTipId, tagListAll}) => {
   text="Add A New Tip To The Collection!"
   clickFunction={onClickAdd}
     /> 
-    <AddForm setTip={setTip} newTipId={newTipId} tagListAll={tagListAll}/>       
+    <InputForm setTip={setTip} newTipId={newTipId} tagListAll={tagListAll}/>       
       </>
 
     ) : (
