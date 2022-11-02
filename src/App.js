@@ -9,7 +9,7 @@ function App() {
       id: 1,
       date: "11th Oct 2022",
       tags: ["Github", "Bash", "Beginner", "VSCode"],
-      title: "Cloning a Repo from Github",
+      title: "How to clone a Repo from Github",
       sections: [
         {
           type: "code",
