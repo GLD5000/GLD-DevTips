@@ -114,12 +114,12 @@ const TextBox = ({ text }) => {
     return keyCharacter;
   }
   //split into paragraphs
-  const paragraphs = text.split(/\r?\n\s*/); //not splitting string literals correctly
+  const paragraphs = text?.split(/\r?\n\s*/); 
   // map paragraphs calling recursive function on each
   let listItemArray = [];
   let listType = null;
   const returnArray = [];
-  paragraphs.forEach((paragraph, index, arr) => {
+  paragraphs?.forEach((paragraph, index, arr) => {
     // wrap text in <p
     const wrappedObject =  wrapIncomingParagraphs(paragraph, index);
     const type = findObjectType(wrappedObject);

@@ -19,7 +19,7 @@ const AddTip = ({setTip, newTipId, tagListAll}) => {
   text="Add A New Tip To The Collection!"
   clickFunction={onClickAdd}
     /> 
-    <InputForm setTip={setTip} newTipId={newTipId} tagListAll={tagListAll}/>       
+    <InputForm setShowNewTip={onClickAdd} setTip={setTip} newTipId={newTipId} tagListAll={tagListAll}/>       
       </>
 
     ) : (

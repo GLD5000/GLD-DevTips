@@ -2,7 +2,7 @@ import InputField from "./InputField";
 import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
 
-const MultiInput = ({inputState, setInputState, onSubmit }) => {
+const MultiInput = ({ inputState, setInputState, onSubmit }) => {
   function addField() {
     setInputState((object) => {
       const key = Object.keys(object).length;

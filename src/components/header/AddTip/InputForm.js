@@ -3,7 +3,7 @@ import MultiInput from "./MultiInput";
 import SelectMulti from "../../../elements/SelectMulti";
 import MainTitle from "./MainTitle";
 
-const InputForm = ({ setTip, newTipId, tagListAll }) => {
+const InputForm = ({setShowNewTip, setTip, newTipId, tagListAll }) => {
 
   const [inputState, setInputState] = useState(() => {
     return { 0: { type: "text", content: null } };
@@ -27,20 +27,20 @@ const InputForm = ({ setTip, newTipId, tagListAll }) => {
 
 
   function parseNewTip() {
-    //add title to state
-    //Parse new tip from state
     const dateRaw = new Date();
     const formattedDate = `${dateRaw.getDate()}/${dateRaw.getMonth()}/${dateRaw.getFullYear()}`;
-    const modelObject = {
+    const newObject = {
       id: newTipId, //string
       date: formattedDate, // string
       tags: tagsState, // array of strings
       title: mainTitle, // string
-      sections: Object.values(inputState)
-      ,
+      sections: Object.values(inputState),
     };
     console.log(Object.values(inputState));
-    console.log(modelObject);
+    console.log(newObject);
+    setTip((object) => {
+      return [...object, newObject]
+    });
   }
 
   return (
@@ -62,6 +62,8 @@ const InputForm = ({ setTip, newTipId, tagListAll }) => {
 
   function onSubmit() {
     parseNewTip();
+    setShowNewTip(false);
+
   }
 };
 export default InputForm;
