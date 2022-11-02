@@ -9,6 +9,7 @@ const InputForm = ({ setTip, newTipId, tagListAll }) => {
     return { 0: { type: "text", content: null } };
   });
   const [tagsState, setTagsState] = useState(() => []);
+  const [mainTitle, setMainTitle] = useState(() => "No Title Yet");
 
 
   function setTags(e){
@@ -18,6 +19,10 @@ const InputForm = ({ setTip, newTipId, tagListAll }) => {
       const newObject = [...tags]
     return newObject
     });
+  }
+
+  function callbackMainTitle(value, index){
+    setMainTitle(value);
   }
 
 
@@ -30,7 +35,7 @@ const InputForm = ({ setTip, newTipId, tagListAll }) => {
       id: newTipId, //string
       date: formattedDate, // string
       tags: tagsState, // array of strings
-      title: "title", // string
+      title: mainTitle, // string
       sections: Object.values(inputState)
       ,
     };
@@ -44,7 +49,7 @@ const InputForm = ({ setTip, newTipId, tagListAll }) => {
         <label htmlFor={newTipId + "MainTitle"}>
           <h2>Main Title</h2>
         </label>name={newTipId + "MainTitle"}
-        <MainTitle name={newTipId + "MainTitle"} id={newTipId + "MainTitle"}/>
+        <MainTitle onInput={callbackMainTitle} name={newTipId + "MainTitle"} id={newTipId + "MainTitle"}/>
         <SelectMulti tagListAll={tagListAll} setTags={setTags}/>
       </div>
       <MultiInput
