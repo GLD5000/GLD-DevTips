@@ -42,8 +42,10 @@ const InputForm = ({ setTip, newTipId, tagListAll }) => {
   return (
     <div className="add-form">
       <div className="form-control">
-        <h2>Main Title</h2>
-        <MainTitle name={newTipId + "MainTitle"} />
+        <label htmlFor={newTipId + "MainTitle"}>
+          <h2>Main Title</h2>
+        </label>name={newTipId + "MainTitle"}
+        <MainTitle name={newTipId + "MainTitle"} id={newTipId + "MainTitle"}/>
         <SelectMulti tagListAll={tagListAll} setTags={setTags}/>
       </div>
       <MultiInput
