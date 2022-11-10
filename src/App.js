@@ -5,8 +5,8 @@ import Tips from "./components/tips/Tips";
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
@@ -23,9 +23,17 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 //Auth (emulator)
-const auth = getAuth(app);
-
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
 function App() {
+
+  const [signedIn, setSignedIn] = useState(() => false);
+  
+  async function  authClickHandler() {
+    if (signedIn) await auth.signOut();
+    if (!signedIn) await signInWithPopup(auth, provider);
+    setSignedIn(() => !signedIn);
+  }
   const [tipList, setTip] = useState([
     {
       id: 1,
@@ -216,6 +224,8 @@ This means they are easy to test, can be composed and can be run in parallel wit
         setTip={setTip}
         newTipId={newTipId}
         tagListAll={tagListAll}
+        authClickHandler={authClickHandler}
+        signedIn={signedIn}
       />
 
       <section className="tip-container">

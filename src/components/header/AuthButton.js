@@ -1,8 +1,7 @@
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-
-export default function AuthButton() {
+import Button from "../../elements/Button"
+export default function AuthButton({authClickHandler, signedIn}) {
+  const text = signedIn? "Sign Out": "Sign In With Google";
   return (
-    <div>AuthButton</div>
+    <Button text={text} clickFunction={authClickHandler}/>
   )
 }

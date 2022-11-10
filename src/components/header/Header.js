@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import TitleFilter from "./TitleFilter";
-import TagSet from "./TagSet";
 import AddTip from "./AddTip/AddTip";
-
+import Filters from "./Filters";
+import AuthButton from "./AuthButton";
+import { useState } from "react";
 
 const Header = ({
   title,
@@ -14,18 +14,22 @@ const Header = ({
   titleSet,
   setTip,
   newTipId,
-  tagListAll
+  tagListAll,
+  authClickHandler,
+  signedIn,
 }) => {
-  
   return (
     <header className="header">
       <h1>{title}</h1>
-      <TitleFilter
+      <AuthButton authClickHandler={authClickHandler} signedIn={signedIn} />
+      <Filters
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         titleSet={titleSet}
+        tagSet={tagSet}
+        setTagState={setTagState}
+        tagState={tagState}
       />
-      <TagSet tagSet={tagSet} setTagState={setTagState} tagState={tagState} />
       <AddTip setTip={setTip} newTipId={newTipId} tagListAll={tagListAll} />
     </header>
   );
