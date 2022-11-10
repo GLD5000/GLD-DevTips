@@ -5,7 +5,7 @@ import Tips from "./components/tips/Tips";
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -24,7 +24,6 @@ const analytics = getAnalytics(app);
 
 //Auth (emulator)
 const auth = getAuth(app);
-connectAuthEmulator(auth, "http://localhost:9099");
 
 function App() {
   const [tipList, setTip] = useState([
