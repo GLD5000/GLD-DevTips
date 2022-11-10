@@ -7,27 +7,28 @@ const MultiInput = ({ inputState, setInputState, onSubmit }) => {
     setInputState((object) => {
       const key = Object.keys(object).length;
       const newPart = { type: "text", content: null };
-      return {...object, [key]: newPart};
+      return { ...object, [key]: newPart };
     });
-
   }
 
   function changeValue(inputObject, index) {
-    setInputState((object) =>{
+    setInputState((object) => {
       const title = inputObject.title || object[index]["title"];
       const type = inputObject.type || object[index]["type"];
       const content = inputObject.content || object[index]["content"];
 
-      return {...object, [index]: {title: title, type: type, content: content}};
+      return {
+        ...object,
+        [index]: { title: title, type: type, content: content },
+      };
     });
   }
-
 
   function makeInputArray() {
     return Object.values(inputState).map((object, index) => {
       const returnObject = (
         <div key={index} className="field-container">
-          <h2>Section {index +1}</h2>
+          <h2>Section {index + 1}</h2>
           <InputButtons
             key={index + "InputButtons"}
             type={object.type}

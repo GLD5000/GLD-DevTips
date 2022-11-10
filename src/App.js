@@ -5,7 +5,7 @@ import Tips from "./components/tips/Tips";
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -15,13 +15,16 @@ const firebaseConfig = {
   storageBucket: "devtips-c1b63.appspot.com",
   messagingSenderId: "616417597533",
   appId: "1:616417597533:web:445aabc894ece7a57495b4",
-  measurementId: "G-D9GBBQW1S0"
+  measurementId: "G-D9GBBQW1S0",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-console.log(analytics);
+
+//Auth (emulator)
+const auth = getAuth(app);
+connectAuthEmulator(auth, "http://localhost:9099");
 
 function App() {
   const [tipList, setTip] = useState([
@@ -203,6 +206,7 @@ This means they are easy to test, can be composed and can be run in parallel wit
   const titleSet = createTitleSet(filteredTipList);
   return (
     <section className="body-container">
+      <label>Test</label>
       <Header
         title="Tip Town 5000"
         searchQuery={searchQuery}
@@ -215,8 +219,8 @@ This means they are easy to test, can be composed and can be run in parallel wit
         newTipId={newTipId}
         tagListAll={tagListAll}
       />
+
       <section className="tip-container">
-        {/* <div style={{color: "white"}}>{searchQuery}</div> */}
         <Tips tipList={filteredTipList} setTagState={setTagState} />
       </section>
     </section>

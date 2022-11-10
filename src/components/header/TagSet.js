@@ -14,7 +14,7 @@ const TagSet = ({ tagSet, setTagState, tagState }) => {
           />
         )
       )}
-      ;{buttonArray}
+      {buttonArray}
     </section>
   );
 };
