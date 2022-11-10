@@ -48,7 +48,7 @@ const InputForm = ({setShowNewTip, setTip, newTipId, tagListAll }) => {
       <div className="form-control">
         <label htmlFor={newTipId + "MainTitle"}>
           <h2>Main Title</h2>
-        </label>name={newTipId + "MainTitle"}
+        </label>
         <MainTitle onInput={callbackMainTitle} name={newTipId + "MainTitle"} id={newTipId + "MainTitle"}/>
         <SelectMulti tagListAll={tagListAll} setTags={setTags}/>
       </div>
