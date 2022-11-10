@@ -15,7 +15,13 @@
       "enabled": true,
       "port": 5300
     },
-    "singleProjectMode": true
+    "singleProjectMode": true,
+    "auth": {
+      "port": 9099
+    },
+    "firestore": {
+      "port": 8080
+    }
   },
   "firestore": {
     "rules": "firestore.rules",
