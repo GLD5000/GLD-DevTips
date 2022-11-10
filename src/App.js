@@ -205,7 +205,6 @@ This means they are easy to test, can be composed and can be run in parallel wit
   const titleSet = createTitleSet(filteredTipList);
   return (
     <section className="body-container">
-      <label>Test</label>
       <Header
         title="Tip Town 5000"
         searchQuery={searchQuery}
