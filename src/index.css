@@ -87,6 +87,7 @@ body {
 .body-container {
   display: grid;
   overflow-y: auto;
+  justify-items: center;
 }
 
 .tip-container {
