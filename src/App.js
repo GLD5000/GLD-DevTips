@@ -32,28 +32,15 @@ function App() {
   async function getDocData(docRef){
     const gotDoc = await getDoc(docRef);
     const tipsObject = await gotDoc.data();
-    console.log(tipsObject);
+    //console.log(tipsObject);
     const tipsArray = Object.values(tipsObject);
-    console.log(tipsArray);
-    return tipsObject;
+    //console.log(tipsArray);
+    exampleArray = tipsArray;
+    return tipsArray;
   }
-  getDocData(tipsDocRef);
-  async function addTipToDb(docRef, object){
-      await updateDoc(docRef, {
-        [object.id]: object
-  });
-  }
-
-  const [signedIn, setSignedIn] = useState(() => false);
-
-  async function authClickHandler() {
-    if (signedIn) await auth.signOut();
-    if (!signedIn) await signInWithPopup(auth, provider);
-    setSignedIn(() => !signedIn);
-  }
-  const [tipList, setTip] = useState([
+  let exampleArray = [
     {
-      id: 1,
+      id: "0001",
       date: "11th Oct 2022",
       tags: ["Github", "Bash", "Beginner", "VSCode"],
       title: "How to clone a Repo from Github",
@@ -65,8 +52,8 @@ function App() {
         {
           type: "text",
           content: `##This makes a linked copy of a repo from your Github Account to your computer.
-
-The above command will clone or copy the repo to your default path.`,
+          
+          The above command will clone or copy the repo to your default path.`,
         },
         {
           type: "hint",
@@ -90,97 +77,116 @@ The above command will clone or copy the repo to your default path.`,
       ],
     },
     {
-      id: 2,
+      id: "0002",
       date: "4th Feb 2022",
       tags: ["JavaScript", "How-To"],
       title: "Crockford Objects",
       sections: [
         {
           title: "Test Title",
-
+          
           type: "code",
           content: `function createObject(parameterA, parameterB) {
-  
-  function concatenateValues() {
+            
+            function concatenateValues() {
     return \`\${parameterA}\${parameterB}\`;
   }
-      
+  
   return {
     parameterA,
     parameterB,
     concatenateValues,
   };
 }
-      
-const object = createObject("A", "B");
-      `,
-        },
-        {
-          type: "hint",
-          content:
-            "You can also add 'Object.freeze' to your return object to make it immutable!",
-        },
-        {
-          type: "code",
-          content: `return Object.freeze({
-  parameterA,
-  parameterB,
-  concatenateValues,
-});`,
-        },
-      ],
-    },
-    {
-      id: 3,
-      date: "4th Feb 2022",
-      tags: ["JavaScript", "Nomenclature"],
-      title: "Parameters Vs Arguments",
-      sections: [
-        {
-          title: "Parameters",
-          type: "text",
-          content: "These are the names for values passed into a function.",
-        },
-        {
-          title: "Arguments",
-          type: "text",
-          content: "These are the actual values passed into a function.",
-        },
-        {
-          type: "table",
-          title: "Test Title",
 
-          content: [
-            ["Parameter", "Argument", "Variable", "Constant"],
-            [
-              "Name / Placeholder for values of a function.",
-              "Actual value given to a function.",
-              "A named reference to a value that can change.",
-              "A value that cannot change.",
-            ],
-          ],
-        },
-      ],
+const object = createObject("A", "B");
+`,
+},
+{
+  type: "hint",
+  content:
+  "You can also add 'Object.freeze' to your return object to make it immudata!",
+},
+{
+  type: "code",
+  content: `return Object.freeze({
+    parameterA,
+    parameterB,
+    concatenateValues,
+  });`,
+},
+],
+},
+{
+  id: "0003",
+  date: "4th Feb 2022",
+  tags: ["JavaScript", "Nomenclature"],
+  title: "Parameters Vs Arguments",
+  sections: [
+    {
+      title: "Parameters",
+      type: "text",
+      content: "These are the names for values passed into a function.",
     },
     {
-      id: 4,
-      title: "Pure Functions",
-      date: "4th Feb 2022",
-      tags: ["JavaScript", "Fundamentals"],
-      sections: [
+      title: "Arguments",
+      type: "text",
+      content: "These are the actual values passed into a function.",
+    },
+    {
+      type: "table",
+      title: "Test Title",
+      
+      content: 
+`Parameter, Argument, Variable, Constant
+Name / Placeholder for values of a function., Actual value given to a function., A named reference to a value that can change., A value that cannot change.`
+    },
+  ],
+},
+{
+  id: "0004",
+  title: "Pure Functions",
+  date: "4th Feb 2022",
+  tags: ["JavaScript", "Fundamentals"],
+  sections: [
         {
           type: "text",
           content: `Similar to mathematical functions. 
-
-A given input will always return the same output. 
-
-They only return values and do not mutate objects or create side effects. 
-
-This means they are easy to test, can be composed and can be run in parallel without blocking each other.`,
+          
+          A given input will always return the same output. 
+          
+          They only return values and do not mutate objects or create side effects. 
+          
+          This means they are easy to test, can be composed and can be run in parallel without blocking each other.`,
         },
       ],
     },
-  ]);
+  ];
+  
+  const [tipList, setTip] = useState(exampleArray);
+
+  async function setTipHandler(){
+   const array = await getDocData(tipsDocRef);
+   setTip(() => array);
+  }
+  if (tipList === exampleArray) {
+    setTipHandler();
+  }
+
+  async function addTipToDb(docRef, object){
+    await updateDoc(docRef, {
+      [object.id]: object
+    });
+  }
+  //addTipToDb(tipsDocRef, exampleArray[2]);
+  const [signedIn, setSignedIn] = useState(() => false);
+  
+  async function authClickHandler() {
+    if (signedIn) await auth.signOut();
+    if (!signedIn) await signInWithPopup(auth, provider);
+    setSignedIn(() => !signedIn);
+  }
+
   const tagList = Object.fromEntries([
     ...new Set(tipList.flatMap((tip) => tip.tags).map((x) => [x, "visible"])),
   ]);

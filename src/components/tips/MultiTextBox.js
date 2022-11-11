@@ -11,7 +11,7 @@ const MultiTextBox = ({ object }) => {
   const typeHandler = {
     code: <CodeBox code={content} />,
     text: <TextBox text={content} />,
-    table: <Table dataArray={content} />,
+    table: <Table data={content} />,
     hint: <Hint hint={content} />,
   };
   if (hasTitle) {
