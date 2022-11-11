@@ -76,13 +76,17 @@ body {
   width: 100%;
   background-color: #585a5d;
 }
-.body-container {
+.page-container {
   display: grid;
-  grid-template-rows: auto 1fr 64px;
+  grid-template-rows:  auto 1fr 64px;
   width: 100%;
   height: 100vh;
   border: 1px solid rgb(53, 53, 53);
   border-radius: 5px;
+}
+.body-container {
+  display: grid;
+  overflow-y: auto;
 }
 
 .tip-container {
@@ -90,7 +94,6 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
-  overflow: auto;
 }
 
 .header {
@@ -101,7 +104,7 @@ body {
   flex-wrap: wrap;
 }
 
-.filter-container{
+.filter-container {
   display: flex;
 }
 

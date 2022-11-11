@@ -2,11 +2,16 @@ import { useState } from "react";
 
 import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
-
+import AddTip from "./components/header/AddTip/AddTip";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -25,22 +30,21 @@ const app = initializeApp(firebaseConfig);
 //Firestore
 const database = getFirestore(app);
 const tipsDocRef = doc(database, "devtips", "tips");
-//Auth 
+//Auth
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
-
 function App() {
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      setSignedIn(() => true);
+      const uid = user.uid;
+      console.log(uid);
     } else {
-      setSignedIn(() => false);
+      console.log("uid not available");
     }
   });
-  
-  async function getDocData(docRef){
+
+  async function getDocData(docRef) {
     const gotDoc = await getDoc(docRef);
     const tipsObject = await gotDoc.data();
     //console.log(tipsObject);
@@ -95,7 +99,7 @@ function App() {
       sections: [
         {
           title: "Test Title",
-          
+
           type: "code",
           content: `function createObject(parameterA, parameterB) {
             
@@ -112,54 +116,53 @@ function App() {
 
 const object = createObject("A", "B");
 `,
-},
-{
-  type: "hint",
-  content:
-  "You can also add 'Object.freeze' to your return object to make it immudata!",
-},
-{
-  type: "code",
-  content: `return Object.freeze({
+        },
+        {
+          type: "hint",
+          content:
+            "You can also add 'Object.freeze' to your return object to make it immudata!",
+        },
+        {
+          type: "code",
+          content: `return Object.freeze({
     parameterA,
     parameterB,
     concatenateValues,
   });`,
-},
-],
-},
-{
-  id: "0003",
-  date: "4th Feb 2022",
-  tags: ["JavaScript", "Nomenclature"],
-  title: "Parameters Vs Arguments",
-  sections: [
-    {
-      title: "Parameters",
-      type: "text",
-      content: "These are the names for values passed into a function.",
+        },
+      ],
     },
     {
-      title: "Arguments",
-      type: "text",
-      content: "These are the actual values passed into a function.",
+      id: "0003",
+      date: "4th Feb 2022",
+      tags: ["JavaScript", "Nomenclature"],
+      title: "Parameters Vs Arguments",
+      sections: [
+        {
+          title: "Parameters",
+          type: "text",
+          content: "These are the names for values passed into a function.",
+        },
+        {
+          title: "Arguments",
+          type: "text",
+          content: "These are the actual values passed into a function.",
+        },
+        {
+          type: "table",
+          title: "Test Title",
+
+          content: `Parameter, Argument, Variable, Constant
+Name / Placeholder for values of a function., Actual value given to a function., A named reference to a value that can change., A value that cannot change.`,
+        },
+      ],
     },
     {
-      type: "table",
-      title: "Test Title",
-      
-      content: 
-`Parameter, Argument, Variable, Constant
-Name / Placeholder for values of a function., Actual value given to a function., A named reference to a value that can change., A value that cannot change.`
-    },
-  ],
-},
-{
-  id: "0004",
-  title: "Pure Functions",
-  date: "4th Feb 2022",
-  tags: ["JavaScript", "Fundamentals"],
-  sections: [
+      id: "0004",
+      title: "Pure Functions",
+      date: "4th Feb 2022",
+      tags: ["JavaScript", "Fundamentals"],
+      sections: [
         {
           type: "text",
           content: `Similar to mathematical functions. 
@@ -173,28 +176,34 @@ Name / Placeholder for values of a function., Actual value given to a function.,
       ],
     },
   ];
-  
+
   const [tipList, setTip] = useState(exampleArray);
 
-  async function setTipHandler(){
-   const array = await getDocData(tipsDocRef);
-   setTip(() => array);
+  async function setTipHandler() {
+    const array = await getDocData(tipsDocRef);
+    setTip(() => array);
   }
   if (tipList === "exampleArray") {
     setTipHandler();
   }
 
-  async function addTipToDb(object){
+  async function addTipToDb(object) {
     if (!signedIn) return;
     await updateDoc(tipsDocRef, {
-      [object.id]: object
+      [object.id]: object,
     });
   }
-  const [signedIn, setSignedIn] = useState(() => !auth.isAnonymous);
+  const [signedIn, setSignedIn] = useState(() => false);
 
   async function authClickHandler() {
-    if (signedIn) await auth.signOut();
-    if (!signedIn) await signInWithPopup(auth, provider);
+    console.log("click");
+    if (signedIn) {
+      await auth.signOut();
+      setSignedIn(() => false);
+    } else if (!signedIn) {
+      await signInWithPopup(auth, provider);
+      setSignedIn(() => true);
+    }
   }
 
   const tagList = Object.fromEntries([
@@ -208,7 +217,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
     return number.toString(10).padStart(4, "0");
   }
 
-  function makeNewTipId(){
+  function makeNewTipId() {
     const number = tipList.length + 1;
     const paddedNumber = padIdNumber(number);
     return paddedNumber;
@@ -254,7 +263,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   const tagSet = createTagSet(filteredTipList);
   const titleSet = createTitleSet(filteredTipList);
   return (
-    <section className="body-container">
+    <section className="page-container">
       <Header
         title="Tip Town 5000"
         searchQuery={searchQuery}
@@ -270,9 +279,17 @@ Name / Placeholder for values of a function., Actual value given to a function.,
         signedIn={signedIn}
         addTipToDb={addTipToDb}
       />
+      <section className="body-container">
+        <AddTip
+          setTip={setTip}
+          newTipId={newTipId}
+          tagListAll={tagListAll}
+          addTipToDb={addTipToDb}
+        />
+        <section className="tip-container">
+          <Tips tipList={filteredTipList} setTagState={setTagState} />
+        </section>
 
-      <section className="tip-container">
-        <Tips tipList={filteredTipList} setTagState={setTagState} />
       </section>
     </section>
   );

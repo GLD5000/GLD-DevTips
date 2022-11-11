@@ -35,7 +35,6 @@ const InputForm = ({ setShowAddTipForm, setTip, newTipId, tagListAll, addTipToDb
     };
     console.log(Object.values(inputState));
     console.log(newObject);
-    addTipToDb(newObject);
     setTip((object) => {
       return [...object, newObject];
     });
