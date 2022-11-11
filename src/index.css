@@ -95,11 +95,10 @@ body {
 .tip-container {
   padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));  
-  grid-template-rows: repeat(auto-fit, 260px);  
-  grid-gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
   width: 100%;
-  overflow: hidden;
+  max-width: 1200px;
 }
 
 .header {
