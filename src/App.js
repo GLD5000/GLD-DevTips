@@ -29,15 +29,151 @@ const tipsDocRef = doc(database, "devtips", "tips");
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 function App() {
-
+let tipsObject;
   async function getDocData(docRef){
     const gotDoc = await getDoc(docRef);
-
-    console.log(gotDoc.data());
-    
+    tipsObject = await gotDoc.data();
+    console.log(tipsObject);
+    return tipsObject;
   }
-  getDocData(tipsDocRef);
 
+  async function addTipToDb(docRef){
+    const testObject = [
+      {
+        id: 1,
+        date: "11th Oct 2022",
+        tags: ["Github", "Bash", "Beginner", "VSCode"],
+        title: "How to clone a Repo from Github",
+        sections: [
+          {
+            type: "code",
+            content: `git clone [Your Repo Url copied from GitHub]`,
+          },
+          {
+            type: "text",
+            content: `##This makes a linked copy of a repo from your Github Account to your computer.
+  
+  The above command will clone or copy the repo to your default path.`,
+          },
+          {
+            type: "hint",
+            content: `Within VSCode you can change the default path setting in your preferences by searching 'Git Clone' and editing your 'settings.json'`,
+          },
+          {
+            type: "text",
+            content: `#You can open the cloned repo within VSCode by using the open folder option from the 'File' menu.`,
+          },
+          {
+            type: "text",
+            content: `#[Tester T](ext Containing a {link}[**Bold** _**bolditalic**_ of link](https://www.google.co.uk/){link} {link}[Text of link](https://www.google.com/){link}.
+            
+            n. ordered  list item
+            n. ordered list item
+            n. ordered list item
+            - bullet points
+            - bullet points
+            - bullet points`,
+          },
+        ],
+      },
+      {
+        id: 2,
+        date: "4th Feb 2022",
+        tags: ["JavaScript", "How-To"],
+        title: "Crockford Objects",
+        sections: [
+          {
+            title: "Test Title",
+  
+            type: "code",
+            content: `function createObject(parameterA, parameterB) {
+    
+    function concatenateValues() {
+      return \`\${parameterA}\${parameterB}\`;
+    }
+        
+    return {
+      parameterA,
+      parameterB,
+      concatenateValues,
+    };
+  }
+        
+  const object = createObject("A", "B");
+        `,
+          },
+          {
+            type: "hint",
+            content:
+              "You can also add 'Object.freeze' to your return object to make it immutable!",
+          },
+          {
+            type: "code",
+            content: `return Object.freeze({
+    parameterA,
+    parameterB,
+    concatenateValues,
+  });`,
+          },
+        ],
+      },
+      {
+        id: 3,
+        date: "4th Feb 2022",
+        tags: ["JavaScript", "Nomenclature"],
+        title: "Parameters Vs Arguments",
+        sections: [
+          {
+            title: "Parameters",
+            type: "text",
+            content: "These are the names for values passed into a function.",
+          },
+          {
+            title: "Arguments",
+            type: "text",
+            content: "These are the actual values passed into a function.",
+          },
+          {
+            type: "table",
+            title: "Test Title",
+  
+            content: 
+`Parameter, Argument, Variable, Constant,
+Name / Placeholder for values of a function., Actual value given to a function., A named reference to a value that can change., A value that cannot change.`
+          },
+        ],
+      },
+      {
+        id: 4,
+        title: "Pure Functions",
+        date: "4th Feb 2022",
+        tags: ["JavaScript", "Fundamentals"],
+        sections: [
+          {
+            type: "text",
+            content: `Similar to mathematical functions. 
+  
+  A given input will always return the same output. 
+  
+  They only return values and do not mutate objects or create side effects. 
+  
+  This means they are easy to test, can be composed and can be run in parallel without blocking each other.`,
+          },
+        ],
+      },
+    ];
+    await testObject.forEach(object => {
+      const paddedId = padIdNumber(object);
+      updateDoc(docRef, {
+        [paddedId]: object
+  })});
+
+    function padIdNumber(object) {
+      return object.id.toString(10).padStart(4, "0");
+    }
+  }
+  addTipToDb(tipsDocRef);
+  getDocData(tipsDocRef);
   const [signedIn, setSignedIn] = useState(() => false);
 
   async function authClickHandler() {
@@ -182,7 +318,17 @@ This means they are easy to test, can be composed and can be run in parallel wit
   const [tagState, setTagState] = useState(() => {
     return tagList;
   }); // Tip init functions only run once
-  const newTipId = tipList.length + 1;
+  function padIdNumber(number) {
+    return number.toString(10).padStart(4, "0");
+  }
+
+  function makeNewTipId(){
+    const number = tipList.length + 1;
+    const paddedNumber = padIdNumber(number);
+    return paddedNumber;
+  }
+  const newTipId = makeNewTipId();
+  console.log(newTipId);  
   const [searchQuery, setSearchQuery] = useState("");
   function testtagState(tagState, tagArray) {
     const tagStateValue = Object.values(tagState);
