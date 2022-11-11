@@ -29,20 +29,21 @@ const tipsDocRef = doc(database, "devtips", "tips");
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 function App() {
-let tipsObject;
   async function getDocData(docRef){
     const gotDoc = await getDoc(docRef);
-    tipsObject = await gotDoc.data();
+    const tipsObject = await gotDoc.data();
     console.log(tipsObject);
+    const tipsArray = Object.values(tipsObject);
+    console.log(tipsArray);
     return tipsObject;
   }
-
+  getDocData(tipsDocRef);
   async function addTipToDb(docRef, object){
       await updateDoc(docRef, {
         [object.id]: object
   });
   }
-  getDocData(tipsDocRef);
+
   const [signedIn, setSignedIn] = useState(() => false);
 
   async function authClickHandler() {
