@@ -34,8 +34,6 @@ const InputForm = ({ setShowAddTipForm, setTip, newTipId, tagListAll, addTipToDb
       title: mainTitle, // string
       sections: Object.values(inputState),
     };
-    console.log(Object.values(inputState));
-    console.log(newObject);
     if (signedIn)  addTipToDb(newObject);
     setTip((object) => {
       return [...object, newObject];

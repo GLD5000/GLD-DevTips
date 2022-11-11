@@ -5,7 +5,6 @@ import { useState } from "react";
 const AddTip = ({ setTip, newTipId, tagListAll, addTipToDb, signedIn }) => {
   const [showAddTipForm, setShowAddTipForm] = useState(() => false);
   function onClickAdd() {
-    console.log(newTipId);
     setShowAddTipForm((state) => !state);
   }
 

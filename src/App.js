@@ -35,14 +35,14 @@ const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
 function App() {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-      console.log(uid);
-    } else {
-      console.log("uid not available");
-    }
-  });
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     const uid = user.uid;
+  //     console.log(uid);
+  //   } else {
+  //     console.log("uid not available");
+  //   }
+  // });
 
   async function getDocData(docRef) {
     const gotDoc = await getDoc(docRef);
@@ -188,7 +188,6 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   }
 
   async function addTipToDb(object) {
-    console.log(object);
     if (!signedIn) return;
     await updateDoc(tipsDocRef, {
       [object.id]: object,
@@ -197,7 +196,6 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   const [signedIn, setSignedIn] = useState(() => false);
 
   async function authClickHandler() {
-    console.log("click");
     if (signedIn) {
       await auth.signOut();
       setSignedIn(() => false);
