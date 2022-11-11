@@ -7,6 +7,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
@@ -21,11 +22,22 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const db = getFirestore(app);
+//Firestore
+const database = getFirestore(app);
+const tipsDocRef = doc(database, "devtips", "tips");
 //Auth (emulator)
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 function App() {
+
+  async function getDocData(docRef){
+    const gotDoc = await getDoc(docRef);
+
+    console.log(gotDoc.data());
+    
+  }
+  getDocData(tipsDocRef);
+
   const [signedIn, setSignedIn] = useState(() => false);
 
   async function authClickHandler() {
