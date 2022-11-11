@@ -6,8 +6,8 @@ import Tips from "./components/tips/Tips";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
@@ -21,14 +21,25 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+//const analytics = getAnalytics(app);
 //Firestore
 const database = getFirestore(app);
 const tipsDocRef = doc(database, "devtips", "tips");
-//Auth (emulator)
+//Auth 
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
+
+
 function App() {
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setSignedIn(() => true);
+    } else {
+      setSignedIn(() => false);
+    }
+  });
+  
   async function getDocData(docRef){
     const gotDoc = await getDoc(docRef);
     const tipsObject = await gotDoc.data();
@@ -169,22 +180,21 @@ Name / Placeholder for values of a function., Actual value given to a function.,
    const array = await getDocData(tipsDocRef);
    setTip(() => array);
   }
-  if (tipList === exampleArray) {
+  if (tipList === "exampleArray") {
     setTipHandler();
   }
 
-  async function addTipToDb(docRef, object){
-    await updateDoc(docRef, {
+  async function addTipToDb(object){
+    if (!signedIn) return;
+    await updateDoc(tipsDocRef, {
       [object.id]: object
     });
   }
-  //addTipToDb(tipsDocRef, exampleArray[2]);
-  const [signedIn, setSignedIn] = useState(() => false);
-  
+  const [signedIn, setSignedIn] = useState(() => !auth.isAnonymous);
+
   async function authClickHandler() {
     if (signedIn) await auth.signOut();
     if (!signedIn) await signInWithPopup(auth, provider);
-    setSignedIn(() => !signedIn);
   }
 
   const tagList = Object.fromEntries([
@@ -258,6 +268,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
         tagListAll={tagListAll}
         authClickHandler={authClickHandler}
         signedIn={signedIn}
+        addTipToDb={addTipToDb}
       />
 
       <section className="tip-container">

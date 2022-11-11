@@ -17,6 +17,7 @@ const Header = ({
   tagListAll,
   authClickHandler,
   signedIn,
+  addTipToDb
 }) => {
   return (
     <header className="header">
@@ -30,7 +31,7 @@ const Header = ({
         setTagState={setTagState}
         tagState={tagState}
       />
-      <AddTip setTip={setTip} newTipId={newTipId} tagListAll={tagListAll} />
+      <AddTip setTip={setTip} newTipId={newTipId} tagListAll={tagListAll} addTipToDb={addTipToDb} />
     </header>
   );
 };

@@ -3,7 +3,7 @@ import MultiInput from "./MultiInput";
 import SelectMulti from "../../../elements/SelectMulti";
 import MainTitle from "./MainTitle";
 
-const InputForm = ({ setShowAddTipForm, setTip, newTipId, tagListAll }) => {
+const InputForm = ({ setShowAddTipForm, setTip, newTipId, tagListAll, addTipToDb }) => {
   const [inputState, setInputState] = useState(() => {
     return { 0: { type: "text", content: null } };
   });
@@ -35,6 +35,7 @@ const InputForm = ({ setShowAddTipForm, setTip, newTipId, tagListAll }) => {
     };
     console.log(Object.values(inputState));
     console.log(newObject);
+    addTipToDb(newObject);
     setTip((object) => {
       return [...object, newObject];
     });
