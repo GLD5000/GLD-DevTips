@@ -2,7 +2,7 @@ import Button from "../../../elements/Button";
 import InputForm from "./InputForm";
 import { useState } from "react";
 
-const AddTip = ({ setTip, newTipId, tagListAll, addTipToDb }) => {
+const AddTip = ({ setTip, newTipId, tagListAll, addTipToDb, signedIn }) => {
   const [showAddTipForm, setShowAddTipForm] = useState(() => false);
   function onClickAdd() {
     console.log(newTipId);
@@ -25,6 +25,8 @@ const AddTip = ({ setTip, newTipId, tagListAll, addTipToDb }) => {
             newTipId={newTipId}
             tagListAll={tagListAll}
             addTipToDb={addTipToDb}
+            signedIn={signedIn}
+
           />
         </>
       ) : (

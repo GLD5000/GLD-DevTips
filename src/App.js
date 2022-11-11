@@ -188,6 +188,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   }
 
   async function addTipToDb(object) {
+    console.log(object);
     if (!signedIn) return;
     await updateDoc(tipsDocRef, {
       [object.id]: object,
@@ -285,6 +286,8 @@ Name / Placeholder for values of a function., Actual value given to a function.,
           newTipId={newTipId}
           tagListAll={tagListAll}
           addTipToDb={addTipToDb}
+          signedIn={signedIn}
+
         />
         <section className="tip-container">
           <Tips tipList={filteredTipList} setTagState={setTagState} />
