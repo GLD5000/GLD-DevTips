@@ -53,6 +53,7 @@ const MultiInput = ({ inputState, setInputState, onSubmit }) => {
 
   return (
     <>
+      <h2>Add sections</h2>
       {inputArray}
       <Button
         key="addField"
@@ -63,9 +64,9 @@ const MultiInput = ({ inputState, setInputState, onSubmit }) => {
       />
       <Button
         key="saveTip"
-        color="black"
-        backgroundColor="white"
-        text="Save Your Tip"
+        color="white"
+        backgroundColor="green"
+        text="Submit to database"
         clickFunction={onSubmit}
       />
     </>

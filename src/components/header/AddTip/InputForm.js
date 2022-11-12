@@ -11,14 +11,6 @@ const InputForm = ({ setShowAddTipForm, setTip, newTipId, tagListAll, addTipToDb
   const [tagsState, setTagsState] = useState(() => []);
   const [mainTitle, setMainTitle] = useState(() => "No Title Yet");
 
-  function setTags(e) {
-    const collection = e.target.selectedOptions;
-    const tags = Object.values(collection).map((x) => x.value);
-    setTagsState((object) => {
-      const newObject = [...tags];
-      return newObject;
-    });
-  }
 
   function callbackMainTitle(value, index) {
     setMainTitle(value);
@@ -44,14 +36,14 @@ const InputForm = ({ setShowAddTipForm, setTip, newTipId, tagListAll, addTipToDb
     <div className="add-form">
       <div className="form-control">
         <label htmlFor={newTipId + "MainTitle"}>
-          <h2>Main Title</h2>
+          <h2>Add Title</h2>
         </label>
         <MainTitle
           onInput={callbackMainTitle}
           name={newTipId + "MainTitle"}
           id={newTipId + "MainTitle"}
         />
-        <SelectMulti tagListAll={tagListAll} setTags={setTags} />
+        <SelectMulti tagListAll={tagListAll} setTagsState={setTagsState} />
       </div>
       <MultiInput
         inputState={inputState}
