@@ -9,7 +9,7 @@ const AddTip = ({ setTip, newTipId, tagListAll, addTipToDb, signedIn }) => {
   }
 
   return (
-    <div>
+    <div className="add-tip-container">
       {showAddTipForm ? (
         <>
           <Button
