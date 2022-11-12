@@ -1,14 +1,24 @@
 import MultiTextBoxes from "./MultiTextBoxes";
 import TipTitle from "../../elements/TipTitle";
 import Tags from "./Tags";
+import { useState } from "react";
 
 const Tip = ({ tip, setTagState }) => {
-  return (
+  const [minimised, setMinimised] = useState(() => true);
+  function toggleMinimised(){
+    setMinimised(!minimised);
+  }
+  return ( minimised?
     <div className="tip">
-      <TipTitle title={tip.title} />
+      <TipTitle title={tip.title} toggleMinimised={toggleMinimised} />
       <Tags tagArray={tip.tags} setTagState={setTagState} />
-      <MultiTextBoxes tip={tip} />
-    </div>
+    </div> :
+        <div className="tip">
+        <TipTitle title={tip.title} toggleMinimised={toggleMinimised} />
+        <Tags tagArray={tip.tags} setTagState={setTagState} />
+        <MultiTextBoxes tip={tip} />
+      </div>
+  
   );
 };
 
