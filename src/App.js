@@ -3,6 +3,8 @@ import { useState } from "react";
 import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
+import Filters from "./components/header/Filters";
+
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
@@ -279,6 +281,15 @@ Name / Placeholder for values of a function., Actual value given to a function.,
         addTipToDb={addTipToDb}
       />
       <section className="body-container">
+      <Filters
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        titleSet={titleSet}
+        tagSet={tagSet}
+        setTagState={setTagState}
+        tagState={tagState}
+      />
+
         <AddTip
           setTip={setTip}
           newTipId={newTipId}

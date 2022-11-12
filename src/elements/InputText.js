@@ -32,6 +32,7 @@ const InputText = ({
 
   return (
     <input
+      className="input-text"
       type={type}
       onFocus={(e) => e.target.select()}
       onChange={(e) => debouncedHandler(e.target.value)}

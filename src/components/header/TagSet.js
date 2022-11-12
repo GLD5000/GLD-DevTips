@@ -4,7 +4,7 @@ const TagSet = ({ tagSet, setTagState, tagState }) => {
   const buttonArray = [];
   return (
       <label>
-        <h2>Filter tips by clicking a tag</h2>
+        <h2>Filter by clicking tags</h2>
     <section className="filter-container">
         
         {tagSet.forEach((tag, key) =>

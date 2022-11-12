@@ -23,14 +23,6 @@ const Header = ({
     <header className="header">
       <h1>{title}</h1>
       <AuthButton authClickHandler={authClickHandler} signedIn={signedIn} />
-      <Filters
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        titleSet={titleSet}
-        tagSet={tagSet}
-        setTagState={setTagState}
-        tagState={tagState}
-      />
     </header>
   );
 };

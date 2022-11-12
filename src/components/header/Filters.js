@@ -10,13 +10,13 @@ export default function Filters({
   tagState,
 }) {
   return (
-    <div className="filter-container">
+    <section className="filter-section">
       <TitleFilter
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         titleSet={titleSet}
       />
       <TagSet tagSet={tagSet} setTagState={setTagState} tagState={tagState} />
-    </div>
+    </section>
   );
 }

@@ -126,9 +126,6 @@ body {
   flex-wrap: wrap;
 }
 
-.filter-container {
-  display: flex;
-}
 
 .btn {
   display: inline-block;
@@ -196,10 +193,25 @@ li {
   width: 100%;
   margin-bottom: auto;
 }
-.filter-container {
-  display: flex;
+.filter-section{
+  padding: 5rem;
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto auto;
   gap: 0.5rem;
-  flex-wrap: wrap;
+}
+
+.titleFilter-container{
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 0.5rem;
+}
+
+.filter-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 130px);
+  gap: 0.5rem;
   padding: 1rem;
   justify-content: space-evenly;
   align-items: center;
@@ -287,6 +299,11 @@ h1 {
 .input-buttons {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min-content, 50%));
+}
+
+.input-text{
+  width: 100%;
+  height: 2rem;
 }
 select {
   width: 100%;
