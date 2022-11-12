@@ -4,16 +4,20 @@ import TitleButtons from "./TitleButtons";
 const TitleFilter = ({ setSearchQuery, titleSet, searchQuery }) => {
   const listId = "searchTitleList";
   return (
-    <div className="titleFilter-container">
-      <InputText
-        placeholder="Search Topic..."
-        onInput={setSearchQuery}
-        type="search"
-        value={searchQuery}
-        listId={listId}
-      />
-      <TitleButtons titleSet={titleSet} listId={listId} />
-    </div>
+    <label>
+        <h2>Search by title</h2>
+        <div className="titleFilter-container">
+        <InputText
+          placeholder="Type or select a title..."
+          onInput={setSearchQuery}
+          type="search"
+          value={searchQuery}
+          listId={listId}
+        />
+        <TitleButtons titleSet={titleSet} listId={listId} />
+      </div>
+
+      </label>
   );
 };
 
