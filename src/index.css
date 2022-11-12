@@ -8,6 +8,7 @@
   border-radius: 7px;
   font-family: "Source Code Pro", monospace;
   white-space: pre;
+  overflow-x: auto;
 }
 .code::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -25,17 +26,30 @@
   color: rgb(140, 241, 124);
 }
 
-.table-wrapper,
-.code,
 .hint,
 .text,
-.table,
 .titleInput {
   padding: 12px;
   width: 100%;
   height: fit-content;
   overflow: hidden;
   margin: 0;
+}
+
+.table-wrapper,
+.code,
+.table
+ {
+  padding: 12px;
+  width: 100%;
+  height: fit-content;
+  overflow-x: auto;
+  margin: 0;
+}
+
+.table {
+  overflow-x: auto;
+
 }
 
 textarea {
