@@ -13,11 +13,15 @@ const InputForm = ({
   addObjectToInputFormState,
   inputFormState
 }) => {
+  const inputFormHasState = inputFormState !== null;
+  const currentId = inputFormHasState? inputFormState.id: newTipId;
+  console.log("Current ID:" + currentId);
+  if (inputFormHasState) console.log(inputFormState);
   const [inputState, setInputState] = useState(() => {
     return { 0: { type: "text", content: null } };
   });
-  const [tagsState, setTagsState] = useState(() => []);
-  const [mainTitle, setMainTitle] = useState(() => "No Title Yet");
+  const [tagsState, setTagsState] = useState(() => inputFormState?.tags || []);
+  const [mainTitle, setMainTitle] = useState(() => inputFormState?.title || "No Title Yet");
 
   function callbackMainTitle(value, index) {
     setMainTitle(value);
@@ -29,18 +33,19 @@ const InputForm = ({
       dateRaw.getMonth() + 1
     }/${dateRaw.getFullYear()}`;
     const newObject = {
-      id: newTipId, //string
+      id: currentId, //string
       date: formattedDate, // string
-      tags: tagsState, // array of strings
+      tags: [...new Set(tagsState)], // array of strings
       title: mainTitle, // string
       sections: Object.values(inputState),
     };
     signedIn? addTipToDb(newObject): addObjectToInputFormState(newObject);
     setTip((object) => {
-      return [...object, newObject];
+      const copyObject = {...object};
+      copyObject[newObject.id]= newObject;
+      return copyObject;
     });
   }
-  const inputFormHasState = inputFormState !== null;
   console.log("Form has state = " + inputFormHasState);
   return ( 
     <div className="add-form">
@@ -49,17 +54,20 @@ const InputForm = ({
           <h2>Add Title</h2>
           <MainTitle
             onInput={callbackMainTitle}
-            name={newTipId + "MainTitle"}
-            id={newTipId + "MainTitle"}
+            name={currentId + "MainTitle"}
+            id={currentId + "MainTitle"}
             defaultValue={inputFormState?.title || ""}
             />
         </label>
-        <SelectMulti tagListAll={tagListAll} setTagsState={setTagsState} defaultValue={inputFormState?.tags.join(", ") || ""} />
+        <SelectMulti tagListAll={tagListAll} setTagsState={setTagsState}  inputFormState={inputFormState} />
       </div>
       <MultiInput
         inputState={inputState}
         setInputState={setInputState}
         onSubmit={onSubmit}
+        addObjectToInputFormState={addObjectToInputFormState}
+        inputFormState={inputFormState}
+        onReset={onReset}
       />
     </div>
   );
@@ -68,5 +76,11 @@ const InputForm = ({
     parseNewTip();
     setShowAddTipForm(false);
   }
+  function onReset(){
+    addObjectToInputFormState(null);
+    setShowAddTipForm(false);
+  }
+
+
 };
 export default InputForm;

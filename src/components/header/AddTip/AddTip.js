@@ -10,6 +10,10 @@ const AddTip = ({ setTip, newTipId, tagListAll, addTipToDb, signedIn }) => {
   const [inputFormState, setInputFormState] = useState(() => null);
 
   function addObjectToInputFormState(object){
+    if (object === null) {
+      setInputFormState(() => null)
+    return
+  };
     setInputFormState(() => {
       const newObject = {...object};
       return newObject;
@@ -32,7 +36,7 @@ const AddTip = ({ setTip, newTipId, tagListAll, addTipToDb, signedIn }) => {
           <InputForm
             setShowAddTipForm={onClickAdd}
             setTip={setTip}
-            newTipId={inputFormState?.id || newTipId}
+            newTipId={newTipId}
             tagListAll={tagListAll}
             addTipToDb={addTipToDb}
             signedIn={signedIn}

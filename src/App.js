@@ -53,7 +53,7 @@ function App() {
     const tipsArray = Object.values(tipsObject);
     //console.log(tipsArray);
     exampleArray = tipsArray;
-    return tipsArray;
+    return tipsObject;
   }
   let exampleArray = [
     {
@@ -179,7 +179,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
     },
   ];
 
-  const [tipList, setTip] = useState(exampleArray);
+  const [tipList, setTip] = useState(Object.fromEntries(exampleArray.map(x => [x.id, x])));
 
   async function setTipHandler() {
     const array = await getDocData(tipsDocRef);
@@ -219,7 +219,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   }
 
   const tagList = Object.fromEntries([
-    ...new Set(tipList.flatMap((tip) => tip.tags).map((x) => [x, "visible"])),
+    ...new Set(Object.values(tipList).flatMap((tip) => tip.tags).map((x) => [x, "visible"])),
   ]);
   const tagListAll = Object.keys(tagList);
   const [tagState, setTagState] = useState(() => {
@@ -230,7 +230,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   }
 
   function makeNewTipId() {
-    const number = tipList.length + 1;
+    const number = Object.values(tipList).length + 1;
     const paddedNumber = padIdNumber(number);
     return paddedNumber;
   }
@@ -256,7 +256,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
     );
   }
   function filterTiplist(tipList) {
-    return tipList.filter((tip) => filterSearchTip(tip));
+    return Object.values(tipList).filter((tip) => filterSearchTip(tip));
   }
   const filteredTipList = filterTiplist(tipList);
 
