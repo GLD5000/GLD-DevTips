@@ -1,6 +1,6 @@
-const TipTitle = ({title, toggleMinimised}) => {
+const TipTitle = ({title, onClick}) => {
   return (
-    <button onClick={toggleMinimised}>
+    <button onClick={onClick}>
       <h2>{title}</h2>
     </button>
   )

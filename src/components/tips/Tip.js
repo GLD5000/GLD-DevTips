@@ -4,19 +4,16 @@ import Tags from "./Tags";
 import { useState } from "react";
 
 const Tip = ({ tip, setTagState }) => {
-  const [minimised, setMinimised] = useState(() => true);
-  function toggleMinimised(){
-    setMinimised(!minimised);
+  const [expanded, setExpanded] = useState(() => false);
+  function toggleExpanded(){
+    setExpanded(!expanded);
   }
-  return ( minimised?
-    <div className="tip">
-      <TipTitle title={tip.title} toggleMinimised={toggleMinimised} />
-      <Tags tagArray={tip.tags} setTagState={setTagState} />
-    </div> :
+  return ( 
+
         <div className="tip">
-        <TipTitle title={tip.title} toggleMinimised={toggleMinimised} />
+        <TipTitle title={tip.title} onClick={toggleExpanded} />
         <Tags tagArray={tip.tags} setTagState={setTagState} />
-        <MultiTextBoxes tip={tip} />
+        {expanded && <MultiTextBoxes tip={tip} />}
       </div>
   
   );
