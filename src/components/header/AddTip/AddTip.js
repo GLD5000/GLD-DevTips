@@ -32,7 +32,7 @@ const AddTip = ({ setTip, newTipId, tagListAll, addTipToDb, signedIn }) => {
           <InputForm
             setShowAddTipForm={onClickAdd}
             setTip={setTip}
-            newTipId={newTipId}
+            newTipId={inputFormState?.id || newTipId}
             tagListAll={tagListAll}
             addTipToDb={addTipToDb}
             signedIn={signedIn}
