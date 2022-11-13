@@ -190,10 +190,21 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   }
 
   async function addTipToDb(object) {
-    if (!signedIn) return;
-    await updateDoc(tipsDocRef, {
-      [object.id]: object,
-    });
+    if (!signedIn) {
+      console.log("Not Signed in");
+      return;
+    }
+
+    try {
+      await updateDoc(tipsDocRef, {
+        [object.id]: object,
+      });
+      const gotDoc = await getDoc(tipsDocRef);
+
+      console.log("Document written as: ", gotDoc.data()[object.id]);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
   const [signedIn, setSignedIn] = useState(() => false);
 
@@ -281,14 +292,14 @@ Name / Placeholder for values of a function., Actual value given to a function.,
         addTipToDb={addTipToDb}
       />
       <section className="body-container">
-      <Filters
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        titleSet={titleSet}
-        tagSet={tagSet}
-        setTagState={setTagState}
-        tagState={tagState}
-      />
+        <Filters
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          titleSet={titleSet}
+          tagSet={tagSet}
+          setTagState={setTagState}
+          tagState={tagState}
+        />
 
         <AddTip
           setTip={setTip}
@@ -296,12 +307,10 @@ Name / Placeholder for values of a function., Actual value given to a function.,
           tagListAll={tagListAll}
           addTipToDb={addTipToDb}
           signedIn={signedIn}
-
         />
         <section className="tip-container">
           <Tips tipList={filteredTipList} setTagState={setTagState} />
         </section>
-
       </section>
     </section>
   );

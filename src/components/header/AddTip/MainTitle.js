@@ -9,7 +9,8 @@ const MainTitle = ({
   placeholder = "Type here...",
   onInput = defaultOnInput,
   type = "text",
-  name= undefined
+  name= undefined,
+  defaultValue=""
 }) => {
   const delay = 500;
 
@@ -41,6 +42,7 @@ const MainTitle = ({
       onChange={(e) => debouncedHandler(e)}
       name={name}
       autoComplete="off"
+      defaultValue={defaultValue}
     ></input>
   );
 };

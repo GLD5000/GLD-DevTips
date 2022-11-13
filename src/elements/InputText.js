@@ -8,7 +8,8 @@ const InputText = ({
   placeholder = "Type here...",
   onInput = defaultOnInput,
   type = "text",
-  listId= null
+  listId= null,
+  defaultValue=""
 }) => {
   const delay = 500;
 
@@ -39,7 +40,7 @@ const InputText = ({
       placeholder={placeholder}
       list={listId}
       autoComplete="off"
-
+      defaultValue={defaultValue}
     ></input>
   );
 };

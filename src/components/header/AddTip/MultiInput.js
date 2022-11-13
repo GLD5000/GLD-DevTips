@@ -69,6 +69,14 @@ const MultiInput = ({ inputState, setInputState, onSubmit }) => {
         text="Submit to database"
         clickFunction={onSubmit}
       />
+            <Button
+        key="clearFields"
+        color="white"
+        backgroundColor="red"
+        text="Reset Form"
+        clickFunction={onSubmit}
+      />
+
     </>
   );
 };

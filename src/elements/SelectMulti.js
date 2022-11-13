@@ -1,7 +1,7 @@
 import InputText from "./InputText";
 import { useState } from "react";
 
-export default function SelectMulti({tagListAll, setTagsState}) {
+export default function SelectMulti({tagListAll, setTagsState, defaultValue = ""}) {
   const [selectedTags, setSelectedTags] = useState(() => []);
   const [customTags, setCustomTags] = useState(() => []);
 
@@ -50,7 +50,7 @@ export default function SelectMulti({tagListAll, setTagsState}) {
     </label>
     <label>
       Add new tags as a List (separated by spaces or commas)
-      <InputText placeholder="E.G.: JavaScript, Fundamentals" onInput={updateCustomTags}/>
+      <InputText placeholder="E.G.: JavaScript, Fundamentals" onInput={updateCustomTags} defaultValue={defaultValue}/>
     </label>
     </>
   )

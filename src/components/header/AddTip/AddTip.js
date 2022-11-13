@@ -7,6 +7,17 @@ const AddTip = ({ setTip, newTipId, tagListAll, addTipToDb, signedIn }) => {
   function onClickAdd() {
     setShowAddTipForm((state) => !state);
   }
+  const [inputFormState, setInputFormState] = useState(() => null);
+
+  function addObjectToInputFormState(object){
+    setInputFormState(() => {
+      const newObject = {...object};
+      return newObject;
+    })
+    console.log("Not signed in")
+    console.log(object);
+  }
+
 
   return (
     <div className="add-tip-container">
@@ -25,6 +36,8 @@ const AddTip = ({ setTip, newTipId, tagListAll, addTipToDb, signedIn }) => {
             tagListAll={tagListAll}
             addTipToDb={addTipToDb}
             signedIn={signedIn}
+            addObjectToInputFormState={addObjectToInputFormState}
+            inputFormState={inputFormState}
 
           />
         </>
