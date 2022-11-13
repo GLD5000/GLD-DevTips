@@ -2,7 +2,7 @@ import InputField from "./InputField";
 import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
 
-const MultiInput = ({ inputState, setInputState, onSubmit, onReset }) => {
+const MultiInput = ({ inputState, setInputState, onSubmit, onReset, inputFormState }) => {
 
 
   function addField() {
@@ -27,6 +27,7 @@ const MultiInput = ({ inputState, setInputState, onSubmit, onReset }) => {
   }
 
   function makeInputArray() {
+    console.log(inputFormState);
     return Object.values(inputState).map((object, index) => {
       const returnObject = (
         <div key={index} className="field-container">
