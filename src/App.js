@@ -38,14 +38,14 @@ const provider = new GoogleAuthProvider();
 
 let userCount = 0;
 function App() {
-  async function checkRole(user){
-    console.log("checkRole")
+  async function checkRole(user) {
+    console.log("checkRole");
     const uid = user.uid;
     const rolesDocRef = doc(database, "devtips", "roles");
     const rolesDoc = await getDoc(rolesDocRef);
     const role = rolesDoc.data()[uid];
     const isOwner = role === "owner";
-    if (isOwner) { 
+    if (isOwner) {
       console.log("Is owner = " + isOwner);
       console.log("signing in...");
       setSignedIn(true);
@@ -54,48 +54,44 @@ function App() {
       console.log("signing in...");
 
       setIsOwner(false);
-    };
+    }
     return isOwner;
-    
+
     //TODO check if role exists
     //TODO update state of isSigned in (change name to isWriter)
   }
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      if (userCount < 3){
+      if (userCount < 3) {
         userCount += 1;
         console.log(userCount);
         if (userCount === 1 || signedIn === false) checkRole(user);
       }
-      
-      
     } else {
-      if (userCount !== 0){
+      if (userCount !== 0) {
         console.log("signing out...");
         console.log(userCount);
         setSignedIn(false);
         setIsOwner(false);
         userCount -= 1;
       }
-      
     }
   });
 
   const [inputFormState, setInputFormState] = useState(() => null);
 
-  function addObjectToInputFormState(object){
+  function addObjectToInputFormState(object) {
     if (object === null) {
-      setInputFormState(() => null)
-    return
-  };
+      setInputFormState(() => null);
+      return;
+    }
     setInputFormState(() => {
-      const newObject = {...object};
+      const newObject = { ...object };
       return newObject;
-    })
-    console.log("Not signed in")
+    });
+    console.log("Not signed in");
     console.log(object);
   }
-
 
   async function getDocData(docRef) {
     const gotDoc = await getDoc(docRef);
@@ -230,8 +226,10 @@ Name / Placeholder for values of a function., Actual value given to a function.,
     },
   ];
 
-  const [tipList, setTip] = useState(Object.fromEntries(exampleArray.map(x => [x.id, x])));
-
+  const [tipList, setTip] = useState(
+    Object.fromEntries(exampleArray.map((x) => [x.id, x]))
+  );
+  const [showAddTipForm, setShowAddTipForm] = useState(() => false);
   async function setTipHandler() {
     const array = await getDocData(tipsDocRef);
     setTip(() => array);
@@ -269,7 +267,11 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   }
 
   const tagList = Object.fromEntries([
-    ...new Set(Object.values(tipList).flatMap((tip) => tip.tags).map((x) => [x, "visible"])),
+    ...new Set(
+      Object.values(tipList)
+        .flatMap((tip) => tip.tags)
+        .map((x) => [x, "visible"])
+    ),
   ]);
   const tagListAll = Object.keys(tagList);
   const [tagState, setTagState] = useState(() => {
@@ -324,6 +326,27 @@ Name / Placeholder for values of a function., Actual value given to a function.,
 
   const tagSet = createTagSet(filteredTipList);
   const titleSet = createTitleSet(filteredTipList);
+
+  const [mainTitle, setMainTitle] = useState(() => "No Title Yet");
+  const [inputTags, setInputTags] = useState(() => []);
+  function setInputFormStateValues(object){
+    if (object === null) {
+      setMainTitle(() => "No Title Yet");
+      setInputTags(() => []);
+      return;
+    }
+    setMainTitle(() => object.title);
+    setInputTags(() => [...object.tags]);
+  }
+
+  async function editTip(e) {
+    const id = e.target.id;
+    const tipObject = tipList[id];
+    setInputFormStateValues(tipObject);
+    addObjectToInputFormState(tipObject); //TODO get object from object index
+    setShowAddTipForm(true);
+  }
+
   return (
     <section className="page-container">
       <Header
@@ -360,13 +383,22 @@ Name / Placeholder for values of a function., Actual value given to a function.,
           isOwner={isOwner}
           addObjectToInputFormState={addObjectToInputFormState}
           inputFormState={inputFormState}
+          showAddTipForm={showAddTipForm}
+          setShowAddTipForm={setShowAddTipForm}
+          mainTitle={mainTitle}
+          setMainTitle={setMainTitle}
+          inputTags={inputTags}
+          setInputTags={setInputTags}
         />
         <section className="tip-container">
-          <Tips tipList={filteredTipList} setTagState={setTagState} />
+          <Tips
+            tipList={filteredTipList}
+            setTagState={setTagState}
+            editTip={editTip}
+          />
         </section>
       </section>
     </section>
   );
 }
-
 export default App;

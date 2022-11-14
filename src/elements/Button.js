@@ -9,9 +9,11 @@ const Button = ({
   backgroundColor = "black",
   text = "Add",
   clickFunction = defaultOnClick,
+  id=null
 }) => {
   return (
     <button
+      id={id}
       onClick={clickFunction}
       className="btn"
       style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}

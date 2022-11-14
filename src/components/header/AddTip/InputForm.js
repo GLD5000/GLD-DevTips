@@ -7,28 +7,34 @@ const InputForm = ({
   tagListAll,
   addObjectToInputFormState,
   inputFormState,
-  setTagsState,
+  setInputTags,
+  inputTags,
   setInputState,
   callbackMainTitle,
   onSubmit,
   onPreview,
   currentId,
   inputState,
-  isOwner
+  isOwner,
 }) => {
-  return ( 
+  return (
     <div className="add-form">
       <div className="form-control">
-        <label >
+        <label>
           <h2>Add Title</h2>
           <MainTitle
             onInput={callbackMainTitle}
             name={currentId + "MainTitle"}
             id={currentId + "MainTitle"}
             defaultValue={inputFormState?.title || ""}
-            />
+          />
         </label>
-        <SelectMulti tagListAll={tagListAll} setTagsState={setTagsState}  inputFormState={inputFormState} />
+        <SelectMulti
+          tagListAll={tagListAll}
+          setInputTags={setInputTags}
+          inputTags={inputTags}
+          inputFormState={inputFormState}
+        />
       </div>
       <MultiInput
         inputState={inputState}
@@ -41,8 +47,5 @@ const InputForm = ({
       />
     </div>
   );
-
-
-
 };
 export default InputForm;
