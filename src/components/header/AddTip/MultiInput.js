@@ -59,6 +59,7 @@ const MultiInput = ({ onSubmit, onPreview, inputFormState, isOwner, setInputForm
 
   const inputArray = makeInputArray();
   const submitText= isOwner? "Submit to database": "Submit to database (Not available to you)";
+  const submitColour= isOwner? "green": "silver";
   return (
     <>
       <h2>Add sections</h2>
@@ -80,7 +81,7 @@ const MultiInput = ({ onSubmit, onPreview, inputFormState, isOwner, setInputForm
       <Button
         key="saveTip"
         color="white"
-        backgroundColor="green"
+        backgroundColor={submitColour}
         text={submitText}
         clickFunction={onSubmit}
       />
