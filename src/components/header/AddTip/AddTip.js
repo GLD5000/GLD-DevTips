@@ -10,6 +10,7 @@ const AddTip = ({
   signedIn,
   isOwner,
   inputFormState,
+  addFieldToInputFormState,
   addObjectToInputFormState,
   showAddTipForm,
   setShowAddTipForm,
@@ -29,15 +30,15 @@ const AddTip = ({
     console.log(inputFormState);
     console.log("Current ID:" + currentId);
     console.log("Form has state = " + inputFormHasState);
-    console.log("maintitle = " + mainTitle);
-    console.log("inputTags = " + inputTags);
+    console.log("maintitle = " + inputFormState.title);
+    console.log("inputTags = " + inputFormState.tags);
   }
   const [inputState, setInputState] = useState(() => {
     return { 0: { type: "text", content: null } };
   });
 
-  function callbackMainTitle(value, index) {
-    setMainTitle(value);
+  function callbackMainTitle(value) {
+    addFieldToInputFormState("title", value);
   }
 
   function addNewObjectToTips(newObject) {
@@ -55,8 +56,8 @@ const AddTip = ({
     const newObject = {
       id: currentId, //string
       date: formattedDate, // string
-      tags: [...new Set(inputTags)], // array of strings
-      title: mainTitle, // string
+      tags: [...new Set(inputFormState.tags)], // array of strings
+      title: inputFormState.title|| "No Title Added Yet", // string
       sections: Object.values(inputState),
     };
     return newObject;
@@ -105,8 +106,9 @@ const AddTip = ({
             addTipToDb={addTipToDb}
             signedIn={signedIn}
             isOwner={isOwner}
-            addObjectToInputFormState={addObjectToInputFormState}
             inputFormState={inputFormState}
+            addFieldToInputFormState={addFieldToInputFormState}
+            addObjectToInputFormState={addObjectToInputFormState}
             inputTags={inputTags}
             setInputTags={setInputTags}
             setInputState={setInputState}

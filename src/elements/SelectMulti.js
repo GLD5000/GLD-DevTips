@@ -3,15 +3,14 @@ import { useState } from "react";
 
 export default function SelectMulti({
   tagListAll,
-  setInputTags,
-  inputTags,
   inputFormState,
+  addFieldToInputFormState
 }) {
   const inputFormStateTags = inputFormState?.tags || null;
   const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
   const [selectedTags, setSelectedTags] = useState(() => []);
   const [customTags, setCustomTags] = useState(
-    () => inputTags || inputFormState?.tags || []
+    () => inputFormState?.tags || []
   );
   console.log(customTags);
   function updateSelectedTags(e) {
@@ -21,10 +20,7 @@ export default function SelectMulti({
       const newObject = [...tags];
       return newObject;
     });
-    setInputTags(() => {
-      const newObject = [...tags, ...customTags];
-      return newObject;
-    });
+    addFieldToInputFormState("tags", [...tags, ...customTags]);
   }
 
   function updateCustomTags(e) {
@@ -34,10 +30,7 @@ export default function SelectMulti({
       const newObject = [...tags];
       return newObject;
     });
-    setInputTags(() => {
-      const newObject = [...selectedTags, ...tags];
-      return newObject;
-    });
+    addFieldToInputFormState("tags", [...selectedTags, ...tags]);
   }
 
   function makeOptionsArray() {

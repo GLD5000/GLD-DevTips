@@ -1,12 +1,12 @@
-import { useState } from "react";
 import MultiInput from "./MultiInput";
 import SelectMulti from "../../../elements/SelectMulti";
 import MainTitle from "./MainTitle";
 
 const InputForm = ({
   tagListAll,
-  addObjectToInputFormState,
   inputFormState,
+  addFieldToInputFormState,
+  addObjectToInputFormState,
   setInputTags,
   inputTags,
   setInputState,
@@ -26,7 +26,7 @@ const InputForm = ({
             onInput={callbackMainTitle}
             name={currentId + "MainTitle"}
             id={currentId + "MainTitle"}
-            defaultValue={inputFormState?.title || ""}
+            defaultValue={inputFormState.title}
           />
         </label>
         <SelectMulti
@@ -34,14 +34,17 @@ const InputForm = ({
           setInputTags={setInputTags}
           inputTags={inputTags}
           inputFormState={inputFormState}
+          addFieldToInputFormState={addFieldToInputFormState}
+
         />
       </div>
       <MultiInput
         inputState={inputState}
         setInputState={setInputState}
         onSubmit={onSubmit}
-        addObjectToInputFormState={addObjectToInputFormState}
         inputFormState={inputFormState}
+        addFieldToInputFormState={addFieldToInputFormState}
+        addObjectToInputFormState={addObjectToInputFormState}
         onPreview={onPreview}
         isOwner={isOwner}
       />

@@ -79,6 +79,17 @@ function App() {
   });
 
   const [inputFormState, setInputFormState] = useState(() => null);
+  function initialiseInputFormState(){
+    //Set all fields of InputFormState
+  }
+
+  function addFieldToInputFormState(key, value) {
+    setInputFormState((object) => {
+      const newObject = { ...object };
+      newObject[key] = value;
+      return newObject;
+    });
+  }
 
   function addObjectToInputFormState(object) {
     if (object === null) {
@@ -89,8 +100,6 @@ function App() {
       const newObject = { ...object };
       return newObject;
     });
-    console.log("Not signed in");
-    console.log(object);
   }
 
   async function getDocData(docRef) {
@@ -342,7 +351,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   async function editTip(e) {
     const id = e.target.id;
     const tipObject = tipList[id];
-    setInputFormStateValues(tipObject);
+    //setInputFormStateValues(tipObject);
     addObjectToInputFormState(tipObject); //TODO get object from object index
     setShowAddTipForm(true);
   }
@@ -381,8 +390,9 @@ Name / Placeholder for values of a function., Actual value given to a function.,
           addTipToDb={addTipToDb}
           signedIn={signedIn}
           isOwner={isOwner}
-          addObjectToInputFormState={addObjectToInputFormState}
           inputFormState={inputFormState}
+          addFieldToInputFormState={addFieldToInputFormState}
+          addObjectToInputFormState={addObjectToInputFormState}
           showAddTipForm={showAddTipForm}
           setShowAddTipForm={setShowAddTipForm}
           mainTitle={mainTitle}
