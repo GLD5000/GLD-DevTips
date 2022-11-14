@@ -4,6 +4,7 @@ import InputButtons from "./InputButtons";
 
 const MultiInput = ({ inputState, setInputState, onSubmit, onPreview, inputFormState, isOwner }) => {
 
+  
 
   function addField() {
     setInputState((object) => {

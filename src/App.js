@@ -78,8 +78,16 @@ function App() {
     }
   });
 
-  const [inputFormState, setInputFormState] = useState(() => null);
+  const inputFormStarter = {
+    title: null,
+    id: null,
+    sections: [{ type: "text", content: null }],
+    tags: [],
+    date: null
+  }
+  const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
   function initialiseInputFormState(){
+    setInputFormState(() => inputFormStarter);
     //Set all fields of InputFormState
   }
 
@@ -93,7 +101,7 @@ function App() {
 
   function addObjectToInputFormState(object) {
     if (object === null) {
-      setInputFormState(() => null);
+      initialiseInputFormState();
       return;
     }
     setInputFormState(() => {

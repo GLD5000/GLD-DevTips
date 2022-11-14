@@ -26,7 +26,7 @@ const InputForm = ({
             onInput={callbackMainTitle}
             name={currentId + "MainTitle"}
             id={currentId + "MainTitle"}
-            defaultValue={inputFormState.title}
+            defaultValue={inputFormState?.title || null}
           />
         </label>
         <SelectMulti
