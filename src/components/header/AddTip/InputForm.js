@@ -5,6 +5,7 @@ import MainTitle from "./MainTitle";
 const InputForm = ({
   tagListAll,
   inputFormState,
+  setInputFormState,
   addFieldToInputFormState,
   addObjectToInputFormState,
   setInputTags,
@@ -43,6 +44,7 @@ const InputForm = ({
         setInputState={setInputState}
         onSubmit={onSubmit}
         inputFormState={inputFormState}
+        setInputFormState={setInputFormState}
         addFieldToInputFormState={addFieldToInputFormState}
         addObjectToInputFormState={addObjectToInputFormState}
         onPreview={onPreview}

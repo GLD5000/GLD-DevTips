@@ -1,4 +1,4 @@
-const InputSelect = ({ type, name, changeType }) => {
+const InputSelect = ({ type, name, changeType, defaultValue }) => {
 
   function makeOptionsArray(type) {
     const options = ["text", "code", "hint", "table"];
@@ -15,7 +15,7 @@ const InputSelect = ({ type, name, changeType }) => {
   }
   const optionsArray = makeOptionsArray(type);
   return (
-    <select name={name} id="" onChange={handleChange}>
+    <select name={name} id="" onChange={handleChange} defaultValue={defaultValue}>
       {optionsArray}
     </select>
   );

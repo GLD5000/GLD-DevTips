@@ -1,5 +1,4 @@
-const InputField = ({type, content, changeText, name}) => {
-
+const InputField = ({type, content, changeText, name, defaultValue}) => {
     function handleChange(e){
         const value = e.target.value;
         const index = e.target.name;
@@ -32,8 +31,8 @@ const InputField = ({type, content, changeText, name}) => {
 
     
 
-    return <textarea placeholder={placeHolder} name={name} className={type} rows="8" cols="70" onInput={handleChange}>
-        {content}
+    return <textarea placeholder={placeHolder} name={name} className={type} rows="8" cols="70" onInput={handleChange} defaultValue={defaultValue}>
+        
         </textarea>
 
 

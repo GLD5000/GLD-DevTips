@@ -2,7 +2,7 @@ import InputTitle from "./InputTitle";
 import InputSelect from "./InputSelect";
 
 
-export default function InputButtons({index, type, changeValue}) {
+export default function InputButtons({index, type, changeValue, title}) {
   return (
     <div className="input-buttons">
                               <label>Section Type:</label>
@@ -13,6 +13,7 @@ export default function InputButtons({index, type, changeValue}) {
             index={index}
             name={index}
             changeType={changeValue}
+            defaultValue={type}
           />
                       <label>Section Title:</label>
 
@@ -22,6 +23,7 @@ export default function InputButtons({index, type, changeValue}) {
             index={index}
             name={index}
             onInput={changeValue}
+            defaultValue={title}
         />
     </div>
   )

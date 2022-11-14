@@ -8,7 +8,8 @@ const InputTitle = ({
   placeholder = "Type here...",
   onInput = defaultOnInput,
   type = "text",
-  name= undefined
+  name = undefined,
+  defaultValue = null
 }) => {
   const delay = 500;
 
@@ -38,6 +39,7 @@ const InputTitle = ({
       placeholder={placeholder}
       name={name}
       autoComplete="off"
+      defaultValue={defaultValue}
     ></input>
   );
 };

@@ -2,34 +2,37 @@ import InputField from "./InputField";
 import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
 
-const MultiInput = ({ inputState, setInputState, onSubmit, onPreview, inputFormState, isOwner }) => {
+const MultiInput = ({ onSubmit, onPreview, inputFormState, isOwner, setInputFormState }) => {
 
-  
+
 
   function addField() {
-    setInputState((object) => {
-      const key = Object.keys(object).length;
-      const newPart = { type: "text", content: null };
-      return { ...object, [key]: newPart };
+    setInputFormState((object) => {
+      const newObject = {...object};
+      newObject.sections.push({ type: "text", content: null });
+      return { newObject};
     });
   }
 
   function changeValue(inputObject, index) {
-    setInputState((object) => {
-      const title = inputObject.title || object[index]["title"];
-      const type = inputObject.type || object[index]["type"];
-      const content = inputObject.content || object[index]["content"];
+    setInputFormState((object) => {
+      console.log(object);
+      const newObject = {...object};
+      const targetSection = newObject.sections[index]
+      const title = inputObject.title || targetSection["title"];
+      const type = inputObject.type || targetSection["type"];
+      const content = inputObject.content || targetSection["content"];
+      newObject.sections[index] = { title: title, type: type, content: content };
+      console.log(newObject);
 
-      return {
-        ...object,
-        [index]: { title: title, type: type, content: content },
-      };
+      return newObject;
     });
   }
 
   function makeInputArray() {
-    console.log(inputFormState);
-    return Object.values(inputState).map((object, index) => {
+    //console.log(inputFormState);
+    return inputFormState.sections.map((object, index) => {
+      console.log(object.type);
       const returnObject = (
         <div key={index} className="field-container">
           <h2>Section {index + 1}</h2>
@@ -38,12 +41,13 @@ const MultiInput = ({ inputState, setInputState, onSubmit, onPreview, inputFormS
             type={object.type}
             index={index}
             changeValue={changeValue}
+            title={object.title}
           />
           <InputField
             key={index + "InputField"}
             name={index}
             type={object.type}
-            content={object.content}
+            defaultValue={object.content}
             changeText={changeValue}
           />
         </div>

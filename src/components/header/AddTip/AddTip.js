@@ -10,6 +10,7 @@ const AddTip = ({
   signedIn,
   isOwner,
   inputFormState,
+  setInputFormState,
   addFieldToInputFormState,
   addObjectToInputFormState,
   showAddTipForm,
@@ -27,11 +28,11 @@ const AddTip = ({
   const inputFormHasState = inputFormState !== null;
   const currentId = inputFormHasState ? inputFormState.id : newTipId;
   if (inputFormHasState) {
-    console.log(inputFormState);
-    console.log("Current ID:" + currentId);
-    console.log("Form has state = " + inputFormHasState);
-    console.log("maintitle = " + inputFormState.title);
-    console.log("inputTags = " + inputFormState.tags);
+    // console.log(inputFormState);
+    // console.log("Current ID:" + currentId);
+    // console.log("Form has state = " + inputFormHasState);
+    // console.log("maintitle = " + inputFormState.title);
+    // console.log("inputTags = " + inputFormState.tags);
   }
   const [inputState, setInputState] = useState(() => {
     return { 0: { type: "text", content: null } };
@@ -107,6 +108,7 @@ const AddTip = ({
             signedIn={signedIn}
             isOwner={isOwner}
             inputFormState={inputFormState}
+            setInputFormState={setInputFormState}
             addFieldToInputFormState={addFieldToInputFormState}
             addObjectToInputFormState={addObjectToInputFormState}
             inputTags={inputTags}

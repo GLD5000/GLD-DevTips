@@ -186,7 +186,7 @@ const object = createObject("A", "B");
         {
           type: "hint",
           content:
-            "You can also add 'Object.freeze' to your return object to make it immudata!",
+            "You can also add 'Object.freeze' to your return object to make it immutable!",
         },
         {
           type: "code",
@@ -242,7 +242,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
       ],
     },
   ];
-
+//Fix to get actual data from DB for tiplist
   const [tipList, setTip] = useState(
     Object.fromEntries(exampleArray.map((x) => [x.id, x]))
   );
@@ -399,6 +399,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
           signedIn={signedIn}
           isOwner={isOwner}
           inputFormState={inputFormState}
+          setInputFormState={setInputFormState}
           addFieldToInputFormState={addFieldToInputFormState}
           addObjectToInputFormState={addObjectToInputFormState}
           showAddTipForm={showAddTipForm}
