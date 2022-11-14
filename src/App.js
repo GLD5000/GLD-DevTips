@@ -36,15 +36,40 @@ const tipsDocRef = doc(database, "devtips", "tips");
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
+let userCount = 0;
 function App() {
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     const uid = user.uid;
-  //     console.log(uid);
-  //   } else {
-  //     console.log("uid not available");
-  //   }
-  // });
+  async function checkRole(user){
+    console.log("checkRole")
+    console.log("signing in")
+    const uid = user.uid;
+    //console.log(uid);
+    const rolesDocRef = doc(database, "devtips", "roles");
+    const rolesDoc = await getDoc(rolesDocRef);
+    const role = rolesDoc.data()[uid];
+    const isOwner = role === "owner";
+    const newSignedIn = isOwner? true : false;
+    if (signedIn !== newSignedIn) setSignedIn(() => newSignedIn);
+    //console.log("isowner = " + isOwner);
+    //console.log("newSignedIn = " + newSignedIn);
+    return isOwner;
+    
+    //TODO check if role exists
+    //TODO update state of isSigned in (change name to isWriter)
+  }
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      userCount += 1;
+      console.log(userCount);
+      if (userCount === 1) checkRole(user);
+      
+
+    } else {
+      userCount = 0;
+      console.log("uid not available ");
+      if (signedIn === true) setSignedIn(() => false);
+
+    }
+  });
 
   async function getDocData(docRef) {
     const gotDoc = await getDoc(docRef);
@@ -214,7 +239,6 @@ Name / Placeholder for values of a function., Actual value given to a function.,
       setSignedIn(() => false);
     } else if (!signedIn) {
       await signInWithPopup(auth, provider);
-      setSignedIn(() => true);
     }
   }
 
