@@ -41,19 +41,20 @@ function App() {
   async function checkRole(user){
     console.log("checkRole")
     const uid = user.uid;
-    //console.log(uid);
     const rolesDocRef = doc(database, "devtips", "roles");
     const rolesDoc = await getDoc(rolesDocRef);
     const role = rolesDoc.data()[uid];
     const isOwner = role === "owner";
-    const newSignedIn = isOwner? true : false;
     if (isOwner) { 
-      console.log("Is owner = " + newSignedIn);
+      console.log("Is owner = " + isOwner);
       console.log("signing in...");
       setSignedIn(true);
+      setIsOwner(true);
+    } else {
+      console.log("signing in...");
+
+      setIsOwner(false);
     };
-    //console.log("isowner = " + isOwner);
-    //console.log("newSignedIn = " + newSignedIn);
     return isOwner;
     
     //TODO check if role exists
@@ -73,6 +74,7 @@ function App() {
         console.log("signing out...");
         console.log(userCount);
         setSignedIn(false);
+        setIsOwner(false);
       }
       userCount = 0;
       
@@ -240,11 +242,11 @@ Name / Placeholder for values of a function., Actual value given to a function.,
     }
   }
   const [signedIn, setSignedIn] = useState(() => false);
+  const [isOwner, setIsOwner] = useState(() => false);
 
   async function authClickHandler() {
     if (signedIn) {
       await auth.signOut();
-      setSignedIn(() => false);
     } else if (!signedIn) {
       await signInWithPopup(auth, provider);
     }
