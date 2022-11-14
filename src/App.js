@@ -62,8 +62,8 @@ function App() {
   }
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      userCount += 1;
       if (userCount < 3){
+        userCount += 1;
         console.log(userCount);
         if (userCount === 1 || signedIn === false) checkRole(user);
       }
@@ -75,11 +75,27 @@ function App() {
         console.log(userCount);
         setSignedIn(false);
         setIsOwner(false);
+        userCount -= 1;
       }
-      userCount = 0;
       
     }
   });
+
+  const [inputFormState, setInputFormState] = useState(() => null);
+
+  function addObjectToInputFormState(object){
+    if (object === null) {
+      setInputFormState(() => null)
+    return
+  };
+    setInputFormState(() => {
+      const newObject = {...object};
+      return newObject;
+    })
+    console.log("Not signed in")
+    console.log(object);
+  }
+
 
   async function getDocData(docRef) {
     const gotDoc = await getDoc(docRef);
@@ -341,6 +357,9 @@ Name / Placeholder for values of a function., Actual value given to a function.,
           tagListAll={tagListAll}
           addTipToDb={addTipToDb}
           signedIn={signedIn}
+          isOwner={isOwner}
+          addObjectToInputFormState={addObjectToInputFormState}
+          inputFormState={inputFormState}
         />
         <section className="tip-container">
           <Tips tipList={filteredTipList} setTagState={setTagState} />

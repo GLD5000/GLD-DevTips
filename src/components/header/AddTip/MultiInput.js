@@ -2,7 +2,7 @@ import InputField from "./InputField";
 import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
 
-const MultiInput = ({ inputState, setInputState, onSubmit, onReset, inputFormState }) => {
+const MultiInput = ({ inputState, setInputState, onSubmit, onPreview, inputFormState, isOwner }) => {
 
 
   function addField() {
@@ -53,7 +53,7 @@ const MultiInput = ({ inputState, setInputState, onSubmit, onReset, inputFormSta
   }
 
   const inputArray = makeInputArray();
-
+  const submitText= isOwner? "Submit to database": "Submit to database (Not available to you)";
   return (
     <>
       <h2>Add sections</h2>
@@ -66,20 +66,19 @@ const MultiInput = ({ inputState, setInputState, onSubmit, onReset, inputFormSta
         clickFunction={addField}
       />
       <Button
+        key="preview"
+        color="white"
+        backgroundColor="blue"
+        text="Preview"
+        clickFunction={onPreview}
+      />
+      <Button
         key="saveTip"
         color="white"
         backgroundColor="green"
-        text="Submit to database"
+        text={submitText}
         clickFunction={onSubmit}
       />
-            <Button
-        key="clearFields"
-        color="white"
-        backgroundColor="red"
-        text="Cancel"
-        clickFunction={onReset}
-      />
-
     </>
   );
 };
