@@ -40,7 +40,6 @@ let userCount = 0;
 function App() {
   async function checkRole(user){
     console.log("checkRole")
-    console.log("signing in")
     const uid = user.uid;
     //console.log(uid);
     const rolesDocRef = doc(database, "devtips", "roles");
@@ -48,7 +47,11 @@ function App() {
     const role = rolesDoc.data()[uid];
     const isOwner = role === "owner";
     const newSignedIn = isOwner? true : false;
-    if (signedIn !== newSignedIn) setSignedIn(() => newSignedIn);
+    if (isOwner) { 
+      console.log("Is owner = " + newSignedIn);
+      console.log("signing in...");
+      setSignedIn(true);
+    };
     //console.log("isowner = " + isOwner);
     //console.log("newSignedIn = " + newSignedIn);
     return isOwner;
@@ -59,15 +62,20 @@ function App() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       userCount += 1;
-      console.log(userCount);
-      if (userCount === 1) checkRole(user);
+      if (userCount < 3){
+        console.log(userCount);
+        if (userCount === 1 || signedIn === false) checkRole(user);
+      }
       
-
+      
     } else {
+      if (userCount !== 0){
+        console.log("signing out...");
+        console.log(userCount);
+        setSignedIn(false);
+      }
       userCount = 0;
-      console.log("uid not available ");
-      if (signedIn === true) setSignedIn(() => false);
-
+      
     }
   });
 
