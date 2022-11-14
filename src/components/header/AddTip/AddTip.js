@@ -15,8 +15,6 @@ const AddTip = ({
   addObjectToInputFormState,
   showAddTipForm,
   setShowAddTipForm,
-  mainTitle,
-  setMainTitle,
   inputTags,
   setInputTags,
 }) => {
@@ -59,7 +57,7 @@ const AddTip = ({
       date: formattedDate, // string
       tags: [...new Set(inputFormState.tags)], // array of strings
       title: inputFormState.title|| "No Title Added Yet", // string
-      sections: Object.values(inputState),
+      sections: inputFormState.sections,
     };
     return newObject;
   }
