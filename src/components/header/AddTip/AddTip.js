@@ -64,6 +64,8 @@ const AddTip = ({
     if (isOwner) addTipToDb(newObject);
     addNewObjectToTips(newObject);
     clearInputFormState();
+    setShowAddTipForm(false);
+
   }
   function clearInputFormState() {
     addObjectToInputFormState(null);
