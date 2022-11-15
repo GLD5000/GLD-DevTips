@@ -1,6 +1,5 @@
 import Button from "../../../elements/Button";
 import InputForm from "./InputForm";
-import { useState } from "react";
 
 const AddTip = ({
   setTip,

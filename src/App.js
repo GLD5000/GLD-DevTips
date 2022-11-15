@@ -6,7 +6,7 @@ import AddTip from "./components/header/AddTip/AddTip";
 import Filters from "./components/header/Filters";
 
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+//import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import {
   getAuth,
@@ -83,10 +83,10 @@ function App() {
     id: null,
     sections: [{ type: "text", content: null }],
     tags: [],
-    date: null
-  }
+    date: null,
+  };
   const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
-  function initialiseInputFormState(){
+  function initialiseInputFormState() {
     setInputFormState(() => inputFormStarter);
     //Set all fields of InputFormState
   }
@@ -107,7 +107,9 @@ function App() {
     setInputFormState(() => {
       const newObject = { ...object };
       newObject.tags = [...object.tags];
-      newObject.sections = object.sections.map(x => {return{...x}});
+      newObject.sections = object.sections.map((x) => {
+        return { ...x };
+      });
       return newObject;
     });
   }
@@ -244,7 +246,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
       ],
     },
   ];
-//Fix to get actual data from DB for tiplist
+  //Fix to get actual data from DB for tiplist
   const [tipList, setTip] = useState(
     Object.fromEntries(exampleArray.map((x) => [x.id, x]))
   );
@@ -348,15 +350,6 @@ Name / Placeholder for values of a function., Actual value given to a function.,
 
   const [mainTitle, setMainTitle] = useState(() => "No Title Yet");
   const [inputTags, setInputTags] = useState(() => []);
-  function setInputFormStateValues(object){
-    if (object === null) {
-      setMainTitle(() => "No Title Yet");
-      setInputTags(() => []);
-      return;
-    }
-    setMainTitle(() => object.title);
-    setInputTags(() => [...object.tags]);
-  }
 
   async function editTip(e) {
     const id = e.target.id;
