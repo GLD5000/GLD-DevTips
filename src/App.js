@@ -100,6 +100,8 @@ function App() {
   }
 
   function addObjectToInputFormState(object) {
+    console.log("Adding object to inputFormState...");
+    console.log(object);
     if (object === null) {
       initialiseInputFormState();
       return;
