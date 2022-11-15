@@ -32,9 +32,6 @@ const AddTip = ({
     // console.log("maintitle = " + inputFormState.title);
     // console.log("inputTags = " + inputFormState.tags);
   }
-  const [inputState, setInputState] = useState(() => {
-    return { 0: { type: "text", content: null } };
-  });
 
   function callbackMainTitle(value) {
     addFieldToInputFormState("title", value);
@@ -111,12 +108,10 @@ const AddTip = ({
             addObjectToInputFormState={addObjectToInputFormState}
             inputTags={inputTags}
             setInputTags={setInputTags}
-            setInputState={setInputState}
             callbackMainTitle={callbackMainTitle}
             onSubmit={onSubmit}
             onPreview={onPreview}
             currentId={currentId}
-            inputState={inputState}
           />
         )}{" "}
       </>

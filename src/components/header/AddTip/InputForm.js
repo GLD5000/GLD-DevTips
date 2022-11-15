@@ -10,12 +10,10 @@ const InputForm = ({
   addObjectToInputFormState,
   setInputTags,
   inputTags,
-  setInputState,
   callbackMainTitle,
   onSubmit,
   onPreview,
   currentId,
-  inputState,
   isOwner,
 }) => {
   return (
@@ -40,8 +38,6 @@ const InputForm = ({
         />
       </div>
       <MultiInput
-        inputState={inputState}
-        setInputState={setInputState}
         onSubmit={onSubmit}
         inputFormState={inputFormState}
         setInputFormState={setInputFormState}

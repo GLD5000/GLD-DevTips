@@ -12,7 +12,6 @@ export default function SelectMulti({
   const [customTags, setCustomTags] = useState(
     () => inputFormState?.tags || []
   );
-  console.log(customTags);
   function updateSelectedTags(e) {
     const collection = e.target.selectedOptions;
     const tags = Object.values(collection).map((x) => x.value);

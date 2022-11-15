@@ -106,6 +106,8 @@ function App() {
     }
     setInputFormState(() => {
       const newObject = { ...object };
+      newObject.tags = [...object.tags];
+      newObject.sections = object.sections.map(x => {return{...x}});
       return newObject;
     });
   }

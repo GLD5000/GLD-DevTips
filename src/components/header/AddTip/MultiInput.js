@@ -9,22 +9,19 @@ const MultiInput = ({ onSubmit, onPreview, inputFormState, isOwner, setInputForm
   function addField() {
     setInputFormState((object) => {
       const newObject = {...object};
-      newObject.sections.push({ type: "text", content: null });
-      return { newObject};
+      newObject.sections = [...newObject.sections, { type: "text", content: null }];
+      return  newObject;
     });
   }
 
   function changeValue(inputObject, index) {
     setInputFormState((object) => {
-      console.log(object);
       const newObject = {...object};
       const targetSection = newObject.sections[index]
       const title = inputObject.title || targetSection["title"];
       const type = inputObject.type || targetSection["type"];
       const content = inputObject.content || targetSection["content"];
       newObject.sections[index] = { title: title, type: type, content: content };
-      console.log(newObject);
-
       return newObject;
     });
   }
@@ -32,7 +29,6 @@ const MultiInput = ({ onSubmit, onPreview, inputFormState, isOwner, setInputForm
   function makeInputArray() {
     //console.log(inputFormState);
     return inputFormState.sections.map((object, index) => {
-      console.log(object.type);
       const returnObject = (
         <div key={index} className="field-container">
           <h2>Section {index + 1}</h2>
@@ -70,6 +66,7 @@ const MultiInput = ({ onSubmit, onPreview, inputFormState, isOwner, setInputForm
         backgroundColor="white"
         text="Add Another Section"
         clickFunction={addField}
+        id="add-field"
       />
       <Button
         key="preview"
