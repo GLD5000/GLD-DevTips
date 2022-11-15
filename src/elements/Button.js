@@ -9,11 +9,13 @@ const Button = ({
   backgroundColor = "black",
   text = "Add",
   clickFunction = defaultOnClick,
-  id=null
+  id=null,
+  name=null
 }) => {
   return (
     <button
       id={id}
+      name={name}
       onClick={clickFunction}
       className="btn"
       style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
