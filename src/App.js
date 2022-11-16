@@ -4,6 +4,7 @@ import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
 import Filters from "./components/header/Filters";
+import tagHexLookup from "./utilities/tagHex"
 
 import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
