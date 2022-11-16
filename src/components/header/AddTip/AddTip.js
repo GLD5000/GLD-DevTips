@@ -21,21 +21,10 @@ const AddTip = ({
     if (showAddTipForm === true) onClose();
     setShowAddTipForm((state) => !state);
   }
-
-  const inputFormHasState = inputFormState !== null;
   const currentId = inputFormState?.id || newTipId;
-  if (inputFormHasState) {
-    // console.log(inputFormState);
-    // console.log("Current ID:" + currentId);
-    // console.log("Form has state = " + inputFormHasState);
-    // console.log("maintitle = " + inputFormState.title);
-    // console.log("inputTags = " + inputFormState.tags);
-  }
-
   function callbackMainTitle(value) {
     addFieldToInputFormState("title", value);
   }
-
   function addNewObjectToTips(newObject) {
     setTip((object) => {
       const copyObject = { ...object };
@@ -49,10 +38,10 @@ const AddTip = ({
       dateRaw.getMonth() + 1
     }/${dateRaw.getFullYear()}`;
     const newObject = {
-      id: currentId, //string
-      date: formattedDate, // string
-      tags: [...new Set(inputFormState.tags)], // array of strings
-      title: inputFormState.title|| "No Title Added Yet", // string
+      id: currentId,
+      date: formattedDate,
+      tags: [...new Set(inputFormState.tags)],
+      title: inputFormState.title || "No Title Added Yet",
       sections: inputFormState.sections,
     };
     return newObject;
@@ -64,7 +53,6 @@ const AddTip = ({
     addNewObjectToTips(newObject);
     clearInputFormState();
     setShowAddTipForm(false);
-
   }
   function clearInputFormState() {
     addObjectToInputFormState(null);
@@ -77,8 +65,6 @@ const AddTip = ({
   }
   function onClose() {
     addObjectToInputFormState(null);
-    //const newObject = makeNewTipObject();
-    //addObjectToInputFormState(newObject);
   }
   const AddTipText = showAddTipForm
     ? "Close and Clear form"
