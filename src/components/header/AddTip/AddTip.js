@@ -23,7 +23,7 @@ const AddTip = ({
   }
 
   const inputFormHasState = inputFormState !== null;
-  const currentId = inputFormHasState ? inputFormState.id : newTipId;
+  const currentId = inputFormState?.id || newTipId;
   if (inputFormHasState) {
     // console.log(inputFormState);
     // console.log("Current ID:" + currentId);
