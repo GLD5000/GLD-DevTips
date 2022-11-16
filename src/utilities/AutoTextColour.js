@@ -33,9 +33,9 @@ const colourspace = {
       sat = 0,
       lum = 0;
 
-    if (delta == 0) hue = 0;
-    else if (cmax == red) hue = ((green - blue) / delta) % 6;
-    else if (cmax == green) hue = (blue - red) / delta + 2;
+    if (delta === 0) hue = 0;
+    else if (cmax === red) hue = ((green - blue) / delta) % 6;
+    else if (cmax === green) hue = (blue - red) / delta + 2;
     else hue = (red - green) / delta + 4;
 
     hue = hue * 60;
@@ -43,7 +43,7 @@ const colourspace = {
     if (hue < 0) hue += 360;
 
     lum = (cmax + cmin) / 2;
-    sat = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
+    sat = delta === 0 ? 0 : delta / (1 - Math.abs(2 * lum - 1));
     sat = +(sat * 100);
     lum = +(lum * 100);
     const hslArray = [hue, sat, lum];
@@ -94,9 +94,9 @@ const colourspace = {
     blue = Math.round((blue + lightness) * 255).toString(16);
 
     // Prepend 0s, if necessary
-    if (red.length == 1) red = "0" + red;
-    if (green.length == 1) green = "0" + green;
-    if (blue.length == 1) blue = "0" + blue;
+    if (red.length === 1) red = "0" + red;
+    if (green.length === 1) green = "0" + green;
+    if (blue.length === 1) blue = "0" + blue;
     const hex = "#" + red + green + blue;
     return hex;
   },
@@ -104,7 +104,6 @@ const colourspace = {
     return this._convertHslArrayToHex(this._convertSrgbToHslArray(srgbArray));
   },
   convertSrgbToLuminance(args) {
-    console.log(args);
     const modified = args.map(modifyColourValue);
     const summed = sumColourValues(...modified);
     return summed;
@@ -124,7 +123,6 @@ const colourspace = {
 
   convertHexToLuminance(hex) {
    const srgbArray =  this._convertHexToSrgbArray(hex);
-   console.log(srgbArray);
    const luminance = this.convertSrgbToLuminance(srgbArray);
    return luminance;
   },
@@ -134,7 +132,7 @@ export default function AutoTextColour(hexColour) {
   function convertHexToLuminance(hex) {
     return "luminance";
   }
-  console.log("test");
+  console.log("Testing luminance converters, expect 0.31854677812509186")
   console.log(colourspace.convertSrgbToLuminance([0.6, 0.6, 0.6]));
   console.log(colourspace.convertHexToLuminance("#999999"));
   return;
