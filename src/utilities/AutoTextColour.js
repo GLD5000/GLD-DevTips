@@ -24,7 +24,7 @@ const colourspace = {
     }
   },
   _convertSrgbToHslArray(srgbArray) {
-    let [ red, green, blue ] = srgbArray;
+    let [red, green, blue] = srgbArray;
 
     let cmin = Math.min(red, green, blue),
       cmax = Math.max(red, green, blue),
@@ -51,7 +51,7 @@ const colourspace = {
     return hslArray;
   },
   _convertHslArrayToHex(hslArray) {
-    let [ hue, sat, lum ] = hslArray;
+    let [hue, sat, lum] = hslArray;
 
     sat /= 100;
     lum /= 100;
@@ -122,18 +122,28 @@ const colourspace = {
   },
 
   convertHexToLuminance(hex) {
-   const srgbArray =  this._convertHexToSrgbArray(hex);
-   const luminance = this.convertSrgbToLuminance(srgbArray);
-   return luminance;
+    const srgbArray = this._convertHexToSrgbArray(hex);
+    const luminance = this.convertSrgbToLuminance(srgbArray);
+    return luminance;
   },
+  backgroundLuminanceToTextColour(backgroundLuminance) {
+    const backgroundLuminanceIsAboveCutoff =
+      luminanceAboveCutoff(backgroundLuminance);
+    const textColour = backgroundLuminanceIsAboveCutoff ? "#000000" : "#ffffff";
+    return textColour;
+
+    function luminanceAboveCutoff(luminance) {
+      const luminanceCutoff = 0.1791287847;
+      return luminance > luminanceCutoff;
+    }
+  },
+  autoTextColourFromHex(hex){
+    const backgroundLuminance = colourspace.convertHexToLuminance(hex);
+    const textColour = colourspace.backgroundLuminanceToTextColour(backgroundLuminance);
+    return textColour;
+  }
 };
 
-export default function AutoTextColour(hexColour) {
-  function convertHexToLuminance(hex) {
-    return "luminance";
-  }
-  console.log("Testing luminance converters, expect 0.31854677812509186")
-  console.log(colourspace.convertSrgbToLuminance([0.6, 0.6, 0.6]));
-  console.log(colourspace.convertHexToLuminance("#999999"));
-  return;
+export default function AutoTextColour(hex) {
+  return colourspace.autoTextColourFromHex(hex);
 }

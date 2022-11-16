@@ -40,7 +40,13 @@ const provider = new GoogleAuthProvider();
 
 let userCount = 0;
 function App() {
-  AutoTextColour("#443322");
+
+  const groupName = "newGroup";
+  console.group(groupName);
+  console.count(`Testing ${groupName}`);
+  console.dir("object");
+  console.assert("#ffffff" === AutoTextColour("#443322"), "not white");
+  console.groupEnd();
 
   async function checkRole(user) {
     console.log("checkRole");
