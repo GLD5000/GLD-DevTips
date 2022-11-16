@@ -137,13 +137,14 @@ const colourspace = {
       return luminance > luminanceCutoff;
     }
   },
-  autoTextColourFromHex(hex){
+  autoTextColourFromHex(hex) {
     const backgroundLuminance = colourspace.convertHexToLuminance(hex);
-    const textColour = colourspace.backgroundLuminanceToTextColour(backgroundLuminance);
+    const textColour =
+      colourspace.backgroundLuminanceToTextColour(backgroundLuminance);
     return textColour;
-  }
+  },
 };
 
-export default function AutoTextColour(hex) {
+export default function autoTextColour(hex) {
   return colourspace.autoTextColourFromHex(hex);
 }

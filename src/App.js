@@ -4,8 +4,8 @@ import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
 import Filters from "./components/header/Filters";
-import tagHexLookup from "./utilities/tagHex"
-import AutoTextColour from "./utilities/AutoTextColour";
+import tagHexLookup from "./utilities/tagHex";
+import autoTextColour from "./utilities/autoTextColour";
 
 import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
@@ -40,13 +40,6 @@ const provider = new GoogleAuthProvider();
 
 let userCount = 0;
 function App() {
-
-  const groupName = "newGroup";
-  console.group(groupName);
-  console.count(`Testing ${groupName}`);
-  console.dir("object");
-  console.assert("#ffffff" === AutoTextColour("#443322"), "not white");
-  console.groupEnd();
 
   async function checkRole(user) {
     console.log("checkRole");
