@@ -23,7 +23,7 @@ const colourspace = {
       }
     }
   },
-  _convertSrgbToHslArray(...srgbArray) {
+  _convertSrgbToHslArray(srgbArray) {
     let [ red, green, blue ] = srgbArray;
 
     let cmin = Math.min(red, green, blue),
@@ -50,7 +50,7 @@ const colourspace = {
 
     return hslArray;
   },
-  _convertHslArrayToHex(...hslArray) {
+  _convertHslArrayToHex(hslArray) {
     let [ hue, sat, lum ] = hslArray;
 
     sat /= 100;
@@ -100,10 +100,10 @@ const colourspace = {
     const hex = "#" + red + green + blue;
     return hex;
   },
-  _convertSrgbToHex(...srgbArray) {
+  _convertSrgbToHex(srgbArray) {
     return this._convertHslArrayToHex(this._convertSrgbToHslArray(srgbArray));
   },
-  convertSrgbToLuminance(...args) {
+  convertSrgbToLuminance(args) {
     console.log(args);
     const modified = args.map(modifyColourValue);
     const summed = sumColourValues(...modified);
@@ -125,7 +125,7 @@ const colourspace = {
   convertHexToLuminance(hex) {
    const srgbArray =  this._convertHexToSrgbArray(hex);
    console.log(srgbArray);
-   const luminance = this.convertSrgbToLuminance(...srgbArray);
+   const luminance = this.convertSrgbToLuminance(srgbArray);
    return luminance;
   },
 };
@@ -135,7 +135,7 @@ export default function AutoTextColour(hexColour) {
     return "luminance";
   }
   console.log("test");
-  console.log(colourspace.convertSrgbToLuminance(0.6, 0.6, 0.6));
+  console.log(colourspace.convertSrgbToLuminance([0.6, 0.6, 0.6]));
   console.log(colourspace.convertHexToLuminance("#999999"));
   return;
 }
