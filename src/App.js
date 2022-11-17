@@ -27,6 +27,7 @@ const firebaseConfig = {
   appId: "1:616417597533:web:445aabc894ece7a57495b4",
   measurementId: "G-D9GBBQW1S0",
 };
+let gotData = false;
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -118,14 +119,14 @@ function App() {
       return newObject;
     });
   }
-
   async function getDocData(docRef) {
     const gotDoc = await getDoc(docRef);
     const tipsObject = await gotDoc.data();
     //console.log(tipsObject);
     const tipsArray = Object.values(tipsObject);
     //console.log(tipsArray);
-    exampleArray = tipsArray;
+    //exampleArray = tipsArray;
+    gotData = true;
     return tipsObject;
   }
   let exampleArray = [
@@ -232,24 +233,6 @@ Name / Placeholder for values of a function., Actual value given to a function.,
         },
       ],
     },
-    {
-      id: "0004",
-      title: "Pure Functions",
-      date: "4th Feb 2022",
-      tags: ["JavaScript", "Fundamentals"],
-      sections: [
-        {
-          type: "text",
-          content: `Similar to mathematical functions. 
-          
-          A given input will always return the same output. 
-          
-          They only return values and do not mutate objects or create side effects. 
-          
-          This means they are easy to test, can be composed and can be run in parallel without blocking each other.`,
-        },
-      ],
-    },
   ];
   //Fix to get actual data from DB for tiplist
   const [tipList, setTip] = useState(
@@ -258,9 +241,10 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   const [showAddTipForm, setShowAddTipForm] = useState(() => false);
   async function setTipHandler() {
     const array = await getDocData(tipsDocRef);
+    console.log(array)
     setTip(() => array);
   }
-  if (tipList === "exampleArray") {
+  if (gotData === false) {
     setTipHandler();
   }
 
