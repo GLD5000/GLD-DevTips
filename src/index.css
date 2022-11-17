@@ -116,9 +116,9 @@ body {
 .add-tip-container{
   display: grid;
   height: 100%;
+  width: 100%;
 }
 .tip-container {
-  padding: 1rem;
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
@@ -159,17 +159,12 @@ body {
 }
 
 .tip {
-  border-radius: 7px;
   gap: 8px;
   display: flex;
   flex-direction: column;
-  background-color: rgb(49, 49, 49);
-  margin: 5px;
-  padding: 10px 20px;
   justify-content: flex-start;
   align-content: flex-start;
   overflow: hidden;
-  height: min-content;
 }
 ul,
 ol {
@@ -203,12 +198,19 @@ li {
   margin-bottom: auto;
 }
 .filter-section {
-  padding: 1rem;
-  width: 100%;
-  max-width: 800px;
   display: grid;
   grid-template-rows: auto auto;
   gap: 0.5rem;
+}
+.filter-section, .tip, .add-tip-container {
+  width: 100%;
+  max-width: 800px;
+  height: min-content;
+  border-radius: 7px;
+  background-color: rgb(49, 49, 49);
+  margin: 5px;
+  padding: 1rem;
+
 }
 
 .titleFilter-container {

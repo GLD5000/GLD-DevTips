@@ -61,8 +61,6 @@ function App() {
     }
     return isOwner;
 
-    //TODO check if role exists
-    //TODO update state of isSigned in (change name to isWriter)
   }
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -122,15 +120,12 @@ function App() {
   async function getDocData(docRef) {
     const gotDoc = await getDoc(docRef);
     const tipsObject = await gotDoc.data();
-    //console.log(tipsObject);
     const tipsArray = Object.values(tipsObject);
-    //console.log(tipsArray);
-    //exampleArray = tipsArray;
     gotData = true;
     return tipsObject;
   }
-  let exampleArray = [
-    {
+  const exampleObject = {
+    "0001": {
       id: "0001",
       date: "11th Oct 2022",
       tags: ["Github", "Bash", "Beginner", "VSCode"],
@@ -167,7 +162,7 @@ function App() {
         },
       ],
     },
-    {
+    "0002":{
       id: "0002",
       date: "4th Feb 2022",
       tags: ["JavaScript", "How-To"],
@@ -207,37 +202,9 @@ const object = createObject("A", "B");
   });`,
         },
       ],
-    },
-    {
-      id: "0003",
-      date: "4th Feb 2022",
-      tags: ["JavaScript", "Nomenclature"],
-      title: "Parameters Vs Arguments",
-      sections: [
-        {
-          title: "Parameters",
-          type: "text",
-          content: "These are the names for values passed into a function.",
-        },
-        {
-          title: "Arguments",
-          type: "text",
-          content: "These are the actual values passed into a function.",
-        },
-        {
-          type: "table",
-          title: "Test Title",
-
-          content: `Parameter, Argument, Variable, Constant
-Name / Placeholder for values of a function., Actual value given to a function., A named reference to a value that can change., A value that cannot change.`,
-        },
-      ],
-    },
-  ];
-  //Fix to get actual data from DB for tiplist
-  const [tipList, setTip] = useState(
-    Object.fromEntries(exampleArray.map((x) => [x.id, x]))
-  );
+    }
+  };
+  const [tipList, setTip] = useState(exampleObject);
   const [showAddTipForm, setShowAddTipForm] = useState(() => false);
   async function setTipHandler() {
     const array = await getDocData(tipsDocRef);
@@ -349,8 +316,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   async function editTip(e) {
     const id = e.target.id;
     const tipObject = tipList[id];
-    //setInputFormStateValues(tipObject);
-    addObjectToInputFormState(tipObject); //TODO get object from object index
+    addObjectToInputFormState(tipObject); 
     setShowAddTipForm(true);
   }
 

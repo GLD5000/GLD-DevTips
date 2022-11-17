@@ -11,8 +11,8 @@ const randomColour = {
     },
     _makeRandomHslSafer() {
       const hue = randomColour._randomIntegerInRange(0, 360);
-      const sat = randomColour._randomIntegerInRange(36, 90);
-      const lum = randomColour._randomIntegerInRange(65, 90);
+      const sat = randomColour._randomIntegerInRange(60, 90);
+      const lum = randomColour._randomIntegerInRange(70, 90);
       return [hue, sat, lum];
     },
     _convertHslToColourObject(hue, sat, lum, name) {
