@@ -41,7 +41,7 @@ const provider = new GoogleAuthProvider();
 
 let userCount = 0;
 function App() {
-
+  
   async function checkRole(user) {
     console.log("checkRole");
     const uid = user.uid;
@@ -56,7 +56,7 @@ function App() {
       setIsOwner(true);
     } else {
       console.log("signing in...");
-
+      
       setIsOwner(false);
     }
     return isOwner;
@@ -241,7 +241,7 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   const [showAddTipForm, setShowAddTipForm] = useState(() => false);
   async function setTipHandler() {
     const array = await getDocData(tipsDocRef);
-    console.log(array)
+    //console.log(array)
     setTip(() => array);
   }
   if (gotData === false) {
@@ -251,9 +251,9 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   async function addTipToDb(object) {
     console.log(`signedIn ${signedIn}`);
     
-    console.group(`object`);
-    console.log(object);
-    console.groupEnd();
+    // console.group(`object`);
+    // console.log(object);
+    // console.groupEnd();
         
     if (!signedIn) {
       console.log("Not Signed in");
