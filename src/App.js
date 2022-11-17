@@ -249,6 +249,12 @@ Name / Placeholder for values of a function., Actual value given to a function.,
   }
 
   async function addTipToDb(object) {
+    console.log(`signedIn ${signedIn}`);
+    
+    console.group(`object`);
+    console.log(object);
+    console.groupEnd();
+        
     if (!signedIn) {
       console.log("Not Signed in");
       return;

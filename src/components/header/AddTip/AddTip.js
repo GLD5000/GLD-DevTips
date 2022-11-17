@@ -49,6 +49,8 @@ const AddTip = ({
 
   function onSubmit() {
     const newObject = makeNewTipObject();
+    console.log(`isOwner ${isOwner}`);
+    
     if (isOwner) addTipToDb(newObject);
     addNewObjectToTips(newObject);
     clearInputFormState();

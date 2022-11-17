@@ -1,4 +1,4 @@
-const SectionTitle = ({title, type}) => {
+const SectionTitle = ({title = null, type}) => {
   return (<>
     {(type === "table")?
     (<h3 style={{margin: "auto"}}>{title}</h3>):

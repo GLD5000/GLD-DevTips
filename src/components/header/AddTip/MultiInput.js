@@ -39,14 +39,14 @@ const MultiInput = ({
     setInputFormState((object) => {
       const newObject = { ...object };
       const targetSection = newObject.sections[index];
-      const title = inputObject.title || targetSection["title"];
       const type = inputObject.type || targetSection["type"];
       const content = inputObject.content || targetSection["content"];
       newObject.sections[index] = {
-        title: title,
         type: type,
         content: content,
       };
+      const title = inputObject.title || targetSection["title"];
+      if (title !== undefined) newObject.sections[index].title = title;
       return newObject;
     });
   }
