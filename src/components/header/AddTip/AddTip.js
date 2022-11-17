@@ -36,7 +36,7 @@ const AddTip = ({
     const dateRaw = new Date();
     const formattedDate = `${dateRaw.getDate()}/${
       dateRaw.getMonth() + 1
-    }/${dateRaw.getFullYear()}`;
+    }/${dateRaw.getFullYear()} ${dateRaw.getHours()}:${dateRaw.getMinutes()}`;
     const newObject = {
       id: currentId,
       date: formattedDate,
