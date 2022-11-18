@@ -1,6 +1,7 @@
 {
-  "short_name": "Dev Tips",
-  "name": "GLD DevTips - Tips and Tricks for web developers",
+  "short_name": "DevTips",
+  "name": "GLD DevTips",
+  "description": "Tips and Tricks for web developers",
   "icons": [
     {
       "src": "%PUBLIC_URL%/gldcondensed.ico",
