@@ -4,6 +4,10 @@ import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
 import Filters from "./components/header/Filters";
+
+import getRandomColour from "./utilities/randomColour";
+import AutoTextColour from "./utilities/autoTextColour";
+
 //import tagHexLookup from "./utilities/tagHex";
 //import autoTextColour from "./utilities/autoTextColour";
 
@@ -28,6 +32,7 @@ const firebaseConfig = {
   measurementId: "G-D9GBBQW1S0",
 };
 let gotDbData = false;
+let getTagColours;
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -47,8 +52,21 @@ let userCount = 0;
 
 
 
-
 function App() {
+  async function tagHexLookup(tag, tagColours){
+    tag = tag.toLowerCase();
+    const tagNotPresent = tagColours[tag] === undefined;
+    
+    if (tagNotPresent) {
+      const backgroundColour = getRandomColour();
+      const textColour = AutoTextColour(backgroundColour);
+      tagColours[tag] = [backgroundColour, textColour];
+    }
+    
+    return tagColours;
+  
+  }
+
   async function getDocDataFromDb(docRef) {
     const gotDoc = await getDoc(docRef);
     const dataObject = await gotDoc.data();
@@ -226,7 +244,9 @@ const object = createObject("A", "B");
     
    const tagColoursObject = await getDocDataFromDb(tagsDocRef);
    setTagColours(() => tagColoursObject);
-   console.log(tagColours);
+   //console.log(tagColours);
+   getTagColours = true;
+
    gotDbData = true;
   }
   if (gotDbData === false) {
@@ -275,6 +295,22 @@ const object = createObject("A", "B");
     ),
   ]);
   const tagListAll = Object.keys(tagList);
+   function mapTagColours(tagColours){
+    const newTagColours = {...tagColours}
+      tagListAll.forEach( (tag) => {
+       tagHexLookup(tag, newTagColours);
+
+    });
+    console.log(newTagColours);
+    getTagColours = false;  
+    return newTagColours;
+  }
+ function updateTagColours(){
+    setTagColours(()=> {return{...mapTagColours()}})
+  }
+  if (getTagColours){
+    updateTagColours();
+  }
   const [tagState, setTagState] = useState(() => {
     return tagList;
   }); // Tip init functions only run once
