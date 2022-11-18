@@ -323,7 +323,7 @@ const object = createObject("A", "B");
   return (
     <section className="page-container">
       <Header
-        title="Tip Town 5000"
+        title="GLD DevTips"
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         setTagState={setTagState}
