@@ -1,15 +1,19 @@
 {
+  "manifest_version": "3",
+  "version": "0.1",
   "short_name": "DevTips",
   "name": "GLD DevTips",
   "description": "Tips and Tricks for web developers",
   "icons": [
     {
-      "src": "%PUBLIC_URL%/gldcondensed.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "GLD144.png", 
+      "sizes": "144x144",
+      "purpose": "any"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
