@@ -27,7 +27,7 @@ const firebaseConfig = {
   appId: "1:616417597533:web:445aabc894ece7a57495b4",
   measurementId: "G-D9GBBQW1S0",
 };
-let gotData = false;
+let gotDbData = false;
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -35,6 +35,8 @@ const app = initializeApp(firebaseConfig);
 //Firestore
 const database = getFirestore(app);
 const tipsDocRef = doc(database, "devtips", "tips");
+const tagsDocRef = doc(database, "devtips", "tags");
+const rolesDocRef = doc(database, "devtips", "roles");
 //Auth
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
@@ -42,12 +44,20 @@ provider.setCustomParameters({
   prompt: "select_account",
 });
 let userCount = 0;
+
+async function getDocDataFromDb(docRef) {
+  const gotDoc = await getDoc(docRef);
+  const tipsObject = await gotDoc.data();
+  return tipsObject;
+}
+
+
+
 function App() {
   
   async function checkRole(user) {
     console.log("checkRole");
     const uid = user.uid;
-    const rolesDocRef = doc(database, "devtips", "roles");
     const rolesDoc = await getDoc(rolesDocRef);
     const role = await rolesDoc.data()[uid];
     const isOwner = role === "owner";
@@ -124,13 +134,6 @@ function App() {
       });
       return newObject;
     });
-  }
-  async function getDocData(docRef) {
-    const gotDoc = await getDoc(docRef);
-    const tipsObject = await gotDoc.data();
-    //const tipsArray = Object.values(tipsObject);
-    gotData = true;
-    return tipsObject;
   }
   const exampleObject = {
     "0001": {
@@ -213,14 +216,19 @@ const object = createObject("A", "B");
     }
   };
   const [tipList, setTip] = useState(exampleObject);
+  const [tagColours, setTagColours] = useState(() => {return {javascript: ["#EAD41C", "#000000"],
+  github: ["#3B6FAB", "#ffffff"],
+  vscode: ["#48AAEB", "#000000"],}});
   const [showAddTipForm, setShowAddTipForm] = useState(() => false);
-  async function setTipHandler() {
-    const array = await getDocData(tipsDocRef);
-    //console.log(array)
-    setTip(() => array);
+  async function getDbData() {
+    const tipsObject = await getDocDataFromDb(tipsDocRef);
+    setTip(() => tipsObject);
+    gotDbData = true;
+
+
   }
-  if (gotData === false) {
-    setTipHandler();
+  if (gotDbData === false) {
+    getDbData();
   }
 
   async function addTipToDb(object) {
