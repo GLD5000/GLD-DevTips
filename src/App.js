@@ -45,16 +45,16 @@ provider.setCustomParameters({
 });
 let userCount = 0;
 
-async function getDocDataFromDb(docRef) {
-  const gotDoc = await getDoc(docRef);
-  const tipsObject = await gotDoc.data();
-  return tipsObject;
-}
 
 
 
 function App() {
-  
+  async function getDocDataFromDb(docRef) {
+    const gotDoc = await getDoc(docRef);
+    const dataObject = await gotDoc.data();
+    return dataObject;
+  }
+    
   async function checkRole(user) {
     console.log("checkRole");
     const uid = user.uid;
@@ -223,9 +223,11 @@ const object = createObject("A", "B");
   async function getDbData() {
     const tipsObject = await getDocDataFromDb(tipsDocRef);
     setTip(() => tipsObject);
-    gotDbData = true;
-
-
+    
+   const tagColoursObject = await getDocDataFromDb(tagsDocRef);
+   setTagColours(() => tagColoursObject);
+   console.log(tagColours);
+   gotDbData = true;
   }
   if (gotDbData === false) {
     getDbData();
