@@ -3,9 +3,11 @@ import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
 
 const MultiInput = ({
+  authClickHandler,
   onSubmit,
   onPreview,
   inputFormState,
+  signedIn,
   isOwner,
   setInputFormState,
 }) => {
@@ -78,12 +80,16 @@ const MultiInput = ({
       return returnObject;
     });
   }
-
+  function signedInNonOwner(){
+    alert("You are not allowed to submit to the database- sorry!");
+  };
   const inputArray = makeInputArray();
   const submitText = isOwner
     ? "Submit to database"
-    : "Submit to database (Not available to you)";
-  const submitColour = isOwner ? "green" : "silver";
+    : signedIn? "You are not allowed to submit to the database": "Sign in to submit to the database";
+  const submitBackColour = isOwner ? "green" : "silver";
+  const submitTextColour = isOwner ? "white" : "black";
+  const submitFunction = isOwner ? onSubmit: signedIn? signedInNonOwner: authClickHandler;
   const deleteSectionText = "Delete Section " + inputArray.length;
   return (
     <>
@@ -112,10 +118,10 @@ const MultiInput = ({
       />
       <Button
         key="saveTip"
-        color="white"
-        backgroundColor={submitColour}
+        color={submitTextColour}
+        backgroundColor={submitBackColour}
         text={submitText}
-        clickFunction={onSubmit}
+        clickFunction={submitFunction}
       />
     </>
   );

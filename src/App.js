@@ -4,8 +4,8 @@ import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
 import Filters from "./components/header/Filters";
-import tagHexLookup from "./utilities/tagHex";
-import autoTextColour from "./utilities/autoTextColour";
+//import tagHexLookup from "./utilities/tagHex";
+//import autoTextColour from "./utilities/autoTextColour";
 
 import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
@@ -38,7 +38,9 @@ const tipsDocRef = doc(database, "devtips", "tips");
 //Auth
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
-
+provider.setCustomParameters({
+  prompt: "select_account",
+});
 let userCount = 0;
 function App() {
   
@@ -47,16 +49,22 @@ function App() {
     const uid = user.uid;
     const rolesDocRef = doc(database, "devtips", "roles");
     const rolesDoc = await getDoc(rolesDocRef);
-    const role = rolesDoc.data()[uid];
+    const role = await rolesDoc.data()[uid];
     const isOwner = role === "owner";
     if (isOwner) {
       console.log("Is owner = " + isOwner);
       console.log("signing in...");
       setSignedIn(true);
+
       setIsOwner(true);
+
     } else {
       console.log("signing in...");
-      
+      setSignedIn(true);
+      setIsOwner(false);
+
+      console.log("You are not authorised to submit tips to the database- sorry!");
+
       setIsOwner(false);
     }
     return isOwner;
@@ -120,7 +128,7 @@ function App() {
   async function getDocData(docRef) {
     const gotDoc = await getDoc(docRef);
     const tipsObject = await gotDoc.data();
-    const tipsArray = Object.values(tipsObject);
+    //const tipsArray = Object.values(tipsObject);
     gotData = true;
     return tipsObject;
   }
@@ -348,6 +356,7 @@ const object = createObject("A", "B");
         />
 
         <AddTip
+          authClickHandler={authClickHandler}
           setTip={setTip}
           newTipId={newTipId}
           tagListAll={tagListAll}

@@ -3,6 +3,7 @@ import SelectMulti from "../../../elements/SelectMulti";
 import MainTitle from "./MainTitle";
 
 const InputForm = ({
+  authClickHandler,
   tagListAll,
   inputFormState,
   setInputFormState,
@@ -14,6 +15,7 @@ const InputForm = ({
   onSubmit,
   onPreview,
   currentId,
+  signedIn,
   isOwner,
 }) => {
   return (
@@ -38,6 +40,8 @@ const InputForm = ({
         />
       </div>
       <MultiInput
+        signedIn={signedIn}
+        authClickHandler={authClickHandler}
         onSubmit={onSubmit}
         inputFormState={inputFormState}
         setInputFormState={setInputFormState}

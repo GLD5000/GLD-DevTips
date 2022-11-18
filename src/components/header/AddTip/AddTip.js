@@ -2,6 +2,7 @@ import Button from "../../../elements/Button";
 import InputForm from "./InputForm";
 
 const AddTip = ({
+  authClickHandler,
   setTip,
   newTipId,
   tagListAll,
@@ -84,6 +85,7 @@ const AddTip = ({
         />
         {showAddTipForm && (
           <InputForm
+            authClickHandler={authClickHandler}
             setShowAddTipForm={onClickAdd}
             setTip={setTip}
             newTipId={newTipId}
