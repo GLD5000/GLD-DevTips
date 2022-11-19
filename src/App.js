@@ -32,7 +32,7 @@ const firebaseConfig = {
   measurementId: "G-D9GBBQW1S0",
 };
 let gotDbData = false;
-let getTagColours;
+let gotDbTagColours;
 
 export const tagColours = {javascript: {name: "Javascript", backgroundColour: "#EAD41C", textColour: "#000000"},
 github: {name: "GitHub", backgroundColour: "#3B6FAB", textColour: "#ffffff"},
@@ -272,7 +272,7 @@ const object = createObject("A", "B");
    Object.entries(newTagColours).forEach(entry => {
     tagColours[entry[0]] = {...entry[1], fromDb: true};
    });
-   getTagColours = true;
+   gotDbTagColours = true;
 
    gotDbData = true;
   }
@@ -304,13 +304,13 @@ const object = createObject("A", "B");
        tagHexLookup(tag, tagColours);
 
     });
-    getTagColours = false;  
+    gotDbTagColours = false;  
     return tagColours;
   }
  function updateTagColours(){
   mapTagColours(tagColours);
   }
-  if (getTagColours){
+  if (gotDbTagColours){
     updateTagColours();
   }
   const [tagState, setTagState] = useState(() => {
