@@ -60,8 +60,10 @@ async function addTipToDb(object) {
       [object.id]: object,
     });
     const gotDoc = await getDoc(tipsDocRef);
-
     console.log("Document written as: ", gotDoc.data()[object.id]);
+    Object.entries(tagColours).forEach(tag => {
+      if (tag[1].fromDb !== true) addTagToDb(tag[0], tag[1]);
+    });
   } catch (e) {
     console.error("Error adding document: ", e);
   }
