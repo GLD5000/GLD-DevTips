@@ -101,6 +101,7 @@ body {
 .page-container {
   display: grid;
   grid-template-rows: auto 1fr 64px;
+  align-items: start;
   width: 100%;
   height: 100vh;
   border: 1px solid rgb(53, 53, 53);
@@ -111,7 +112,6 @@ body {
   display: grid;
   overflow-y: auto;
   justify-items: center;
-  grid-template-rows: auto auto auto;
   gap: 0.5rem;
 }
 .add-tip-container{
