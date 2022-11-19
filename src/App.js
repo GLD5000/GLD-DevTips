@@ -53,18 +53,45 @@ provider.setCustomParameters({
   prompt: "select_account",
 });
 let userCount = 0;
+async function addTipToDb(object) {
+  console.log("Adding tag to db...");
+  try {
+    await updateDoc(tipsDocRef, {
+      [object.id]: object,
+    });
+    const gotDoc = await getDoc(tipsDocRef);
 
+    console.log("Document written as: ", gotDoc.data()[object.id]);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+export async function addTagToDb(lowerCaseTagName, tag) {
+  try {
+    await updateDoc(tagsDocRef, {
+      [lowerCaseTagName]: tag,
+    });
+    const gotDoc = await getDoc(tagsDocRef);
+
+    console.log("Document written as: ", gotDoc.data()[lowerCaseTagName]);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
 
 
 function App() {
   async function tagHexLookup(tag, tagColours){
-    const lowerCaseTag = tag.toLowerCase();
-    const tagNotPresent = tagColours[tag] === undefined;
+    const lowerCaseTagName = tag.toLowerCase();
+    const tagNotPresent = tagColours[lowerCaseTagName] === undefined;
     
     if (tagNotPresent) {
       const backgroundColour = getRandomColour();
       const textColour = AutoTextColour(backgroundColour);
-      tagColours[lowerCaseTag] = {name: tag, backgroundColour: backgroundColour, textColour: textColour};
+      tagColours[lowerCaseTagName] = {name: tag, backgroundColour: backgroundColour, textColour: textColour};
+      if (isOwner) {
+        addTagToDb(lowerCaseTagName, tagColours[lowerCaseTagName]);
+      }
     }
     return tagColours;
   }
@@ -243,7 +270,7 @@ const object = createObject("A", "B");
     
    const newTagColours = await getDocDataFromDb(tagsDocRef);
    Object.entries(newTagColours).forEach(entry => {
-    tagColours[entry[0]] = {...entry[1]};
+    tagColours[entry[0]] = {...entry[1], fromDb: true};
    });
    getTagColours = true;
 
@@ -253,29 +280,6 @@ const object = createObject("A", "B");
     getDbData();
   }
 
-  async function addTipToDb(object) {
-    console.log(`signedIn ${signedIn}`);
-    
-    // console.group(`object`);
-    // console.log(object);
-    // console.groupEnd();
-        
-    if (!signedIn) {
-      console.log("Not Signed in");
-      return;
-    }
-
-    try {
-      await updateDoc(tipsDocRef, {
-        [object.id]: object,
-      });
-      const gotDoc = await getDoc(tipsDocRef);
-
-      console.log("Document written as: ", gotDoc.data()[object.id]);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  }
   const [signedIn, setSignedIn] = useState(() => false);
   const [isOwner, setIsOwner] = useState(() => false);
 
@@ -300,7 +304,6 @@ const object = createObject("A", "B");
        tagHexLookup(tag, tagColours);
 
     });
-    console.log(tagColours);
     getTagColours = false;  
     return tagColours;
   }
@@ -310,7 +313,6 @@ const object = createObject("A", "B");
   if (getTagColours){
     updateTagColours();
   }
-  console.log(tagColours);
   const [tagState, setTagState] = useState(() => {
     return tagList;
   }); // Tip init functions only run once

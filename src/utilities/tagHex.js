@@ -5,7 +5,7 @@ import { tagColours } from "../App";
 
 export default function tagHexLookup(tag){
   const lowerCaseTag = tag.toLowerCase();
-  const tagNotPresent = tagColours[tag] === undefined;
+  const tagNotPresent = tagColours[lowerCaseTag] === undefined;
     
     if (tagNotPresent) {
       const backgroundColour = getRandomColour();
