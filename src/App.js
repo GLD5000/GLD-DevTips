@@ -34,6 +34,10 @@ const firebaseConfig = {
 let gotDbData = false;
 let getTagColours;
 
+export const tagColours = {javascript: {name: "Javascript", backgroundColour: "#EAD41C", textColour: "#000000"},
+github: {name: "GitHub", backgroundColour: "#3B6FAB", textColour: "#ffffff"},
+vscode: {name: "VSCode", backgroundColour: "#48AAEB", textColour: "#000000"},};
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 //const analytics = getAnalytics(app);
@@ -54,17 +58,15 @@ let userCount = 0;
 
 function App() {
   async function tagHexLookup(tag, tagColours){
-    tag = tag.toLowerCase();
+    const lowerCaseTag = tag.toLowerCase();
     const tagNotPresent = tagColours[tag] === undefined;
     
     if (tagNotPresent) {
       const backgroundColour = getRandomColour();
       const textColour = AutoTextColour(backgroundColour);
-      tagColours[tag] = [backgroundColour, textColour];
+      tagColours[lowerCaseTag] = {name: tag, backgroundColour: backgroundColour, textColour: textColour};
     }
-    
     return tagColours;
-  
   }
 
   async function getDocDataFromDb(docRef) {
@@ -234,17 +236,15 @@ const object = createObject("A", "B");
     }
   };
   const [tipList, setTip] = useState(exampleObject);
-  const [tagColours, setTagColours] = useState(() => {return {javascript: ["#EAD41C", "#000000"],
-  github: ["#3B6FAB", "#ffffff"],
-  vscode: ["#48AAEB", "#000000"],}});
   const [showAddTipForm, setShowAddTipForm] = useState(() => false);
   async function getDbData() {
     const tipsObject = await getDocDataFromDb(tipsDocRef);
     setTip(() => tipsObject);
     
-   const tagColoursObject = await getDocDataFromDb(tagsDocRef);
-   setTagColours(() => tagColoursObject);
-   //console.log(tagColours);
+   const newTagColours = await getDocDataFromDb(tagsDocRef);
+   Object.entries(newTagColours).forEach(entry => {
+    tagColours[entry[0]] = {...entry[1]};
+   });
    getTagColours = true;
 
    gotDbData = true;
@@ -296,21 +296,21 @@ const object = createObject("A", "B");
   ]);
   const tagListAll = Object.keys(tagList);
    function mapTagColours(tagColours){
-    const newTagColours = {...tagColours}
       tagListAll.forEach( (tag) => {
-       tagHexLookup(tag, newTagColours);
+       tagHexLookup(tag, tagColours);
 
     });
-    console.log(newTagColours);
+    console.log(tagColours);
     getTagColours = false;  
-    return newTagColours;
+    return tagColours;
   }
  function updateTagColours(){
-    setTagColours(()=> {return{...mapTagColours()}})
+  mapTagColours(tagColours);
   }
   if (getTagColours){
     updateTagColours();
   }
+  console.log(tagColours);
   const [tagState, setTagState] = useState(() => {
     return tagList;
   }); // Tip init functions only run once

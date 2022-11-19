@@ -11,7 +11,7 @@ const Tag = ({ tag, setTagState}) => {
     const tag = e.target.innerHTML;
     updateTagState(tag, "active");
   }
-  const [backgroundColour, textColour] = tagHexLookup(tag);
+  const {backgroundColour, textColour} = tagHexLookup(tag);
   return (
     <Button
       color={textColour}

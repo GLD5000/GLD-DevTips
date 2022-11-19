@@ -14,7 +14,7 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
     const newValue = isActive ? "visible" : "active";
     updateTagState(tag, newValue);
   }
-  const [backgroundColour, textColour] = tagHexLookup(tag);
+  const {backgroundColour, textColour} = tagHexLookup(tag);
 
   return (<>
 {    isActive ? (
