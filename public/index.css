@@ -90,29 +90,28 @@ a {
 
 body {
   font-family: "Poppins", sans-serif;
-  /* display: flex; */
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
   background-color: #585a5d;
 }
 .page-container {
-  display: grid;
-  grid-template-rows: auto 1fr 64px;
-  align-items: start;
-  width: 100%;
   height: 100vh;
-  border: 1px solid rgb(53, 53, 53);
+  display: grid;
+  grid-template-rows: auto 1fr 32px;
+  align-items: start;
+  justify-items: center;
+    /*border: 1px solid rgb(53, 53, 53);*/
   border-radius: 5px;
+  overflow: hidden;
 }
 .body-container {
+  width: 100%;
+  height: 100%;
   padding-top: 0.5rem;
   display: grid;
+  grid-template-rows: auto auto auto;
   overflow-y: auto;
   justify-items: center;
   gap: 0.5rem;
+  background-color: #3d3d3d;
 }
 .add-tip-container{
   display: grid;
@@ -205,8 +204,7 @@ li {
   gap: 0.5rem;
 }
 .filter-section, .tip, .add-tip-container {
-  width: clamp(240px, 85vw,800px);
-  height: min-content;
+  width: clamp(240px, calc(100% - 0.5rem), 800px);
   border-radius: 7px;
   background-color: rgb(49, 49, 49);
   padding: 0.5rem;
