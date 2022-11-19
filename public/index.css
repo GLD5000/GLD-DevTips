@@ -204,7 +204,7 @@ li {
   gap: 0.5rem;
 }
 .filter-section, .tip, .add-tip-container {
-  width: clamp(240px, calc(100% - 0.5rem), 800px);
+  width: clamp(240px, calc(100% - 1rem), 800px);
   border-radius: 7px;
   background-color: rgb(49, 49, 49);
   padding: 0.5rem;
