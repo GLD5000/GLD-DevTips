@@ -23,6 +23,20 @@ const MultiInput = ({
       return newObject;
     });
   }
+  function duplicateField(e) {
+    const index = e.target.id.split("-")[0];
+    setInputFormState((object) => {
+      const newObject = { ...object };
+      newObject.sections = [
+        ...newObject.sections.map((x) => {
+          return { ...x };
+        }),
+        newObject.sections[index],
+      ];
+      return newObject;
+    });
+  }
+
   function deleteField() {
     setInputFormState((object) => {
       const newObject = { ...object };
@@ -74,6 +88,15 @@ const MultiInput = ({
             defaultValue={object.content}
             changeText={changeValue}
           />
+          <Button
+            key={index + "duplicateField"}
+            color="black"
+            backgroundColor="green"
+            text="Duplicate Section"
+            clickFunction={duplicateField}
+            id={index +"-duplicatefield"}
+          />
+
         </div>
       );
 
@@ -98,8 +121,8 @@ const MultiInput = ({
       <Button
         key="addField"
         color="black"
-        backgroundColor="white"
-        text="Add Another Section"
+        backgroundColor="blue"
+        text="Add New Section"
         clickFunction={addField}
         id="add-field"
       />
@@ -112,7 +135,7 @@ const MultiInput = ({
       <Button
         key="preview"
         color="white"
-        backgroundColor="blue"
+        backgroundColor="violet"
         text="Preview Tip"
         clickFunction={onPreview}
       />
