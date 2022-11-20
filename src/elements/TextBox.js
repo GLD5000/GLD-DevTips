@@ -58,9 +58,9 @@ function sliceFlaggedText(text, flag, indexOfFlag) {
 }
 function wrapText(index, text, type) {
   const typeHandler = {
-    bold: <Bold key={index} content={text} />,
-    italic: <Italic key={index} content={text} />,
-    link: <Link key={index} content={text} />,
+    bold: <Bold key={"b" +index} content={text} />,
+    italic: <Italic key={"i" +index} content={text} />,
+    link: <Link key={"l" +index} content={text} />,
     h1: <H1 key={"h" + index} content={text} />,
     h2: <H2 key={"h" + index} content={text} />,
     h3: <H3 key={"h" + index} content={text} />,
@@ -101,12 +101,14 @@ function recursiveParser(text, index) {
 
 function wrapIncomingParagraphs(paragraph, index){
   const parserOutput  = recursiveParser(paragraph, index);
-  const returnValue = typeof parserOutput === "object" ? parserOutput: <p key={index} className="text">{parserOutput}</p>;
+  const returnValue = typeof parserOutput === "object" && Array.isArray(parserOutput) === false ? parserOutput: <p key={"p" + index} className="text">{parserOutput}</p>;
   return returnValue;
 }
 
 const TextBox = ({ text }) => {
   function findObjectType(wrappedObject){
+    // console.log(wrappedObject);
+    // console.log(wrappedObject.key);
     const keyCharacter = wrappedObject.key[0]; 
     const isOrdered = keyCharacter === "O";
     const isUnordered = keyCharacter === "U";
