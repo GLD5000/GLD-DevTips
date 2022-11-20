@@ -1,3 +1,4 @@
+import { useState } from "react";
 import InputField from "./InputField";
 import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
@@ -11,6 +12,9 @@ const MultiInput = ({
   isOwner,
   setInputFormState,
 }) => {
+  function deepCloneInputFormState(){
+    return {...inputFormState, sections: inputFormState.sections.map(x => {return{...x}}), tags: [...inputFormState.tags]};
+  }
   function addField() {
     setInputFormState((object) => {
       const newObject = { ...object };
@@ -38,10 +42,14 @@ const MultiInput = ({
   }
   function deleteIndexedField(e) {
     const index = e.target.id.split("-")[0];
-    setInputFormState((object) => {
-      const newObject = {...object};
-      [newObject.sections[0], newObject.sections[1]] = [{...newObject.sections[1]}, {...newObject.sections[0]}];
-      console.log(newObject);
+
+    const newObject = deepCloneInputFormState();
+    const newSections = newObject.sections.filter((_, i) => parseInt(index) !== i);
+    setSectionsArray(() => newSections);
+    console.log(newObject.sections);
+    setInputFormState(() => {
+      newObject.sections = newSections;
+      console.log(newObject.sections);
       return newObject;
     });
   }
@@ -76,9 +84,9 @@ const MultiInput = ({
       return newObject;
     });
   }
-
+  const [sectionsArray, setSectionsArray] = useState(() => inputFormState.sections);
   function makeInputArray() {
-    return inputFormState.sections.map((object, index) => {
+    return sectionsArray.map((object, index) => {
       const returnObject = (
         <div key={index} className="field-container">
           <h2>Section {index + 1}</h2>

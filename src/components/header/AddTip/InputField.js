@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 const InputField = ({type, changeText, name, defaultValue}) => {
+    const [valueState, setValueState] = useState(defaultValue);
     function handleChange(e){
         const value = e.target.value;
         const index = e.target.name;
@@ -31,7 +34,7 @@ const InputField = ({type, changeText, name, defaultValue}) => {
 
     
 
-    return <textarea placeholder={placeHolder} name={name} className={type} rows="8" cols="70" onInput={handleChange} defaultValue={defaultValue}>
+    return <textarea placeholder={placeHolder} name={name} className={type} rows="8" cols="70" onInput={handleChange} defaultValue={valueState}>
         </textarea>
 
 
