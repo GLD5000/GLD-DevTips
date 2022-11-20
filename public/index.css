@@ -176,6 +176,7 @@ body {
   justify-content: flex-start;
   align-content: flex-start;
   overflow: hidden;
+  box-sizing:unset;
 }
 ul,
 ol {
@@ -216,6 +217,8 @@ li {
 .filter-section,
 .tip,
 .add-tip-container {
+  border: solid 1px #777;
+
   width: clamp(240px, calc(100% - 1rem), 800px);
   border-radius: 7px;
   background-color: rgb(49, 49, 49);
