@@ -14,7 +14,6 @@ const Tip = ({ tip, setTagState, editTip }) => {
 
         <div className="tip">
         <TipTitle title={tip.title} onClick={toggleExpanded} expanded={expanded}/>
-        <Tags tagArray={tip.tags} setTagState={setTagState} />
         {expanded && <>
         <MultiTextBoxes tip={tip} /> 
         <Button
@@ -26,7 +25,7 @@ const Tip = ({ tip, setTagState, editTip }) => {
         clickFunction={editTip}
       />
         </>}
-        
+        <Tags tagArray={tip.tags} setTagState={setTagState} />
 
       </div>
   
