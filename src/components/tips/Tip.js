@@ -9,10 +9,11 @@ const Tip = ({ tip, setTagState, editTip }) => {
   function toggleExpanded(){
     setExpanded(!expanded);
   }
+  const title = tip.titleSuffix === undefined? tip.title: tip.title + tip.titleSuffix;
   return ( 
 
         <div className="tip">
-        <TipTitle title={tip.title + tip.preview} onClick={toggleExpanded} expanded={expanded}/>
+        <TipTitle title={title} onClick={toggleExpanded} expanded={expanded}/>
         {expanded && <>
         <MultiTextBoxes tip={tip} /> 
         <Button
