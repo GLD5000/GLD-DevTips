@@ -25,7 +25,7 @@ const Tip = ({ tip, setTagState, editTip }) => {
       />
         </>}
         <Tags tagArray={tip.tags} setTagState={setTagState} />
-        {tip.updated &&  <p>Updated: {tip.updated}</p>}
+        {tip.updated &&  <p>{tip.updated}</p>}
       </div>
   
   );
