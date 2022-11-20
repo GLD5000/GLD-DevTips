@@ -53,6 +53,7 @@ const AddTip = ({
     console.log(`isOwner ${isOwner}`);
     
     if (isOwner) addTipToDb(newObject);
+    newObject.updated = newObject.date;
     addNewObjectToTips(newObject);
     clearInputFormState();
     setShowAddTipForm(false);
@@ -64,6 +65,8 @@ const AddTip = ({
   function onPreview() {
     const newObject = makeNewTipObject();
     addObjectToInputFormState(newObject);
+    newObject.updated = newObject.date;
+
     addNewObjectToTips(newObject);
   }
   function onClose() {

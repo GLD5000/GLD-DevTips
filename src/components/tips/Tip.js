@@ -9,7 +9,6 @@ const Tip = ({ tip, setTagState, editTip }) => {
   function toggleExpanded(){
     setExpanded(!expanded);
   }
-
   return ( 
 
         <div className="tip">
@@ -26,7 +25,7 @@ const Tip = ({ tip, setTagState, editTip }) => {
       />
         </>}
         <Tags tagArray={tip.tags} setTagState={setTagState} />
-
+        {tip.updated &&  <p>Updated: {tip.updated}</p>}
       </div>
   
   );
