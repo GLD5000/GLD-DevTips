@@ -39,11 +39,9 @@ const MultiInput = ({
   function deleteIndexedField(e) {
     const index = e.target.id.split("-")[0];
     setInputFormState((object) => {
-      const newObject = { ...object };
-      let newSections = newObject.sections.map(x => {return{...x}});
-      newSections.splice(index, 1);
-      newObject.sections = [...newSections.map(x => {return{...x}})];
-        console.log(newObject);
+      const newObject = {...object};
+      [newObject.sections[0], newObject.sections[1]] = [{...newObject.sections[1]}, {...newObject.sections[0]}];
+      console.log(newObject);
       return newObject;
     });
   }
