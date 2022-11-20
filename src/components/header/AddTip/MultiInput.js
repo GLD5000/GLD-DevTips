@@ -36,8 +36,20 @@ const MultiInput = ({
       return newObject;
     });
   }
+  function deleteIndexedField(e) {
+    const index = e.target.id.split("-")[0];
+    setInputFormState((object) => {
+      const newObject = { ...object };
+      let newSections = newObject.sections.map(x => {return{...x}});
+      newSections.splice(index, 1);
+      newObject.sections = [...newSections.map(x => {return{...x}})];
+        console.log(newObject);
+      return newObject;
+    });
+  }
 
-  function deleteField() {
+
+  function deleteLastField() {
     setInputFormState((object) => {
       const newObject = { ...object };
       const sectionsArray = [
@@ -78,7 +90,6 @@ const MultiInput = ({
             index={index}
             changeValue={changeValue}
             title={object.title}
-            deleteField={deleteField}
           />
           <InputField
             key={index + "InputField"}
@@ -96,6 +107,15 @@ const MultiInput = ({
             clickFunction={duplicateField}
             id={index +"-duplicatefield"}
           />
+          <Button
+            key={index + "deleteIndexedField"}
+            color="black"
+            backgroundColor="red"
+            text="Delete this Section"
+            clickFunction={deleteIndexedField}
+            id={index +"-deleteIndexedField"}
+          />
+
 
         </div>
       );
@@ -130,11 +150,11 @@ const MultiInput = ({
         backgroundColor="red"
         text={deleteSectionText}
         id="delete-field"
-        clickFunction={deleteField}
+        clickFunction={deleteLastField}
       />}
       <Button
         key="preview"
-        color="white"
+        color="black"
         backgroundColor="violet"
         text="Preview Tip"
         clickFunction={onPreview}
