@@ -12,7 +12,7 @@ const Tip = ({ tip, setTagState, editTip }) => {
   return ( 
 
         <div className="tip">
-        <TipTitle title={tip.title} onClick={toggleExpanded} expanded={expanded}/>
+        <TipTitle title={tip.title + tip.preview} onClick={toggleExpanded} expanded={expanded}/>
         {expanded && <>
         <MultiTextBoxes tip={tip} /> 
         <Button

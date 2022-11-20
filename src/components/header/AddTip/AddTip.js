@@ -66,7 +66,7 @@ const AddTip = ({
     const newObject = makeNewTipObject();
     addObjectToInputFormState(newObject);
     newObject.updated = "Updated: " + newObject.date;
-
+    newObject.preview = " (preview)";
     addNewObjectToTips(newObject);
   }
   function onClose() {
