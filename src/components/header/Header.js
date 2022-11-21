@@ -1,3 +1,5 @@
+
+import GldSvg from "../icons/Gld";
 import PropTypes from "prop-types";
 import AddTip from "./AddTip/AddTip";
 import Filters from "./Filters";
@@ -21,6 +23,7 @@ const Header = ({
 }) => {
   return (
     <header className="header">
+        <GldSvg />
       <h1>{title}</h1>
       <AuthButton authClickHandler={authClickHandler} signedIn={signedIn} />
     </header>

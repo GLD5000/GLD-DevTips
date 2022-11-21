@@ -54,22 +54,6 @@ const MultiInput = ({
       return newObject;
     });
   }
-
-
-  function deleteLastField() {
-    setInputFormState((object) => {
-      const newObject = { ...object };
-      const sectionsArray = [
-        ...newObject.sections.map((x) => {
-          return { ...x };
-        }),
-      ];
-      sectionsArray.pop();
-      newObject.sections = [...sectionsArray];
-      return newObject;
-    });
-  }
-
   function changeValue(inputObject, index) {
     setInputFormState((object) => {
       const newObject = { ...object };
@@ -139,7 +123,6 @@ const MultiInput = ({
   const submitBackColour = isOwner ? "green" : "silver";
   const submitTextColour = isOwner ? "white" : "black";
   const submitFunction = isOwner ? onSubmit: signedIn? signedInNonOwner: authClickHandler;
-  const deleteSectionText = "Delete Section " + inputArray.length;
   return (
     <>
       <h2>Add sections</h2>
@@ -152,12 +135,6 @@ const MultiInput = ({
         clickFunction={addField}
         id="add-field"
       />
-      {inputArray.length > 1 && <Button
-        backgroundColor="red"
-        text={deleteSectionText}
-        id="delete-field"
-        clickFunction={deleteLastField}
-      />}
       <Button
         key="preview"
         color="black"

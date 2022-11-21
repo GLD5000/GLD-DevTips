@@ -126,7 +126,7 @@ body {
 
 .header {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   justify-content: center;
   align-items: center;
   align-content: stretch;
@@ -166,6 +166,10 @@ body {
 .svg-wrapper {
   height: 1rem;
   width: 1rem;
+}
+.svg-wrapper-lg{
+  height: 3rem;
+  width: 3rem;
 }
 .tip {
   border: solid 1px #777;
