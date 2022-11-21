@@ -1,8 +1,7 @@
-import { useState } from "react";
 import InputField from "./InputField";
 import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
-
+let keyInc = 0;
 const MultiInput = ({
   authClickHandler,
   onSubmit,
@@ -41,11 +40,13 @@ const MultiInput = ({
     });
   }
   function deleteIndexedField(e) {
+    keyInc += 1;
+    console.log(`keyInc ${keyInc}`);
+    
     const index = e.target.id.split("-")[0];
-
+    console.log(`index ${index}`);
     const newObject = deepCloneInputFormState();
     const newSections = newObject.sections.filter((_, i) => parseInt(index) !== i);
-    setSectionsArray(() => newSections);
     console.log(newObject.sections);
     setInputFormState(() => {
       newObject.sections = newSections;
@@ -84,21 +85,20 @@ const MultiInput = ({
       return newObject;
     });
   }
-  const [sectionsArray, setSectionsArray] = useState(() => inputFormState.sections);
   function makeInputArray() {
-    return sectionsArray.map((object, index) => {
+    return inputFormState.sections.map((object, index) => {
       const returnObject = (
-        <div key={index} className="field-container">
+        <div key={(keyInc + "a" + index)} className="field-container">
           <h2>Section {index + 1}</h2>
           <InputButtons
-            key={index + "InputButtons"}
+            key={(keyInc + "a" + index) + "InputButtons"}
             type={object.type}
             index={index}
             changeValue={changeValue}
             title={object.title}
           />
           <InputField
-            key={index + "InputField"}
+            key={(keyInc + "a" + index) + "InputField"}
             id={index + "InputField"}
             name={index}
             type={object.type}
