@@ -6,29 +6,18 @@ export default function ExpandSvg() {
      alt="Expand"
      height="100%"
      width="100%"
+     viewBox="0 0 10 10"
    >
-     <line
-       x1="10%"
-       y1="10%"
-       x2="50%"
-       y2="50%"
-       style={{
-         stroke: "#ffffff",
-         strokeWidth: "20%",
-         strokeLinecap: "round",
-       }}
-     />
-     <line
-       x1="50%"
-       y1="50%"
-       x2="90%"
-       y2="10%"
-       style={{
-         stroke: "#ffffff",
-         strokeWidth: "20%",
-         strokeLinecap: "round",
-       }}
-     />
+    <path d="M 1,1
+    L 5,5 
+    L 9,1"        
+    style={{
+      stroke: "#ffffff",
+      strokeWidth: "20%",
+      strokeLinecap: "round",
+      fill: "none",
+    }}
+    />
    </svg>
  </div>
 )
