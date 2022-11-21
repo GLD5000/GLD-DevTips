@@ -35,9 +35,9 @@ const AddTip = ({
   }
   function makeNewTipObject() {
     const dateRaw = new Date();
-    const formattedDate = `${dateRaw.getDate()}/${
-      dateRaw.getMonth() + 1
-    }/${dateRaw.getFullYear()} ${dateRaw.getHours()}:${dateRaw.getMinutes()}`;
+    const formattedDate = `${dateRaw.getDate().toString().padStart(2, "0")}/${
+      (dateRaw.getMonth() + 1).toString().padStart(2, "0")
+    }/${dateRaw.getFullYear()} ${dateRaw.getHours().toString().padStart(2, "0")}:${dateRaw.getMinutes().toString().padStart(2, "0")}`;
     const newObject = {
       id: currentId,
       date: formattedDate,
