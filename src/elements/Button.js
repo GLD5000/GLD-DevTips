@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 function defaultOnClick(e) {
   console.log(e.target);
 }
@@ -23,12 +22,6 @@ const Button = ({
       {text}
     </button>
   );
-};
-
-Button.propTypes = {
-  color: PropTypes.string,
-  backgroundColor: PropTypes.string,
-  text: PropTypes.string,
 };
 
 export default Button;

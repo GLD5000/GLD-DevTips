@@ -1,6 +1,7 @@
 import InputField from "./InputField";
 import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
+import SvgButton from "../../../elements/SvgButton"
 let keyInc = 0;
 const MultiInput = ({
   authClickHandler,
@@ -121,40 +122,47 @@ const MultiInput = ({
             defaultValue={object.content}
             changeText={changeValue}
           />
-          <Button
+          <div className="svg-btn-grid">
+
+          <SvgButton
+            type="up"
             key={index + "moveFieldUp"}
             color="white"
             backgroundColor="purple"
-            text="Section Up"
+            text="Up"
             clickFunction={moveFieldUp}
             id={index +"-moveFieldUp"}
           />
-          <Button
+          <SvgButton
+            type="down"
             key={index + "moveFieldDown"}
             color="white"
             backgroundColor="orange"
-            text="Section Down"
+            text="Down"
             clickFunction={moveFieldDown}
             id={index +"-moveFieldDown"}
           />
 
 
-          <Button
+          <SvgButton
+            type="duplicate"
             key={index + "duplicateField"}
             color="black"
             backgroundColor="green"
-            text="Duplicate Section"
+            text="Duplicate"
             clickFunction={duplicateField}
             id={index +"-duplicatefield"}
           />
-          <Button
+          <SvgButton
+            type="delete"
             key={index + "deleteIndexedField"}
             color="black"
             backgroundColor="red"
-            text="Delete Section"
+            text="Delete"
             clickFunction={deleteIndexedField}
             id={index +"-deleteIndexedField"}
           />
+          </div>
 
 
         </div>
