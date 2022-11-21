@@ -1,6 +1,6 @@
 import ExpandSvg from "../components/icons/Expand";
 import CollapseSvg from "../components/icons/Collapse";
-import UpSvg from "../components/icons/Up";
+import DownSvg from "../components/icons/Down";
 const TipTitle = ({ title, onClick, expanded }) => {
   return (
     <button className="tip-title" onClick={onClick}>
@@ -8,7 +8,7 @@ const TipTitle = ({ title, onClick, expanded }) => {
       {expanded ? (
         <CollapseSvg />
       ) : (
-        <UpSvg />
+        <DownSvg />
       )}
     </button>
   );
