@@ -39,6 +39,15 @@ const MultiInput = ({
       return newObject;
     });
   }
+  function swapArrayPositions(array, index, direction = "up"){
+    const indexModifier = direction === "down"? -1: 1;
+    const secondIndex = index + indexModifier;
+    const indexLimit = array.length -1;
+    if (secondIndex > indexLimit || secondIndex < 0) return array;
+    [array[index], array[secondIndex]] = [array[secondIndex], array[index]];
+    return array
+  }
+
   function deleteIndexedField(e) {
     keyInc += 1;
     console.log(`keyInc ${keyInc}`);
