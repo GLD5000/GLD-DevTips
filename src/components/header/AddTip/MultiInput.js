@@ -27,39 +27,62 @@ const MultiInput = ({
     });
   }
   function duplicateField(e) {
-    const index = e.target.id.split("-")[0];
-    setInputFormState((object) => {
-      const newObject = { ...object };
-      newObject.sections = [
-        ...newObject.sections.map((x) => {
-          return { ...x };
-        }),
-        newObject.sections[index],
-      ];
+    incrementKeys();
+    const index = getIndexOfE(e);
+    const newObject = deepCloneInputFormState();
+    const duplicateObject = {...newObject.sections[index]};
+    newObject.sections.splice(index, 0, duplicateObject);
+
+    setInputFormState(() => {
       return newObject;
     });
   }
   function swapArrayPositions(array, index, direction = "up"){
-    const indexModifier = direction === "down"? -1: 1;
+    const indexModifier = direction === "down"? 1: -1;
     const secondIndex = index + indexModifier;
     const indexLimit = array.length -1;
     if (secondIndex > indexLimit || secondIndex < 0) return array;
     [array[index], array[secondIndex]] = [array[secondIndex], array[index]];
     return array
   }
-
-  function deleteIndexedField(e) {
+  function incrementKeys(){
     keyInc += 1;
-    console.log(`keyInc ${keyInc}`);
-    
-    const index = e.target.id.split("-")[0];
-    console.log(`index ${index}`);
+  }
+  function moveFieldUp(e){
+    incrementKeys();
+    const index = getIndexOfE(e);
     const newObject = deepCloneInputFormState();
-    const newSections = newObject.sections.filter((_, i) => parseInt(index) !== i);
-    console.log(newObject.sections);
+    const newSections = swapArrayPositions(newObject.sections, index, "up");
+
     setInputFormState(() => {
       newObject.sections = newSections;
-      console.log(newObject.sections);
+      return newObject;
+    });
+
+  }
+  function moveFieldDown(e){
+    incrementKeys();
+    const index = getIndexOfE(e);
+    const newObject = deepCloneInputFormState();
+    const newSections = swapArrayPositions(newObject.sections, index, "down");
+
+    setInputFormState(() => {
+      newObject.sections = newSections;
+      return newObject;
+    });
+
+  }
+  function getIndexOfE(e){
+    return parseInt(e.target.id.split("-")[0]);
+  }
+  function deleteIndexedField(e) {
+    incrementKeys();
+    const index = getIndexOfE(e);
+    const newObject = deepCloneInputFormState();
+    const newSections = newObject.sections.filter((_, i) => index !== i);
+
+    setInputFormState(() => {
+      newObject.sections = newSections;
       return newObject;
     });
   }
@@ -99,6 +122,24 @@ const MultiInput = ({
             changeText={changeValue}
           />
           <Button
+            key={index + "moveFieldUp"}
+            color="white"
+            backgroundColor="purple"
+            text="Section Up"
+            clickFunction={moveFieldUp}
+            id={index +"-moveFieldUp"}
+          />
+          <Button
+            key={index + "moveFieldDown"}
+            color="white"
+            backgroundColor="orange"
+            text="Section Down"
+            clickFunction={moveFieldDown}
+            id={index +"-moveFieldDown"}
+          />
+
+
+          <Button
             key={index + "duplicateField"}
             color="black"
             backgroundColor="green"
@@ -110,7 +151,7 @@ const MultiInput = ({
             key={index + "deleteIndexedField"}
             color="black"
             backgroundColor="red"
-            text="Delete this Section"
+            text="Delete Section"
             clickFunction={deleteIndexedField}
             id={index +"-deleteIndexedField"}
           />
