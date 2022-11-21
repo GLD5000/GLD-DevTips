@@ -1,12 +1,17 @@
 import Tr from "./Tr";
 
 const Table = ({ data }) => {
-
+  function splitRow(row){
+    return row.replace(/\\,/,"C-O-M-M-A").split(",").map(string => string.replace("C-O-M-M-A",","));
+  }
   function parseDataToArray(text){
     if (Array.isArray(text) ) return text;
     const rows = text.split(/\r?\n\s*/);
     let returnArray = [];
-    rows.forEach((row, index) => {returnArray[index] =  row.split(",")});
+    rows.forEach((row, index) => {
+      returnArray[index] =  splitRow(row);
+    });
+
     return returnArray;
   }
   const tableArray  = parseDataToArray(data);
