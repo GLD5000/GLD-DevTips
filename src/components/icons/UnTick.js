@@ -1,4 +1,4 @@
-export default function TickSvg() {
+export default function UnTickSvg() {
 return (
 <div className='svg-wrapper'>
 <svg
@@ -20,14 +20,7 @@ viewBox='0 0 16 16'
      }}
     
   />
-<path d="M 4.4493325,8.0000309 6.9936275,11.101361 11.550667,4.8986957"
-style={{
-stroke: '#000000',
-strokeWidth: '2',
-strokeLinecap: 'round',
-   fill: 'none',
- }}
-/>
+
 </svg>
 </div>
     )

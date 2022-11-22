@@ -1,9 +1,8 @@
-import { useState } from "react";
 function defaultOnClick(e) {
   console.log(e.target);
 }
 
-const Button = ({
+export default function Button({
   borderRadius = "4px",
   color = "white",
   backgroundColor = "black",
@@ -12,7 +11,7 @@ const Button = ({
   id=null,
   name=null,
   className = "btn",
-}) => {
+}) {
   let pointerTarget;
   function pointerHandler(e){
     pointerTarget = e.target.id;
@@ -26,13 +25,12 @@ const Button = ({
       id={id}
       name={name}
       onClick={clickHandler}
+      onPointerOver={pointerHandler}
       className={className}
       style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
-      onPointerOver={pointerHandler}
     >
       {text}
     </button>
   );
 };
 
-export default Button;
