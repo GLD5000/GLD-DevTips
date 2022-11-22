@@ -302,6 +302,9 @@ const object = createObject("A", "B");
         .map((x) => [x, "visible"])
     ),
   ]);
+  const [tagState, setTagState] = useState(() => {
+    return tagList;
+  }); // Tip init functions only run once
   const tagListAll = Object.keys(tagList);
    function mapTagColours(tagColours){
       tagListAll.forEach( (tag) => {
@@ -317,9 +320,6 @@ const object = createObject("A", "B");
   if (gotDbTagColours){
     updateTagColours();
   }
-  const [tagState, setTagState] = useState(() => {
-    return tagList;
-  }); // Tip init functions only run once
   function padIdNumber(number) {
     return number.toString(10).padStart(4, "0");
   }

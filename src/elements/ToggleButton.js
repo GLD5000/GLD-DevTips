@@ -19,7 +19,7 @@ export default function ToggleButton ({
   className="btn",
   toggle
 }) {
-  if (name === "Github")console.log(`toggle ${toggle}`);
+  //if (name === "Github")console.log(`toggle ${toggle}`);
   
   function getSvg(type){
     const svgLookup = {
@@ -34,7 +34,8 @@ export default function ToggleButton ({
     pointerTarget = e.target.id;
   }
   function clickHandler(e){
-    //if (pointerTarget !== e.target.id) return;
+    //console.log(e.target);
+   // if (pointerTarget !== e.target.id) return;
     clickFunction(e);
   }
 

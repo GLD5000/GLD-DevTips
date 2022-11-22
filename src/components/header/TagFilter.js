@@ -3,7 +3,7 @@ import ToggleButton from "../../elements/ToggleButton";
 import tagHexLookup from "../../utilities/tagHex.js";
 const TagFilter = ({ tag, setTagState, tagState }) => {
   const isActive = tagState[tag] === "active";
-  if (tag === "Github") console.log(`${tag} isActive ${isActive}`);
+ // if (tag === "Github") console.log(`${tag} isActive ${isActive}`);
   
   function updateTagState(tag, newValue) {
     setTagState((object) => {
@@ -19,7 +19,7 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
     // console.log(e.target.id);
     // if (pointer !== e.target.id) return;
     const tag = e.target.name;
-    console.log(`tag ${tag}`);
+    //console.log(`tag ${tag}`);
     
     const newValue = isActive ? "visible" : "active";
     updateTagState(tag, newValue);
