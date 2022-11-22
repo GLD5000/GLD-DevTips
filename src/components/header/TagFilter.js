@@ -26,7 +26,7 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
   return (
     <>
       {isActive ? (
-        <ToggleButton
+        <Button
           name={tag + "filterButton"}
           id={tag + "filterButton"}
           color={textColour}
@@ -36,7 +36,7 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
           className={className}
         />
       ) : (
-        <ToggleButton
+        <Button
           name={tag + "filterButton"}
           id={tag + "filterButton"}
           color={textColour}
