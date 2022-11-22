@@ -11,17 +11,23 @@ const Button = ({
   id=null,
   name=null,
   className = "btn",
-  onPointerOver = null
 }) => {
-
+  let pointerTarget;
+  function pointerHandler(e){
+    pointerTarget = e.target.id;
+  }
+  function clickHandler(e){
+    if (pointerTarget !== e.target.id) return;
+    clickFunction(e);
+  }
   return (
     <button
       id={id}
       name={name}
-      onClick={clickFunction}
+      onClick={clickHandler}
       className={className}
       style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
-      onPointerOver={onPointerOver}
+      onPointerOver={pointerHandler}
     >
       {text}
     </button>

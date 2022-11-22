@@ -7,7 +7,7 @@ const TagSet = ({ tagSet, setTagState, tagState }) => {
       tagSet.forEach((tag, key) =>
         buttonArray.push(
           <TagFilter
-            key={tag}
+            key={tag + "A" + key}
             tag={tag}
             setTagState={setTagState}
             tagState={tagState}
