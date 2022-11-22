@@ -141,7 +141,7 @@ button {
   width: fit-content;
 }
 .btn {
-  display: inline-block;
+  display: block;
   background: #000;
   color: #fff;
   border: none;
@@ -152,16 +152,13 @@ button {
   font-size: 16px;
   font-family: inherit;
   white-space: pre-wrap;
-  height: fit-content;
-  width: fit-content;
   overflow: hidden;
 }
-
-.dimmed{
- filter: brightness(90%);
+.tag-filter-btn{
+  display: flex;
 }
 .tag-filter-btn:hover{
-  filter: brightness(100%);
+  filter: brightness(115%);
 }
 
 .svg-btn-grid{
@@ -172,7 +169,7 @@ button {
 }
 .svg-btn{
   width: 100%;
-  display: inline-block;
+  display: block;
   background: #000;
   color: #fff;
   border: none;
