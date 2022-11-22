@@ -1,8 +1,7 @@
-import UpSvg from "../components/icons/Up"
-import DownSvg from "../components/icons/Down"
-import AddSvg from "../components/icons/Add"
-//import CollapseSvg from "../components/icons/Collapse"
-//import ExpandSvg from "../components/icons/Expand"
+import TickSvg from "../components/icons/Tick"
+import { useState } from "react";
+
+
 let showText = true;
 function defaultOnClick(e) {
   console.log(e.target);
@@ -15,21 +14,33 @@ export default function ToggleButton ({
   clickFunction = defaultOnClick,
   id=null,
   name=null,
-  type="up"
+  type="tick",
+  className="btn"
 }) {
 
   function getSvg(type){
     const svgLookup = {
-      up: <UpSvg/>,
-      down: <DownSvg/>,
-      add: <AddSvg/>,
-      delete: <AddSvg/>,
-      duplicate: <AddSvg/>,
+      tick: {true: <TickSvg/>, false: <TickSvg/>},
     }
     return svgLookup[type];
   }
-  const svg = getSvg(type);
+  const [toggle, setToggle] = useState(() => false);
+  const svg = getSvg(type)[toggle];
   
+  const filterDim = "brightness(90%)"
+  const filterBright = "brightness(100%)"
+  const [filter, setFilter] = useState(() => filterDim);
+  function brightenFilter(){
+    setFilter(() => filterBright)
+  }
+  function dimFilter(){
+    setFilter(filterDim);
+  }
+  function clickHandler(e){
+    if (filter === filterDim) return;
+    setToggle(!toggle);
+    clickFunction(e);
+  }
 
 
 
@@ -37,12 +48,14 @@ export default function ToggleButton ({
     <button
       id={id}
       name={name}
-      onClick={clickFunction}
-      className="svg-btn"
-      style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
+      onClick={clickHandler}
+      className={className}
+      style={{ filter: filter, color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
+      onPointerOver={brightenFilter}
+      onPointerLeave={dimFilter}
     >
-      {svg}
       {showText && text}
+      {svg}
     </button>
   </>
   );

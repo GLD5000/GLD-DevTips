@@ -1,4 +1,5 @@
 import Button from "../../elements/Button";
+import ToggleButton from "../../elements/ToggleButton";
 import tagHexLookup from "../../utilities/tagHex.js";
 const TagFilter = ({ tag, setTagState, tagState }) => {
   const isActive = tagState[tag] === "active";
@@ -18,7 +19,7 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
   return (
     <>
       {isActive ? (
-        <Button
+        <ToggleButton
           name={tag + "filterButton"}
           id={tag + "filterButton"}
           color={textColour}
@@ -28,7 +29,7 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
           className={className}
         />
       ) : (
-        <Button
+        <ToggleButton
           name={tag + "filterButton"}
           id={tag + "filterButton"}
           color={textColour}

@@ -1,3 +1,4 @@
+import { useState } from "react";
 function defaultOnClick(e) {
   console.log(e.target);
 }
@@ -12,12 +13,17 @@ const Button = ({
   name=null,
   className = "btn",
 }) => {
-  let pointerTarget;
-  function pointerHandler(e){
-    pointerTarget = e.target.id;
+  const filterDim = "brightness(90%)"
+  const filterBright = "brightness(100%)"
+  const [filter, setFilter] = useState(() => filterDim);
+  function brightenFilter(){
+    setFilter(() => filterBright)
+  }
+  function dimFilter(){
+    setFilter(filterDim);
   }
   function clickHandler(e){
-    if (pointerTarget !== e.target.id) return;
+    if (filter === filterDim) return;
     clickFunction(e);
   }
   return (
@@ -26,8 +32,9 @@ const Button = ({
       name={name}
       onClick={clickHandler}
       className={className}
-      style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
-      onPointerOver={pointerHandler}
+      style={{ filter: filter, color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
+      onPointerOver={brightenFilter}
+      onPointerLeave={dimFilter}
     >
       {text}
     </button>

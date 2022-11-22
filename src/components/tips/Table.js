@@ -2,7 +2,7 @@ import Tr from "./Tr";
 
 const Table = ({ data }) => {
   function splitRow(row){
-    return row.replace(/\\,/,"C-O-M-M-A").split(",").map(string => string.replace("C-O-M-M-A",","));
+    return row.replace(/\\,/g,"C-O-M-M-A").split(",").map(string => string.replace("C-O-M-M-A",","));
   }
   function parseDataToArray(text){
     if (Array.isArray(text) ) return text;
