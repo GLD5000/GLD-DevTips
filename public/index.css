@@ -151,6 +151,14 @@ body {
   height: fit-content;
   overflow: hidden;
 }
+
+.dimmed{
+ filter: brightness(90%);
+}
+.tag-filter-btn:hover{
+  filter: brightness(100%);
+}
+
 .svg-btn-grid{
   display:grid;
   gap: 8px;
@@ -260,12 +268,11 @@ li {
 
 .filter-container {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 130px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.5rem;
-  justify-content: space-evenly;
-  align-items: center;
 }
 .field-container {
   display: grid;

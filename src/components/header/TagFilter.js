@@ -15,7 +15,7 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
     updateTagState(tag, newValue);
   }
   const {backgroundColour, textColour} = tagHexLookup(tag);
-
+  const className = isActive? "btn tag-filter-btn": "btn tag-filter-btn dimmed";
   return (<>
 {    isActive ? (
       <Button
@@ -23,14 +23,17 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
         backgroundColor={backgroundColour}
         text={tag}
         clickFunction={tagOnClick}
+        className={className}
       />
 
   ) : (
       <Button
-      color="#000000"
-      backgroundColor="#dddddd"
+      color={textColour}
+      backgroundColor={backgroundColour}
       text={tag}
       clickFunction={tagOnClick}
+      className={className}
+
     />
 
   )
