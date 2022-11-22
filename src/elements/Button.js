@@ -10,7 +10,8 @@ const Button = ({
   clickFunction = defaultOnClick,
   id=null,
   name=null,
-  className = "btn"
+  className = "btn",
+  onPointerOver = null
 }) => {
 
   return (
@@ -20,6 +21,7 @@ const Button = ({
       onClick={clickFunction}
       className={className}
       style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
+      onPointerOver={onPointerOver}
     >
       {text}
     </button>

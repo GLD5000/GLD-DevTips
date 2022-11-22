@@ -118,6 +118,7 @@ body {
 }
 .add-tip-container {
   display: grid;
+  justify-items: center;
 }
 .tip-container {
   display: grid;
@@ -135,7 +136,10 @@ body {
   align-content: stretch;
   flex-wrap: wrap;
 }
-
+button {
+  height: fit-content;
+  width: fit-content;
+}
 .btn {
   display: inline-block;
   background: #000;
@@ -149,6 +153,7 @@ body {
   font-family: inherit;
   white-space: pre-wrap;
   height: fit-content;
+  width: fit-content;
   overflow: hidden;
 }
 
