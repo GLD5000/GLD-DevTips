@@ -157,9 +157,6 @@ button {
 .tag-filter-btn{
   display: flex;
 }
-.tag-filter-btn:hover{
-  filter: brightness(115%);
-}
 
 .svg-btn-grid{
   display:grid;
