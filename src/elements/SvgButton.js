@@ -3,6 +3,7 @@ import DownSvg from "../components/icons/Down";
 import AddSvg from "../components/icons/Add";
 import DeleteSvg from "../components/icons/Delete";
 import DuplicateSvg from "../components/icons/Duplicate";
+import PreviewSvg from "../components/icons/Preview"
 //import CollapseSvg from "../components/icons/Collapse"
 //import ExpandSvg from "../components/icons/Expand"
 let showText = true;
@@ -26,6 +27,7 @@ const SvgButton = ({
       add: <AddSvg stroke={color}/>,
       delete: <DeleteSvg stroke={color}/>,
       duplicate: <DuplicateSvg stroke={color} fill={backgroundColor} />,
+      preview: <PreviewSvg stroke={color} fill={backgroundColor} />,
     };
     return svgLookup[type];
   }

@@ -194,7 +194,8 @@ const MultiInput = ({
         clickFunction={addField}
         id="add-field"
       />
-      <Button
+      <SvgButton
+        type="preview"
         key="preview"
         color="black"
         backgroundColor="violet"
