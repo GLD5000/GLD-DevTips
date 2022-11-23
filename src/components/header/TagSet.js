@@ -1,7 +1,8 @@
+import { useState } from "react";
 import TagFilter from "./TagFilter";
 
-const TagSet = ({ tagSet, setTagState, tagState }) => {
-    const tagArray = Array.from(tagSet);
+const TagSet = ({ setTagState, tagState }) => {
+
     function tagStateReducer(acc, entry, key) {
       const tag = entry[0];
       const state = entry[1];

@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
@@ -33,7 +32,7 @@ const firebaseConfig = {
 };
 let gotDbData = false;
 let gotDbTagColours;
-
+let updatedTagState = false;
 export const tagColours = {javascript: {name: "Javascript", backgroundColour: "#EAD41C", textColour: "#000000"},
 github: {name: "GitHub", backgroundColour: "#3B6FAB", textColour: "#ffffff"},
 vscode: {name: "VSCode", backgroundColour: "#48AAEB", textColour: "#000000"},};
@@ -268,6 +267,7 @@ const object = createObject("A", "B");
   };
   const [tipList, setTip] = useState(exampleObject);
   const [showAddTipForm, setShowAddTipForm] = useState(() => false);
+
   async function getDbData() {
     const tipsObject = await getDocDataFromDb(tipsDocRef);
     setTip(() => tipsObject);
@@ -305,6 +305,20 @@ const object = createObject("A", "B");
   const [tagState, setTagState] = useState(() => {
     return tagList;
   }); // Tip init functions only run once
+  if (gotDbTagColours && updatedTagState === false) {
+    const newObject = {}
+      Object.keys(tagColours).sort().forEach(key => {
+        newObject[key] = "visible";
+      });
+      updatedTagState = true;
+      console.log(newObject);
+      console.log("updated TagState")
+      setTagState({...newObject});
+
+  }
+    //console.log(Object.keys(tagColours).sort());
+  useEffect(()=>{if (updatedTagState === true)console.log(tagState)});
+  console.log(tagState);
   const tagListAll = Object.keys(tagList);
    function mapTagColours(tagColours){
       tagListAll.forEach( (tag) => {
@@ -331,16 +345,17 @@ const object = createObject("A", "B");
   }
   const newTipId = makeNewTipId();
   const [searchQuery, setSearchQuery] = useState("");
+
   function testtagState(tagState, tagArray) {
     const tagStateValue = Object.values(tagState);
     if (!tagStateValue.includes("active")) return true;
-    let returnBoolean = true;
+    let returnBoolean = false;
     const activeTags = Object.entries(tagState).reduce((acc, entry) => {
-      if (entry[1] === "active") acc.push(entry[0]); // Tip push returns length not array
+      if (entry[1] === "active") acc.push(entry[0]); 
       return acc;
     }, []);
     activeTags.forEach((activeTag) => {
-      if (!tagArray.includes(activeTag)) returnBoolean = false;
+      if (tagArray.includes(activeTag)) returnBoolean = true;
     });
     return returnBoolean;
   }
@@ -402,7 +417,6 @@ const object = createObject("A", "B");
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           titleSet={titleSet}
-          tagSet={tagSet}
           setTagState={setTagState}
           tagState={tagState}
         />

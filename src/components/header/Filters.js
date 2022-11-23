@@ -5,7 +5,6 @@ export default function Filters({
   searchQuery,
   setSearchQuery,
   titleSet,
-  tagSet,
   setTagState,
   tagState,
 }) {
@@ -16,7 +15,7 @@ export default function Filters({
         setSearchQuery={setSearchQuery}
         titleSet={titleSet}
       />
-      <TagSet tagSet={tagSet} setTagState={setTagState} tagState={tagState} />
+      <TagSet setTagState={setTagState} tagState={tagState} />
     </section>
   );
 }

@@ -1,10 +1,10 @@
-import Button from "../../elements/Button";
+import { useEffect } from "react";
 import ToggleButton from "../../elements/ToggleButton";
 import tagHexLookup from "../../utilities/tagHex.js";
 const TagFilter = ({ tag, setTagState, tagState }) => {
   const isActive = tagState[tag] === "active";
  // if (tag === "Github") console.log(`${tag} isActive ${isActive}`);
-  
+
   function updateTagState(tag, newValue) {
     setTagState((object) => {
       return { ...object, [tag]: newValue }; // Tip return new object to trigger re-render
