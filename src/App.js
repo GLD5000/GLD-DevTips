@@ -400,6 +400,20 @@ const object = createObject("A", "B");
     setShowAddTipForm(true);
   }
 
+  function addNewObjectToTips(newObject) {
+    setTip((object) => {
+      const copyObject = { ...object };
+      copyObject[newObject.id] = newObject;
+      return copyObject;
+    });
+    newObject.tags.forEach((tag) => {
+      if (tagState[tag] === undefined) setTagState((object) => {
+        return {...object, [tag]: "visible"};
+      })
+    });
+  }
+
+
   return (
     <section className="page-container">
       <Header
@@ -444,6 +458,7 @@ const object = createObject("A", "B");
           setMainTitle={setMainTitle}
           inputTags={inputTags}
           setInputTags={setInputTags}
+          addNewObjectToTips={addNewObjectToTips}
         />
         <section className="tip-container">
           <Tips

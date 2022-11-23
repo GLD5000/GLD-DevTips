@@ -17,6 +17,7 @@ const AddTip = ({
   setShowAddTipForm,
   inputTags,
   setInputTags,
+  addNewObjectToTips,
 }) => {
   function onClickAdd() {
     if (showAddTipForm === true) onClose();
@@ -25,13 +26,6 @@ const AddTip = ({
   const currentId = inputFormState?.id || newTipId;
   function callbackMainTitle(value) {
     addFieldToInputFormState("title", value);
-  }
-  function addNewObjectToTips(newObject) {
-    setTip((object) => {
-      const copyObject = { ...object };
-      copyObject[newObject.id] = newObject;
-      return copyObject;
-    });
   }
   function makeNewTipObject() {
     const dateRaw = new Date();
