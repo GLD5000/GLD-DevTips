@@ -1,6 +1,7 @@
-import UpSvg from "../components/icons/Up"
-import DownSvg from "../components/icons/Down"
-import AddSvg from "../components/icons/Add"
+import UpSvg from "../components/icons/Up";
+import DownSvg from "../components/icons/Down";
+import AddSvg from "../components/icons/Add";
+import DeleteSvg from "../components/icons/Delete";
 //import CollapseSvg from "../components/icons/Collapse"
 //import ExpandSvg from "../components/icons/Expand"
 let showText = true;
@@ -13,38 +14,49 @@ const SvgButton = ({
   backgroundColor = "black",
   text = "Add",
   clickFunction = defaultOnClick,
-  id=null,
-  name=null,
-  type="up"
+  id = null,
+  name = null,
+  type = "up",
 }) => {
-
-  function getSvg(type){
+  function getSvg(type) {
     const svgLookup = {
-      up: <UpSvg/>,
-      down: <DownSvg/>,
-      add: <AddSvg/>,
-      delete: <AddSvg/>,
-      duplicate: <AddSvg/>,
-    }
+      up: <UpSvg stroke={color}/>,
+      down: <DownSvg stroke={color}/>,
+      add: <AddSvg stroke={color}/>,
+      delete: <DeleteSvg stroke={color}/>,
+      duplicate: <AddSvg fill={backgroundColor} />,
+    };
     return svgLookup[type];
   }
   const svg = getSvg(type);
-  
 
+  const style = {
+    color: color,
+    backgroundColor: backgroundColor,
+    borderRadius: borderRadius,
+    borderColor: color,
+    borderWidth: "2px",
+    borderStyle: "solid",
+    display: "grid",
+    gap: "6px",
+    gridTemplateColumns: "auto auto",
+    alignItems: "center",
 
+  };
 
-  return (<>
-    <button
-      id={id}
-      name={name}
-      onClick={clickFunction}
-      className="svg-btn"
-      style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
-    >
-      {svg}
-      {showText && text}
-    </button>
-  </>
+  return (
+    <>
+      <button
+        id={id}
+        name={name}
+        onClick={clickFunction}
+        className="svg-btn"
+        style={style}
+      >
+        {svg}
+        {showText && text}
+      </button>
+    </>
   );
 };
 

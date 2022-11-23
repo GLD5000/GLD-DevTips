@@ -1,4 +1,4 @@
-export default function DownSvg() {
+export default function DownSvg({fill = "none", stroke = "black"}) {
 return (
 <div className='svg-wrapper'>
 <svg
@@ -6,21 +6,21 @@ id='down-svg'
 alt='Move Down'
 height='100%'
 width='100%'
-viewBox='0 0 10 9'
+viewBox='0 0 16 16'
 >
-<path d='M 1,5
-l 4,4 
-l 4,-4 
-h -2
-v -4
-h -4
-v 4
+<path d='M 2,8
+L 8,14 
+L 14,8 
+h -3
+v -6
+h -6
+v 6
 z' 
 style={{
-stroke: '#ffffff',
+stroke: stroke,
 strokeWidth: '1',
 strokeLinecap: 'round',
-   fill: '#ffffff',
+   fill: fill,
  }}
 />
 </svg>
