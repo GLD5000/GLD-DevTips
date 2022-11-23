@@ -22,11 +22,14 @@ const Header = ({
   addTipToDb,
 }) => {
   return (
+    <section className="header-container">
+
     <header className="header">
         <GldSvg />
       <h1>{title}</h1>
       <AuthButton authClickHandler={authClickHandler} signedIn={signedIn} />
     </header>
+    </section>
   );
 };
 Header.defaultProps = {

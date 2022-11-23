@@ -252,7 +252,8 @@ li {
 }
 .filter-section,
 .tip,
-.add-tip-container {
+.add-tip-container,
+.header-grid {
   border: solid 1px #777;
 
   width: clamp(240px, calc(100% - 1rem), 800px);
@@ -260,7 +261,16 @@ li {
   background-color: rgb(49, 49, 49);
   padding: 0.5rem;
 }
+.header {
+  grid-column: 2;
+  width: clamp(240px, calc(100vw - 1rem), 800px);
+}
+.header-container{
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
 
+}
 .titleFilter-container {
   display: grid;
   grid-template-rows: auto auto;
