@@ -185,7 +185,8 @@ const MultiInput = ({
     <>
       <h2>Add sections</h2>
       {inputArray}
-      <Button
+      <SvgButton
+        type="add"
         key="addField"
         color="black"
         backgroundColor="blue"

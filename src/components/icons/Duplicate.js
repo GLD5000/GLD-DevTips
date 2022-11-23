@@ -1,4 +1,4 @@
-export default function AddSvg({fill = "white", stroke = "black"}) {
+export default function DuplicateSvg({fill = "white", stroke = "black"}) {
   const style = {
     stroke: stroke,
     strokeWidth: "1",
@@ -15,7 +15,9 @@ export default function AddSvg({fill = "white", stroke = "black"}) {
         width="100%"
         viewBox="0 0 16 16"
       >
-        <path d="M 2,8 h 12 M 8,2 v 12" style={style}
+        <rect x="2" y="2" width="9" height="9" rx="1" style={style}
+        />
+        <rect x="5" y="5" width="9" height="9" rx="1" style={style}
         />
       </svg>
     </div>
