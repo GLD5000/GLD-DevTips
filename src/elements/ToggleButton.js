@@ -19,7 +19,6 @@ export default function ToggleButton ({
   className="btn",
   toggle
 }) {
-  //if (name === "Github")console.log(`toggle ${toggle}`);
   
   function getSvg(type){
     const svgLookup = {
@@ -29,13 +28,8 @@ export default function ToggleButton ({
   }
   const svg = getSvg(type)[toggle];
   
-  let pointerTarget;
-  function pointerHandler(e){
-    pointerTarget = e.target.id;
-  }
   function clickHandler(e){
-    //console.log(e.target);
-   // if (pointerTarget !== e.target.id) return;
+    //return if wrong
     clickFunction(e);
   }
 
@@ -46,7 +40,6 @@ export default function ToggleButton ({
       id={id}
       name={name}
       onClick={clickHandler}
-      onPointerOver={pointerHandler}
       className={className}
       style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
     >
