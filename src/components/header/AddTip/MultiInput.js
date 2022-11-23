@@ -149,7 +149,7 @@ const MultiInput = ({
             key={index + "duplicateField"}
             color="black"
             backgroundColor="LightGreen"
-            text="Duplicate"
+            text="Copy"
             clickFunction={duplicateField}
             id={index +"-duplicatefield"}
           />
