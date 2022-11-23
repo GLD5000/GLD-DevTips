@@ -196,8 +196,10 @@ button {
   border-bottom: solid 1px #777;
 }
 .svg-wrapper {
-  height: 1rem;
-  width: 1rem;
+  --svg-size: 1.35rem;
+  height: var(--svg-size);
+  width: var(--svg-size);
+  
 }
 .svg-wrapper-lg{
   height: 3rem;

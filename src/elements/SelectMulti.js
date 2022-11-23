@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function SelectMulti({
   tagListAll,
   inputFormState,
-  addFieldToInputFormState
+  addFieldToInputFormState,
 }) {
   const inputFormStateTags = inputFormState?.tags || null;
   const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
@@ -24,7 +24,7 @@ export default function SelectMulti({
 
   function updateCustomTags(e) {
     const text = e;
-    const tags = text.split(/[,\s]+/).filter(tag => tag.length > 0);
+    const tags = text.split(/[,\s]+/).filter((tag) => tag.length > 0);
     setCustomTags(() => {
       return tags;
     });
