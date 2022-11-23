@@ -12,12 +12,7 @@ export default function Button({
   name=null,
   className = "btn",
 }) {
-  let pointerTarget;
-  function pointerHandler(e){
-    pointerTarget = e.target.id;
-  }
   function clickHandler(e){
-    if (pointerTarget !== e.target.id) return;
     clickFunction(e);
   }
   return (
@@ -25,7 +20,6 @@ export default function Button({
       id={id}
       name={name}
       onClick={clickHandler}
-      onPointerOver={pointerHandler}
       className={className}
       style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
     >
