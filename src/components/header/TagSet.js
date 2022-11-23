@@ -1,12 +1,36 @@
 import { useState } from "react";
 import TagFilter from "./TagFilter";
+import Button from "../../elements/Button";
 
 const TagSet = ({ setTagState, tagState }) => {
+    function clearTags(){
+      setTagState((old) => {
+        const newObject = {...old};
+        Object.keys(newObject).forEach((key) => {
+          newObject[key] = "visible";
+        });
+      return newObject;
+      })
 
-    function tagStateReducer(acc, entry, key) {
+    }
+
+    function tagStateReducer(acc, entry, key) {// make first button a clear all
       const tag = entry[0];
       const state = entry[1];
-      if (state === "invisible") return acc;
+      if (key === 0){
+        acc.push(
+          <Button
+          name="Clear Tags"
+          id="clear-tags"
+          key={tag + "A" + key}
+          color={"black"}
+          backgroundColor={"IndianRed"}
+          text={"Clear Tags"}
+          clickFunction={clearTags}
+          />
+        );
+          return acc;
+      }
       acc.push(<TagFilter
         key={tag + "A" + key}
         tag={tag}

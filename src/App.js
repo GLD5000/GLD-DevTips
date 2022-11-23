@@ -79,7 +79,7 @@ export async function addTagToDb(lowerCaseTagName, tag) {
     console.error("Error adding document: ", e);
   }
 }
-const tagsObject = {};
+const tagsObject = {clear:"Clear"};
 
 
 function App() {
