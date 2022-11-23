@@ -22,7 +22,7 @@ const TagFilter = ({ tag, setTagState, tagState }) => {
     //console.log(`tag ${tag}`);
     
     const newValue = isActive ? "visible" : "active";
-    updateTagState(tag, newValue);
+    if (tag !== undefined) updateTagState(tag, newValue);
   }
   const { backgroundColour, textColour } = tagHexLookup(tag);
   const className = "btn tag-filter-btn";

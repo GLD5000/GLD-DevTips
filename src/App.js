@@ -79,6 +79,7 @@ export async function addTagToDb(lowerCaseTagName, tag) {
     console.error("Error adding document: ", e);
   }
 }
+const tagsObject = {};
 
 
 function App() {
@@ -302,23 +303,24 @@ const object = createObject("A", "B");
         .map((x) => [x, "visible"])
     ),
   ]);
-  const [tagState, setTagState] = useState(() => {
-    return tagList;
-  }); // Tip init functions only run once
-  if (gotDbTagColours && updatedTagState === false) {
-    const newObject = {}
+  const [tagState, setTagState] = useState(tagsObject); // Tip init functions only run once
+  function getTags(){
       Object.keys(tagColours).sort().forEach(key => {
-        newObject[key] = "visible";
+        tagsObject[tagColours[key].name] = "visible";
       });
       updatedTagState = true;
-      console.log(newObject);
-      console.log("updated TagState")
-      setTagState({...newObject});
-
   }
-    //console.log(Object.keys(tagColours).sort());
-  useEffect(()=>{if (updatedTagState === true)console.log(tagState)});
-  console.log(tagState);
+  if (gotDbTagColours && Object.keys(tagState).length < 10) {
+       getTags();
+
+      setTagState((oldState)=> {
+       // console.log(oldState); 
+        //console.log(tagsObject);
+        return {...tagsObject};
+      });
+  }
+  //console.log(tagState);
+      //console.log(Object.keys(tagColours).sort());
   const tagListAll = Object.keys(tagList);
    function mapTagColours(tagColours){
       tagListAll.forEach( (tag) => {
@@ -347,6 +349,8 @@ const object = createObject("A", "B");
   const [searchQuery, setSearchQuery] = useState("");
 
   function testtagState(tagState, tagArray) {
+    //console.log(tagState);
+    //console.log(tagArray);
     const tagStateValue = Object.values(tagState);
     if (!tagStateValue.includes("active")) return true;
     let returnBoolean = false;
@@ -354,6 +358,7 @@ const object = createObject("A", "B");
       if (entry[1] === "active") acc.push(entry[0]); 
       return acc;
     }, []);
+    // console.log(activeTags);
     activeTags.forEach((activeTag) => {
       if (tagArray.includes(activeTag)) returnBoolean = true;
     });
