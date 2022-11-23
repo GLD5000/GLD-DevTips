@@ -24,10 +24,9 @@ export default function SelectMulti({
 
   function updateCustomTags(e) {
     const text = e;
-    const tags = text.split(/[,\s]+/);
+    const tags = text.split(/[,\s]+/).filter(tag => tag.length > 0);
     setCustomTags(() => {
-      const newObject = [...tags];
-      return newObject;
+      return tags;
     });
     addFieldToInputFormState("tags", [...selectedTags, ...tags]);
   }
