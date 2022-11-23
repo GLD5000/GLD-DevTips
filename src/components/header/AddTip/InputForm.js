@@ -9,8 +9,6 @@ const InputForm = ({
   setInputFormState,
   addFieldToInputFormState,
   addObjectToInputFormState,
-  setInputTags,
-  inputTags,
   callbackMainTitle,
   onSubmit,
   onPreview,
@@ -32,8 +30,6 @@ const InputForm = ({
         </label>
         <SelectMulti
           tagListAll={tagListAll}
-          setInputTags={setInputTags}
-          inputTags={inputTags}
           inputFormState={inputFormState}
           addFieldToInputFormState={addFieldToInputFormState}
 

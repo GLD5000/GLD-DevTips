@@ -15,8 +15,6 @@ const AddTip = ({
   addObjectToInputFormState,
   showAddTipForm,
   setShowAddTipForm,
-  inputTags,
-  setInputTags,
   addNewObjectToTips,
 }) => {
   function onClickAdd() {
@@ -95,8 +93,6 @@ const AddTip = ({
             setInputFormState={setInputFormState}
             addFieldToInputFormState={addFieldToInputFormState}
             addObjectToInputFormState={addObjectToInputFormState}
-            inputTags={inputTags}
-            setInputTags={setInputTags}
             callbackMainTitle={callbackMainTitle}
             onSubmit={onSubmit}
             onPreview={onPreview}
