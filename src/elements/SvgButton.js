@@ -40,7 +40,7 @@ const SvgButton = ({
     borderStyle: "solid",
     display: "grid",
     gap: "6px",
-    gridTemplateColumns: "auto auto",
+    gridTemplateColumns: "1fr auto 1fr",
     alignItems: "center",
 
   };
