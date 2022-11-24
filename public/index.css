@@ -110,7 +110,6 @@ body {
   grid-area: body;
   width: 100%;
   height: fit-content;
-  padding-left: 1rem;
   padding-top: 0.5rem;
   display: grid;
   grid-template-rows: auto auto auto 1fr;
