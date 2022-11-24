@@ -108,7 +108,7 @@ body {
 }
 .body-container {
   grid-area: body;
-  width: 100%;
+  width: 100vw;
   height: fit-content;
   padding-top: 0.5rem;
   display: grid;
@@ -126,7 +126,7 @@ body {
   gap: 0.5rem;
   grid-template-columns: 1fr;
   justify-items: center;
-  width: 100%;
+  width: 100vw;
 }
 
 button {
