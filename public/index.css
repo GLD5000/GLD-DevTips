@@ -107,6 +107,7 @@ body {
   overflow-y: scroll;
 }
 .body-container {
+  flex: 100%;
   grid-area: body;
   width: 100vw;
   height: fit-content;
