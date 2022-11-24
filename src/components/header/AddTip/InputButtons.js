@@ -1,6 +1,5 @@
 import InputTitle from "./InputTitle";
 import InputSelect from "./InputSelect";
-import Button from "../../../elements/Button";
 
 export default function InputButtons({ index, type, changeValue, title }) {
   return (

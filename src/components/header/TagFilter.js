@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import ToggleButton from "../../elements/ToggleButton";
 import tagHexLookup from "../../utilities/tagHex.js";
 const TagFilter = ({ tag, setTagState, tagState }) => {

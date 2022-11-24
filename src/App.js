@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
@@ -304,14 +304,14 @@ const object = createObject("A", "B");
     ),
   ]);
   const [tagState, setTagState] = useState(tagsObject); // Tip init functions only run once
-  function getTags(){
+  function getTags(updatedTagState){
       Object.keys(tagColours).sort().forEach(key => {
         tagsObject[tagColours[key].name] = "visible";
       });
       updatedTagState = true;
   }
   if (gotDbTagColours && Object.keys(tagState).length < 10) {
-       getTags();
+       getTags(updatedTagState);
 
       setTagState((oldState)=> {
        // console.log(oldState); 

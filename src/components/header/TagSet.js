@@ -1,4 +1,3 @@
-import { useState } from "react";
 import TagFilter from "./TagFilter";
 import Button from "../../elements/Button";
 
@@ -16,7 +15,6 @@ const TagSet = ({ setTagState, tagState }) => {
 
     function tagStateReducer(acc, entry, key) {// make first button a clear all
       const tag = entry[0];
-      const state = entry[1];
       if (key === 0){
         acc.push(
           <Button

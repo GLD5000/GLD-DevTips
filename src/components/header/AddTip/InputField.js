@@ -51,10 +51,10 @@ const InputField = ({ type, changeText, name, defaultValue }) => {
     };
     return informationLookup[type];
   }
-  const information = "hello";
+  const information = getInformation(type);
 
   return (
-    <label className="label-box" className="label-box">
+    <label className="label-box" >
       {showInformation === true && information}
 
       <textarea

@@ -1,6 +1,5 @@
 import TickSvg from "../components/icons/Tick";
 import UnTickSvg from "../components/icons/UnTick";
-import { useState } from "react";
 
 let showText = true;
 function defaultOnClick(e) {
@@ -30,7 +29,6 @@ export default function ToggleButton({
     //return if wrong
     clickFunction(e);
   }
-  const borderColor = backgroundColor;
   if (toggle === false) backgroundColor = "#b0b0b0";
   const styles = {
     color: color,
