@@ -415,6 +415,7 @@ const object = createObject("A", "B");
 
   return (
     <section className="page-container">
+      <h1>Hello, my name is Gareth...</h1>
       <Header
         title="DevTips"
         searchQuery={searchQuery}
