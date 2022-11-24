@@ -1,5 +1,5 @@
 const InputField = ({ type, changeText, name, defaultValue }) => {
-  let showInformation = false;
+  let showInformation = true;
   function handleChange(e) {
     const value = e.target.value;
     const index = e.target.name;
@@ -51,11 +51,11 @@ const InputField = ({ type, changeText, name, defaultValue }) => {
     };
     return informationLookup[type];
   }
-  const information = getInformation(type);
+  const information = "hello";
 
   return (
-    <label>
-      {showInformation === true && { information }}
+    <label className="label-box" className="label-box">
+      {showInformation === true && information}
 
       <textarea
         placeholder={placeHolder}

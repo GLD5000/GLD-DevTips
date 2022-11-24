@@ -260,6 +260,7 @@ li {
   background-color: rgb(49, 49, 49);
   padding: 0.5rem;
 }
+
 .header {
   display: grid;
   grid-template-columns: auto auto 1fr auto;
@@ -327,8 +328,8 @@ h3 {
   grid-template-rows: auto;
 }
 
-.form-control label {
-  display: block;
+.label-box{
+ display: grid;
 }
 
 .form-control input {

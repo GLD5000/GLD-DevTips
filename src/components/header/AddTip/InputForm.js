@@ -19,7 +19,7 @@ const InputForm = ({
   return (
     <div className="add-form">
       <div className="form-control">
-        <label>
+        <label className="label-box">
           <h2>Add Title</h2>
           <MainTitle
             onInput={callbackMainTitle}
@@ -32,7 +32,6 @@ const InputForm = ({
           tagListAll={tagListAll}
           inputFormState={inputFormState}
           addFieldToInputFormState={addFieldToInputFormState}
-
         />
       </div>
       <MultiInput

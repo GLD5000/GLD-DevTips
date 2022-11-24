@@ -5,7 +5,7 @@ import Button from "../../../elements/Button";
 export default function InputButtons({ index, type, changeValue, title }) {
   return (
     <div className="input-buttons">
-      <label>
+      <label className="label-box">
         Section Type:
         <InputSelect
           key={index + "InputSelect"}
@@ -16,7 +16,7 @@ export default function InputButtons({ index, type, changeValue, title }) {
           defaultValue={type}
         />
       </label>
-      <label>
+      <label className="label-box">
         Section Title:
         <InputTitle
           key={index + "InputTitle"}

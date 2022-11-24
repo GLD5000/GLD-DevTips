@@ -43,7 +43,7 @@ export default function SelectMulti({
   return (
     <>
       <h2>Add Tags</h2>
-      <label>
+      <label className="label-box">
         Click to choose existing tags
         <select
           name="selectedTags"
@@ -54,7 +54,7 @@ export default function SelectMulti({
           {optionsArray}
         </select>
       </label>
-      <label>
+      <label className="label-box">
         Add new tags as a List (separated by spaces or commas)
         <InputText
           placeholder="E.G.: JavaScript, Fundamentals"
