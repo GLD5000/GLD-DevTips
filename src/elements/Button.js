@@ -11,6 +11,8 @@ export default function Button({
   id=null,
   name=null,
   className = "btn",
+  border = "1px solid " + color,
+  
 }) {
   function clickHandler(e){
     clickFunction(e);
@@ -21,7 +23,7 @@ export default function Button({
       name={name}
       onClick={clickHandler}
       className={className}
-      style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius }}
+      style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius, border: border }}
     >
       {text}
     </button>

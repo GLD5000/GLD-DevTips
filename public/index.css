@@ -254,7 +254,7 @@ li {
 .add-tip-container {
   border: solid 1px #777;
 
-  width: clamp(240px, calc(100% - 1.25rem), 800px);
+  width: clamp(240px, calc(100vw - 1.25rem), 800px);
   border-radius: 7px;
   background-color: rgb(49, 49, 49);
   padding: 0.5rem;
