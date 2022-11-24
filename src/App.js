@@ -465,7 +465,7 @@ const object = createObject("A", "B");
           />
         </section>
       </section>
-      <section> footer</section>
+      <section className="footer"> footer</section>
     </section>
   );
 }
