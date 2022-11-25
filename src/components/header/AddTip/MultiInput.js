@@ -176,8 +176,8 @@ const MultiInput = ({
   };
   const inputArray = makeInputArray();
   const submitText = isOwner
-    ? "Submit to database"
-    : signedIn? "You are not allowed to submit to the database": "Sign in to submit to the database";
+    ? "Submit"
+    : signedIn? "Submit (Wrong User)": "Sign in to Submit";
   const submitBackColour = isOwner ? "green" : "silver";
   const submitTextColour = isOwner ? "white" : "black";
   const submitFunction = isOwner ? onSubmit: signedIn? signedInNonOwner: authClickHandler;
@@ -199,7 +199,7 @@ const MultiInput = ({
         key="preview"
         color="black"
         backgroundColor="violet"
-        text="Preview Tip"
+        text="Preview"
         clickFunction={onPreview}
       />
       <Button
