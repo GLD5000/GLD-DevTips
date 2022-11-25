@@ -1,4 +1,5 @@
 import Button from "../../../elements/Button";
+import SvgButton from "../../../elements/SvgButton";
 import InputForm from "./InputForm";
 
 const AddTip = ({
@@ -73,7 +74,8 @@ const AddTip = ({
   return (
     <div className="add-tip-container">
       <>
-        <Button
+        <SvgButton
+          type="write"
           color="black"
           backgroundColor={AddTipColour}
           text={AddTipText}
