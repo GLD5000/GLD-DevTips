@@ -1,4 +1,3 @@
-import Button from "../../../elements/Button";
 import SvgButton from "../../../elements/SvgButton";
 import InputForm from "./InputForm";
 

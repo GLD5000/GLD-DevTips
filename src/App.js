@@ -390,7 +390,6 @@ const object = createObject("A", "B");
   const tagSet = createTagSet(filteredTipList);
   const titleSet = createTitleSet(filteredTipList);
 
-  const [mainTitle, setMainTitle] = useState(() => "No Title Yet");
 
   async function editTip(e) {
     const id = e.target.id;
@@ -454,8 +453,6 @@ const object = createObject("A", "B");
           addObjectToInputFormState={addObjectToInputFormState}
           showAddTipForm={showAddTipForm}
           setShowAddTipForm={setShowAddTipForm}
-          mainTitle={mainTitle}
-          setMainTitle={setMainTitle}
           addNewObjectToTips={addNewObjectToTips}
         />
         <section className="tip-container">
