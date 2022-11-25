@@ -190,7 +190,7 @@ const MultiInput = ({
         key="addField"
         color="black"
         backgroundColor="blue"
-        text="Add New Section"
+        text="Add Section"
         clickFunction={addField}
         id="add-field"
       />
