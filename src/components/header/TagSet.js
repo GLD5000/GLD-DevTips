@@ -1,7 +1,7 @@
 import TagFilter from "./TagFilter";
 import Button from "../../elements/Button";
 
-const TagSet = ({ setTagState, tagState }) => {
+const TagSet = ({ setTagState, tagState , title = "Filter Tags"}) => {
     function clearTags(){
       setTagState((old) => {
         const newObject = {...old};
@@ -44,7 +44,7 @@ const TagSet = ({ setTagState, tagState }) => {
     const buttonArray = makeButtonArray();
     return (
     <label>
-      <h2>Filter Tags</h2>
+      <h2>{title}</h2>
       <section className="filter-container">
         <>
         {buttonArray}

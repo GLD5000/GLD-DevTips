@@ -1,11 +1,23 @@
 import InputText from "./InputText";
 import { useState } from "react";
+import TagSet from "../components/header/TagSet";
 
 export default function SelectMulti({
   tagListAll,
   inputFormState,
   addFieldToInputFormState,
 }) {
+  const [newInputTagState, setNewInputTagState] = useState(() => {
+   const newObject = {Clear: "visible"};
+   tagListAll.sort().forEach((tag) => {
+    newObject[tag] = "visible";
+   });
+   return newObject;
+  });
+  console.group(`newInputTagState`);
+  console.log(newInputTagState);
+  console.groupEnd();
+    
   const inputFormStateTags = inputFormState?.tags || null;
   const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
   const [selectedTags, setSelectedTags] = useState(() => []);
@@ -25,6 +37,13 @@ export default function SelectMulti({
   function updateCustomTags(e) {
     const text = e;
     const tags = text.split(/[,\s]+/).filter((tag) => tag.length > 0);
+
+    tags.forEach(tag => {
+      setNewInputTagState((state) => {state[tag] ="active";
+    return state;
+    });
+    });
+
     setCustomTags(() => {
       return tags;
     });
@@ -43,6 +62,7 @@ export default function SelectMulti({
   return (
     <>
       <h2>Add Tags</h2>
+      <TagSet title={"Choose Tags"} tagState={newInputTagState} setTagState={setNewInputTagState} />
       <label className="label-box">
         Click to choose existing tags
         <select
