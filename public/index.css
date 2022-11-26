@@ -351,8 +351,9 @@ h3 {
 
 .form-control-check input {
   flex: 2;
-  height: 20px;
+  height: 2rem;
 }
+
 h1,
 h2,
 li,

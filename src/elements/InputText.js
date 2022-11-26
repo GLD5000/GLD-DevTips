@@ -11,9 +11,9 @@ const InputText = ({
   listId= null,
   defaultValue=""
 }) => {
-  const delay = 500;
+  const delay = 680;
 
-  const debounce = (handler, delay = 250) => {
+  const debounce = (handler, delay = 500) => {
     let timerId;
     return (...args) => {
       clearTimeout(timerId);
