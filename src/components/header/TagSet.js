@@ -2,6 +2,7 @@ import TagFilter from "./TagFilter";
 import Button from "../../elements/Button";
 
 const TagSet = ({ setTagState, tagState , title = "Filter Tags"}) => {
+
     function clearTags(){
       setTagState((old) => {
         const newObject = {...old};
@@ -12,25 +13,10 @@ const TagSet = ({ setTagState, tagState , title = "Filter Tags"}) => {
       })
 
     }
-
     function tagStateReducer(acc, entry, key) {// make first button a clear all
       const tag = entry[0];
-      if (key === 0){
-        acc.push(
-          <Button
-          name="Clear Tags"
-          id="clear-tags"
-          key={tag + "A" + key}
-          color={"black"}
-          backgroundColor={"IndianRed"}
-          text={"Clear Tags"}
-          clickFunction={clearTags}
-          />
-        );
-          return acc;
-      }
       acc.push(<TagFilter
-        key={tag + "A" + key}
+        key={tag + "A" + key + 1}
         tag={tag}
         setTagState={setTagState}
         tagState={tagState}
@@ -38,7 +24,16 @@ const TagSet = ({ setTagState, tagState , title = "Filter Tags"}) => {
       return acc;
     }
     function makeButtonArray() {
-      return Object.entries(tagState).reduce(tagStateReducer, []);
+      return Object.entries(tagState).reduce(tagStateReducer, [          <Button
+        name="Clear Tags"
+        id="clear-tags"
+        key={"clearA0"}
+        color={"black"}
+        backgroundColor={"IndianRed"}
+        text={"Clear Tags"}
+        clickFunction={clearTags}
+        />
+]);
     }
     
     const buttonArray = makeButtonArray();
