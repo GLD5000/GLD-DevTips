@@ -8,15 +8,12 @@ export default function SelectMulti({
   addFieldToInputFormState,
 }) {
   const [newInputTagState, setNewInputTagState] = useState(() => {
-   const newObject = {Clear: "visible"};
+   const newObject = {};
    tagListAll.sort().forEach((tag) => {
     newObject[tag] = "visible";
    });
    return newObject;
   });
-  console.group(`newInputTagState`);
-  console.log(newInputTagState);
-  console.groupEnd();
     
   const inputFormStateTags = inputFormState?.tags || null;
   const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
@@ -50,30 +47,12 @@ export default function SelectMulti({
     addFieldToInputFormState("tags", [...selectedTags, ...tags]);
   }
 
-  function makeOptionsArray() {
-    return tagListAll.map((option, index) => (
-      <option key={index} value={option}>
-        {option}
-      </option>
-    ));
-  }
-  const optionsArray = makeOptionsArray();
 
   return (
     <>
       <h2>Add Tags</h2>
       <TagSet title={"Choose Tags"} tagState={newInputTagState} setTagState={setNewInputTagState} />
-      <label className="label-box">
-        Click to choose existing tags
-        <select
-          name="selectedTags"
-          id="selectedTags"
-          multiple
-          onInput={updateSelectedTags}
-        >
-          {optionsArray}
-        </select>
-      </label>
+
       <label className="label-box">
         Add new tags as a List (separated by spaces or commas)
         <InputText
