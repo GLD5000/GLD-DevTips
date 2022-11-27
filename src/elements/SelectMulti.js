@@ -50,7 +50,6 @@ export default function SelectMulti({
 
   return (
     <>
-      <h2>Add Tags</h2>
       <TagSet title={"Choose Tags"} tagState={newInputTagState} setTagState={setNewInputTagState} />
 
       <label className="label-box">
