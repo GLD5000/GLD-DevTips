@@ -79,7 +79,7 @@ export async function addTagToDb(lowerCaseTagName, tag) {
     console.error("Error adding document: ", e);
   }
 }
-const tagsObject = {clear:"Clear"};
+const tagsObject = {};
 
 
 function App() {
@@ -321,7 +321,7 @@ const object = createObject("A", "B");
   }
   //console.log(tagState);
       //console.log(Object.keys(tagColours).sort());
-  const tagListAll = Object.keys(tagList);
+  const tagListAll = Object.keys(tagState);
    function mapTagColours(tagColours){
       tagListAll.forEach( (tag) => {
        tagHexLookup(tag, tagColours);
