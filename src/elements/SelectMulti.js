@@ -1,5 +1,5 @@
 import InputText from "./InputText";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TagSet from "../components/header/TagSet";
 
 export default function SelectMulti({
@@ -15,31 +15,30 @@ export default function SelectMulti({
    return newObject;
   });
     
+
+
   const inputFormStateTags = inputFormState?.tags || null;
   const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
-  const [selectedTags, setSelectedTags] = useState(() => []);
   const [customTags, setCustomTags] = useState(
     () => inputFormState?.tags || []
   );
-  function updateSelectedTags(e) {
-    const collection = e.target.selectedOptions;
-    const tags = Object.values(collection).map((x) => x.value);
-    setSelectedTags(() => {
-      const newObject = [...tags];
-      return newObject;
-    });
-    addFieldToInputFormState("tags", [...tags, ...customTags]);
+  function selectedTagReducer(acc, entry){
+    if (entry[1] === "active") acc.push(entry[0]);
+    return acc;
+  }
+  function getSelectedTagArray(newInputTagState){
+    if (newInputTagState == null) return [];
+    console.group(`newInputTagState`);
+    console.log(newInputTagState);
+    console.groupEnd();
+    
+    return Object.entries(newInputTagState).reduce(selectedTagReducer, []);
   }
 
   function updateCustomTags(e) {
+    const selectedTags = getSelectedTagArray(newInputTagState);
     const text = e;
     const tags = text.split(/[,\s]+/).filter((tag) => tag.length > 0);
-
-    tags.forEach(tag => {
-      setNewInputTagState((state) => {state[tag] ="active";
-    return state;
-    });
-    });
 
     setCustomTags(() => {
       return tags;

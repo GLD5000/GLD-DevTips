@@ -35,8 +35,8 @@ const TagSet = ({ setTagState, tagState , title = "Filter Tags"}) => {
         />
 ]);
     }
-    
     const buttonArray = makeButtonArray();
+    
     return (
     <label>
       <h2>{title}</h2>
