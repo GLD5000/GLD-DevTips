@@ -2,6 +2,7 @@ import InputField from "./InputField";
 import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
 import SvgButton from "../../../elements/SvgButton"
+import {useEffect} from "react";
 let keyInc = 0;
 const MultiInput = ({
   authClickHandler,
@@ -12,6 +13,7 @@ const MultiInput = ({
   isOwner,
   setInputFormState,
 }) => {
+
   function deepCloneInputFormState(){
     return {...inputFormState, sections: inputFormState.sections.map(x => {return{...x}}), tags: [...inputFormState.tags]};
   }
@@ -181,6 +183,9 @@ const MultiInput = ({
   const submitBackColour = isOwner ? "green" : "silver";
   const submitTextColour = isOwner ? "white" : "black";
   const submitFunction = isOwner ? onSubmit: signedIn? signedInNonOwner: authClickHandler;
+
+  useEffect(() => {incrementKeys();}, [inputFormState])
+
   return (
     <>
       <h2>Add sections</h2>
