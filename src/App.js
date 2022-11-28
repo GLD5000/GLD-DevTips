@@ -36,6 +36,86 @@ let updatedTagState = false;
 export const tagColours = {javascript: {name: "Javascript", backgroundColour: "#EAD41C", textColour: "#000000"},
 github: {name: "GitHub", backgroundColour: "#3B6FAB", textColour: "#ffffff"},
 vscode: {name: "VSCode", backgroundColour: "#48AAEB", textColour: "#000000"},};
+const exampleObject = {
+  "0001": {
+    id: "0001",
+    date: "11th Oct 2022",
+    tags: ["Github", "Bash", "Beginner", "VSCode"],
+    title: "How to clone a Repo from Github",
+    sections: [
+      {
+        type: "code",
+        content: `git clone [Your Repo Url copied from GitHub]`,
+      },
+      {
+        type: "text",
+        content: `##This makes a linked copy of a repo from your Github Account to your computer.
+        
+        The above command will clone or copy the repo to your default path.`,
+      },
+      {
+        type: "hint",
+        content: `Within VSCode you can change the default path setting in your preferences by searching 'Git Clone' and editing your 'settings.json'`,
+      },
+      {
+        type: "text",
+        content: `#You can open the cloned repo within VSCode by using the open folder option from the 'File' menu.`,
+      },
+      {
+        type: "text",
+        content: `#[Tester T](ext Containing a {link}[**Bold** _**bolditalic**_ of link](https://www.google.co.uk/){link} {link}[Text of link](https://www.google.com/){link}.
+        
+        n. ordered  list item
+        n. ordered list item
+        n. ordered list item
+        - bullet points
+        - bullet points
+        - bullet points`,
+      },
+    ],
+  },
+  "0002":{
+    id: "0002",
+    date: "4th Feb 2022",
+    tags: ["JavaScript", "How-To"],
+    title: "Crockford Objects",
+    sections: [
+      {
+        title: "Test Title",
+
+        type: "code",
+        content: `function createObject(parameterA, parameterB) {
+          
+          function concatenateValues() {
+  return \`\${parameterA}\${parameterB}\`;
+}
+
+return {
+  parameterA,
+  parameterB,
+  concatenateValues,
+};
+}
+
+const object = createObject("A", "B");
+`,
+      },
+      {
+        type: "hint",
+        content:
+          "You can also add 'Object.freeze' to your return object to make it immutable!",
+      },
+      {
+        type: "code",
+        content: `return Object.freeze({
+  parameterA,
+  parameterB,
+  concatenateValues,
+});`,
+      },
+    ],
+  }
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -177,6 +257,8 @@ function App() {
       initialiseInputFormState();
       return;
     }
+    // setInputFormState(() => null);
+    // setShowAddTipForm(false);
     setInputFormState(() => {
       const newObject = { ...object };
       newObject.tags = [...object.tags];
@@ -186,86 +268,6 @@ function App() {
       return newObject;
     });
   }
-  const exampleObject = {
-    "0001": {
-      id: "0001",
-      date: "11th Oct 2022",
-      tags: ["Github", "Bash", "Beginner", "VSCode"],
-      title: "How to clone a Repo from Github",
-      sections: [
-        {
-          type: "code",
-          content: `git clone [Your Repo Url copied from GitHub]`,
-        },
-        {
-          type: "text",
-          content: `##This makes a linked copy of a repo from your Github Account to your computer.
-          
-          The above command will clone or copy the repo to your default path.`,
-        },
-        {
-          type: "hint",
-          content: `Within VSCode you can change the default path setting in your preferences by searching 'Git Clone' and editing your 'settings.json'`,
-        },
-        {
-          type: "text",
-          content: `#You can open the cloned repo within VSCode by using the open folder option from the 'File' menu.`,
-        },
-        {
-          type: "text",
-          content: `#[Tester T](ext Containing a {link}[**Bold** _**bolditalic**_ of link](https://www.google.co.uk/){link} {link}[Text of link](https://www.google.com/){link}.
-          
-          n. ordered  list item
-          n. ordered list item
-          n. ordered list item
-          - bullet points
-          - bullet points
-          - bullet points`,
-        },
-      ],
-    },
-    "0002":{
-      id: "0002",
-      date: "4th Feb 2022",
-      tags: ["JavaScript", "How-To"],
-      title: "Crockford Objects",
-      sections: [
-        {
-          title: "Test Title",
-
-          type: "code",
-          content: `function createObject(parameterA, parameterB) {
-            
-            function concatenateValues() {
-    return \`\${parameterA}\${parameterB}\`;
-  }
-  
-  return {
-    parameterA,
-    parameterB,
-    concatenateValues,
-  };
-}
-
-const object = createObject("A", "B");
-`,
-        },
-        {
-          type: "hint",
-          content:
-            "You can also add 'Object.freeze' to your return object to make it immutable!",
-        },
-        {
-          type: "code",
-          content: `return Object.freeze({
-    parameterA,
-    parameterB,
-    concatenateValues,
-  });`,
-        },
-      ],
-    }
-  };
   const [tipList, setTip] = useState(exampleObject);
   const [showAddTipForm, setShowAddTipForm] = useState(() => false);
 
