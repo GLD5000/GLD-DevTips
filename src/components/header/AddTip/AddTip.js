@@ -66,8 +66,8 @@ const AddTip = ({
     addObjectToInputFormState(null);
   }
   const AddTipText = showAddTipForm
-    ? "Close and Clear"
-    : "Create Tip";
+    ? "Cancel"
+    : "Write Tip";
   const AddTipColour = showAddTipForm ? "pink" : "aquamarine";
 
   return (

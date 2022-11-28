@@ -194,7 +194,7 @@ const MultiInput = ({
         type="add"
         key="addField"
         color="black"
-        backgroundColor="blue"
+        backgroundColor="dodgerBlue"
         text="Add Section"
         clickFunction={addField}
         id="add-field"
@@ -203,7 +203,7 @@ const MultiInput = ({
         type="preview"
         key="preview"
         color="black"
-        backgroundColor="violet"
+        backgroundColor="mediumPurple"
         text="Preview"
         clickFunction={onPreview}
       />
