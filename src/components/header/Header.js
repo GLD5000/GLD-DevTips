@@ -1,4 +1,4 @@
-
+import WriteTipBtn from "./WriteTipBtn";
 import GldSvg from "../icons/Gld";
 import PropTypes from "prop-types";
 import AuthButton from "./AuthButton";
@@ -7,15 +7,22 @@ const Header = ({
   title,
   authClickHandler,
   signedIn,
+  showAddTipForm,
+  setShowAddTipForm,
+  addObjectToInputFormState,
 }) => {
   return (
     <section className="header-container">
-
-    <header className="header">
+      <header className="header">
         <GldSvg />
-      <h1>{title}</h1>
-      <AuthButton authClickHandler={authClickHandler} signedIn={signedIn} />
-    </header>
+        <h1>{title}</h1>
+        <WriteTipBtn
+          showAddTipForm={showAddTipForm}
+          setShowAddTipForm={setShowAddTipForm}
+          addObjectToInputFormState={addObjectToInputFormState}
+        />
+        <AuthButton authClickHandler={authClickHandler} signedIn={signedIn} />
+      </header>
     </section>
   );
 };

@@ -5,7 +5,7 @@ const TitleFilter = ({ setSearchQuery, titleSet, searchQuery }) => {
   const listId = "searchTitleList";
   return (
     <label>
-        <h2>Search Titles</h2>
+        <h2>Search Title</h2>
         <div className="titleFilter-container">
         <InputText
           placeholder="Type or select a title..."

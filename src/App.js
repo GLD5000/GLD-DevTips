@@ -298,13 +298,13 @@ function App() {
     }
   }
 
-  const tagList = Object.fromEntries([
-    ...new Set(
-      Object.values(tipList)
-        .flatMap((tip) => tip.tags)
-        .map((x) => [x, "visible"])
-    ),
-  ]);
+  // const tagList = Object.fromEntries([
+  //   ...new Set(
+  //     Object.values(tipList)
+  //       .flatMap((tip) => tip.tags)
+  //       .map((x) => [x, "visible"])
+  //   ),
+  // ]);
   const [tagState, setTagState] = useState(tagsObject); // Tip init functions only run once
   function getTags(updatedTagState){
       Object.keys(tagColours).sort().forEach(key => {
@@ -413,6 +413,32 @@ function App() {
     });
   }
 
+  const topSection = showAddTipForm?
+  <AddTip
+  authClickHandler={authClickHandler}
+  setTip={setTip}
+  newTipId={newTipId}
+  tagListAll={tagListAll}
+  addTipToDb={addTipToDb}
+  signedIn={signedIn}
+  isOwner={isOwner}
+  inputFormState={inputFormState}
+  setInputFormState={setInputFormState}
+  addFieldToInputFormState={addFieldToInputFormState}
+  addObjectToInputFormState={addObjectToInputFormState}
+  showAddTipForm={showAddTipForm}
+  setShowAddTipForm={setShowAddTipForm}
+  addNewObjectToTips={addNewObjectToTips}
+/>
+:
+<Filters
+searchQuery={searchQuery}
+setSearchQuery={setSearchQuery}
+titleSet={titleSet}
+setTagState={setTagState}
+tagState={tagState}
+/>
+;
 
   return (
     <section className="page-container">
@@ -431,32 +457,12 @@ function App() {
         authClickHandler={authClickHandler}
         signedIn={signedIn}
         addTipToDb={addTipToDb}
+        showAddTipForm={showAddTipForm}
+    setShowAddTipForm={setShowAddTipForm}
+    addObjectToInputFormState={addObjectToInputFormState}
       />
       <section className="body-container">
-        <Filters
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          titleSet={titleSet}
-          setTagState={setTagState}
-          tagState={tagState}
-        />
-
-        <AddTip
-          authClickHandler={authClickHandler}
-          setTip={setTip}
-          newTipId={newTipId}
-          tagListAll={tagListAll}
-          addTipToDb={addTipToDb}
-          signedIn={signedIn}
-          isOwner={isOwner}
-          inputFormState={inputFormState}
-          setInputFormState={setInputFormState}
-          addFieldToInputFormState={addFieldToInputFormState}
-          addObjectToInputFormState={addObjectToInputFormState}
-          showAddTipForm={showAddTipForm}
-          setShowAddTipForm={setShowAddTipForm}
-          addNewObjectToTips={addNewObjectToTips}
-        />
+        {topSection}
         <section className="tip-container">
           <Tips
             tipList={filteredTipList}

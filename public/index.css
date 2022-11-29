@@ -263,7 +263,8 @@ li {
 
 .header {
   display: grid;
-  grid-template-columns: auto auto 1fr auto;
+  gap: 0.5rem;
+  grid-template-columns: auto auto 1fr auto auto;
   justify-content: center;
   align-items: center;
   align-content: stretch;
@@ -273,7 +274,7 @@ li {
   width: clamp(240px, calc(100vw - 1.25rem), 800px);
 }
 .auth-btn{
-  grid-column: 4;
+  grid-column: 5;
 }
 .header-container {
   width: 100vw;
