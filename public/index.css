@@ -365,6 +365,7 @@ thead {
 }
 .hint {
   border-radius: 7px;
+  border-left: solid 8px rgb(255, 239, 97);
   margin-top: 12px;
   margin-bottom: 12px;
   padding: 8px;
