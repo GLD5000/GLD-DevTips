@@ -18,12 +18,14 @@ export default function WriteTipBtn({
     ? "Cancel"
     : "Write Tip";
     const AddTipColour = showAddTipForm ? "pink" : "aquamarine";
-    
+    const type = showAddTipForm
+    ? "cancelWrite"
+    : "write";
     return (
         <div style={{width:"fit-content", gridColumn:"4"}}>
 
             <SvgButton
-            type="write"
+            type={type}
         color="black"
         backgroundColor={AddTipColour}
         text={AddTipText}
