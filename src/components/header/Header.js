@@ -1,5 +1,5 @@
 import WriteTipBtn from "./WriteTipBtn";
-import GldSvg from "../icons/Gld";
+import GldSvg from "../icons/GldSvg";
 import PropTypes from "prop-types";
 import AuthButton from "./AuthButton";
 

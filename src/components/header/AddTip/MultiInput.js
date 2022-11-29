@@ -2,7 +2,6 @@ import InputField from "./InputField";
 import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
 import SvgButton from "../../../elements/SvgButton"
-import {useEffect} from "react";
 let keyInc = 0;
 const MultiInput = ({
   authClickHandler,

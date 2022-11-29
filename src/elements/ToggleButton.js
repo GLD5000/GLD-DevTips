@@ -1,5 +1,5 @@
-import TickSvg from "../components/icons/Tick";
-import UnTickSvg from "../components/icons/UnTick";
+import TickSvg from "../components/icons/TickSvg";
+import UnTickSvg from "../components/icons/UnTickSvg";
 
 let showText = true;
 function defaultOnClick(e) {

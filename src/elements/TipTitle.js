@@ -1,5 +1,5 @@
-import CollapseSvg from "../components/icons/Collapse";
-import ExpandSvg from "../components/icons/Expand";
+import CollapseSvg from "../components/icons/CollapseSvg";
+import ExpandSvg from "../components/icons/ExpandSvg";
 
 const TipTitle = ({ title, onClick, expanded }) => {
   return (
