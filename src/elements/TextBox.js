@@ -1,6 +1,7 @@
 import Link from "./Link";
 import Bold from "./Bold";
 import Italic from "./Italic";
+import BlockQuote from "./BlockQuote"
 import H1 from "./H1";
 import H2 from "./H2";
 import H3 from "./H3";
@@ -59,6 +60,7 @@ function sliceFlaggedText(text, flag, indexOfFlag) {
 }
 function wrapText(index, text, type) {
   const typeHandler = {
+    quote: <BlockQuote key={"b" +index} content={text} />,
     bold: <Bold key={"b" +index} content={text} />,
     italic: <Italic key={"i" +index} content={text} />,
     link: <Link key={"l" +index} content={text} />,

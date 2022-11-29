@@ -354,10 +354,15 @@ h3 {
 
 h1,
 h2,
+h3,
+h4,
+h5,
+h6,
 li,
 td,
 h3,
 p,
+b,
 label,
 thead {
   color: whitesmoke;
@@ -373,6 +378,17 @@ thead {
   background-color: cornsilk;
   white-space: pre-wrap;
 }
+.blockquote {
+  border-radius: 7px;
+  border-left: solid 12px rgb(154, 154, 154);
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 8px;
+  color: black;
+  background-color: rgb(228, 228, 228);
+  white-space: pre-wrap;
+}
+
 thead {
   font-size: 18px;
   background: #424242;
