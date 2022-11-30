@@ -92,6 +92,11 @@ function initNewInputTagState(tagListAll){
     setNewInputTagState((object) => {
       return { ...object, [tag]: newValue }; // Tip return new object to trigger re-render
     });
+    if (newValue === "active"){
+      addFieldToInputFormState("tags",[ ...inputFormState.tags, tag]);
+    } else {
+      addFieldToInputFormState("tags",inputFormState.tags.filter(x => x !== tag));
+    }
   }
 
 }
