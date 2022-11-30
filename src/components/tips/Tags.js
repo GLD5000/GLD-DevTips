@@ -1,10 +1,10 @@
 import Tag from "./Tag";
 
-const Tags = ({ tagArray, setTagState}) => {
+const Tags = ({ tagArray, setTagStateFromTip}) => {
   return (
     <div className="tagsList">
       {tagArray.map((tag, index) => (
-        <Tag key={index} tag={tag} setTagState={setTagState} />
+        <Tag key={index} tag={tag} setTagStateFromTip={setTagStateFromTip} />
       ))}
     </div>
   );

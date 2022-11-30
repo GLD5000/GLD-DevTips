@@ -4,7 +4,7 @@ import Tags from "./Tags";
 import { useState } from "react";
 import SvgButton from "../../elements/SvgButton";
 
-const Tip = ({ tip, setTagState, editTip, showAddTipForm }) => {
+const Tip = ({ tip, setTagStateFromTip, editTip, showAddTipForm }) => {
   const [expanded, setExpanded] = useState(() => false);
   function toggleExpanded(){
     setExpanded(!expanded);
@@ -27,7 +27,7 @@ const Tip = ({ tip, setTagState, editTip, showAddTipForm }) => {
       />}
         <MultiTextBoxes tip={tip} /> 
         </>}
-        <Tags tagArray={tip.tags} setTagState={setTagState} />
+        <Tags tagArray={tip.tags} setTagStateFromTip={setTagStateFromTip} />
         {tip.updated &&  <p>{tip.updated}</p>}
       </div>
   

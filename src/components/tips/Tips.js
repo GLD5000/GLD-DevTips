@@ -1,5 +1,5 @@
 import Tip from "./Tip";
-const Tips = ({ tipList, setTagState, editTip, showAddTipForm }) => {
+const Tips = ({ tipList, setTagStateFromTip, editTip, showAddTipForm }) => {
   const tipFlipReverse = tipList.slice(0).reverse();
   return (
     <>
@@ -7,7 +7,7 @@ const Tips = ({ tipList, setTagState, editTip, showAddTipForm }) => {
         <Tip
           key={tip.id}
           tip={tip}
-          setTagState={setTagState}
+          setTagStateFromTip={setTagStateFromTip}
           editTip={editTip}
           showAddTipForm={showAddTipForm}
         />

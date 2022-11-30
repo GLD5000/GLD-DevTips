@@ -1,6 +1,5 @@
 import TitleFilter from "./TitleFilter";
 import TagSet from "./TagSet";
-import { useState } from "react";
 
 export default function Filters({
   searchQuery,
@@ -8,10 +7,11 @@ export default function Filters({
   titleSet,
   setTagState,
   tagState,
+  filterExpanded,
+  setFilterExpanded
 }) {
-  const [expanded, setExpanded] = useState(() => false);
   function toggleExpanded(){
-    setExpanded(!expanded);
+    setFilterExpanded(!filterExpanded);
   }
 
   return (
@@ -21,9 +21,9 @@ export default function Filters({
         setSearchQuery={setSearchQuery}
         titleSet={titleSet}
         toggleExpanded={toggleExpanded}
-        expanded={expanded}
+        expanded={filterExpanded}
       />
-     {expanded && <TagSet setTagState={setTagState} tagState={tagState} />}
+     {filterExpanded && <TagSet setTagState={setTagState} tagState={tagState} />}
     </section>
   );
 }

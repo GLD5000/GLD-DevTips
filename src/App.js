@@ -431,6 +431,14 @@ function App() {
         });
     });
   }
+  const [filterExpanded, setFilterExpanded] = useState(() => false);
+
+  function setTagStateFromTip(tag){
+    const newValue = tagState[tag] === "active"? "visible": "active";
+    setTagState((object) => {
+      return {...object, [tag]: newValue}}); // Tip return new object to trigger re-render
+      setFilterExpanded(() => true);
+  }
 
   const topSection = showAddTipForm ? (
     <AddTip
@@ -457,6 +465,8 @@ function App() {
       titleSet={titleSet}
       setTagState={setTagState}
       tagState={tagState}
+      filterExpanded={filterExpanded}
+      setFilterExpanded={setFilterExpanded}
     />
   );
   return (
@@ -485,7 +495,7 @@ function App() {
         <section className="tip-container">
           <Tips
             tipList={filteredTipList}
-            setTagState={setTagState}
+            setTagStateFromTip={setTagStateFromTip}
             editTip={editTip}
             showAddTipForm={showAddTipForm}
           />

@@ -1,15 +1,10 @@
 import Button from "../../elements/Button";
 import tagHexLookup from "../../utilities/tagHex";
 
-const Tag = ({ tag, setTagState}) => {
-  function updateTagState(tag, newValue){
-    setTagState((object) => {
-      return {...object, [tag]: newValue}; // Tip return new object to trigger re-render
-    });
-  }
+const Tag = ({ tag, setTagStateFromTip}) => {
   function tagOnClick(e) {
     const tag = e.target.innerHTML;
-    updateTagState(tag, "active");
+    setTagStateFromTip(tag);
   }
   const {backgroundColour, textColour} = tagHexLookup(tag);
   return (
