@@ -1,7 +1,7 @@
 import Link from "./Link";
 import Bold from "./Bold";
 import Italic from "./Italic";
-import BlockQuote from "./BlockQuote"
+import BlockQuote from "./BlockQuote";
 import H1 from "./H1";
 import H2 from "./H2";
 import H3 from "./H3";
@@ -12,31 +12,32 @@ import Li from "./Li";
 import Ol from "./Ol";
 import Ul from "./Ul";
 
-const flagMap = new Map(
-  [["######", "h6"],
+const flagMap = new Map([
+  ["######", "h6"],
   ["#####", "h5"],
   ["####", "h4"],
   ["###", "h3"],
   ["##", "h2"],
   ["#", "h1"],
   [">", "quote"],
-  [/\s*-\s+/,"liUl"],
-  [/\s*[0-9n]+\.\s+/,"liOl"],
+  [/\s*-\s+/, "liUl"],
+  [/\s*[0-9n]+\.\s+/, "liOl"],
   ["**", "bold"],
   ["_", "italic"],
-  ["{link}", "link"]]
-  );
-  
-  function stringHasFlag(string) {
-    let firstFlag = undefined;
-    let firstFlagIndex = undefined;
-    let flagFromMap = undefined;
-    if (string == null) return { firstFlag, firstFlagIndex };
-    
-    firstFlagIndex = string.length;
-    flagMap.forEach((_, flag) => {
-    let flagText = typeof flag === "string"? flag : null;
-    if  (typeof flag === "object" && string.match(flag) !== null) flagText = string.match(flag)[0];
+  ["{link}", "link"],
+]);
+
+function stringHasFlag(string) {
+  let firstFlag = undefined;
+  let firstFlagIndex = undefined;
+  let flagFromMap = undefined;
+  if (string == null) return { firstFlag, firstFlagIndex };
+
+  firstFlagIndex = string.length;
+  flagMap.forEach((_, flag) => {
+    let flagText = typeof flag === "string" ? flag : null;
+    if (typeof flag === "object" && string.match(flag) !== null)
+      flagText = string.match(flag)[0];
     const indexOfFlag = string.indexOf(flagText);
     if (indexOfFlag >= 0 && indexOfFlag < firstFlagIndex) {
       firstFlag = flagText;
@@ -52,7 +53,9 @@ function sliceFlaggedText(text, flag, indexOfFlag) {
   const indexOfSecondFlag = text.indexOf(flag, flaggedTextStart);
   const hasSecondFlag = indexOfSecondFlag > 0 && indexOfSecondFlag;
   const beforeFlag = indexOfFlag === 0 ? null : text.slice(0, indexOfFlag);
-  const flaggedText = hasSecondFlag? text.slice(flaggedTextStart, indexOfSecondFlag ): text.slice(flaggedTextStart);
+  const flaggedText = hasSecondFlag
+    ? text.slice(flaggedTextStart, indexOfSecondFlag)
+    : text.slice(flaggedTextStart);
   const afterFlag =
     indexOfSecondFlag > 0 ? text.slice(indexOfSecondFlag + flag.length) : null;
 
@@ -60,10 +63,10 @@ function sliceFlaggedText(text, flag, indexOfFlag) {
 }
 function wrapText(index, text, type) {
   const typeHandler = {
-    quote: <BlockQuote key={"b" +index} content={text} />,
-    bold: <Bold key={"b" +index} content={text} />,
-    italic: <Italic key={"i" +index} content={text} />,
-    link: <Link key={"l" +index} content={text} />,
+    quote: <BlockQuote key={"b" + index} content={text} />,
+    bold: <Bold key={"b" + index} content={text} />,
+    italic: <Italic key={"i" + index} content={text} />,
+    link: <Link key={"l" + index} content={text} />,
     h1: <H1 key={"h" + index} content={text} />,
     h2: <H2 key={"h" + index} content={text} />,
     h3: <H3 key={"h" + index} content={text} />,
@@ -78,7 +81,11 @@ function wrapText(index, text, type) {
 
 function recursiveParser(text, index) {
   //Can return text or array
-  const { firstFlag: flag, firstFlagIndex: indexOfFlag, flagFromMap } = stringHasFlag(text);
+  const {
+    firstFlag: flag,
+    firstFlagIndex: indexOfFlag,
+    flagFromMap,
+  } = stringHasFlag(text);
   //guard clause
   if (flag === undefined) return text;
 
@@ -99,39 +106,53 @@ function recursiveParser(text, index) {
   if (beforeFlag !== null) returnArray.push(beforeFlag);
   returnArray.push(wrappedFlaggedText);
   if (afterFlag !== null) returnArray.push(recursiveParser(afterFlag));
-  return returnArray.length === 1? returnArray[0]: returnArray;
+  return returnArray.length === 1 ? returnArray[0] : returnArray;
 }
 
-function wrapIncomingParagraphs(paragraph, index){
-  const parserOutput  = recursiveParser(paragraph, index);
-  const returnValue = typeof parserOutput === "object" && Array.isArray(parserOutput) === false ? parserOutput: <p key={"p" + index} className="text">{parserOutput}</p>;
+function wrapIncomingParagraphs(paragraph, index) {
+  const parserOutput = recursiveParser(paragraph, index);
+  const returnValue =
+    typeof parserOutput === "object" &&
+    Array.isArray(parserOutput) === false ? (
+      parserOutput
+    ) : (
+      <p key={"p" + index} className="text">
+        {parserOutput}
+      </p>
+    );
   return returnValue;
 }
 
 const TextBox = ({ text }) => {
-  function findObjectType(wrappedObject){
+  function findObjectType(wrappedObject) {
     // console.log(wrappedObject);
     // console.log(wrappedObject.key);
-    const keyCharacter = wrappedObject.key[0]; 
+    const keyCharacter = wrappedObject.key[0];
     const isOrdered = keyCharacter === "O";
     const isUnordered = keyCharacter === "U";
     if (!isOrdered && !isUnordered) return "nonList";
     return keyCharacter;
   }
   //split into paragraphs
-  const paragraphs = text?.split(/\r?\n\s*/); 
+  const paragraphs = text?.split(/\r?\n\s*/);
   // map paragraphs calling recursive function on each
   let listItemArray = [];
   let listType = null;
   const returnArray = [];
   paragraphs?.forEach((paragraph, index, arr) => {
     // wrap text in <p
-    const wrappedObject =  wrapIncomingParagraphs(paragraph, index);
+    const wrappedObject = wrapIncomingParagraphs(paragraph, index);
     const type = findObjectType(wrappedObject);
     if (type === "nonList") {
-      if (listType !== type) { // list type just changed
+      if (listType !== type) {
+        // list type just changed
         // make ol or ul object
-        const list = listType === "O"? <Ol key={"Ol" + index} content={listItemArray} />: <Ul key={"Ul" + index} content={listItemArray} />;
+        const list =
+          listType === "O" ? (
+            <Ol key={"Ol" + index} content={listItemArray} />
+          ) : (
+            <Ul key={"Ul" + index} content={listItemArray} />
+          );
         returnArray.push(list);
         listType = type;
         listItemArray = [];
@@ -151,25 +172,25 @@ const TextBox = ({ text }) => {
         returnArray.push(<Ol key={"Ol" + index} content={listItemArray} />);
         listItemArray = [];
       }
-      
+
       listType = type;
       listItemArray.push(wrappedObject);
     }
-    if (index === arr.length -1 && listItemArray.length > 0) {
-      const list = listType === "O"? <Ol key={"Ol" + index} content={listItemArray} />: <Ul key={"Ul" + index} content={listItemArray} />;
+    if (index === arr.length - 1 && listItemArray.length > 0) {
+      const list =
+        listType === "O" ? (
+          <Ol key={"Ol" + index} content={listItemArray} />
+        ) : (
+          <Ul key={"Ul" + index} content={listItemArray} />
+        );
       returnArray.push(list);
       listItemArray = [];
     }
 
-
     // return recursiveParser(paragraph, index)
   });
   // Find out if the return includes a header
-  return (
-    <>
-   {returnArray}
-    </>
-  ); 
+  return <>{returnArray}</>;
 };
 
 export default TextBox;
