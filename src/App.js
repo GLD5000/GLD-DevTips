@@ -448,6 +448,7 @@ function App() {
       showAddTipForm={showAddTipForm}
       setShowAddTipForm={setShowAddTipForm}
       addNewObjectToTips={addNewObjectToTips}
+      setSearchQuery={setSearchQuery}
     />
   ) : (
     <Filters

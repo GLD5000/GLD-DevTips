@@ -60,6 +60,8 @@ const AddTip = ({
     newObject.updated = "Last update: " + newObject.date;
     newObject.titleSuffix = " (preview)";
     addNewObjectToTips(newObject);
+    setSearchQuery(() => newObject.title);
+
   }
   return (
     <div className="add-tip-container">
