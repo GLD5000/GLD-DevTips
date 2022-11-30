@@ -1,5 +1,5 @@
 import InputText from "./InputText";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TagSet from "../components/header/TagSet";
 let keyMod = 0
 export default function SelectMulti({
@@ -22,10 +22,10 @@ function initNewInputTagState(){
   
   const inputFormStateTags = inputFormState?.tags || null;
   const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
-  const [customTags, setCustomTags] = useState(
-     () =>  []
-    // () => inputFormState?.tags || []
-    );
+  // const [customTags, setCustomTags] = useState(
+  //    () =>  []
+  //   // () => inputFormState?.tags || []
+  //   );
   function selectedTagReducer(acc, entry){
     if (entry[1] === "active") acc.push(entry[0]);
     return acc;
@@ -41,9 +41,9 @@ function initNewInputTagState(){
     const text = e;
     const tags = text.split(/[,\s]+/).filter((tag) => tag.length > 0);
     const uniqueTags = getUniqueTags(selectedTags, tags);
-    setCustomTags(() => {
-      return uniqueTags;
-    });
+    // setCustomTags(() => {
+    //   return uniqueTags;
+    // });
     addFieldToInputFormState("tags", uniqueTags);
   }
 
