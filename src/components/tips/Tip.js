@@ -2,7 +2,6 @@ import MultiTextBoxes from "./MultiTextBoxes";
 import TipTitle from "../../elements/TipTitle";
 import Tags from "./Tags";
 import { useState } from "react";
-import Button from "../../elements/Button";
 import SvgButton from "../../elements/SvgButton";
 
 const Tip = ({ tip, setTagState, editTip, showAddTipForm }) => {

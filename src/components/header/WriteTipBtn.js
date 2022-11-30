@@ -4,15 +4,18 @@ export default function WriteTipBtn({
     showAddTipForm,
     setShowAddTipForm,
     addObjectToInputFormState,
+    setSearchQuery,
 }) {
 
     
     function onClickAdd() {
         if (showAddTipForm === true) onClose();
+        if (showAddTipForm === false) setSearchQuery(()=> "  ");
         setShowAddTipForm((state) => !state);
     }
     function onClose() {
         addObjectToInputFormState(null);
+        setSearchQuery(() => "")
     }
     const AddTipText = showAddTipForm
     ? "Cancel"

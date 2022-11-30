@@ -415,6 +415,7 @@ function App() {
     const tipObject = tipList[id];
     addObjectToInputFormState(tipObject);
     setShowAddTipForm(true);
+    setSearchQuery(() => tipObject.title)
   }
 
   function addNewObjectToTips(newObject) {

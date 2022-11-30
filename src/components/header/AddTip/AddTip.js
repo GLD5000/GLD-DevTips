@@ -15,10 +15,12 @@ const AddTip = ({
   showAddTipForm,
   setShowAddTipForm,
   addNewObjectToTips,
+  setSearchQuery,
 }) => {
   const currentId = inputFormState?.id || newTipId;
   function callbackMainTitle(value) {
     addFieldToInputFormState("title", value);
+    setSearchQuery(()=> value);
   }
   function makeNewTipObject() {
     const dateRaw = new Date();
@@ -47,6 +49,8 @@ const AddTip = ({
     setShowAddTipForm(false);
   }
   function clearInputFormState() {
+    setSearchQuery(() => "");
+
     addObjectToInputFormState(null);
     setShowAddTipForm(false);
   }
