@@ -23,7 +23,7 @@ function initNewInputTagState(tagListAll){
   const inputFormStateTags = inputFormState?.tags || null;
   // const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
   function customTagsStringReducer(acc, value){
-      if (newInputTagState.hasOwnProperty(value)) return acc;
+      if (Object.hasOwn(newInputTagState, value)) return acc;
 
       return acc  + value + ", ";
   }
