@@ -7,7 +7,7 @@ export default function SelectMulti({
   inputFormState,
   addFieldToInputFormState,
 }) {
-function initNewInputTagState(){
+function initNewInputTagState(tagListAll){
   const newObject = {};
   tagListAll.sort().forEach((tag) => {
    newObject[tag] = "visible";
@@ -18,7 +18,7 @@ function initNewInputTagState(){
   return newObject;
 }
 
-  const [newInputTagState, setNewInputTagState] = useState(initNewInputTagState());
+  const [newInputTagState, setNewInputTagState] = useState(initNewInputTagState(tagListAll));
   
   const inputFormStateTags = inputFormState?.tags || null;
   // const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
