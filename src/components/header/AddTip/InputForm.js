@@ -1,7 +1,7 @@
 import MultiInput from "./MultiInput";
 import SelectMulti from "../../../elements/SelectMulti";
 import MainTitle from "./MainTitle";
-import {useEffect} from "react";
+//import {useEffect} from "react";
 
 let keyMod = 0;
 const InputForm = ({
@@ -19,7 +19,7 @@ const InputForm = ({
   isOwner,
 }) => {
 
-useEffect(() => {keyMod =+1}, [inputFormState])
+//useEffect(() => {keyMod =+1}, [inputFormState])
 
 
   return (

@@ -52,15 +52,15 @@ function initNewInputTagState(){
 
   }
 
-  useEffect(()=> {
-    const selectedTags = getSelectedTagArray(newInputTagState);
-    const uniqueTags = [...new Set([...selectedTags, ...customTags.filter(tag => newInputTagState[tag] !== "visible")])];
-    setCustomTags(() => {
-      return [...uniqueTags]; 
-    });
-    keyMod +=1;
-    addFieldToInputFormState("tags", uniqueTags)
-  },[newInputTagState] );
+  // useEffect(()=> {
+  //   const selectedTags = getSelectedTagArray(newInputTagState);
+  //   const uniqueTags = [...new Set([...selectedTags, ...customTags.filter(tag => newInputTagState[tag] !== "visible")])];
+  //   setCustomTags(() => {
+  //     return [...uniqueTags]; 
+  //   });
+  //   keyMod +=1;
+  //   addFieldToInputFormState("tags", uniqueTags)
+  // },[newInputTagState] );
 
   // useEffect(() => {    keyMod +=1;
   // }, [inputFormState])
