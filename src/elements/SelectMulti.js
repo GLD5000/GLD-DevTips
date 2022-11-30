@@ -21,7 +21,13 @@ function initNewInputTagState(){
   const [newInputTagState, setNewInputTagState] = useState(initNewInputTagState());
   
   const inputFormStateTags = inputFormState?.tags || null;
-  const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
+  // const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
+  function customTagsStringReducer(acc, value){
+      if (newInputTagState.hasOwnProperty(value)) return acc;
+
+      return acc  + value + ", ";
+  }
+  const inputFormStateTagsString = inputFormStateTags?.reduce(customTagsStringReducer, "") || null;
   // const [customTags, setCustomTags] = useState(
   //    () =>  []
   //   // () => inputFormState?.tags || []
