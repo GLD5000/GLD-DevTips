@@ -21,17 +21,12 @@ function initNewInputTagState(tagListAll){
   const [newInputTagState, setNewInputTagState] = useState(initNewInputTagState(tagListAll));
   
   const inputFormStateTags = inputFormState?.tags || null;
-  // const inputFormStateTagsString = inputFormStateTags?.join(", ") || null;
   function customTagsStringReducer(acc, value){
       if (Object.hasOwn(newInputTagState, value)) return acc;
 
       return acc  + value + ", ";
   }
   const inputFormStateTagsString = inputFormStateTags?.reduce(customTagsStringReducer, "") || null;
-  // const [customTags, setCustomTags] = useState(
-  //    () =>  []
-  //   // () => inputFormState?.tags || []
-  //   );
   function selectedTagReducer(acc, entry){
     if (entry[1] === "active") acc.push(entry[0]);
     return acc;
@@ -47,9 +42,6 @@ function initNewInputTagState(tagListAll){
     const text = e;
     const tags = text.split(/[,\s]+/).filter((tag) => tag.length > 0);
     const uniqueTags = getUniqueTags(selectedTags, tags);
-    // setCustomTags(() => {
-    //   return uniqueTags;
-    // });
     addFieldToInputFormState("tags", uniqueTags);
   }
 
@@ -58,18 +50,6 @@ function initNewInputTagState(tagListAll){
 
   }
 
-  // useEffect(()=> {
-  //   const selectedTags = getSelectedTagArray(newInputTagState);
-  //   const uniqueTags = [...new Set([...selectedTags, ...customTags.filter(tag => newInputTagState[tag] !== "visible")])];
-  //   setCustomTags(() => {
-  //     return [...uniqueTags]; 
-  //   });
-  //   keyMod +=1;
-  //   addFieldToInputFormState("tags", uniqueTags)
-  // },[newInputTagState] );
-
-  // useEffect(() => {    keyMod +=1;
-  // }, [inputFormState])
   
   return (
     <>
@@ -90,7 +70,7 @@ function initNewInputTagState(tagListAll){
   function updateTagState(tag) {
     const newValue = newInputTagState[tag] === "active"? "visible": "active";
     setNewInputTagState((object) => {
-      return { ...object, [tag]: newValue }; // Tip return new object to trigger re-render
+      return { ...object, [tag]: newValue }; 
     });
     if (newValue === "active"){
       addFieldToInputFormState("tags",[ ...inputFormState.tags, tag]);

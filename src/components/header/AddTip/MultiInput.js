@@ -183,8 +183,6 @@ const MultiInput = ({
   const submitTextColour = isOwner ? "white" : "black";
   const submitFunction = isOwner ? onSubmit: signedIn? signedInNonOwner: authClickHandler;
 
- // useEffect(() => {incrementKeys();}, [inputFormState])
-
   return (
     <>
       <h2>Add sections</h2>

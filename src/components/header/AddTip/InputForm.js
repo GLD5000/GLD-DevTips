@@ -1,9 +1,7 @@
 import MultiInput from "./MultiInput";
 import SelectMulti from "../../../elements/SelectMulti";
 import MainTitle from "./MainTitle";
-//import {useEffect} from "react";
 
-let keyMod = 0;
 const InputForm = ({
   authClickHandler,
   tagListAll,
@@ -19,7 +17,6 @@ const InputForm = ({
   isOwner,
 }) => {
 
-//useEffect(() => {keyMod =+1}, [inputFormState])
 
 
   return (
@@ -35,14 +32,12 @@ const InputForm = ({
           />
         </label>
         <SelectMulti
-          key={keyMod + "b"}
           tagListAll={tagListAll}
           inputFormState={inputFormState}
           addFieldToInputFormState={addFieldToInputFormState}
         />
       </div>
       <MultiInput
-        key={keyMod + "a"}
         signedIn={signedIn}
         authClickHandler={authClickHandler}
         onSubmit={onSubmit}
