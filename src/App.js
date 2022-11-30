@@ -33,9 +33,23 @@ const firebaseConfig = {
 let gotDbData = false;
 let gotDbTagColours;
 let updatedTagState = false;
-export const tagColours = {javascript: {name: "Javascript", backgroundColour: "#EAD41C", textColour: "#000000"},
-github: {name: "GitHub", backgroundColour: "#3B6FAB", textColour: "#ffffff"},
-vscode: {name: "VSCode", backgroundColour: "#48AAEB", textColour: "#000000"},};
+export const tagColours = {
+  javascript: {
+    name: "Javascript",
+    backgroundColour: "#EAD41C",
+    textColour: "#000000",
+  },
+  github: {
+    name: "GitHub",
+    backgroundColour: "#3B6FAB",
+    textColour: "#ffffff",
+  },
+  vscode: {
+    name: "VSCode",
+    backgroundColour: "#48AAEB",
+    textColour: "#000000",
+  },
+};
 const exampleObject = {
   "0001": {
     id: "0001",
@@ -74,7 +88,7 @@ const exampleObject = {
       },
     ],
   },
-  "0002":{
+  "0002": {
     id: "0002",
     date: "4th Feb 2022",
     tags: ["JavaScript", "How-To"],
@@ -114,7 +128,7 @@ const object = createObject("A", "B");
 });`,
       },
     ],
-  }
+  },
 };
 
 // Initialize Firebase
@@ -140,7 +154,7 @@ async function addTipToDb(object) {
     });
     const gotDoc = await getDoc(tipsDocRef);
     console.log("Document written as: ", gotDoc.data()[object.id]);
-    Object.entries(tagColours).forEach(tag => {
+    Object.entries(tagColours).forEach((tag) => {
       if (tag[1].fromDb !== true) addTagToDb(tag[0], tag[1]);
     });
   } catch (e) {
@@ -161,16 +175,19 @@ export async function addTagToDb(lowerCaseTagName, tag) {
 }
 const tagsObject = {};
 
-
 function App() {
-  async function tagHexLookup(tag, tagColours){
+  async function tagHexLookup(tag, tagColours) {
     const lowerCaseTagName = tag.toLowerCase();
     const tagNotPresent = tagColours[lowerCaseTagName] === undefined;
-    
+
     if (tagNotPresent) {
       const backgroundColour = getRandomColour();
       const textColour = AutoTextColour(backgroundColour);
-      tagColours[lowerCaseTagName] = {name: tag, backgroundColour: backgroundColour, textColour: textColour};
+      tagColours[lowerCaseTagName] = {
+        name: tag,
+        backgroundColour: backgroundColour,
+        textColour: textColour,
+      };
       if (isOwner) {
         addTagToDb(lowerCaseTagName, tagColours[lowerCaseTagName]);
       }
@@ -183,7 +200,7 @@ function App() {
     const dataObject = await gotDoc.data();
     return dataObject;
   }
-    
+
   async function checkRole(user) {
     console.log("checkRole");
     const uid = user.uid;
@@ -196,18 +213,18 @@ function App() {
       setSignedIn(true);
 
       setIsOwner(true);
-
     } else {
       console.log("signing in...");
       setSignedIn(true);
       setIsOwner(false);
 
-      console.log("You are not authorised to submit tips to the database- sorry!");
+      console.log(
+        "You are not authorised to submit tips to the database- sorry!"
+      );
 
       setIsOwner(false);
     }
     return isOwner;
-
   }
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -274,14 +291,14 @@ function App() {
   async function getDbData() {
     const tipsObject = await getDocDataFromDb(tipsDocRef);
     setTip(() => tipsObject);
-    
-   const newTagColours = await getDocDataFromDb(tagsDocRef);
-   Object.entries(newTagColours).forEach(entry => {
-    tagColours[entry[0]] = {...entry[1], fromDb: true};
-   });
-   gotDbTagColours = true;
 
-   gotDbData = true;
+    const newTagColours = await getDocDataFromDb(tagsDocRef);
+    Object.entries(newTagColours).forEach((entry) => {
+      tagColours[entry[0]] = { ...entry[1], fromDb: true };
+    });
+    gotDbTagColours = true;
+
+    gotDbData = true;
   }
   if (gotDbData === false) {
     getDbData();
@@ -306,36 +323,37 @@ function App() {
   //   ),
   // ]);
   const [tagState, setTagState] = useState(tagsObject); // Tip init functions only run once
-  function getTags(updatedTagState){
-      Object.keys(tagColours).sort().forEach(key => {
+  function getTags(updatedTagState) {
+    Object.keys(tagColours)
+      .sort()
+      .forEach((key) => {
         tagsObject[tagColours[key].name] = "visible";
       });
-      updatedTagState = true;
+    updatedTagState = true;
   }
   if (gotDbTagColours && Object.keys(tagState).length < 10) {
-       getTags(updatedTagState);
+    getTags(updatedTagState);
 
-      setTagState((oldState)=> {
-       // console.log(oldState); 
-        //console.log(tagsObject);
-        return {...tagsObject};
-      });
+    setTagState((oldState) => {
+      // console.log(oldState);
+      //console.log(tagsObject);
+      return { ...tagsObject };
+    });
   }
   //console.log(tagState);
-      //console.log(Object.keys(tagColours).sort());
+  //console.log(Object.keys(tagColours).sort());
   const tagListAll = Object.keys(tagState);
-   function mapTagColours(tagColours){
-      tagListAll.forEach( (tag) => {
-       tagHexLookup(tag, tagColours);
-
+  function mapTagColours(tagColours) {
+    tagListAll.forEach((tag) => {
+      tagHexLookup(tag, tagColours);
     });
-    gotDbTagColours = false;  
+    gotDbTagColours = false;
     return tagColours;
   }
- function updateTagColours(){
-  mapTagColours(tagColours);
+  function updateTagColours() {
+    mapTagColours(tagColours);
   }
-  if (gotDbTagColours){
+  if (gotDbTagColours) {
     updateTagColours();
   }
   function padIdNumber(number) {
@@ -357,7 +375,7 @@ function App() {
     if (!tagStateValue.includes("active")) return true;
     let returnBoolean = false;
     const activeTags = Object.entries(tagState).reduce((acc, entry) => {
-      if (entry[1] === "active") acc.push(entry[0]); 
+      if (entry[1] === "active") acc.push(entry[0]);
       return acc;
     }, []);
     // console.log(activeTags);
@@ -392,11 +410,10 @@ function App() {
   const tagSet = createTagSet(filteredTipList);
   const titleSet = createTitleSet(filteredTipList);
 
-
   async function editTip(e) {
     const id = e.target.id;
     const tipObject = tipList[id];
-    addObjectToInputFormState(tipObject); 
+    addObjectToInputFormState(tipObject);
     setShowAddTipForm(true);
   }
 
@@ -407,39 +424,39 @@ function App() {
       return copyObject;
     });
     newObject.tags.forEach((tag) => {
-      if (tagState[tag] === undefined) setTagState((object) => {
-        return {...object, [tag]: "visible"};
-      })
+      if (tagState[tag] === undefined)
+        setTagState((object) => {
+          return { ...object, [tag]: "visible" };
+        });
     });
   }
 
-  const topSection = showAddTipForm?
-  <AddTip
-  authClickHandler={authClickHandler}
-  setTip={setTip}
-  newTipId={newTipId}
-  tagListAll={tagListAll}
-  addTipToDb={addTipToDb}
-  signedIn={signedIn}
-  isOwner={isOwner}
-  inputFormState={inputFormState}
-  setInputFormState={setInputFormState}
-  addFieldToInputFormState={addFieldToInputFormState}
-  addObjectToInputFormState={addObjectToInputFormState}
-  showAddTipForm={showAddTipForm}
-  setShowAddTipForm={setShowAddTipForm}
-  addNewObjectToTips={addNewObjectToTips}
-/>
-:
-<Filters
-searchQuery={searchQuery}
-setSearchQuery={setSearchQuery}
-titleSet={titleSet}
-setTagState={setTagState}
-tagState={tagState}
-/>
-;
-
+  const topSection = showAddTipForm ? (
+    <AddTip
+      authClickHandler={authClickHandler}
+      setTip={setTip}
+      newTipId={newTipId}
+      tagListAll={tagListAll}
+      addTipToDb={addTipToDb}
+      signedIn={signedIn}
+      isOwner={isOwner}
+      inputFormState={inputFormState}
+      setInputFormState={setInputFormState}
+      addFieldToInputFormState={addFieldToInputFormState}
+      addObjectToInputFormState={addObjectToInputFormState}
+      showAddTipForm={showAddTipForm}
+      setShowAddTipForm={setShowAddTipForm}
+      addNewObjectToTips={addNewObjectToTips}
+    />
+  ) : (
+    <Filters
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      titleSet={titleSet}
+      setTagState={setTagState}
+      tagState={tagState}
+    />
+  );
   return (
     <section className="page-container">
       <h1>Hello, my name is Gareth...</h1>
@@ -458,8 +475,8 @@ tagState={tagState}
         signedIn={signedIn}
         addTipToDb={addTipToDb}
         showAddTipForm={showAddTipForm}
-    setShowAddTipForm={setShowAddTipForm}
-    addObjectToInputFormState={addObjectToInputFormState}
+        setShowAddTipForm={setShowAddTipForm}
+        addObjectToInputFormState={addObjectToInputFormState}
       />
       <section className="body-container">
         {topSection}
