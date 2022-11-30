@@ -62,8 +62,8 @@ function initNewInputTagState(){
     addFieldToInputFormState("tags", uniqueTags)
   },[newInputTagState] );
 
-  useEffect(() => {    keyMod +=1;
-  }, [inputFormState])
+  // useEffect(() => {    keyMod +=1;
+  // }, [inputFormState])
   
   return (
     <>
