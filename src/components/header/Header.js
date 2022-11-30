@@ -11,6 +11,7 @@ const Header = ({
   setShowAddTipForm,
   addObjectToInputFormState,
   setSearchQuery,
+  clearTags
 }) => {
   return (
     <section className="header-container">
@@ -22,6 +23,7 @@ const Header = ({
           setShowAddTipForm={setShowAddTipForm}
           addObjectToInputFormState={addObjectToInputFormState}
           setSearchQuery={setSearchQuery}
+          clearTags={clearTags}
         />
         <AuthButton authClickHandler={authClickHandler} signedIn={signedIn} />
       </header>

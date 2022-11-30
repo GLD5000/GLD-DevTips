@@ -5,12 +5,15 @@ export default function WriteTipBtn({
     setShowAddTipForm,
     addObjectToInputFormState,
     setSearchQuery,
+    clearTags,
 }) {
 
     
     function onClickAdd() {
         if (showAddTipForm === true) onClose();
-        if (showAddTipForm === false) setSearchQuery(()=> "  ");
+        if (showAddTipForm === false) {
+            clearTags();
+            setSearchQuery(()=> "  ")};
         setShowAddTipForm((state) => !state);
     }
     function onClose() {

@@ -433,6 +433,17 @@ function App() {
   }
   const [filterExpanded, setFilterExpanded] = useState(() => false);
 
+  function clearTags() {
+    setTagState((old) => {
+      const newObject = { ...old };
+      Object.keys(newObject).forEach((key) => {
+        newObject[key] = "visible";
+      });
+      return newObject;
+    });
+  }
+
+
   function setTagStateFromTip(tag){
     const newValue = tagState[tag] === "active"? "visible": "active";
     setTagState((object) => {
@@ -489,6 +500,7 @@ function App() {
         showAddTipForm={showAddTipForm}
         setShowAddTipForm={setShowAddTipForm}
         addObjectToInputFormState={addObjectToInputFormState}
+        clearTags={clearTags}
       />
       <section className="body-container">
         {topSection}
