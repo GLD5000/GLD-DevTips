@@ -3,8 +3,9 @@ import TipTitle from "../../elements/TipTitle";
 import Tags from "./Tags";
 import { useState } from "react";
 import Button from "../../elements/Button";
+import SvgButton from "../../elements/SvgButton";
 
-const Tip = ({ tip, setTagState, editTip }) => {
+const Tip = ({ tip, setTagState, editTip, showAddTipForm }) => {
   const [expanded, setExpanded] = useState(() => false);
   function toggleExpanded(){
     setExpanded(!expanded);
@@ -15,15 +16,17 @@ const Tip = ({ tip, setTagState, editTip }) => {
         <div className="tip">
         <TipTitle title={title} onClick={toggleExpanded} expanded={expanded}/>
         {expanded && <>
-        <MultiTextBoxes tip={tip} /> 
-        <Button
+        {showAddTipForm === false && <SvgButton
+        wide="false"
+        type="write"
         key={tip.id}
         id={tip.id}
-        color="black"
-        backgroundColor="white"
+        color="whitesmoke"
+        backgroundColor="transparent"
         text="Edit tip"
         clickFunction={editTip}
-      />
+      />}
+        <MultiTextBoxes tip={tip} /> 
         </>}
         <Tags tagArray={tip.tags} setTagState={setTagState} />
         {tip.updated &&  <p>{tip.updated}</p>}

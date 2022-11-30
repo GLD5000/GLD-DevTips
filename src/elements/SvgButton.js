@@ -21,6 +21,7 @@ const SvgButton = ({
   id = null,
   name = null,
   type = "up",
+  wide = true,
 }) => {
   function getSvg(type) {
     const svgLookup = {
@@ -46,11 +47,12 @@ const SvgButton = ({
     borderStyle: "solid",
     display: "grid",
     gap: "6px",
-    gridTemplateColumns: "1fr auto 1fr",
+    width: wide === true? "100%": "fit-content",
+    gridTemplateColumns: wide === true? "1fr auto 1fr": "auto auto",
     alignItems: "center",
 
   };
-
+  if (wide !== true) style.marginLeft = "auto";
   return (
     <>
       <button

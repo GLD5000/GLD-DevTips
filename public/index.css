@@ -163,7 +163,6 @@ button {
   justify-content: space-around;
 }
 .svg-btn {
-  width: 100%;
   display: block;
   background: #000;
   color: #fff;

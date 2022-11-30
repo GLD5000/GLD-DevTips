@@ -25,6 +25,7 @@ export default function WriteTipBtn({
         <div style={{width:"fit-content", gridColumn:"4"}}>
 
             <SvgButton
+            wide="false"
             type={type}
         color="black"
         backgroundColor={AddTipColour}

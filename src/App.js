@@ -485,6 +485,7 @@ function App() {
             tipList={filteredTipList}
             setTagState={setTagState}
             editTip={editTip}
+            showAddTipForm={showAddTipForm}
           />
         </section>
       </section>
