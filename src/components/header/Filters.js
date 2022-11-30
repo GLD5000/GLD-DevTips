@@ -23,7 +23,14 @@ export default function Filters({
         toggleExpanded={toggleExpanded}
         expanded={filterExpanded}
       />
-     {filterExpanded && <TagSet setTagState={setTagState} tagState={tagState} />}
+     {filterExpanded && <TagSet setTagState={setTagState} tagState={tagState} updateTagState={updateTagState}/>}
     </section>
   );
+  function updateTagState(tag) {
+    const newValue = tagState[tag] === "active"? "visible": "active";
+    setTagState((object) => {
+      return { ...object, [tag]: newValue }; // Tip return new object to trigger re-render
+    });
+  }
+
 }

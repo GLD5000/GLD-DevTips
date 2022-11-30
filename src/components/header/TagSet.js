@@ -1,7 +1,7 @@
 import TagFilter from "./TagFilter";
 import Button from "../../elements/Button";
 
-const TagSet = ({ setTagState, tagState, title = "Filter Tags", keyMod=0 }) => {
+const TagSet = ({ setTagState, tagState, title = "Filter Tags", keyMod=0, updateTagState }) => {
 
 
   function clearTags() {
@@ -20,7 +20,7 @@ const TagSet = ({ setTagState, tagState, title = "Filter Tags", keyMod=0 }) => {
       <TagFilter
         key={tag + "A" + key + 1 + "B" + keyMod}
         tag={tag}
-        setTagState={setTagState}
+        updateTagState={updateTagState}
         tagState={tagState}
       />
     );
@@ -49,6 +49,9 @@ const TagSet = ({ setTagState, tagState, title = "Filter Tags", keyMod=0 }) => {
       </section>
     </label>
   );
+
+
+
 };
 
 export default TagSet;

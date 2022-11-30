@@ -73,7 +73,7 @@ function initNewInputTagState(tagListAll){
   
   return (
     <>
-      <TagSet key={keyMod + "a"} title={"Choose Tags"} tagState={newInputTagState} setTagState={setNewInputTagState} keyMod={keyMod} />
+      <TagSet key={keyMod + "a"} title={"Choose Tags"} tagState={newInputTagState} updateTagState={updateTagState} setTagState={setNewInputTagState} keyMod={keyMod} />
 
       <label className="label-box">
         Add new tags as a List (separated by spaces or commas)
@@ -86,4 +86,12 @@ function initNewInputTagState(tagListAll){
       </label>
     </>
   );
+
+  function updateTagState(tag) {
+    const newValue = newInputTagState[tag] === "active"? "visible": "active";
+    setNewInputTagState((object) => {
+      return { ...object, [tag]: newValue }; // Tip return new object to trigger re-render
+    });
+  }
+
 }
