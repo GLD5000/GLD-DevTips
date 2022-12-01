@@ -2,8 +2,8 @@ export default function TickSvg() {
 return (
 <div className='svg-wrapper'>
 <svg
-id='-svg'
-alt=''
+id='tick-svg'
+alt='Toggle On'
 height='100%'
 width='100%'
 viewBox='0 0 16 16'

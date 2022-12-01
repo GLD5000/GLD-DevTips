@@ -6,6 +6,8 @@ import DuplicateSvg from "../components/icons/DuplicateSvg";
 import PreviewSvg from "../components/icons/PreviewSvg"
 import PencilSvg from "../components/icons/PencilSvg"
 import UnPencilSvg from "../components/icons/UnPencilSvg"
+import ItalicSvg from "../components/icons/ItalicSvg";
+import BoldSvg from "../components/icons/BoldSvg";
 //import CollapseSvg from "../components/icons/Collapse"
 //import ExpandSvg from "../components/icons/Expand"
 function defaultOnClick(e) {
@@ -26,6 +28,8 @@ const SvgButton = ({
 }) => {
   function getSvg(type) {
     const svgLookup = {
+      italic: <ItalicSvg stroke={color}/>,
+      bold: <BoldSvg stroke={color}/>,
       up: <UpSvg stroke={color}/>,
       down: <DownSvg stroke={color}/>,
       add: <AddSvg stroke={color}/>,

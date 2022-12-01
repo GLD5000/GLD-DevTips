@@ -5,11 +5,11 @@ import SvgButton from "../../../elements/SvgButton";
 function getReturnArray(type) {
   if (type !== "text") return null;
  const buttonArray = [
-  {type: "add", text: "Bold", function: (e)=>console.log("clicked " + e.target.name)},
-  {type: "add", text: "Italic", function: (e)=>console.log("clicked " + e.target.name)},
-  {type: "add", text: "Link", function: (e)=>console.log("clicked " + e.target.name)},
-  {type: "add", text: "Header", function: (e)=>console.log("clicked " + e.target.name)},
-  {type: "add", text: "Quote", function: (e)=>console.log("clicked " + e.target.name)},
+  {type: "bold", text: "Bold", function: (e)=>console.log("clicked " + e.target.name)},
+  {type: "italic", text: "Italic", function: (e)=>console.log("clicked " + e.target.name)},
+  {type: "italic", text: "Link", function: (e)=>console.log("clicked " + e.target.name)},
+  {type: "italic", text: "Header", function: (e)=>console.log("clicked " + e.target.name)},
+  {type: "italic", text: "Quote", function: (e)=>console.log("clicked " + e.target.name)},
  ];
 
  return <div className="markdown-buttons">

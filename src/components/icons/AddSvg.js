@@ -10,7 +10,7 @@ export default function AddSvg({fill = "white", stroke = "black"}) {
     <div className="svg-wrapper">
       <svg
         id="add-svg"
-        alt="Add Section"
+        alt="Add"
         height="100%"
         width="100%"
         viewBox="0 0 16 16"

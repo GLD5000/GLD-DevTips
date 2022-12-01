@@ -10,8 +10,8 @@ export default function UnPencilSvg({fill = "white", stroke = "black"}) {
   return (
     <div className="svg-wrapper">
       <svg
-        id="add-svg"
-        alt="Add Section"
+        id="unPencil-svg"
+        alt="Cancel Writing"
         height="100%"
         width="100%"
         viewBox="0 0 16 16"

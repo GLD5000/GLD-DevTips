@@ -2,8 +2,8 @@ export default function UnTickSvg({fill = "none"}) {
 return (
   <div className='svg-wrapper'>
 <svg
-id='-svg'
-alt=''
+id='untick-svg'
+alt='Toggle Off'
 height='100%'
 width='100%'
 viewBox='0 0 16 16'
