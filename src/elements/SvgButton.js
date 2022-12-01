@@ -8,7 +8,6 @@ import PencilSvg from "../components/icons/PencilSvg"
 import UnPencilSvg from "../components/icons/UnPencilSvg"
 //import CollapseSvg from "../components/icons/Collapse"
 //import ExpandSvg from "../components/icons/Expand"
-let showText = true;
 function defaultOnClick(e) {
   console.log(e.target);
 }
@@ -22,6 +21,8 @@ const SvgButton = ({
   name = null,
   type = "up",
   wide = true,
+  showText = true,
+  marginLeft = null,
 }) => {
   function getSvg(type) {
     const svgLookup = {
@@ -50,9 +51,8 @@ const SvgButton = ({
     width: wide === true? "100%": "fit-content",
     gridTemplateColumns: wide === true? "1fr auto 1fr": "auto auto",
     alignItems: "center",
-
   };
-  if (wide !== true) style.marginLeft = "auto";
+  if (wide !== true && marginLeft === null) style.marginLeft = "auto";
   return (
     <>
       <button
