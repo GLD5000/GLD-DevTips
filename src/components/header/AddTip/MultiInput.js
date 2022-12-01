@@ -23,7 +23,7 @@ const MultiInput = ({
         ...newObject.sections.map((x) => {
           return { ...x };
         }),
-        { type: "text", content: null },
+        { type: "text", content: "" },
       ];
       return newObject;
     });
@@ -88,6 +88,17 @@ const MultiInput = ({
       return newObject;
     });
   }
+  function appendIndexedField(e, textToAdd) {
+    incrementKeys();
+    const index = getIndexOfE(e);
+    const newObject = deepCloneInputFormState();
+    newObject.sections[index].content += textToAdd;
+
+    setInputFormState(() => {
+      return newObject;
+    });
+  }
+
   function changeValue(inputObject, index) {
     setInputFormState((object) => {
       const newObject = { ...object };
@@ -114,6 +125,7 @@ const MultiInput = ({
             index={index}
             changeValue={changeValue}
             title={object.title}
+            appendIndexedField={appendIndexedField}
           />
           <InputField
             key={(keyInc + "a" + index) + "InputField"}

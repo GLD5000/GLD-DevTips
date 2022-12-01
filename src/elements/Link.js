@@ -19,7 +19,6 @@ function cloneContent(content){
 export default function Link({ content }) {
   const text  = cloneContent(content);
   const link = linkString;
-  console.log(link);
   return (<>
     <a href={link} target="_blank" rel="noreferrer">
       {text}

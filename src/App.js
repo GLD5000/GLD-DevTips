@@ -247,7 +247,7 @@ function App() {
   const inputFormStarter = {
     title: null,
     id: null,
-    sections: [{ type: "text", content: null }],
+    sections: [{ type: "text", content: "" }],
     tags: [],
     date: null,
   };
