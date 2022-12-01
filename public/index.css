@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400&display=swap");
 
-:root{
+:root {
   --border-grey: #777;
 }
 
@@ -276,7 +276,7 @@ li {
   grid-column: 2;
   width: clamp(240px, calc(100vw - 1.25rem), 800px);
 }
-.auth-btn{
+.auth-btn {
   grid-column: 5;
 }
 .header-container {
@@ -332,8 +332,8 @@ h3 {
   grid-template-rows: auto;
 }
 
-.label-box{
- display: grid;
+.label-box {
+  display: grid;
 }
 
 .form-control-check {
@@ -396,19 +396,19 @@ thead {
 h1 {
   font-size: 2rem;
 }
-h2{
+h2 {
   font-size: 1.5rem;
 }
-h3{
+h3 {
   font-size: 1.25rem;
 }
-h4{
+h4 {
   font-size: 1rem;
 }
-h5{
+h5 {
   font-size: 0.875rem;
 }
-h6{
+h6 {
   font-size: 0.85rem;
 }
 
@@ -416,8 +416,8 @@ h6{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min-content, 50%));
 }
-.markdown-buttons{
-  display:flex;
+.markdown-buttons {
+  display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   grid-column: span 2;
