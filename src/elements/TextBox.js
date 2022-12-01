@@ -49,7 +49,7 @@ function getFlagMatch(flag, string){
 
 function sliceFlaggedTextNew(text, firstFlag, firstFlagIndex, secondFlag, secondFlagIndex) {
   const flaggedTextStart = firstFlagIndex + firstFlag.length;
-  const beforeFlag = firstFlagIndex === 0 ? null : text.slice(0, indexOfFlag);
+  const beforeFlag = firstFlagIndex === 0 ? null : text.slice(0, firstFlagIndex);
   const flaggedText = text.slice(flaggedTextStart, secondFlagIndex);
   const afterFlag =
     secondFlagIndex < text.length -1 - secondFlag.length ? text.slice(secondFlagIndex + secondFlag.length) : null;
