@@ -13,7 +13,7 @@ import Ol from "./Ol";
 import Ul from "./Ul";
 
 const flagMap = new Map([
-  [/\[(?=[\w\d\.\-/\s]+\]\([\w\d\.\-\/\:]+\))/, "link"],
+  [/\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/, "link"],
   ["######", "h6"],
   ["#####", "h5"],
   ["####", "h4"],
@@ -29,8 +29,8 @@ const flagMap = new Map([
 ]);
 
 const secondFlags = {
-  link: ")"
-}
+  link: ")",
+};
 
 function stringHasFlag(string) {
   let firstFlag = undefined;
@@ -68,7 +68,13 @@ function sliceFlaggedText(text, flag, indexOfFlag, secondFlag) {
 }
 function wrapText(index, text, type) {
   const typeHandler = {
-    link: <Link key={"l" + index} content={text} recursiveParser={recursiveParser} />,
+    link: (
+      <Link
+        key={"l" + index}
+        content={text}
+        recursiveParser={recursiveParser}
+      />
+    ),
     quote: <BlockQuote key={"b" + index} content={text} />,
     bold: <Bold key={"b" + index} content={text} />,
     italic: <Italic key={"i" + index} content={text} />,
@@ -98,7 +104,7 @@ function recursiveParser(text, index) {
   const { beforeFlag, flaggedText, afterFlag } = sliceFlaggedText(
     text,
     flag,
-    indexOfFlag, 
+    indexOfFlag,
     secondFlag
   );
   //pre-process flagged text
