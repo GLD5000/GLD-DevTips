@@ -13,24 +13,21 @@ import Ol from "./Ol";
 import Ul from "./Ul";
 
 const flagMap = new Map([
-  [/\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/, "link"],
-  ["######", "h6"],
-  ["#####", "h5"],
-  ["####", "h4"],
-  ["###", "h3"],
-  ["##", "h2"],
-  ["#", "h1"],
-  [">", "quote"],
-  [/\s*-\s+/, "liUl"],
-  [/\s*[0-9n]+\.\s+/, "liOl"],
-  ["**", "bold"],
-  ["_", "italic"],
+  [/\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/, { closingFlag: ")", type: "link"}],
+  ["**", { closingFlag: "**", type: "bold"}],
+  ["_", { closingFlag: "_", type: "italic"}],
+  ["######", { closingFlag: /[\r\n]/, type: "h6"}],
+  ["#####", { closingFlag: /[\r\n]/, type: "h5"}],
+  ["####", { closingFlag: /[\r\n]/, type: "h4"}],
+  ["###", { closingFlag: /[\r\n]/, type: "h3"}],
+  ["##", { closingFlag: /[\r\n]/, type: "h2"}],
+  ["#", { closingFlag: /[\r\n]/, type: "h1"}],
+  [">", { closingFlag: /[\r\n]/, type: "quote"}],
+  [/\s*-\s+/, { closingFlag: /[\r\n]/, type: "liUl"}],
+  [/\s*[0-9n]+\.\s+/, { closingFlag: /[\r\n]/, type: "liOl"}],
   // ["{link}", "link"],
 ]);
 
-const secondFlags = {
-  link: ")",
-};
 
 function stringHasFlag(string) {
   let firstFlag = undefined;
@@ -99,7 +96,7 @@ function recursiveParser(text, index) {
   } = stringHasFlag(text);
   //guard clause
   if (flag === undefined) return text;
-  const secondFlag = secondFlags[flagMap.get(flagFromMap)] || flag;
+  const secondFlag = flagMap.get(flagFromMap).closingFlag || flag;
 
   const { beforeFlag, flaggedText, afterFlag } = sliceFlaggedText(
     text,
@@ -110,7 +107,7 @@ function recursiveParser(text, index) {
   //pre-process flagged text
   const processedflaggedText = recursiveParser(flaggedText);
   // wrap flagged text
-  const type = flagMap.get(flagFromMap);
+  const type = flagMap.get(flagFromMap).type;
   index += 1;
   const wrappedFlaggedText = wrapText(index, processedflaggedText, type);
   //pre-process remaining text
