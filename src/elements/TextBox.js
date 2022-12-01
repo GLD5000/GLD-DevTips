@@ -13,6 +13,7 @@ import Ol from "./Ol";
 import Ul from "./Ul";
 
 const flagMap = new Map([
+  [/\[(?=[\w\d\.\-/\s]+\]\([\w\d\.\-\/\:]+\))/, "link"],
   ["######", "h6"],
   ["#####", "h5"],
   ["####", "h4"],
@@ -24,8 +25,12 @@ const flagMap = new Map([
   [/\s*[0-9n]+\.\s+/, "liOl"],
   ["**", "bold"],
   ["_", "italic"],
-  ["{link}", "link"],
+  // ["{link}", "link"],
 ]);
+
+const secondFlags = {
+  link: ")"
+}
 
 function stringHasFlag(string) {
   let firstFlag = undefined;
@@ -48,9 +53,9 @@ function stringHasFlag(string) {
   return { firstFlag, firstFlagIndex, flagFromMap };
 }
 
-function sliceFlaggedText(text, flag, indexOfFlag) {
+function sliceFlaggedText(text, flag, indexOfFlag, secondFlag) {
   const flaggedTextStart = indexOfFlag + flag.length;
-  const indexOfSecondFlag = text.indexOf(flag, flaggedTextStart);
+  const indexOfSecondFlag = text.indexOf(secondFlag, flaggedTextStart);
   const hasSecondFlag = indexOfSecondFlag > 0 && indexOfSecondFlag;
   const beforeFlag = indexOfFlag === 0 ? null : text.slice(0, indexOfFlag);
   const flaggedText = hasSecondFlag
@@ -63,10 +68,10 @@ function sliceFlaggedText(text, flag, indexOfFlag) {
 }
 function wrapText(index, text, type) {
   const typeHandler = {
+    link: <Link key={"l" + index} content={text} recursiveParser={recursiveParser} />,
     quote: <BlockQuote key={"b" + index} content={text} />,
     bold: <Bold key={"b" + index} content={text} />,
     italic: <Italic key={"i" + index} content={text} />,
-    link: <Link key={"l" + index} content={text} />,
     h1: <H1 key={"h" + index} content={text} />,
     h2: <H2 key={"h" + index} content={text} />,
     h3: <H3 key={"h" + index} content={text} />,
@@ -88,11 +93,13 @@ function recursiveParser(text, index) {
   } = stringHasFlag(text);
   //guard clause
   if (flag === undefined) return text;
+  const secondFlag = secondFlags[flagMap.get(flagFromMap)] || flag;
 
   const { beforeFlag, flaggedText, afterFlag } = sliceFlaggedText(
     text,
     flag,
-    indexOfFlag
+    indexOfFlag, 
+    secondFlag
   );
   //pre-process flagged text
   const processedflaggedText = recursiveParser(flaggedText);
