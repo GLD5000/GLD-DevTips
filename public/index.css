@@ -361,11 +361,14 @@ li,
 td,
 h3,
 p,
-em,
-b,
 label,
 thead {
   color: whitesmoke;
+  white-space: pre-wrap;
+}
+em,
+b {
+  color: inherit;
   white-space: pre-wrap;
 }
 .hint {
