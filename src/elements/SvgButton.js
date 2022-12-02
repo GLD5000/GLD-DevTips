@@ -15,7 +15,7 @@ function defaultOnClick(e) {
 }
 const SvgButton = ({
   borderRadius = "4px",
-  color = "white",
+  color = "whitesmoke",
   backgroundColor = "black",
   text = "Add",
   clickFunction = defaultOnClick,
