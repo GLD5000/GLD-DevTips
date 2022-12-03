@@ -12,19 +12,20 @@ import Li from "./Li";
 import Ol from "./Ol";
 import Ul from "./Ul";
 
+const lineEndRegex = /[\r\n]+/;
 const flagMap = new Map([
   [/\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/, { closingFlag: ")", type: "link"}],
   ["**", { closingFlag: "**", type: "bold"}],
   ["_", { closingFlag: "_", type: "italic"}],
-  ["######", { closingFlag: /[\r\n]/, type: "h6"}],
-  ["#####", { closingFlag: /[\r\n]/, type: "h5"}],
-  ["####", { closingFlag: /[\r\n]/, type: "h4"}],
-  ["###", { closingFlag: /[\r\n]/, type: "h3"}],
-  ["##", { closingFlag: /[\r\n]/, type: "h2"}],
-  ["#", { closingFlag: /[\r\n]/, type: "h1"}],
-  [">", { closingFlag: /[\r\n]/, type: "quote"}],
-  [/\s*-\s+/, { closingFlag: /[\r\n]/, type: "liUl"}],
-  [/\s*[0-9n]+\.\s+/, { closingFlag: /[\r\n]/, type: "liOl"}],
+  ["######", { closingFlag: lineEndRegex, type: "h6"}],
+  ["#####", { closingFlag: lineEndRegex, type: "h5"}],
+  ["####", { closingFlag: lineEndRegex, type: "h4"}],
+  ["###", { closingFlag: lineEndRegex, type: "h3"}],
+  ["##", { closingFlag: lineEndRegex, type: "h2"}],
+  ["#", { closingFlag: lineEndRegex, type: "h1"}],
+  [">", { closingFlag: lineEndRegex, type: "quote"}],
+  [/\s*-\s+/, { closingFlag: lineEndRegex, type: "liUl"}],
+  [/\s*[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: "liOl"}],
   // ["{link}", "link"],
 ]);
 
@@ -57,17 +58,46 @@ function sliceFlaggedTextNew(text, firstFlag, firstFlagIndex, secondFlag, second
   return { beforeFlag, flaggedText, afterFlag };
 }
 
+function findStringMatch(flag, string){
+  const failedReturn = [null, -1];
+  if (string === undefined) return failedReturn;
+  
+  const isRegexFlag = typeof flag === "object";
+  if (isRegexFlag === false) {
+    const index = string.indexOf(flag);
+    if (index === -1) return failedReturn;
+    return [flag, index];
+  }
+
+  const matchReturnArray = string.match(flag);
+  if (matchReturnArray === null) return failedReturn;
+  const match = string.match(flag)[0];
+  const index = string.indexOf(match);
+  return [match, index];
+  
+}
+
 
 function stringHasFlag(string) {
   let firstFlag = undefined;
   let firstFlagIndex = undefined;
   let flagFromMap = undefined;
-  if (string == null) return { firstFlag, firstFlagIndex };
+
+  const isEmptyString = string == null;
+  if (isEmptyString) return { firstFlag, firstFlagIndex };
 
   firstFlagIndex = string.length;
+
   flagMap.forEach((_, flag) => {
-    let flagText = typeof flag === "string" ? flag : null;
-    if (typeof flag === "object" && string.match(flag) !== null)
+    if (findStringMatch(flag, string)[0] !== null) {
+      //console.log( findStringMatch(flag, string));
+    const secondFlag = flagMap.get(flag).closingFlag || undefined;
+    if (secondFlag === lineEndRegex)
+    console.log( findStringMatch(secondFlag, string));
+  }
+    const isRegexFlag = typeof flag === "object";
+    let flagText = isRegexFlag === false ? flag : null;
+    if (isRegexFlag && string.match(flag) !== null)
       flagText = string.match(flag)[0];
     const indexOfFlag = string.indexOf(flagText);
     if (indexOfFlag >= 0 && indexOfFlag < firstFlagIndex) {
