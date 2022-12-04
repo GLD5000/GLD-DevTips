@@ -16,8 +16,9 @@ import CodeBox from "./CodeBox";
 import Table from "../components/tips/Table";
 import Hint from "./Hint";
 
-const lineEndRegex = /\s*PpPpEEE\s*\r?\n*\s*/;
+const lineEndRegex = /\s*PpPpEEE\s*\r*\n*\s*/;
 const flagMap = new Map([
+  [/PpPpSSS*\s*[`~]{3,}(\s*PpPpEEE*\s*\r*\n*\s*)?/, { closingFlag: /PpPpSSS*\s*[`~]{3,}(\s*PpPpEEE*\s*\r*\n*\s*)?/, type: "code" }],
   [/PpPpSSS\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
   [/PpPpSSS\s?#####(?!#)/, { closingFlag: lineEndRegex, type: "h5" }],
   [/PpPpSSS\s?####(?!#)/, { closingFlag: lineEndRegex, type: "h4" }],
@@ -65,8 +66,8 @@ function wrapText(index, text, type) {
   return typeHandler[type];
 }
 function markParagraphs(string){
-  const regex = /\r?\n+\s*/g;
-  return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE \n\r PpPpSSS") + "PpPpEEE";
+  const regex = /\r?\n+/g;
+  return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\n\rPpPpSSS") + "PpPpEEE";
 }
 
 
@@ -184,9 +185,10 @@ function recursiveParser(text, index) {
     secondFlagIndex
   );
   //pre-process flagged text
-  const processedflaggedText = recursiveParser(flaggedText, index);
-  // wrap flagged text
   const type = flagMap.get(flagFromMap).type;
+  const shouldParse = type !== "code";
+  const processedflaggedText = shouldParse? recursiveParser(flaggedText, index): flaggedText;
+  // wrap flagged text
   index += 1;
   // console.log(index);
 

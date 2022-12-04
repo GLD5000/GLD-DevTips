@@ -428,10 +428,13 @@ h6 {
 
 .input-buttons {
   display: grid;
+  gap: 0.5rem;
   grid-template-columns: repeat(auto-fit, minmax(min-content, 50%));
 }
 .markdown-buttons {
   display: flex;
+  gap: 0.5rem;
+  
   flex-wrap: wrap;
   flex-direction: row;
   grid-column: span 2;
