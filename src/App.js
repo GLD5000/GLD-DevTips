@@ -266,10 +266,10 @@ function App() {
   }
 
   function addObjectToInputFormState(object) {
-    console.log("Adding object to inputFormState...");
-    console.group(`object`);
-    console.log(object);
-    console.groupEnd();
+    // console.log("Adding object to inputFormState...");
+    // console.group(`object`);
+    // console.log(object);
+    // console.groupEnd();
     if (object === null) {
       initialiseInputFormState();
       return;
