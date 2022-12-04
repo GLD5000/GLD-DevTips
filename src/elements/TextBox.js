@@ -366,12 +366,16 @@ const TextBox = ({ text }) => {
   //const returnArray = parseParagraphs(paragraphs);
   // Find out if the return includes a header
   const string = markParagraphs(text)
-      // const arrayOfObjects = recursiveParser(string); // !!!!!!!
-      // const returnArray = wrapLists(arrayOfObjects);
-  const returnArray = recursiveParser(string, index);
-  console.group(`returnArray`);
-  console.log(returnArray);
-  console.groupEnd();
+
+
+      const arrayOfObjects = recursiveParser(string, index); // !!!!!!!
+      const returnArray = wrapLists(arrayOfObjects);
+
+
+  // const returnArray = recursiveParser(string, index);
+  // console.group(`returnArray`);
+  // console.log(returnArray);
+  // console.groupEnd();
   
   return <>{returnArray}</>;
 };
