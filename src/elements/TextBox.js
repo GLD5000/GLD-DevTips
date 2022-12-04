@@ -12,6 +12,10 @@ import Li from "./Li";
 import Ol from "./Ol";
 import Ul from "./Ul";
 import P from "./P";
+import CodeBox from "./CodeBox";
+import Table from "../components/tips/Table";
+import Hint from "./Hint";
+
 let key = 0;
 const lineEndRegex = /\s*PpPpEEE\s*\r?\n+\s*/;
 const flagMap = new Map([
@@ -158,6 +162,7 @@ function wrapText(index, text, type) {
     liUl: <Li key={"Ul" + newKey} content={text} />,
     liOl: <Li key={"Ol" + newKey} content={text} type="number" />,
     paragraph:<P key={"p" + newKey} content={text} />,
+    code:<CodeBox key={"cb" + newKey} content={text} />,
   };
   return typeHandler[type];
 }

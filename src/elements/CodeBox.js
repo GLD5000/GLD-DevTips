@@ -1,8 +1,8 @@
 import React from 'react'
 
-const CodeBox = ({code}) => {
+const CodeBox = ({content}) => {
   return (
-    <code className="code">{code}</code>
+    <code className="code">{content}</code>
   )
 }
 

@@ -1,5 +1,5 @@
-const Hint = ({ hint }) => {
-  return <div className="hint">{hint}</div>;
+const Hint = ({ content }) => {
+  return <div className="hint">{content }</div>;
 };
 
 export default Hint;
