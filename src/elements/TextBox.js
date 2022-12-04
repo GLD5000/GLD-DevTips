@@ -16,19 +16,19 @@ import CodeBox from "./CodeBox";
 import Table from "../components/tips/Table";
 import Hint from "./Hint";
 
-const lineEndRegex = /\s*PpPpEEE\s*\r*\n*\s*/;
+const lineEndRegex = /(PpPpEEE)[\r\n]*\s*/;
 const flagMap = new Map([
-  [/PpPpSSS*\s*[`~]{3,}(\s*PpPpEEE*\s*\r*\n*\s*)?/, { closingFlag: /PpPpSSS*\s*[`~]{3,}(\s*PpPpEEE*\s*\r*\n*\s*)?/, type: "code" }],
-  [/PpPpSSS\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
-  [/PpPpSSS\s?#####(?!#)/, { closingFlag: lineEndRegex, type: "h5" }],
-  [/PpPpSSS\s?####(?!#)/, { closingFlag: lineEndRegex, type: "h4" }],
-  [/PpPpSSS\s?###(?!#)/, { closingFlag: lineEndRegex, type: "h3" }],
-  [/PpPpSSS\s?##(?!#)/, { closingFlag: lineEndRegex, type: "h2" }],
-  [/PpPpSSS\s?#(?!#)/, { closingFlag: lineEndRegex, type: "h1" }],
-  [/PpPpSSS\s?>/, { closingFlag: lineEndRegex, type: "quote" }],
-  [/PpPpSSS\s?-\s+/, { closingFlag: lineEndRegex, type: "liUl" }],
-  [/PpPpSSS\s?[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: "liOl" }],
-  [/PpPpSSS(?!#)/, { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: "paragraph" }],
+  [/(PpPpSSS)\s*[`~]{3,}(\s*PpPpEEE\s*\r*\n*\r*\s*)?/, { closingFlag: /(PpPpSSS)?\s*[`~]{3,}(PpPpEEE)?[\r\n]*/, type: "code" }],
+  [/(PpPpSSS)\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
+  [/(PpPpSSS)\s?#####(?!#)/, { closingFlag: lineEndRegex, type: "h5" }],
+  [/(PpPpSSS)\s?####(?!#)/, { closingFlag: lineEndRegex, type: "h4" }],
+  [/(PpPpSSS)\s?###(?!#)/, { closingFlag: lineEndRegex, type: "h3" }],
+  [/(PpPpSSS)\s?##(?!#)/, { closingFlag: lineEndRegex, type: "h2" }],
+  [/(PpPpSSS)\s?#(?!#)/, { closingFlag: lineEndRegex, type: "h1" }],
+  [/(PpPpSSS)\s?>/, { closingFlag: lineEndRegex, type: "quote" }],
+  [/(PpPpSSS)\s?-\s+/, { closingFlag: lineEndRegex, type: "liUl" }],
+  [/(PpPpSSS)\s?[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: "liOl" }],
+  [/(PpPpSSS)(?!#)/, { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: "paragraph" }],
   [
     /\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/,
     { closingFlag: ")", type: "link" },
@@ -59,14 +59,14 @@ function wrapText(index, text, type) {
     liUl: <Li key={"Ul" + newKey} content={text} />,
     liOl: <Li key={"Ol" + newKey} content={text} type="number" />,
     paragraph:<P key={"pa" + newKey} content={text} />,
-    code:<CodeBox key={"cb" + newKey} content={text} />,
+    code:<CodeBox key={"cb" + newKey} content={text} parse={true} />,
     table:<Table key={"table" + newKey} content={text} />,
     hint:<Hint key={"hint" + newKey} content={text} />,
   };
   return typeHandler[type];
 }
 function markParagraphs(string){
-  const regex = /\r?\n+/g;
+  const regex = /[\r\n]+/g;
   return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\n\rPpPpSSS") + "PpPpEEE";
 }
 
@@ -210,7 +210,7 @@ function recursiveParser(text, index) {
 
 
 function findObjectType(wrappedObject) {
-  // console.log(wrappedObject);
+  console.log(wrappedObject);
   
   const keyCharacter = wrappedObject[0]?.key[0] || wrappedObject.key[0];
   // console.log(keyCharacter);
@@ -228,7 +228,9 @@ function wrapLists(arrayOfObjects){
     // console.log(arrayOfObjects);
     if (Array.isArray(arrayOfObjects) === false) return arrayOfObjects;
     arrayOfObjects?.forEach((paragraph, index, arr) => {
-      // wrap text in <p
+
+      console.assert(typeof paragraph === "object", `Paragraph is not an object ${paragraph}`); 
+      if (typeof paragraph !== "object") return;
       const wrappedObject = paragraph;
       const type = findObjectType(wrappedObject);
       const nonListItem = type === "nonList";

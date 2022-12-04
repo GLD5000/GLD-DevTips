@@ -13,6 +13,7 @@ function getReturnArray(type, index, appendIndexedField) {
   {type: "italic", text: "Quote", function: (e)=> {appendIndexedField(e, "\n\r>Block Quote Text")} },
   {type: "italic", text: "Bullet Point", function: (e)=> {appendIndexedField(e, "\n\r - Bullet Point Text")} },
   {type: "italic", text: "Numbered List", function: (e)=> {appendIndexedField(e, "\n\r n. Numbered List Text")} },
+  {type: "italic", text: "Code", function: (e)=> {appendIndexedField(e, "\n\r ``` \n\r Code \n\r ```")} },
  ];
 
  return <div className="markdown-buttons">

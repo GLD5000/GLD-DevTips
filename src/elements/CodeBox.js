@@ -5,12 +5,11 @@ function removeParagraphs(string){
 
 
 
-const CodeBox = ({content}) => {
-  console.log(content);
-  const code = removeParagraphs(content);
+export default function CodeBox ({content, parse = false}) {
+  // console.log(content);
+  const code = parse? removeParagraphs(content): content;
   return (
     <code className="code">{`${code}`}</code>
   )
 }
 
-export default CodeBox
