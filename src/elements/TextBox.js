@@ -16,18 +16,18 @@ import CodeBox from "./CodeBox";
 import Table from "../components/tips/Table";
 import Hint from "./Hint";
 
-const lineEndRegex = /\s*PpPpEEE\s*\r?\n+\s*/;
+const lineEndRegex = /\s*PpPpEEE\s*\r?\n*\s*/;
 const flagMap = new Map([
-  [/PpPpSSS\s*######/, { closingFlag: lineEndRegex, type: "h6" }],
-  [/PpPpSSS\s*#####(?!#)/, { closingFlag: lineEndRegex, type: "h5" }],
-  [/PpPpSSS\s*####(?!#)/, { closingFlag: lineEndRegex, type: "h4" }],
-  [/PpPpSSS\s*###(?!#)/, { closingFlag: lineEndRegex, type: "h3" }],
-  [/PpPpSSS\s*##(?!#)/, { closingFlag: lineEndRegex, type: "h2" }],
-  [/PpPpSSS\s*#(?!#)/, { closingFlag: lineEndRegex, type: "h1" }],
-  [/PpPpSSS\s*>/, { closingFlag: lineEndRegex, type: "quote" }],
-  [/PpPpSSS\s*-\s+/, { closingFlag: lineEndRegex, type: "liUl" }],
-  [/PpPpSSS\s*[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: "liOl" }],
-  ["PpPpSSS", { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: "paragraph" }],
+  [/PpPpSSS\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
+  [/PpPpSSS\s?#####(?!#)/, { closingFlag: lineEndRegex, type: "h5" }],
+  [/PpPpSSS\s?####(?!#)/, { closingFlag: lineEndRegex, type: "h4" }],
+  [/PpPpSSS\s?###(?!#)/, { closingFlag: lineEndRegex, type: "h3" }],
+  [/PpPpSSS\s?##(?!#)/, { closingFlag: lineEndRegex, type: "h2" }],
+  [/PpPpSSS\s?#(?!#)/, { closingFlag: lineEndRegex, type: "h1" }],
+  [/PpPpSSS\s?>/, { closingFlag: lineEndRegex, type: "quote" }],
+  [/PpPpSSS\s?-\s+/, { closingFlag: lineEndRegex, type: "liUl" }],
+  [/PpPpSSS\s?[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: "liOl" }],
+  [/PpPpSSS(?!#)/, { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: "paragraph" }],
   [
     /\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/,
     { closingFlag: ")", type: "link" },
@@ -36,7 +36,34 @@ const flagMap = new Map([
   ["_", { closingFlag: "_", type: "italic" }],
   // ["{link}", "link"],
 ]);
-
+function wrapText(index, text, type) {
+  const newKey = "x" + index;
+  const typeHandler = {
+    link: (
+      <Link
+        key={"l" + newKey}
+        content={text}
+        recursiveParser={recursiveParser}
+      />
+    ),
+    quote: <BlockQuote key={"qb" + newKey} content={text} />,
+    bold: <Bold key={"bo" + newKey} content={text} />,
+    italic: <Italic key={"it" + newKey} content={text} />,
+    h1: <H1 key={"h1" + newKey} content={text} />,
+    h2: <H2 key={"h2" + newKey} content={text} />,
+    h3: <H3 key={"h3" + newKey} content={text} />,
+    h4: <H4 key={"h4" + newKey} content={text} />,
+    h5: <H5 key={"h5" + newKey} content={text} />,
+    h6: <H6 key={"h6" + newKey} content={text} />,
+    liUl: <Li key={"Ul" + newKey} content={text} />,
+    liOl: <Li key={"Ol" + newKey} content={text} type="number" />,
+    paragraph:<P key={"pa" + newKey} content={text} />,
+    code:<CodeBox key={"cb" + newKey} content={text} />,
+    table:<Table key={"table" + newKey} content={text} />,
+    hint:<Hint key={"hint" + newKey} content={text} />,
+  };
+  return typeHandler[type];
+}
 function markParagraphs(string){
   const regex = /\r?\n+\s*/g;
   return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE \n\r PpPpSSS") + "PpPpEEE";
@@ -134,34 +161,6 @@ function sliceFlaggedText(
   // console.log(`afterFlag ${afterFlag}`);
 
   return { beforeFlag, flaggedText, afterFlag };
-}
-function wrapText(index, text, type) {
-  const newKey = "x" + index;
-  const typeHandler = {
-    link: (
-      <Link
-        key={"l" + newKey}
-        content={text}
-        recursiveParser={recursiveParser}
-      />
-    ),
-    quote: <BlockQuote key={"qb" + newKey} content={text} />,
-    bold: <Bold key={"bo" + newKey} content={text} />,
-    italic: <Italic key={"it" + newKey} content={text} />,
-    h1: <H1 key={"h1" + newKey} content={text} />,
-    h2: <H2 key={"h2" + newKey} content={text} />,
-    h3: <H3 key={"h3" + newKey} content={text} />,
-    h4: <H4 key={"h4" + newKey} content={text} />,
-    h5: <H5 key={"h5" + newKey} content={text} />,
-    h6: <H6 key={"h6" + newKey} content={text} />,
-    liUl: <Li key={"Ul" + newKey} content={text} />,
-    liOl: <Li key={"Ol" + newKey} content={text} type="number" />,
-    paragraph:<P key={"pa" + newKey} content={text} />,
-    code:<CodeBox key={"cb" + newKey} content={text} />,
-    table:<Table key={"table" + newKey} content={text} />,
-    hint:<Hint key={"hint" + newKey} content={text} />,
-  };
-  return typeHandler[type];
 }
 function recursiveParser(text, index) {
   //Can return text or array
