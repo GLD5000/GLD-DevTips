@@ -16,7 +16,6 @@ import CodeBox from "./CodeBox";
 import Table from "../components/tips/Table";
 import Hint from "./Hint";
 
-let key = 0;
 const lineEndRegex = /\s*PpPpEEE\s*\r?\n+\s*/;
 const flagMap = new Map([
   [/PpPpSSS\s*######/, { closingFlag: lineEndRegex, type: "h6" }],
@@ -150,19 +149,21 @@ function wrapText(index, text, type) {
         recursiveParser={recursiveParser}
       />
     ),
-    quote: <BlockQuote key={"q" + newKey} content={text} />,
-    bold: <Bold key={"b" + newKey} content={text} />,
-    italic: <Italic key={"i" + newKey} content={text} />,
-    h1: <H1 key={"h" + newKey} content={text} />,
-    h2: <H2 key={"h" + newKey} content={text} />,
-    h3: <H3 key={"h" + newKey} content={text} />,
-    h4: <H4 key={"h" + newKey} content={text} />,
-    h5: <H5 key={"h" + newKey} content={text} />,
-    h6: <H6 key={"h" + newKey} content={text} />,
+    quote: <BlockQuote key={"qb" + newKey} content={text} />,
+    bold: <Bold key={"bo" + newKey} content={text} />,
+    italic: <Italic key={"it" + newKey} content={text} />,
+    h1: <H1 key={"h1" + newKey} content={text} />,
+    h2: <H2 key={"h2" + newKey} content={text} />,
+    h3: <H3 key={"h3" + newKey} content={text} />,
+    h4: <H4 key={"h4" + newKey} content={text} />,
+    h5: <H5 key={"h5" + newKey} content={text} />,
+    h6: <H6 key={"h6" + newKey} content={text} />,
     liUl: <Li key={"Ul" + newKey} content={text} />,
     liOl: <Li key={"Ol" + newKey} content={text} type="number" />,
-    paragraph:<P key={"p" + newKey} content={text} />,
+    paragraph:<P key={"pa" + newKey} content={text} />,
     code:<CodeBox key={"cb" + newKey} content={text} />,
+    table:<Table key={"table" + newKey} content={text} />,
+    hint:<Hint key={"hint" + newKey} content={text} />,
   };
   return typeHandler[type];
 }
