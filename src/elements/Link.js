@@ -16,11 +16,13 @@ function cloneContent(content){
   itemHandler(content);
 }
 
-export default function Link({ content }) {
+
+export default function Link({ content}) {
   const text  = cloneContent(content);
   const link = linkString;
+
   return (<>
-    <a href={link} target="_blank" rel="noreferrer">
+    <a href={link}  target="_blank" rel="noreferrer">
       {text}
     </a>
   </>

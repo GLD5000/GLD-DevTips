@@ -12,7 +12,7 @@ import Li from "./Li";
 import Ol from "./Ol";
 import Ul from "./Ul";
 import P from "./P";
-
+let key = 0;
 const lineEndRegex = /\s*PpPpEEE\s*\r?\n+\s*/;
 const flagMap = new Map([
   [/PpPpSSS\s*######/, { closingFlag: lineEndRegex, type: "h6" }],
@@ -24,7 +24,7 @@ const flagMap = new Map([
   [/PpPpSSS\s*>/, { closingFlag: lineEndRegex, type: "quote" }],
   [/PpPpSSS\s*-\s+/, { closingFlag: lineEndRegex, type: "liUl" }],
   [/PpPpSSS\s*[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: "liOl" }],
-  ["PpPpSSS", { closingFlag: "PpPpEEE", type: "paragraph" }],
+  ["PpPpSSS", { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: "paragraph" }],
   [
     /\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/,
     { closingFlag: ")", type: "link" },
@@ -37,6 +37,11 @@ const flagMap = new Map([
 function markParagraphs(string){
   const regex = /\r?\n+\s*/g;
   return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE \n\r PpPpSSS") + "PpPpEEE";
+}
+
+function markLists(string) {
+  const regex = /\r?\n+\s*/g;
+  return string.replaceAll(regex, "OlOlEEE \n\r PpPpSSS");
 }
 
 function findStringMatch(flag, string, startAt = 0) {
@@ -79,8 +84,8 @@ function stringHasFlag(string) {
       string,
       firstStringMatch[1] + firstStringMatch[0].length
     );
-    firstStringMatch[0] && console.log(firstStringMatch[0]);
-    secondStringMatch[0] && console.log(secondStringMatch[0]);
+    // firstStringMatch[0] && console.log(firstStringMatch[0]);
+    // secondStringMatch[0] && console.log(secondStringMatch[0]);
     if (
       firstStringMatch[0] &&
       secondStringMatch[0] &&
@@ -119,7 +124,7 @@ function sliceFlaggedText(
   secondFlag,
   secondFlagIndex
 ) {
-  console.log(secondFlag.length);
+  // console.log(secondFlag.length);
   const flaggedTextStart = firstFlagIndex + firstFlag.length;
   const afterFlaggedStart = secondFlagIndex + secondFlag.length;
   const beforeFlag =
@@ -127,35 +132,35 @@ function sliceFlaggedText(
   const flaggedText = text.slice(flaggedTextStart, secondFlagIndex);
   const afterFlag =
     text.length > afterFlaggedStart ? text.slice(afterFlaggedStart) : null;
-  console.log(`afterFlag ${afterFlag}`);
+  // console.log(`afterFlag ${afterFlag}`);
 
   return { beforeFlag, flaggedText, afterFlag };
 }
 function wrapText(index, text, type) {
+  const newKey = "x" + index;
   const typeHandler = {
     link: (
       <Link
-        key={"l" + index}
+        key={"l" + newKey}
         content={text}
         recursiveParser={recursiveParser}
       />
     ),
-    quote: <BlockQuote key={"b" + index} content={text} />,
-    bold: <Bold key={"b" + index} content={text} />,
-    italic: <Italic key={"i" + index} content={text} />,
-    h1: <H1 key={"h" + index} content={text} />,
-    h2: <H2 key={"h" + index} content={text} />,
-    h3: <H3 key={"h" + index} content={text} />,
-    h4: <H4 key={"h" + index} content={text} />,
-    h5: <H5 key={"h" + index} content={text} />,
-    h6: <H6 key={"h" + index} content={text} />,
-    liUl: <Li key={"Ul" + index} content={text} />,
-    liOl: <Li key={"Ol" + index} content={text} />,
-    paragraph:<P key={"p" + index} content={text} />,
+    quote: <BlockQuote key={"q" + newKey} content={text} />,
+    bold: <Bold key={"b" + newKey} content={text} />,
+    italic: <Italic key={"i" + newKey} content={text} />,
+    h1: <H1 key={"h" + newKey} content={text} />,
+    h2: <H2 key={"h" + newKey} content={text} />,
+    h3: <H3 key={"h" + newKey} content={text} />,
+    h4: <H4 key={"h" + newKey} content={text} />,
+    h5: <H5 key={"h" + newKey} content={text} />,
+    h6: <H6 key={"h" + newKey} content={text} />,
+    liUl: <Li key={"Ul" + newKey} content={text} />,
+    liOl: <Li key={"Ol" + newKey} content={text} type="number" />,
+    paragraph:<P key={"p" + newKey} content={text} />,
   };
   return typeHandler[type];
 }
-
 function recursiveParser(text, index) {
   //Can return text or array
   const {
@@ -178,17 +183,25 @@ function recursiveParser(text, index) {
     secondFlagIndex
   );
   //pre-process flagged text
-  const processedflaggedText = recursiveParser(flaggedText);
+  const processedflaggedText = recursiveParser(flaggedText, index);
   // wrap flagged text
   const type = flagMap.get(flagFromMap).type;
   index += 1;
+  console.log(index);
+
   const wrappedFlaggedText = wrapText(index, processedflaggedText, type);
   //pre-process remaining text
   const returnArray = [];
   // returnArray.push() = [beforeFlag, wrappedFlaggedText, recursiveParser(afterFlag) ]
   if (beforeFlag !== null) returnArray.push(beforeFlag);
   returnArray.push(wrappedFlaggedText);
-  if (afterFlag !== null) returnArray.push(recursiveParser(afterFlag));
+  if (afterFlag !== null) {
+    const parserReturn = recursiveParser(afterFlag, index);
+    if (Array.isArray(parserReturn)) {returnArray.push(...parserReturn); } 
+    else {
+      returnArray.push(parserReturn);
+    }
+  }
   return returnArray.length === 1 ? returnArray[0] : returnArray;
 }
 
@@ -207,14 +220,79 @@ function wrapIncomingParagraphs(paragraph, index) {
 }
 
 function findObjectType(wrappedObject) {
-  // console.log(wrappedObject);
-  // console.log(wrappedObject.key);
-  const keyCharacter = wrappedObject.key[0];
+  console.log(wrappedObject);
+  
+  const keyCharacter = wrappedObject[0]?.key[0] || wrappedObject.key[0];
+  console.log(keyCharacter);
   const isOrdered = keyCharacter === "O";
   const isUnordered = keyCharacter === "U";
   if (!isOrdered && !isUnordered) return "nonList";
   return keyCharacter;
 }
+
+function wrapLists(arrayOfObjects){
+    const returnArray = [];
+  
+    let listItemArray = [];
+    let listType = null;
+  
+    arrayOfObjects?.forEach((paragraph, index, arr) => {
+      // wrap text in <p
+      const wrappedObject = paragraph;
+      const type = findObjectType(wrappedObject);
+      const nonListItem = type === "nonList";
+      if (nonListItem) {
+        const wasListItem = listType !== type;
+        if (wasListItem) {
+          // list type just changed
+          // make ol or ul object
+          const wasOrderedList = listType === "O";
+          const list = wasOrderedList ? (
+            <Ol key={"Ol" + index} content={listItemArray} />
+          ) : (
+            <Ul key={"Ul" + index} content={listItemArray} />
+          );
+          returnArray.push(list);
+          listType = type;
+          listItemArray = [];
+        }
+        returnArray.push(wrappedObject);
+      }
+      const isOrderedListItem = type === "O";
+      if (isOrderedListItem) {
+        if (listType !== type && listItemArray.length > 0) {
+          returnArray.push(<Ul key={"Ol" + index} content={listItemArray} />);
+          listItemArray = [];
+        }
+        listType = type;
+        listItemArray.push(wrappedObject);
+      }
+      const isUnorderedListItem = type === "U";
+      if (isUnorderedListItem) {
+        if (listType !== type && listItemArray.length > 0) {
+          returnArray.push(<Ol key={"Ol" + index} content={listItemArray} />);
+          listItemArray = [];
+        }
+  
+        listType = type;
+        listItemArray.push(wrappedObject);
+      }
+      const isLastListItem = index === arr.length - 1;
+      const listItemArrayHasItems = listItemArray.length > 0;
+      if (isLastListItem && listItemArrayHasItems) {
+        const list =
+          listType === "O" ? (
+            <Ol key={"Ol" + index} content={listItemArray} />
+          ) : (
+            <Ul key={"Ul" + index} content={listItemArray} />
+          );
+        returnArray.push(list);
+        listItemArray = [];
+      }
+    });
+    return returnArray;
+  
+  }
 
 function parseParagraphs(paragraphs) {
   const returnArray = [];
@@ -281,13 +359,20 @@ function parseParagraphs(paragraphs) {
 }
 
 const TextBox = ({ text }) => {
+  let index = 0;
+
   //split into paragraphs
   //const paragraphs = text?.split(/\r?\n\s*/);
   //const returnArray = parseParagraphs(paragraphs);
   // Find out if the return includes a header
   const string = markParagraphs(text)
-  const returnArray = recursiveParser(string); // !!!!!!!
-
+      // const arrayOfObjects = recursiveParser(string); // !!!!!!!
+      // const returnArray = wrapLists(arrayOfObjects);
+  const returnArray = recursiveParser(string, index);
+  console.group(`returnArray`);
+  console.log(returnArray);
+  console.groupEnd();
+  
   return <>{returnArray}</>;
 };
 
