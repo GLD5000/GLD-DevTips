@@ -68,7 +68,15 @@ button {
 .table {
   overflow-x: auto;
 }
+option{
+  color: black;
+}
+select, textarea, input {
 
+  border: 1px solid var(--border-grey);
+
+  background-color:inherit;
+}
 textarea {
   resize: vertical;
 }

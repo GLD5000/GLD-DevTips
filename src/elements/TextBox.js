@@ -11,60 +11,42 @@ import H6 from "./H6";
 import Li from "./Li";
 import Ol from "./Ol";
 import Ul from "./Ul";
+import P from "./P";
 
-const lineEndRegex = /[\r\n]+/;
+const lineEndRegex = /\s*PpPpEEE\s*\r?\n+\s*/;
 const flagMap = new Map([
-  [/\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/, { closingFlag: ")", type: "link"}],
-  ["**", { closingFlag: "**", type: "bold"}],
-  ["_", { closingFlag: "_", type: "italic"}],
-  ["######", { closingFlag: lineEndRegex, type: "h6"}],
-  ["#####", { closingFlag: lineEndRegex, type: "h5"}],
-  ["####", { closingFlag: lineEndRegex, type: "h4"}],
-  ["###", { closingFlag: lineEndRegex, type: "h3"}],
-  ["##", { closingFlag: lineEndRegex, type: "h2"}],
-  ["#", { closingFlag: lineEndRegex, type: "h1"}],
-  [">", { closingFlag: lineEndRegex, type: "quote"}],
-  [/\s*-\s+/, { closingFlag: lineEndRegex, type: "liUl"}],
-  [/\s*[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: "liOl"}],
+  [/PpPpSSS\s*######/, { closingFlag: lineEndRegex, type: "h6" }],
+  [/PpPpSSS\s*#####(?!#)/, { closingFlag: lineEndRegex, type: "h5" }],
+  [/PpPpSSS\s*####(?!#)/, { closingFlag: lineEndRegex, type: "h4" }],
+  [/PpPpSSS\s*###(?!#)/, { closingFlag: lineEndRegex, type: "h3" }],
+  [/PpPpSSS\s*##(?!#)/, { closingFlag: lineEndRegex, type: "h2" }],
+  [/PpPpSSS\s*#(?!#)/, { closingFlag: lineEndRegex, type: "h1" }],
+  [/PpPpSSS\s*>/, { closingFlag: lineEndRegex, type: "quote" }],
+  [/PpPpSSS\s*-\s+/, { closingFlag: lineEndRegex, type: "liUl" }],
+  [/PpPpSSS\s*[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: "liOl" }],
+  ["PpPpSSS", { closingFlag: "PpPpEEE", type: "paragraph" }],
+  [
+    /\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/,
+    { closingFlag: ")", type: "link" },
+  ],
+  ["**", { closingFlag: "**", type: "bold" }],
+  ["_", { closingFlag: "_", type: "italic" }],
   // ["{link}", "link"],
 ]);
 
-function getFlagMatch(flag, string){
-  let firstFlag = undefined;
-  let firstFlagIndex = string.length;
-  let flagFromMap = undefined;
-
-  let flagText = typeof flag === "string" ? flag : null;
-  if (typeof flag === "object" && string.match(flag) !== null)
-    flagText = string.match(flag)[0];
-  const indexOfFlag = string.indexOf(flagText);
-  if (indexOfFlag === -1) return;
-
-  if (indexOfFlag >= 0 && indexOfFlag < firstFlagIndex) {
-    firstFlag = flagText;
-    firstFlagIndex = indexOfFlag;
-    flagFromMap = flag;
-  }
-
+function markParagraphs(string){
+  const regex = /\r?\n+\s*/g;
+  return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE \n\r PpPpSSS") + "PpPpEEE";
 }
 
-function sliceFlaggedTextNew(text, firstFlag, firstFlagIndex, secondFlag, secondFlagIndex) {
-  const flaggedTextStart = firstFlagIndex + firstFlag.length;
-  const beforeFlag = firstFlagIndex === 0 ? null : text.slice(0, firstFlagIndex);
-  const flaggedText = text.slice(flaggedTextStart, secondFlagIndex);
-  const afterFlag =
-    secondFlagIndex < text.length -1 - secondFlag.length ? text.slice(secondFlagIndex + secondFlag.length) : null;
-
-  return { beforeFlag, flaggedText, afterFlag };
-}
-
-function findStringMatch(flag, string){
+function findStringMatch(flag, string, startAt = 0) {
+  if (startAt === -1) startAt = 0;
   const failedReturn = [null, -1];
   if (string === undefined) return failedReturn;
-  
+
   const isRegexFlag = typeof flag === "object";
   if (isRegexFlag === false) {
-    const index = string.indexOf(flag);
+    const index = string.indexOf(flag, startAt);
     if (index === -1) return failedReturn;
     return [flag, index];
   }
@@ -72,15 +54,15 @@ function findStringMatch(flag, string){
   const matchReturnArray = string.match(flag);
   if (matchReturnArray === null) return failedReturn;
   const match = string.match(flag)[0];
-  const index = string.indexOf(match);
+  const index = string.indexOf(match, startAt);
   return [match, index];
-  
 }
-
 
 function stringHasFlag(string) {
   let firstFlag = undefined;
   let firstFlagIndex = undefined;
+  let secondFlag = undefined;
+  let secondFlagIndex = undefined;
   let flagFromMap = undefined;
 
   const isEmptyString = string == null;
@@ -89,36 +71,63 @@ function stringHasFlag(string) {
   firstFlagIndex = string.length;
 
   flagMap.forEach((_, flag) => {
-    if (findStringMatch(flag, string)[0] !== null) {
-      //console.log( findStringMatch(flag, string));
-    const secondFlag = flagMap.get(flag).closingFlag || undefined;
-    if (secondFlag === lineEndRegex)
-    console.log( findStringMatch(secondFlag, string));
-  }
-    const isRegexFlag = typeof flag === "object";
-    let flagText = isRegexFlag === false ? flag : null;
-    if (isRegexFlag && string.match(flag) !== null)
-      flagText = string.match(flag)[0];
-    const indexOfFlag = string.indexOf(flagText);
-    if (indexOfFlag >= 0 && indexOfFlag < firstFlagIndex) {
-      firstFlag = flagText;
-      firstFlagIndex = indexOfFlag;
+    const firstStringMatch = findStringMatch(flag, string);
+    if (firstStringMatch[0] == null) return;
+    const secondFlagForMatch = flagMap.get(flag).closingFlag;
+    const secondStringMatch = findStringMatch(
+      secondFlagForMatch,
+      string,
+      firstStringMatch[1] + firstStringMatch[0].length
+    );
+    firstStringMatch[0] && console.log(firstStringMatch[0]);
+    secondStringMatch[0] && console.log(secondStringMatch[0]);
+    if (
+      firstStringMatch[0] &&
+      secondStringMatch[0] &&
+      firstStringMatch[1] < firstFlagIndex
+    ) {
+      firstFlag = firstStringMatch[0];
+      firstFlagIndex = firstStringMatch[1];
+      secondFlag = secondStringMatch[0];
+      secondFlagIndex = secondStringMatch[1];
       flagFromMap = flag;
     }
+    // const isRegexFlag = typeof flag === "object";
+    // let flagText = isRegexFlag === false ? flag : null;
+    // if (isRegexFlag && string.match(flag) !== null)
+    //   flagText = string.match(flag)[0];
+    // const indexOfFlag = string.indexOf(flagText);
+    // if (indexOfFlag >= 0 && indexOfFlag < firstFlagIndex) {
+    //   firstFlag = flagText;
+    //   firstFlagIndex = indexOfFlag;
+    //   flagFromMap = flag;
+    // }
   });
-  return { firstFlag, firstFlagIndex, flagFromMap };
+  return {
+    firstFlag,
+    firstFlagIndex,
+    secondFlag,
+    secondFlagIndex,
+    flagFromMap,
+  };
 }
 
-function sliceFlaggedText(text, flag, indexOfFlag, secondFlag) {
-  const flaggedTextStart = indexOfFlag + flag.length;
-  const indexOfSecondFlag = text.indexOf(secondFlag, flaggedTextStart);
-  const hasSecondFlag = indexOfSecondFlag > 0 && indexOfSecondFlag;
-  const beforeFlag = indexOfFlag === 0 ? null : text.slice(0, indexOfFlag);
-  const flaggedText = hasSecondFlag
-    ? text.slice(flaggedTextStart, indexOfSecondFlag)
-    : text.slice(flaggedTextStart);
+function sliceFlaggedText(
+  text,
+  firstFlag,
+  firstFlagIndex,
+  secondFlag,
+  secondFlagIndex
+) {
+  console.log(secondFlag.length);
+  const flaggedTextStart = firstFlagIndex + firstFlag.length;
+  const afterFlaggedStart = secondFlagIndex + secondFlag.length;
+  const beforeFlag =
+    firstFlagIndex === 0 ? null : text.slice(0, firstFlagIndex);
+  const flaggedText = text.slice(flaggedTextStart, secondFlagIndex);
   const afterFlag =
-    indexOfSecondFlag > 0 ? text.slice(indexOfSecondFlag + flag.length) : null;
+    text.length > afterFlaggedStart ? text.slice(afterFlaggedStart) : null;
+  console.log(`afterFlag ${afterFlag}`);
 
   return { beforeFlag, flaggedText, afterFlag };
 }
@@ -142,6 +151,7 @@ function wrapText(index, text, type) {
     h6: <H6 key={"h" + index} content={text} />,
     liUl: <Li key={"Ul" + index} content={text} />,
     liOl: <Li key={"Ol" + index} content={text} />,
+    paragraph:<P key={"p" + index} content={text} />,
   };
   return typeHandler[type];
 }
@@ -149,19 +159,23 @@ function wrapText(index, text, type) {
 function recursiveParser(text, index) {
   //Can return text or array
   const {
-    firstFlag: flag,
-    firstFlagIndex: indexOfFlag,
+    firstFlag,
+    firstFlagIndex,
+    secondFlag,
+    secondFlagIndex,
     flagFromMap,
   } = stringHasFlag(text);
   //guard clause
-  if (flag === undefined) return text;
-  const secondFlag = flagMap.get(flagFromMap).closingFlag || undefined;
+  if (firstFlag === undefined) return text;
+  //const secondFlag = flagMap.get(flagFromMap).closingFlag || undefined;
   if (secondFlag === undefined) return text;
+
   const { beforeFlag, flaggedText, afterFlag } = sliceFlaggedText(
     text,
-    flag,
-    indexOfFlag,
-    secondFlag
+    firstFlag,
+    firstFlagIndex,
+    secondFlag,
+    secondFlagIndex
   );
   //pre-process flagged text
   const processedflaggedText = recursiveParser(flaggedText);
@@ -202,13 +216,13 @@ function findObjectType(wrappedObject) {
   return keyCharacter;
 }
 
-function parseParagraphs(paragraphs){
+function parseParagraphs(paragraphs) {
   const returnArray = [];
 
   // map paragraphs calling recursive function on each
   let listItemArray = [];
   let listType = null;
-  
+
   paragraphs?.forEach((paragraph, index, arr) => {
     // wrap text in <p
     const wrappedObject = wrapIncomingParagraphs(paragraph, index);
@@ -220,12 +234,11 @@ function parseParagraphs(paragraphs){
         // list type just changed
         // make ol or ul object
         const wasOrderedList = listType === "O";
-        const list =
-        wasOrderedList ? (
-            <Ol key={"Ol" + index} content={listItemArray} />
-          ) : (
-            <Ul key={"Ul" + index} content={listItemArray} />
-          );
+        const list = wasOrderedList ? (
+          <Ol key={"Ol" + index} content={listItemArray} />
+        ) : (
+          <Ul key={"Ul" + index} content={listItemArray} />
+        );
         returnArray.push(list);
         listType = type;
         listItemArray = [];
@@ -269,9 +282,12 @@ function parseParagraphs(paragraphs){
 
 const TextBox = ({ text }) => {
   //split into paragraphs
-  const paragraphs = text?.split(/\r?\n\s*/);
-  const returnArray = parseParagraphs(paragraphs);
+  //const paragraphs = text?.split(/\r?\n\s*/);
+  //const returnArray = parseParagraphs(paragraphs);
   // Find out if the return includes a header
+  const string = markParagraphs(text)
+  const returnArray = recursiveParser(string); // !!!!!!!
+
   return <>{returnArray}</>;
 };
 
