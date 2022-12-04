@@ -1,5 +1,3 @@
-import React from 'react'
-
 const CodeBox = ({content}) => {
   return (
     <code className="code">{content}</code>

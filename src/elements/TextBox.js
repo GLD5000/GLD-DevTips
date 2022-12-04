@@ -42,10 +42,6 @@ function markParagraphs(string){
   return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE \n\r PpPpSSS") + "PpPpEEE";
 }
 
-function markLists(string) {
-  const regex = /\r?\n+\s*/g;
-  return string.replaceAll(regex, "OlOlEEE \n\r PpPpSSS");
-}
 
 function findStringMatch(flag, string, startAt = 0) {
   if (startAt === -1) startAt = 0;
@@ -211,19 +207,6 @@ function recursiveParser(text, index) {
   return returnArray.length === 1 ? returnArray[0] : returnArray;
 }
 
-function wrapIncomingParagraphs(paragraph, index) {
-  const parserOutput = recursiveParser(paragraph, index);
-  const returnValue =
-    typeof parserOutput === "object" &&
-    Array.isArray(parserOutput) === false ? (
-      parserOutput
-    ) : (
-      <p key={"p" + index} className="text">
-        {parserOutput}
-      </p>
-    );
-  return returnValue;
-}
 
 function findObjectType(wrappedObject) {
   // console.log(wrappedObject);
@@ -241,7 +224,8 @@ function wrapLists(arrayOfObjects){
   
     let listItemArray = [];
     let listType = null;
-  
+    // console.log(arrayOfObjects);
+    if (Array.isArray(arrayOfObjects) === false) return arrayOfObjects;
     arrayOfObjects?.forEach((paragraph, index, arr) => {
       // wrap text in <p
       const wrappedObject = paragraph;
@@ -300,69 +284,6 @@ function wrapLists(arrayOfObjects){
   
   }
 
-function parseParagraphs(paragraphs) {
-  const returnArray = [];
-
-  // map paragraphs calling recursive function on each
-  let listItemArray = [];
-  let listType = null;
-
-  paragraphs?.forEach((paragraph, index, arr) => {
-    // wrap text in <p
-    const wrappedObject = wrapIncomingParagraphs(paragraph, index);
-    const type = findObjectType(wrappedObject);
-    const nonListItem = type === "nonList";
-    if (nonListItem) {
-      const wasListItem = listType !== type;
-      if (wasListItem) {
-        // list type just changed
-        // make ol or ul object
-        const wasOrderedList = listType === "O";
-        const list = wasOrderedList ? (
-          <Ol key={"Ol" + index} content={listItemArray} />
-        ) : (
-          <Ul key={"Ul" + index} content={listItemArray} />
-        );
-        returnArray.push(list);
-        listType = type;
-        listItemArray = [];
-      }
-      returnArray.push(wrappedObject);
-    }
-    const isOrderedListItem = type === "O";
-    if (isOrderedListItem) {
-      if (listType !== type && listItemArray.length > 0) {
-        returnArray.push(<Ul key={"Ol" + index} content={listItemArray} />);
-        listItemArray = [];
-      }
-      listType = type;
-      listItemArray.push(wrappedObject);
-    }
-    const isUnorderedListItem = type === "U";
-    if (isUnorderedListItem) {
-      if (listType !== type && listItemArray.length > 0) {
-        returnArray.push(<Ol key={"Ol" + index} content={listItemArray} />);
-        listItemArray = [];
-      }
-
-      listType = type;
-      listItemArray.push(wrappedObject);
-    }
-    const isLastListItem = index === arr.length - 1;
-    const listItemArrayHasItems = listItemArray.length > 0;
-    if (isLastListItem && listItemArrayHasItems) {
-      const list =
-        listType === "O" ? (
-          <Ol key={"Ol" + index} content={listItemArray} />
-        ) : (
-          <Ul key={"Ul" + index} content={listItemArray} />
-        );
-      returnArray.push(list);
-      listItemArray = [];
-    }
-  });
-  return returnArray;
-}
 
 const TextBox = ({ text }) => {
   let index = 0;
@@ -371,6 +292,8 @@ const TextBox = ({ text }) => {
   //const paragraphs = text?.split(/\r?\n\s*/);
   //const returnArray = parseParagraphs(paragraphs);
   // Find out if the return includes a header
+  // console.log(text);
+  if (text === null) return null;
   const string = markParagraphs(text)
 
 
