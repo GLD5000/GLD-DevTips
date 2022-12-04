@@ -187,7 +187,7 @@ function recursiveParser(text, index) {
   // wrap flagged text
   const type = flagMap.get(flagFromMap).type;
   index += 1;
-  console.log(index);
+  // console.log(index);
 
   const wrappedFlaggedText = wrapText(index, processedflaggedText, type);
   //pre-process remaining text
@@ -220,10 +220,10 @@ function wrapIncomingParagraphs(paragraph, index) {
 }
 
 function findObjectType(wrappedObject) {
-  console.log(wrappedObject);
+  // console.log(wrappedObject);
   
   const keyCharacter = wrappedObject[0]?.key[0] || wrappedObject.key[0];
-  console.log(keyCharacter);
+  // console.log(keyCharacter);
   const isOrdered = keyCharacter === "O";
   const isUnordered = keyCharacter === "U";
   if (!isOrdered && !isUnordered) return "nonList";
