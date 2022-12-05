@@ -17,7 +17,7 @@ import Table from "../components/tips/Table";
 import Hint from "./Hint";
 
 const lineEndRegex = /(PpPpEEE)[\r\n]*\s*/;
-const codeFlagA = /(\s*PpPpSSS\s*)[`~]{3,}(\s*PpPpEEE\s*)/;
+const codeFlagA = /(\s*PpPpSSS\s*)[`~]{3,}\s*(PpPpEEE)\s*/;
 const codeFlagB = /(\s*PpPpSSS\s*)[`~]{3,}\s*(PpPpEEE)+/;
 const flagMap = new Map([
   [codeFlagA, { closingFlag: codeFlagB, type: "code" }],
