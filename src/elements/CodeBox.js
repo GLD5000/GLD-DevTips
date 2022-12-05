@@ -1,5 +1,5 @@
 function removeParagraphs(string){
-  const regex = /[(PpPpEEE)(PpPpSSS)]/g;
+  const regex = /[(PpPpEEE)(PpPpSSS)]*/g;
   return string.replaceAll(regex, ``);
 }
 
