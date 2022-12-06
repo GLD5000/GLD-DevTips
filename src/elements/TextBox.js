@@ -18,7 +18,7 @@ import Hint from "./Hint";
 
 const lineEndRegex = /(PpPpEEE)[\r\n]*\s*/;
 const codeFlagA = /(\s*PpPpSSS\s*)[`~]{3,}\s*(PpPpEEE)\s*/;
-const codeFlagB = /(\s*PpPpSSS\s*)[`~]{3,}\s*(PpPpEEE)+/;
+const codeFlagB = /(\s*PpPpSSS\s*)[`~]{3,}\s*(PpPpEEE)+\s*/;
 const flagMap = new Map([
   [codeFlagA, { closingFlag: codeFlagB, type: "code" }],
   [/(PpPpSSS)\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
@@ -242,7 +242,7 @@ function wrapLists(arrayOfObjects){
     if (Array.isArray(arrayOfObjects) === false) return arrayOfObjects;
     arrayOfObjects?.forEach((paragraph, index, arr) => {
 
-      // console.assert(typeof paragraph === "object", `Paragraph is not an object ${paragraph}`); 
+      console.assert(typeof paragraph === "object", `Paragraph is not an object ${paragraph}`); 
       if (typeof paragraph !== "object") return;
       const wrappedObject = paragraph;
       const type = findObjectType(wrappedObject);
