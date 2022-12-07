@@ -3,6 +3,10 @@
 
 :root {
   --border-grey: #777;
+  --border-radius: 6px;
+  --background-dark:#1B1B1B;
+  --background-light:#343434;
+  --links-blue: #8CB4FB;
 }
 * {
   color: inherit;
@@ -18,7 +22,7 @@ button {
   background-color: #000;
   color: rgb(140, 241, 124);
   border: solid var(--border-grey) 1px;
-  border-radius: 7px;
+  border-radius: var(--border-radius);
   font-family: "Source Code Pro", monospace;
   white-space: pre;
   overflow-x: auto;
@@ -100,7 +104,7 @@ td {
 }
 a {
   display: inline;
-  color: rgb(92, 191, 186);
+  color:#85B0FC;
 }
 
 * {
@@ -111,7 +115,7 @@ a {
 
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #585a5d;
+  background-color: var(--background-light);
 }
 .page-container {
   color: whitesmoke;
@@ -121,7 +125,7 @@ body {
   align-items: start;
   justify-items: center;
   /*border: 1px solid rgb(53, 53, 53);*/
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   overflow: hidden;
   overflow-y: scroll;
 }
@@ -135,7 +139,7 @@ body {
   grid-template-rows: auto auto auto 1fr;
   justify-items: center;
   gap: 0.5rem;
-  background-color: #3d3d3d;
+  background-color: inherit;
 }
 .add-tip-container {
   display: grid;
@@ -159,7 +163,7 @@ button {
   /* color: whitesmoke; */
   border: none;
   padding: 0.3rem 0.5rem;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   cursor: pointer;
   text-decoration: none;
   font-size: 16px;
@@ -182,7 +186,7 @@ button {
   background: #000;
   border: none;
   padding: 0.3rem 0.5rem;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   cursor: pointer;
   text-decoration: none;
   font-size: 16px;
@@ -276,8 +280,8 @@ li {
   border: solid 1px var(--border-grey);
 
   width: clamp(240px, calc(100vw - 1.25rem), 800px);
-  border-radius: 7px;
-  background-color: rgb(49, 49, 49);
+  border-radius: var(--border-radius);
+  background-color: var(--background-dark);
   padding: 0.5rem;
 }
 
@@ -305,7 +309,7 @@ li {
   right: 0px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  background-color: #494949;
+  background-color: var(--background-light);
 }
 .titleFilter-container {
   display: grid;
@@ -386,7 +390,7 @@ b {
   white-space: pre-wrap;
 }
 .hint {
-  border-radius: 7px;
+  border-radius: var(--border-radius);
   border-left: solid 12px rgb(242, 220, 28);
   margin-top: 12px;
   margin-bottom: 12px;
@@ -396,7 +400,7 @@ b {
   white-space: pre-wrap;
 }
 .blockquote {
-  border-radius: 7px;
+  border-radius: var(--border-radius);
   border-left: solid 12px rgb(154, 154, 154);
   margin-top: 12px;
   margin-bottom: 12px;

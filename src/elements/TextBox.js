@@ -174,11 +174,11 @@ function sliceFlaggedText(
   secondFlagIndex
 ) {
   const flaggedTextStart = firstFlagIndex + firstFlag.length;
-  if (secondFlag.includes("```")) {
-    console.log(`secondFlag ${secondFlag}`);
-    console.log(`secondFlag.length ${secondFlag.length}`);
-    console.log(`secondFlagIndex ${secondFlagIndex}`);
-  }
+  // if (secondFlag.includes("```")) {
+  //   console.log(`secondFlag ${secondFlag}`);
+  //   console.log(`secondFlag.length ${secondFlag.length}`);
+  //   console.log(`secondFlagIndex ${secondFlagIndex}`);
+  // }
   const afterFlaggedStart = secondFlagIndex + secondFlag.length;
   const beforeFlag =
     firstFlagIndex === 0 ? null : text.slice(0, firstFlagIndex);
