@@ -9,21 +9,21 @@ function getReturnArray(type, index, appendIndexedField) {
       type: "bold",
       text: "Bold",
       function: (e) => {
-        appendIndexedField(e, " **Bold Text**");
+        appendIndexedField(e, " **Bold**");
       },
     },
     {
       type: "italic",
       text: "Italic",
       function: (e) => {
-        appendIndexedField(e, " _Italic Text_");
+        appendIndexedField(e, " _Italic_");
       },
     },
     {
       type: "italic",
       text: "Link",
       function: (e) => {
-        appendIndexedField(e, " [Link Text](www.examplelink.com)");
+        appendIndexedField(e, " [Link](www.examplelink.com)");
       },
     },
     {
@@ -44,21 +44,21 @@ function getReturnArray(type, index, appendIndexedField) {
       type: "italic",
       text: "Quote",
       function: (e) => {
-        appendIndexedField(e, "\r\n>Block Quote Text");
+        appendIndexedField(e, "\r\n>Block Quote");
       },
     },
     {
       type: "italic",
       text: "Bullet Point",
       function: (e) => {
-        appendIndexedField(e, "\r\n - Bullet Point Text");
+        appendIndexedField(e, "\r\n - Bullet Point");
       },
     },
     {
       type: "italic",
       text: "Numbered List",
       function: (e) => {
-        appendIndexedField(e, "\r\n n. Numbered List Text");
+        appendIndexedField(e, "\r\n n. Numbered List");
       },
     },
     {
@@ -115,7 +115,7 @@ export default function InputButtons({
         Section Title:
         <InputTitle
           key={index + "InputTitle"}
-          placeholder="Add Title (optional)"
+          placeholder=" Add Title (optional)"
           index={index}
           name={index}
           onInput={changeValue}

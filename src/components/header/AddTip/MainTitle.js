@@ -9,8 +9,8 @@ const MainTitle = ({
   placeholder = "Type here...",
   onInput = defaultOnInput,
   type = "text",
-  name= undefined,
-  defaultValue=""
+  name = undefined,
+  defaultValue = "",
 }) => {
   const delay = 500;
 
@@ -30,7 +30,7 @@ const MainTitle = ({
 
   const debouncedHandler = useCallback(debounce(handler, delay), [
     handler,
-    delay
+    delay,
   ]);
 
   return (
@@ -38,7 +38,7 @@ const MainTitle = ({
       autoFocus
       className="titleInput"
       type="text"
-      placeholder="Add a title or topic for your tip..."
+      placeholder=" Add a title or topic for your tip..."
       onChange={(e) => debouncedHandler(e)}
       name={name}
       autoComplete="off"

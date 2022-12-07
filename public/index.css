@@ -7,9 +7,23 @@
   --background-dark:#1B1B1B;
   --background-light:#343434;
   --links-blue: #8CB4FB;
+  --text-grey: #cdcdcd;
 }
 * {
   color: inherit;
+}
+
+*::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--text-grey);
+  opacity: 1; /* Firefox */
+}
+
+*:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: var(--text-grey);
+}
+
+*::-ms-input-placeholder { /* Microsoft Edge */
+  color: var(--text-grey);
 }
 
 button {
