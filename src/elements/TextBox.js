@@ -19,8 +19,19 @@ import Hint from "./Hint";
 const lineEndRegex = /(PpPpEEE)[\r\n]*\s*/;
 const codeFlagA = /(\s*PpPpSSS\s*)[`~]{3,}\s*(PpPpEEE)\s*/;
 const codeFlagB = /(\s*PpPpSSS\s*)[`~]{3,}\s*(PpPpEEE)+\s*/;
+
+const blockFlagStart = "(\\s*PpPpSSS\\s*)";
+const blockOpenFlagEnd = "\\s*(PpPpEEE)\\s*";
+const blockClosedFlagEnd = "\\s*(PpPpEEE)+\\s*";
+
+const codeFlag = "[`~]{3,}";
+const codeBlockOpen = new RegExp(blockFlagStart+codeFlag+blockOpenFlagEnd);
+const codeBlockClosed = new RegExp(blockFlagStart+codeFlag+blockClosedFlagEnd);
+// console.log(`A ${codeFlagA}`);
+// console.log(`B ${codeBlockOpen}`);
+// console.assert(codeFlagA.length === codeBlockOpen.length);
 const flagMap = new Map([
-  [codeFlagA, { closingFlag: codeFlagB, type: "code" }],
+  [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
   [/(PpPpSSS)\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
   [/(PpPpSSS)\s?#####(?!#)/, { closingFlag: lineEndRegex, type: "h5" }],
   [/(PpPpSSS)\s?####(?!#)/, { closingFlag: lineEndRegex, type: "h4" }],
