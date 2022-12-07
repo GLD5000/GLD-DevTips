@@ -30,9 +30,9 @@ const codeBlockClosed = new RegExp(codeFlag + blockFlagEnd);
 
 const tableFlag = "[\\|]{3,}";
 const tableBlockOpen = new RegExp(
-  blockFlagStart + tableFlag + blockFlagEndOptional
+  blockFlagStart + tableFlag + blockFlagEnd
 );
-const tableBlockClosed = new RegExp(`\\s*` + tableFlag + blockFlagEnd);
+const tableBlockClosed = new RegExp(blockFlagEnd + blockFlagStart + tableFlag + blockFlagEnd);
 
 // console.log(`A ${codeFlagA}`);
 // console.log(`B ${codeBlockOpen}`);
