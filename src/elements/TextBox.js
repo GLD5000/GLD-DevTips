@@ -18,16 +18,19 @@ import Hint from "./Hint";
 
 const lineEndRegex = /(PpPpEEE)[\r\n]*\s*/;
 
-const blockFlagStart = "(\\s*PpPpSSS\\s*)";
-const blockOpenFlagEnd = "\\s*(PpPpEEE)\\s*";
-const blockClosedFlagEnd = "\\s*(PpPpEEE)+\\s*";
+const blockFlagStart = "PpPpSSS[ ]{0,3}";
+const blockFlagEndOptional = "(PpPpEEE)?";
+const blockFlagEnd = "PpPpEEE\r\n";
 
 const codeFlag = "[`~]{3,}";
-const codeBlockOpen = new RegExp(blockFlagStart+codeFlag+blockOpenFlagEnd);
-const codeBlockClosed = new RegExp(blockFlagStart+codeFlag+blockClosedFlagEnd);
+const codeBlockOpen = new RegExp(
+  blockFlagStart + codeFlag + blockFlagEndOptional
+);
+const codeBlockClosed = new RegExp(codeFlag + blockFlagEnd);
 // console.log(`A ${codeFlagA}`);
 // console.log(`B ${codeBlockOpen}`);
 // console.assert(codeFlagA.length === codeBlockOpen.length);
+// console.log(`codeBlockClosed ${codeBlockClosed}`);
 const flagMap = new Map([
   [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
   [/(PpPpSSS)\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
@@ -36,10 +39,13 @@ const flagMap = new Map([
   [/(PpPpSSS)\s?###(?!#)/, { closingFlag: lineEndRegex, type: "h3" }],
   [/(PpPpSSS)\s?##(?!#)/, { closingFlag: lineEndRegex, type: "h2" }],
   [/(PpPpSSS)\s?#(?!#)/, { closingFlag: lineEndRegex, type: "h1" }],
-  [/(PpPpSSS)\s?>/, { closingFlag: lineEndRegex, type: "quote" }],
+  [/(PpPpSSS)[ ]{0,3}> ?/, { closingFlag: lineEndRegex, type: "quote" }],
   [/(PpPpSSS)\s?-\s+/, { closingFlag: lineEndRegex, type: "liUl" }],
   [/(PpPpSSS)\s?[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: "liOl" }],
-  [/(PpPpSSS)(?!#)/, { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: "paragraph" }],
+  [
+    /(PpPpSSS)(?!#)/,
+    { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: "paragraph" },
+  ],
   [
     /\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/,
     { closingFlag: ")", type: "link" },
@@ -69,18 +75,17 @@ function wrapText(index, text, type) {
     h6: <H6 key={"h6" + newKey} content={text} />,
     liUl: <Li key={"Ul" + newKey} content={text} />,
     liOl: <Li key={"Ol" + newKey} content={text} type="number" />,
-    paragraph:<P key={"pa" + newKey} content={text} />,
-    code:<CodeBox key={"cb" + newKey} content={text} parse={true} />,
-    table:<Table key={"table" + newKey} content={text} />,
-    hint:<Hint key={"hint" + newKey} content={text} />,
+    paragraph: <P key={"pa" + newKey} content={text} />,
+    code: <CodeBox key={"cb" + newKey} content={text} parse={true} />,
+    table: <Table key={"table" + newKey} content={text} />,
+    hint: <Hint key={"hint" + newKey} content={text} />,
   };
   return typeHandler[type];
 }
-function markParagraphs(string){
+function markParagraphs(string) {
   const regex = /[\r\n]+/g;
-  return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\n\rPpPpSSS") + "PpPpEEE";
+  return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\r\nPpPpSSS") + "PpPpEEE";
 }
-
 
 function findStringMatch(flag, string, startAt = 0) {
   if (startAt === -1) startAt = 0;
@@ -97,13 +102,13 @@ function findStringMatch(flag, string, startAt = 0) {
   const matchReturnArray = string.match(flag);
   if (matchReturnArray === null) return failedReturn;
   const match = string.match(flag)[0];
-  const index = string.indexOf(match, startAt-5);
-  if (startAt !== 0 && match.includes("```")){
-    console.log(`startAt ${startAt}`);
-    console.log(`match ${match}`);
-    console.log(`match.length ${match.length}`);
-    console.log(`index ${index}`);
-  }
+  const index = string.indexOf(match, startAt - 5);
+  // if (startAt !== 0 && match.includes("```")) {
+  //   console.log(`startAt ${startAt}`);
+  //   console.log(`match ${match}`);
+  //   console.log(`match.length ${match.length}`);
+  //   console.log(`index ${index}`);
+  // }
   return [match, index];
 }
 
@@ -169,11 +174,10 @@ function sliceFlaggedText(
   secondFlagIndex
 ) {
   const flaggedTextStart = firstFlagIndex + firstFlag.length;
-  if (secondFlag.includes("```")){
+  if (secondFlag.includes("```")) {
     console.log(`secondFlag ${secondFlag}`);
     console.log(`secondFlag.length ${secondFlag.length}`);
     console.log(`secondFlagIndex ${secondFlagIndex}`);
-
   }
   const afterFlaggedStart = secondFlagIndex + secondFlag.length;
   const beforeFlag =
@@ -209,7 +213,9 @@ function recursiveParser(text, index) {
   //pre-process flagged text
   const type = flagMap.get(flagFromMap).type;
   const shouldParse = type !== "code";
-  const processedflaggedText = shouldParse? recursiveParser(flaggedText, index): flaggedText;
+  const processedflaggedText = shouldParse
+    ? recursiveParser(flaggedText, index)
+    : flaggedText;
   // wrap flagged text
   index += 1;
   // console.log(index);
@@ -222,18 +228,18 @@ function recursiveParser(text, index) {
   returnArray.push(wrappedFlaggedText);
   if (afterFlag !== null) {
     const parserReturn = recursiveParser(afterFlag, index);
-    if (Array.isArray(parserReturn)) {returnArray.push(...parserReturn); } 
-    else {
+    if (Array.isArray(parserReturn)) {
+      returnArray.push(...parserReturn);
+    } else {
       returnArray.push(parserReturn);
     }
   }
   return returnArray.length === 1 ? returnArray[0] : returnArray;
 }
 
-
 function findObjectType(wrappedObject) {
   // console.log(wrappedObject);
-  
+
   const keyCharacter = wrappedObject[0]?.key[0] || wrappedObject.key[0];
   // console.log(keyCharacter);
   const isOrdered = keyCharacter === "O";
@@ -242,73 +248,73 @@ function findObjectType(wrappedObject) {
   return keyCharacter;
 }
 
-function wrapLists(arrayOfObjects){
-    const returnArray = [];
-  
-    let listItemArray = [];
-    let listType = null;
-    // console.log(arrayOfObjects);
-    if (Array.isArray(arrayOfObjects) === false) return arrayOfObjects;
-    arrayOfObjects?.forEach((paragraph, index, arr) => {
+function wrapLists(arrayOfObjects) {
+  const returnArray = [];
 
-      console.assert(typeof paragraph === "object", `Paragraph is not an object ${paragraph}`); 
-      if (typeof paragraph !== "object") return;
-      const wrappedObject = paragraph;
-      const type = findObjectType(wrappedObject);
-      const nonListItem = type === "nonList";
-      if (nonListItem) {
-        const wasListItem = listType !== type;
-        if (wasListItem) {
-          // list type just changed
-          // make ol or ul object
-          const wasOrderedList = listType === "O";
-          const list = wasOrderedList ? (
-            <Ol key={"Ol" + index} content={listItemArray} />
-          ) : (
-            <Ul key={"Ul" + index} content={listItemArray} />
-          );
-          returnArray.push(list);
-          listType = type;
-          listItemArray = [];
-        }
-        returnArray.push(wrappedObject);
-      }
-      const isOrderedListItem = type === "O";
-      if (isOrderedListItem) {
-        if (listType !== type && listItemArray.length > 0) {
-          returnArray.push(<Ul key={"Ol" + index} content={listItemArray} />);
-          listItemArray = [];
-        }
-        listType = type;
-        listItemArray.push(wrappedObject);
-      }
-      const isUnorderedListItem = type === "U";
-      if (isUnorderedListItem) {
-        if (listType !== type && listItemArray.length > 0) {
-          returnArray.push(<Ol key={"Ol" + index} content={listItemArray} />);
-          listItemArray = [];
-        }
-  
-        listType = type;
-        listItemArray.push(wrappedObject);
-      }
-      const isLastListItem = index === arr.length - 1;
-      const listItemArrayHasItems = listItemArray.length > 0;
-      if (isLastListItem && listItemArrayHasItems) {
-        const list =
-          listType === "O" ? (
-            <Ol key={"Ol" + index} content={listItemArray} />
-          ) : (
-            <Ul key={"Ul" + index} content={listItemArray} />
-          );
+  let listItemArray = [];
+  let listType = null;
+  // console.log(arrayOfObjects);
+  if (Array.isArray(arrayOfObjects) === false) return arrayOfObjects;
+  arrayOfObjects?.forEach((paragraph, index, arr) => {
+    console.assert(
+      typeof paragraph === "object",
+      `Paragraph is not an object ${paragraph}`
+    );
+    if (typeof paragraph !== "object") return;
+    const wrappedObject = paragraph;
+    const type = findObjectType(wrappedObject);
+    const nonListItem = type === "nonList";
+    if (nonListItem) {
+      const wasListItem = listType !== type;
+      if (wasListItem) {
+        // list type just changed
+        // make ol or ul object
+        const wasOrderedList = listType === "O";
+        const list = wasOrderedList ? (
+          <Ol key={"Ol" + index} content={listItemArray} />
+        ) : (
+          <Ul key={"Ul" + index} content={listItemArray} />
+        );
         returnArray.push(list);
+        listType = type;
         listItemArray = [];
       }
-    });
-    return returnArray;
-  
-  }
+      returnArray.push(wrappedObject);
+    }
+    const isOrderedListItem = type === "O";
+    if (isOrderedListItem) {
+      if (listType !== type && listItemArray.length > 0) {
+        returnArray.push(<Ul key={"Ol" + index} content={listItemArray} />);
+        listItemArray = [];
+      }
+      listType = type;
+      listItemArray.push(wrappedObject);
+    }
+    const isUnorderedListItem = type === "U";
+    if (isUnorderedListItem) {
+      if (listType !== type && listItemArray.length > 0) {
+        returnArray.push(<Ol key={"Ol" + index} content={listItemArray} />);
+        listItemArray = [];
+      }
 
+      listType = type;
+      listItemArray.push(wrappedObject);
+    }
+    const isLastListItem = index === arr.length - 1;
+    const listItemArrayHasItems = listItemArray.length > 0;
+    if (isLastListItem && listItemArrayHasItems) {
+      const list =
+        listType === "O" ? (
+          <Ol key={"Ol" + index} content={listItemArray} />
+        ) : (
+          <Ul key={"Ul" + index} content={listItemArray} />
+        );
+      returnArray.push(list);
+      listItemArray = [];
+    }
+  });
+  return returnArray;
+}
 
 const TextBox = ({ text }) => {
   let index = 0;
@@ -319,18 +325,16 @@ const TextBox = ({ text }) => {
   // Find out if the return includes a header
   // console.log(text);
   if (text === null) return null;
-  const string = markParagraphs(text)
+  const string = markParagraphs(text);
 
-
-      const arrayOfObjects = recursiveParser(string, index); // !!!!!!!
-      const returnArray = wrapLists(arrayOfObjects);
-
+  const arrayOfObjects = recursiveParser(string, index); // !!!!!!!
+  const returnArray = wrapLists(arrayOfObjects);
 
   // const returnArray = recursiveParser(string, index);
   // console.group(`returnArray`);
   // console.log(returnArray);
   // console.groupEnd();
-  
+
   return <>{returnArray}</>;
 };
 
