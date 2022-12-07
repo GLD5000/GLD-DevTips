@@ -6,6 +6,13 @@ function getReturnArray(type, index, appendIndexedField) {
   if (type !== "text") return null;
   const buttonArray = [
     {
+      type: "italic",
+      text: "Header",
+      function: (e) => {
+        appendIndexedField(e, "\r\n##Header");
+      },
+    },
+    {
       type: "bold",
       text: "Bold",
       function: (e) => {
@@ -21,34 +28,6 @@ function getReturnArray(type, index, appendIndexedField) {
     },
     {
       type: "italic",
-      text: "Link",
-      function: (e) => {
-        appendIndexedField(e, " [Link](www.examplelink.com)");
-      },
-    },
-    {
-      type: "italic",
-      text: "Header 1",
-      function: (e) => {
-        appendIndexedField(e, "\r\n#Header 1");
-      },
-    },
-    {
-      type: "italic",
-      text: "Header 2",
-      function: (e) => {
-        appendIndexedField(e, "\r\n##Header 2");
-      },
-    },
-    {
-      type: "italic",
-      text: "Quote",
-      function: (e) => {
-        appendIndexedField(e, "\r\n>Block Quote");
-      },
-    },
-    {
-      type: "italic",
       text: "Bullet Point",
       function: (e) => {
         appendIndexedField(e, "\r\n - Bullet Point");
@@ -59,6 +38,20 @@ function getReturnArray(type, index, appendIndexedField) {
       text: "Numbered List",
       function: (e) => {
         appendIndexedField(e, "\r\n n. Numbered List");
+      },
+    },
+    {
+      type: "italic",
+      text: "Link",
+      function: (e) => {
+        appendIndexedField(e, " [Link](www.examplelink.com)");
+      },
+    },
+    {
+      type: "italic",
+      text: "Quote",
+      function: (e) => {
+        appendIndexedField(e, "\r\n>Block Quote");
       },
     },
     {
