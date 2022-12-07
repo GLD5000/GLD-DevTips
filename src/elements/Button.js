@@ -11,7 +11,7 @@ export default function Button({
   id=null,
   name=null,
   className = "btn",
-  border = "1px solid " + color,
+  border = "1px solid var(--border-grey)",
   
 }) {
   function clickHandler(e){

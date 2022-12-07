@@ -1,5 +1,11 @@
 import Tr from "./Tr";
 
+function removeParagraphs(string){
+  const regex = /[(PpPpEEE)(PpPpSSS)]*/g;
+  return string.replaceAll(regex, ``);
+}
+
+
 function parseDataToArray(text){
   if (Array.isArray(text) ) return text;
   const rows = text.split(/\r?\n\s*/);
@@ -17,7 +23,11 @@ function rowHandler(row, rowIndex) {
   if (rowIndex === 0) return;
   return <Tr key={rowIndex} row={row} rowIndex={rowIndex} />;
 }
-const Table = ({ content }) => {
+const Table = ({ content, parse = false }) => {
+  console.group(`content`);
+  console.log(content);
+  console.groupEnd();
+  if (parse) content = removeParagraphs(content);
   const tableArray  = parseDataToArray(content);
   return (
     <section className="table-wrapper">

@@ -47,7 +47,7 @@ const SvgButton = ({
     color: color,
     backgroundColor: backgroundColor,
     borderRadius: borderRadius,
-    borderColor: color,
+    borderColor: "var(--border-grey)",
     borderWidth: "2px",
     borderStyle: "solid",
     display: "grid",

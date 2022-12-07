@@ -61,6 +61,14 @@ function getReturnArray(type, index, appendIndexedField) {
         appendIndexedField(e, "\r\n```Code\r\n\r\n  \r\n\r\n\r\n```\r\n");
       },
     },
+    {
+      type: "italic",
+      text: "Table",
+      function: (e) => {
+        appendIndexedField(e, "\r\n|||\r\nHeaderA,HeaderB\r\nRow1a,Row1b  \r\n\r\n\r\n|||\r\n");
+      },
+    },
+
   ];
 
   return (

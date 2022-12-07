@@ -27,11 +27,19 @@ const codeBlockOpen = new RegExp(
   blockFlagStart + codeFlag + blockFlagEndOptional
 );
 const codeBlockClosed = new RegExp(codeFlag + blockFlagEnd);
+
+const tableFlag = "[\\|]{3,}";
+const tableBlockOpen = new RegExp(
+  blockFlagStart + tableFlag + blockFlagEndOptional
+);
+const tableBlockClosed = new RegExp("[\r\n\s]*" +tableFlag + blockFlagEnd);
+
 // console.log(`A ${codeFlagA}`);
 // console.log(`B ${codeBlockOpen}`);
 // console.assert(codeFlagA.length === codeBlockOpen.length);
 // console.log(`codeBlockClosed ${codeBlockClosed}`);
 const flagMap = new Map([
+  [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
   [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
   [/(PpPpSSS)\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
   [/(PpPpSSS)\s?#####(?!#)/, { closingFlag: lineEndRegex, type: "h5" }],
@@ -77,7 +85,7 @@ function wrapText(index, text, type) {
     liOl: <Li key={"Ol" + newKey} content={text} type="number" />,
     paragraph: <P key={"pa" + newKey} content={text} />,
     code: <CodeBox key={"cb" + newKey} content={text} parse={true} />,
-    table: <Table key={"table" + newKey} content={text} />,
+    table: <Table key={"table" + newKey} content={text} parse={true}/>,
     hint: <Hint key={"hint" + newKey} content={text} />,
   };
   return typeHandler[type];
@@ -212,7 +220,7 @@ function recursiveParser(text, index) {
   );
   //pre-process flagged text
   const type = flagMap.get(flagFromMap).type;
-  const shouldParse = type !== "code";
+  const shouldParse = type !== "code" && type !== "table";
   const processedflaggedText = shouldParse
     ? recursiveParser(flaggedText, index)
     : flaggedText;
