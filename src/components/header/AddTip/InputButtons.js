@@ -6,7 +6,7 @@ function getReturnArray(type, index, appendIndexedField) {
   if (type !== "text") return null;
   const buttonArray = [
     {
-      type: "italic",
+      type: "header",
       text: "Header",
       function: (e) => {
         appendIndexedField(e, "\r\n##Header");

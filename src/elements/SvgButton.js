@@ -8,6 +8,7 @@ import PencilSvg from "../components/icons/PencilSvg"
 import UnPencilSvg from "../components/icons/UnPencilSvg"
 import ItalicSvg from "../components/icons/ItalicSvg";
 import BoldSvg from "../components/icons/BoldSvg";
+import Header from "../components/icons/Header";
 //import CollapseSvg from "../components/icons/Collapse"
 //import ExpandSvg from "../components/icons/Expand"
 function defaultOnClick(e) {
@@ -38,6 +39,8 @@ const SvgButton = ({
       preview: <PreviewSvg stroke={color} fill={backgroundColor} />,
       write: <PencilSvg stroke={color} fill={backgroundColor} />,
       cancelWrite: <UnPencilSvg stroke={color} fill={backgroundColor} />,
+      header: <Header stroke={color} />,
+      
     };
     return svgLookup[type];
   }
