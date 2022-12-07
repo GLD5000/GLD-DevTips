@@ -4,7 +4,7 @@
 :root {
   --border-grey: #777;
 }
-*{
+* {
   color: inherit;
 }
 
@@ -39,11 +39,12 @@ button {
   color: rgb(140, 241, 124);
 }
 
+.text {
+  padding: 8px;
+}
+
 .hint,
-.text,
 .titleInput {
-  margin-top: 12px;
-  margin-bottom: 12px;
   padding: 8px;
   width: 100%;
   height: fit-content;
@@ -68,17 +69,19 @@ button {
 .table {
   overflow-x: auto;
 }
-option{
+option {
   color: black;
 }
-select, textarea, input {
-
+select,
+textarea,
+input {
   border: 1px solid var(--border-grey);
 
-  background-color:inherit;
+  background-color: inherit;
 }
 textarea {
   resize: vertical;
+  overflow-y: scroll;
 }
 
 .centered {
@@ -434,7 +437,7 @@ h6 {
 .markdown-buttons {
   display: flex;
   gap: 0.5rem;
-  
+
   flex-wrap: wrap;
   flex-direction: row;
   grid-column: span 2;
