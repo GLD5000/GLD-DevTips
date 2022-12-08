@@ -34,10 +34,6 @@ const tableBlockOpen = new RegExp(
 );
 const tableBlockClosed = new RegExp(blockFlagEnd + blockFlagStart + tableFlag + blockFlagEnd);
 
-// console.log(`A ${codeFlagA}`);
-// console.log(`B ${codeBlockOpen}`);
-// console.assert(codeFlagA.length === codeBlockOpen.length);
-// console.log(`codeBlockClosed ${codeBlockClosed}`);
 const flagMap = new Map([
   [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
   [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
@@ -111,12 +107,6 @@ function findStringMatch(flag, string, startAt = 0) {
   if (matchReturnArray === null) return failedReturn;
   const match = string.match(flag)[0];
   const index = string.indexOf(match, startAt - 5);
-  // if (startAt !== 0 && match.includes("```")) {
-  //   console.log(`startAt ${startAt}`);
-  //   console.log(`match ${match}`);
-  //   console.log(`match.length ${match.length}`);
-  //   console.log(`index ${index}`);
-  // }
   return [match, index];
 }
 
@@ -141,8 +131,6 @@ function stringHasFlag(string) {
       string,
       firstStringMatch[1] + firstStringMatch[0].length
     );
-    // firstStringMatch[0] && console.log(firstStringMatch[0]);
-    // secondStringMatch[0] && console.log(secondStringMatch[0]);
     if (
       firstStringMatch[0] &&
       secondStringMatch[0] &&
@@ -154,16 +142,6 @@ function stringHasFlag(string) {
       secondFlagIndex = secondStringMatch[1];
       flagFromMap = flag;
     }
-    // const isRegexFlag = typeof flag === "object";
-    // let flagText = isRegexFlag === false ? flag : null;
-    // if (isRegexFlag && string.match(flag) !== null)
-    //   flagText = string.match(flag)[0];
-    // const indexOfFlag = string.indexOf(flagText);
-    // if (indexOfFlag >= 0 && indexOfFlag < firstFlagIndex) {
-    //   firstFlag = flagText;
-    //   firstFlagIndex = indexOfFlag;
-    //   flagFromMap = flag;
-    // }
   });
   return {
     firstFlag,
@@ -182,23 +160,16 @@ function sliceFlaggedText(
   secondFlagIndex
 ) {
   const flaggedTextStart = firstFlagIndex + firstFlag.length;
-  // if (secondFlag.includes("```")) {
-  //   console.log(`secondFlag ${secondFlag}`);
-  //   console.log(`secondFlag.length ${secondFlag.length}`);
-  //   console.log(`secondFlagIndex ${secondFlagIndex}`);
-  // }
   const afterFlaggedStart = secondFlagIndex + secondFlag.length;
   const beforeFlag =
     firstFlagIndex === 0 ? null : text.slice(0, firstFlagIndex);
   const flaggedText = text.slice(flaggedTextStart, secondFlagIndex);
   const afterFlag =
     text.length > afterFlaggedStart ? text.slice(afterFlaggedStart) : null;
-  // console.log(`afterFlag ${afterFlag}`);
 
   return { beforeFlag, flaggedText, afterFlag };
 }
 function recursiveParser(text, index) {
-  //Can return text or array
   const {
     firstFlag,
     firstFlagIndex,
@@ -206,9 +177,7 @@ function recursiveParser(text, index) {
     secondFlagIndex,
     flagFromMap,
   } = stringHasFlag(text);
-  //guard clause
   if (firstFlagIndex === -1 || firstFlag === undefined) return text;
-  //const secondFlag = flagMap.get(flagFromMap).closingFlag || undefined;
   if (secondFlagIndex === -1 || secondFlag === undefined) return text;
 
   const { beforeFlag, flaggedText, afterFlag } = sliceFlaggedText(
@@ -218,20 +187,15 @@ function recursiveParser(text, index) {
     secondFlag,
     secondFlagIndex
   );
-  //pre-process flagged text
   const type = flagMap.get(flagFromMap).type;
   const shouldParse = type !== "code" && type !== "table";
   const processedflaggedText = shouldParse
     ? recursiveParser(flaggedText, index)
     : flaggedText;
-  // wrap flagged text
   index += 1;
-  // console.log(index);
 
   const wrappedFlaggedText = wrapText(index, processedflaggedText, type);
-  //pre-process remaining text
   const returnArray = [];
-  // returnArray.push() = [beforeFlag, wrappedFlaggedText, recursiveParser(afterFlag) ]
   if (beforeFlag !== null) returnArray.push(beforeFlag);
   returnArray.push(wrappedFlaggedText);
   if (afterFlag !== null) {
@@ -246,10 +210,8 @@ function recursiveParser(text, index) {
 }
 
 function findObjectType(wrappedObject) {
-  // console.log(wrappedObject);
 
   const keyCharacter = wrappedObject[0]?.key[0] || wrappedObject.key[0];
-  // console.log(keyCharacter);
   const isOrdered = keyCharacter === "O";
   const isUnordered = keyCharacter === "U";
   if (!isOrdered && !isUnordered) return "nonList";
@@ -261,7 +223,6 @@ function wrapLists(arrayOfObjects) {
 
   let listItemArray = [];
   let listType = null;
-  // console.log(arrayOfObjects);
   if (Array.isArray(arrayOfObjects) === false) return arrayOfObjects;
   arrayOfObjects?.forEach((paragraph, index, arr) => {
     console.assert(
@@ -327,21 +288,11 @@ function wrapLists(arrayOfObjects) {
 const TextBox = ({ text }) => {
   let index = 0;
 
-  //split into paragraphs
-  //const paragraphs = text?.split(/\r?\n\s*/);
-  //const returnArray = parseParagraphs(paragraphs);
-  // Find out if the return includes a header
-  // console.log(text);
   if (text === null) return null;
   const string = markParagraphs(text);
 
-  const arrayOfObjects = recursiveParser(string, index); // !!!!!!!
+  const arrayOfObjects = recursiveParser(string, index); 
   const returnArray = wrapLists(arrayOfObjects);
-
-  // const returnArray = recursiveParser(string, index);
-  // console.group(`returnArray`);
-  // console.log(returnArray);
-  // console.groupEnd();
 
   return <>{returnArray}</>;
 };

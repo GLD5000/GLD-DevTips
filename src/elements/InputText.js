@@ -22,7 +22,6 @@ const InputText = ({
   };
 
   const handler = (value) => {
-    //console.log(`Input Value = ${value}`);
     onInput(value);
   };
 

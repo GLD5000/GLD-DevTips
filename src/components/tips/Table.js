@@ -24,9 +24,6 @@ function rowHandler(row, rowIndex) {
   return <Tr key={rowIndex} row={row} rowIndex={rowIndex} />;
 }
 const Table = ({ content, parse = false }) => {
-  console.group(`content`);
-  console.log(content);
-  console.groupEnd();
   if (parse) content = removeParagraphs(content);
   const tableArray  = parseDataToArray(content);
   return (
