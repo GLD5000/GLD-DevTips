@@ -29,10 +29,10 @@ const codeBlockOpen = new RegExp(
 const codeBlockClosed = new RegExp(codeFlag + blockFlagEnd);
 
 const tableFlag = "[\\|]{3,}";
-const tableBlockOpen = new RegExp(
-  blockFlagStart + tableFlag + blockFlagEnd
+const tableBlockOpen = new RegExp(blockFlagStart + tableFlag + blockFlagEnd);
+const tableBlockClosed = new RegExp(
+  blockFlagEnd + blockFlagStart + tableFlag + blockFlagEnd
 );
-const tableBlockClosed = new RegExp(blockFlagEnd + blockFlagStart + tableFlag + blockFlagEnd);
 
 const flagMap = new Map([
   [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
@@ -56,18 +56,11 @@ const flagMap = new Map([
   ],
   ["**", { closingFlag: "**", type: "bold" }],
   ["_", { closingFlag: "_", type: "italic" }],
-  // ["{link}", "link"],
 ]);
 function wrapText(index, text, type) {
   const newKey = "x" + index;
   const typeHandler = {
-    link: (
-      <Link
-        key={"l" + newKey}
-        content={text}
-        recursiveParser={recursiveParser}
-      />
-    ),
+    link: <Link key={"l" + newKey} content={text} />,
     quote: <BlockQuote key={"qb" + newKey} content={text} />,
     bold: <Bold key={"bo" + newKey} content={text} />,
     italic: <Italic key={"it" + newKey} content={text} />,
@@ -81,7 +74,7 @@ function wrapText(index, text, type) {
     liOl: <Li key={"Ol" + newKey} content={text} type="number" />,
     paragraph: <P key={"pa" + newKey} content={text} />,
     code: <CodeBox key={"cb" + newKey} content={text} parse={true} />,
-    table: <Table key={"table" + newKey} content={text} parse={true}/>,
+    table: <Table key={"table" + newKey} content={text} parse={true} />,
     hint: <Hint key={"hint" + newKey} content={text} />,
   };
   return typeHandler[type];
@@ -210,7 +203,6 @@ function recursiveParser(text, index) {
 }
 
 function findObjectType(wrappedObject) {
-
   const keyCharacter = wrappedObject[0]?.key[0] || wrappedObject.key[0];
   const isOrdered = keyCharacter === "O";
   const isUnordered = keyCharacter === "U";
@@ -291,7 +283,7 @@ const TextBox = ({ text }) => {
   if (text === null) return null;
   const string = markParagraphs(text);
 
-  const arrayOfObjects = recursiveParser(string, index); 
+  const arrayOfObjects = recursiveParser(string, index);
   const returnArray = wrapLists(arrayOfObjects);
 
   return <>{returnArray}</>;
