@@ -199,7 +199,6 @@ button {
   display: block;
   background: #000;
   border: none;
-  padding: 0.3rem 0.5rem;
   border-radius: var(--border-radius);
   cursor: pointer;
   text-decoration: none;
@@ -207,6 +206,7 @@ button {
   font-family: inherit;
   white-space: pre-wrap;
   height: fit-content;
+  width: fit-content;
   overflow: hidden;
 }
 

@@ -1,4 +1,4 @@
-export default function Header({fill = "transparent", stroke = "black"}) {
+export default function QuoteSvg({fill = "transparent", stroke = "black"}) {
 
     const style = {
         stroke: stroke,
@@ -10,25 +10,15 @@ export default function Header({fill = "transparent", stroke = "black"}) {
   return (
     <div className="svg-wrapper">
       <svg
-        id="italic-svg"
-        alt="Italic"
+        id="quote-svg"
+        alt="Quote"
         height="100%"
         width="100%"
         viewBox="0 0 16 16"
       >
-        <path d="M 4,3 V 13"  style={style} />
-        <path d="m 4,8 h 8"  style={style} />
-        <path d="M 12,3 V 13"  style={style} />
+        <path d="M 4,10 C 6,10 6,9 6,5 H 4 v 2 h 2"  style={style} />
+        <path  d="m 10,10 c 2,0 2,-1 2,-5 h -2 v 2 h 2"  style={style} />
       </svg>
     </div>
   )
 }
-
-
-
-
-
-
-
-
-

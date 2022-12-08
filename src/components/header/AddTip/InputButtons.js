@@ -27,42 +27,43 @@ function getReturnArray(type, index, appendIndexedField) {
       },
     },
     {
-      type: "italic",
-      text: "Bullet Point",
-      function: (e) => {
-        appendIndexedField(e, "\r\n - Bullet Point");
-      },
-    },
-    {
-      type: "italic",
-      text: "Numbered List",
-      function: (e) => {
-        appendIndexedField(e, "\r\n n. Numbered List");
-      },
-    },
-    {
-      type: "italic",
-      text: "Link",
-      function: (e) => {
-        appendIndexedField(e, " [Link](www.examplelink.com)");
-      },
-    },
-    {
-      type: "italic",
+      type: "quote",
       text: "Quote",
       function: (e) => {
         appendIndexedField(e, "\r\n>Block Quote");
       },
     },
     {
-      type: "italic",
+      type: "code",
       text: "Code",
       function: (e) => {
         appendIndexedField(e, "\r\n```Code\r\n\r\n  \r\n\r\n\r\n```\r\n");
       },
     },
     {
-      type: "italic",
+      type: "link",
+      text: "Link",
+      function: (e) => {
+        appendIndexedField(e, " [Link](www.examplelink.com)");
+      },
+    },
+
+    {
+      type: "bullet",
+      text: "Bullet Point",
+      function: (e) => {
+        appendIndexedField(e, "\r\n - Bullet Point");
+      },
+    },
+    {
+      type: "numbered",
+      text: "Numbered List",
+      function: (e) => {
+        appendIndexedField(e, "\r\n n. Numbered List");
+      },
+    },
+    {
+      type: "table",
       text: "Table",
       function: (e) => {
         appendIndexedField(e, "\r\n|||\r\nHeaderA,HeaderB\r\nRow1a,Row1b\r\n|||\r\n"); 
@@ -85,6 +86,7 @@ function getReturnArray(type, index, appendIndexedField) {
           text={btn.text}
           clickFunction={btn.function}
           marginLeft="0"
+          showText={false}
         />
       ))}
     </div>

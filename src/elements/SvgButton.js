@@ -8,7 +8,13 @@ import PencilSvg from "../components/icons/PencilSvg"
 import UnPencilSvg from "../components/icons/UnPencilSvg"
 import ItalicSvg from "../components/icons/ItalicSvg";
 import BoldSvg from "../components/icons/BoldSvg";
-import Header from "../components/icons/Header";
+import HeaderSvg from "../components/icons/HeaderSvg";
+import CodeSvg from "../components/icons/CodeSvg";
+import LinkSvg from "../components/icons/LinkSvg";
+import QuoteSvg from "../components/icons/QuoteSvg";
+import BulletSvg from "../components/icons/BulletSvg";
+import NumberedSvg from "../components/icons/NumberedSvg";
+import TableSvg from "../components/icons/TableSvg";
 //import CollapseSvg from "../components/icons/Collapse"
 //import ExpandSvg from "../components/icons/Expand"
 function defaultOnClick(e) {
@@ -39,7 +45,13 @@ const SvgButton = ({
       preview: <PreviewSvg stroke={color} fill={backgroundColor} />,
       write: <PencilSvg stroke={color} fill={backgroundColor} />,
       cancelWrite: <UnPencilSvg stroke={color} fill={backgroundColor} />,
-      header: <Header stroke={color} />,
+      header: <HeaderSvg stroke={color} />,
+      link: <LinkSvg stroke={color} />,
+      code: <CodeSvg stroke={color} />,
+      quote: <QuoteSvg stroke={color} />,
+      bullet: <BulletSvg stroke={color} />,
+      numbered: <NumberedSvg stroke={color} />,
+      table: <TableSvg stroke={color} />,
       
     };
     return svgLookup[type];
@@ -54,11 +66,11 @@ const SvgButton = ({
     borderWidth: "2px",
     borderStyle: "solid",
     display: "grid",
-    gap: "6px",
     width: wide === true? "100%": "fit-content",
     gridTemplateColumns: wide === true? "1fr auto 1fr": "auto auto",
     alignItems: "center",
   };
+  if (showText) style.gap = "8px";
   if (wide !== true && marginLeft === null) style.marginLeft = "auto";
   return (
     <>
@@ -68,6 +80,7 @@ const SvgButton = ({
         onClick={clickFunction}
         className="svg-btn"
         style={style}
+        aria-label={name}
       >
         {svg}
         {showText && text}
