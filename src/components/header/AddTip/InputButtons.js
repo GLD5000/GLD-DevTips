@@ -69,6 +69,13 @@ function getReturnArray(type, index, appendIndexedField) {
         appendIndexedField(e, "\r\n|||\r\nHeaderA,HeaderB\r\nRow1a,Row1b\r\n|||\r\n"); 
       },
     },
+    {
+      type: "table",
+      text: "Test",
+      function: (e) => {
+        appendIndexedField(e, "\r\n|||\r\nHeaderA,[Link](www.examplelink.com)\r\nRow1a,Row1b\r\n|||\r\n"); 
+      },
+    },
 
   ];
 

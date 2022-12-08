@@ -176,9 +176,9 @@ export async function addTagToDb(lowerCaseTagName, tag) {
 const tagsObject = {};
 
 function App() {
-  console.group(`document.getSelection()`);
-  console.log(document.getSelection());
-  console.groupEnd();
+  // console.group(`document.getSelection()`);
+  // console.log(document.getSelection());
+  // console.groupEnd();
   async function tagHexLookup(tag, tagColours) {
     const lowerCaseTagName = tag.toLowerCase();
     const tagNotPresent = tagColours[lowerCaseTagName] === undefined;

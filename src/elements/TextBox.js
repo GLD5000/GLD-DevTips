@@ -34,7 +34,7 @@ const tableBlockClosed = new RegExp(
   blockFlagEnd + blockFlagStart + tableFlag + blockFlagEnd
 );
 
-const flagMap = new Map([
+const completeFlagMap = new Map([
   [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
   [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
   [/(PpPpSSS)\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
@@ -103,7 +103,7 @@ function findStringMatch(flag, string, startAt = 0) {
   return [match, index];
 }
 
-function stringHasFlag(string) {
+function stringHasFlag(string, flagMap) {
   let firstFlag = undefined;
   let firstFlagIndex = undefined;
   let secondFlag = undefined;
@@ -119,13 +119,15 @@ function stringHasFlag(string) {
     const firstStringMatch = findStringMatch(flag, string);
     if (firstStringMatch[0] == null || firstStringMatch[1] === -1) return;
     const secondFlagForMatch = flagMap.get(flag).closingFlag;
+    if (secondFlagForMatch === "" && firstStringMatch[1] < firstFlagIndex) {
+      console.log("simple slicer");
+    }
     const secondStringMatch = findStringMatch(
       secondFlagForMatch,
       string,
       firstStringMatch[1] + firstStringMatch[0].length
     );
     if (
-      firstStringMatch[0] &&
       secondStringMatch[0] &&
       firstStringMatch[1] < firstFlagIndex
     ) {
@@ -162,17 +164,17 @@ function sliceFlaggedText(
 
   return { beforeFlag, flaggedText, afterFlag };
 }
-function recursiveParser(text, index) {
+export function recursiveParser(text, index, flagMap) {
   const {
     firstFlag,
     firstFlagIndex,
     secondFlag,
     secondFlagIndex,
     flagFromMap,
-  } = stringHasFlag(text);
+  } = stringHasFlag(text, flagMap);
   if (firstFlagIndex === -1 || firstFlag === undefined) return text;
   if (secondFlagIndex === -1 || secondFlag === undefined) return text;
-
+  console.log(flagMap);
   const { beforeFlag, flaggedText, afterFlag } = sliceFlaggedText(
     text,
     firstFlag,
@@ -183,7 +185,7 @@ function recursiveParser(text, index) {
   const type = flagMap.get(flagFromMap).type;
   const shouldParse = type !== "code" && type !== "table";
   const processedflaggedText = shouldParse
-    ? recursiveParser(flaggedText, index)
+    ? recursiveParser(flaggedText, index, flagMap)
     : flaggedText;
   index += 1;
 
@@ -192,7 +194,7 @@ function recursiveParser(text, index) {
   if (beforeFlag !== null) returnArray.push(beforeFlag);
   returnArray.push(wrappedFlaggedText);
   if (afterFlag !== null) {
-    const parserReturn = recursiveParser(afterFlag, index);
+    const parserReturn = recursiveParser(afterFlag, index, flagMap);
     if (Array.isArray(parserReturn)) {
       returnArray.push(...parserReturn);
     } else {
@@ -283,7 +285,7 @@ const TextBox = ({ text }) => {
   if (text === null) return null;
   const string = markParagraphs(text);
 
-  const arrayOfObjects = recursiveParser(string, index);
+  const arrayOfObjects = recursiveParser(string, index, completeFlagMap);
   const returnArray = wrapLists(arrayOfObjects);
 
   return <>{returnArray}</>;
