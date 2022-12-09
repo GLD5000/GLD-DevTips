@@ -173,7 +173,7 @@ export function recursiveParser(text, index, flagMap) {
     flagMap
   );
   if (type === "none") return text;
-  const shouldParse = type !== "code" && type !== "table";
+  const shouldParse = type !== "code" && type !== "table" && type !== "link";
   const processedflaggedText = shouldParse
     ? recursiveParser(flaggedText, index, flagMap)
     : flaggedText;
