@@ -3,12 +3,12 @@ import { recursiveParser } from "../../elements/TextBox";
 const flagMap = new Map([
   // [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
   // [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
-  [/^\s?######/, { closingFlag: "", type: "h6" }],
-  [/^\s?#####(?!#)/, { closingFlag: "", type: "h5" }],
-  [/^\s?####(?!#)/, { closingFlag: "", type: "h4" }],
-  [/^\s?###(?!#)/, { closingFlag: "", type: "h3" }],
-  [/^\s?##(?!#)/, { closingFlag: "", type: "h2" }],
-  [/^\s?#(?!#)/, { closingFlag: "", type: "h1" }],
+  [/^\s?######/, { type: "h6" }],
+  [/^\s?#####(?!#)/, { type: "h5" }],
+  [/^\s?####(?!#)/, { type: "h4" }],
+  [/^\s?###(?!#)/, { type: "h3" }],
+  [/^\s?##(?!#)/, { type: "h2" }],
+  [/^\s?#(?!#)/, { type: "h1" }],
   // [/(PpPpSSS)[ ]{0,3}> ?/, { closingFlag: lineEndRegex, type: "quote" }],
   // [/(PpPpSSS)\s?-\s+/, { closingFlag: lineEndRegex, type: "liUl" }],
   // [/(PpPpSSS)\s?[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: "liOl" }],
@@ -28,9 +28,9 @@ const flagMap = new Map([
 let index = 0;
 function parseLinks(cell) {
   index +=1;
-  console.log(cell);
-  console.log(index);
-  console.log(flagMap);
+  // console.log(cell);
+  // console.log(index);
+  // console.log(flagMap);
   // const regexOpenLink = /\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/;
   // const regexCloseLink = ")";
   return recursiveParser(cell, index, flagMap);

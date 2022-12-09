@@ -100,89 +100,79 @@ function findStringMatch(flag, string, startAt = 0) {
   if (matchReturnArray === null) return failedReturn;
   const match = string.match(flag)[0];
   const index = string.indexOf(match, startAt - 5);
-  return [match, index];
+  return [match.length, index];
 }
 
 function stringHasFlag(string, flagMap) {
-  let firstFlag = undefined;
-  let firstFlagIndex = undefined;
-  let secondFlag = undefined;
-  let secondFlagIndex = undefined;
-  let flagFromMap = undefined;
-
+  // let firstFlagLength = undefined;
+  // let firstFlagIndex = undefined;
+  // let secondFlagLength = undefined;
+  // let secondFlagIndex = undefined;
+  // let flagFromMap = undefined;
+  const returnObject = { type: "none" };
   const isEmptyString = string == null;
-  if (isEmptyString) return { firstFlag, firstFlagIndex };
+  if (isEmptyString) return returnObject;
 
-  firstFlagIndex = string.length;
+  const workingObject = { string: string, firstFlagIndex: string.length };
 
   flagMap.forEach((_, flag) => {
     const firstStringMatch = findStringMatch(flag, string);
     if (firstStringMatch[0] == null || firstStringMatch[1] === -1) return;
     const secondFlagForMatch = flagMap.get(flag).closingFlag;
-    if (secondFlagForMatch === "" && firstStringMatch[1] < firstFlagIndex) {
+    if (
+      secondFlagForMatch === "" &&
+      firstStringMatch[1] < workingObject.firstFlagIndex
+    ) {
       console.log("simple slicer");
     }
     const secondStringMatch = findStringMatch(
       secondFlagForMatch,
       string,
-      firstStringMatch[1] + firstStringMatch[0].length
+      firstStringMatch[1] + firstStringMatch[0]
     );
     if (
       secondStringMatch[0] &&
-      firstStringMatch[1] < firstFlagIndex
+      firstStringMatch[1] < workingObject.firstFlagIndex
     ) {
-      firstFlag = firstStringMatch[0];
-      firstFlagIndex = firstStringMatch[1];
-      secondFlag = secondStringMatch[0];
-      secondFlagIndex = secondStringMatch[1];
-      flagFromMap = flag;
+      workingObject.firstFlagLength = firstStringMatch[0];
+      workingObject.firstFlagIndex = firstStringMatch[1];
+      workingObject.secondFlagLength = secondStringMatch[0];
+      workingObject.secondFlagIndex = secondStringMatch[1];
+      workingObject.flagFromMap = flag;
+      returnObject.type = flagMap.get(workingObject.flagFromMap).type;
+      ({
+        beforeFlag: returnObject["beforeFlag"],
+        flaggedText: returnObject["flaggedText"],
+        afterFlag: returnObject["afterFlag"],
+      } = sliceFlaggedText(workingObject));
     }
   });
-  return {
-    firstFlag,
-    firstFlagIndex,
-    secondFlag,
-    secondFlagIndex,
-    flagFromMap,
-  };
+  return returnObject;
 }
 
-function sliceFlaggedText(
-  text,
-  firstFlag,
+function sliceFlaggedText({
+  string,
+  firstFlagLength,
   firstFlagIndex,
-  secondFlag,
-  secondFlagIndex
-) {
-  const flaggedTextStart = firstFlagIndex + firstFlag.length;
-  const afterFlaggedStart = secondFlagIndex + secondFlag.length;
+  secondFlagLength,
+  secondFlagIndex,
+}) {
+  const flaggedTextStart = firstFlagIndex + firstFlagLength;
+  const afterFlaggedStart = secondFlagIndex + secondFlagLength;
   const beforeFlag =
-    firstFlagIndex === 0 ? null : text.slice(0, firstFlagIndex);
-  const flaggedText = text.slice(flaggedTextStart, secondFlagIndex);
+    firstFlagIndex === 0 ? null : string.slice(0, firstFlagIndex);
+  const flaggedText = string.slice(flaggedTextStart, secondFlagIndex);
   const afterFlag =
-    text.length > afterFlaggedStart ? text.slice(afterFlaggedStart) : null;
+    string.length > afterFlaggedStart ? string.slice(afterFlaggedStart) : null;
 
   return { beforeFlag, flaggedText, afterFlag };
 }
 export function recursiveParser(text, index, flagMap) {
-  const {
-    firstFlag,
-    firstFlagIndex,
-    secondFlag,
-    secondFlagIndex,
-    flagFromMap,
-  } = stringHasFlag(text, flagMap);
-  if (firstFlagIndex === -1 || firstFlag === undefined) return text;
-  if (secondFlagIndex === -1 || secondFlag === undefined) return text;
-  console.log(flagMap);
-  const { beforeFlag, flaggedText, afterFlag } = sliceFlaggedText(
+  const { type, beforeFlag, flaggedText, afterFlag } = stringHasFlag(
     text,
-    firstFlag,
-    firstFlagIndex,
-    secondFlag,
-    secondFlagIndex
+    flagMap
   );
-  const type = flagMap.get(flagFromMap).type;
+  if (type === "none") return text;
   const shouldParse = type !== "code" && type !== "table";
   const processedflaggedText = shouldParse
     ? recursiveParser(flaggedText, index, flagMap)
