@@ -28,16 +28,14 @@ const flagMap = new Map([
 let index = 0;
 function parseLinks(cell) {
   index +=1;
-  // console.log(cell);
-  // console.log(index);
-  // console.log(flagMap);
-  // const regexOpenLink = /\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/;
-  // const regexCloseLink = ")";
+  console.group(`recursiveParser(cell, index, flagMap)`);
+  console.log(recursiveParser(cell, index, flagMap));
+  console.groupEnd();
   return recursiveParser(cell, index, flagMap);
 }
 
 const Td = ({ cell }) => {
-  if (cell.includes("www") || cell.includes("**") || cell.includes("_")) cell = parseLinks(cell);
+  if (cell.includes("www") || cell.includes("**") || cell.includes("_") || cell.includes("#")) cell = parseLinks(cell);
   return <td>{cell}</td>;
 };
 

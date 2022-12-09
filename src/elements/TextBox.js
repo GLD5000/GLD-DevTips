@@ -85,59 +85,54 @@ function markParagraphs(string) {
 }
 
 function findStringMatch(flag, string, startAt = 0) {
-  if (startAt === -1) startAt = 0;
-  const failedReturn = [null, -1];
+  const failedReturn = { length: 0, index: -1 };
   if (string === undefined) return failedReturn;
+  if (flag === undefined) return { length: 0, index: string.length };
+  if (startAt === -1) startAt = 0;
 
-  const isRegexFlag = typeof flag === "object";
-  if (isRegexFlag === false) {
+  const isString = typeof flag !== "object";
+  
+  if (isString) {
     const index = string.indexOf(flag, startAt);
-    if (index === -1) return failedReturn;
-    return [flag, index];
+    const flagMissing = index === -1;
+    if (flagMissing) return failedReturn;
+    return { length: flag.length, index: index };
   }
 
   const matchReturnArray = string.match(flag);
   if (matchReturnArray === null) return failedReturn;
   const match = string.match(flag)[0];
   const index = string.indexOf(match, startAt - 5);
-  return [match.length, index];
+  return { length: match.length, index: index };
 }
 
 function stringHasFlag(string, flagMap) {
-  // let firstFlagLength = undefined;
-  // let firstFlagIndex = undefined;
-  // let secondFlagLength = undefined;
-  // let secondFlagIndex = undefined;
-  // let flagFromMap = undefined;
-  const returnObject = { type: "none" };
+  const returnObject = {};
   const isEmptyString = string == null;
+
+  console.log(string);
   if (isEmptyString) return returnObject;
 
   const workingObject = { string: string, firstFlagIndex: string.length };
 
   flagMap.forEach((_, flag) => {
     const firstStringMatch = findStringMatch(flag, string);
-    if (firstStringMatch[0] == null || firstStringMatch[1] === -1) return;
+    const firstFlagMissing = firstStringMatch.index === -1;
+    if (firstFlagMissing) return;
     const secondFlagForMatch = flagMap.get(flag).closingFlag;
-    if (
-      secondFlagForMatch === "" &&
-      firstStringMatch[1] < workingObject.firstFlagIndex
-    ) {
-      console.log("simple slicer");
-    }
     const secondStringMatch = findStringMatch(
       secondFlagForMatch,
       string,
-      firstStringMatch[1] + firstStringMatch[0]
+      firstStringMatch.index + firstStringMatch.length
     );
-    if (
-      secondStringMatch[0] &&
-      firstStringMatch[1] < workingObject.firstFlagIndex
-    ) {
-      workingObject.firstFlagLength = firstStringMatch[0];
-      workingObject.firstFlagIndex = firstStringMatch[1];
-      workingObject.secondFlagLength = secondStringMatch[0];
-      workingObject.secondFlagIndex = secondStringMatch[1];
+    const secondFlagFound = secondStringMatch.index > -1;
+    const firstFlagIsEarliest =
+      firstStringMatch.index < workingObject.firstFlagIndex;
+    if (firstFlagIsEarliest && secondFlagFound) {
+      workingObject.firstFlagLength = firstStringMatch.length;
+      workingObject.firstFlagIndex = firstStringMatch.index;
+      workingObject.secondFlagLength = secondStringMatch.length;
+      workingObject.secondFlagIndex = secondStringMatch.index;
       workingObject.flagFromMap = flag;
       returnObject.type = flagMap.get(workingObject.flagFromMap).type;
       ({
@@ -172,7 +167,7 @@ export function recursiveParser(text, index, flagMap) {
     text,
     flagMap
   );
-  if (type === "none") return text;
+  if (type === undefined) return text;
   const shouldParse = type !== "code" && type !== "table" && type !== "link";
   const processedflaggedText = shouldParse
     ? recursiveParser(flaggedText, index, flagMap)
