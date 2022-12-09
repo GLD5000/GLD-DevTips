@@ -22,7 +22,7 @@ export default function WriteTipBtn({
     }
     const AddTipText = showAddTipForm
     ? "Cancel"
-    : "Write Tip";
+    : "Create";
     const AddTipColour = showAddTipForm ? "pink" : "aquamarine";
     const type = showAddTipForm
     ? "cancelWrite"
@@ -37,6 +37,7 @@ export default function WriteTipBtn({
         backgroundColor={AddTipColour}
         text={AddTipText}
         clickFunction={onClickAdd}
+        reverse={true}
       />
         </div>
 )

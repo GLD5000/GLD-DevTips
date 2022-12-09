@@ -22,7 +22,7 @@ const Tip = ({ tip, setTagStateFromTip, editTip, showAddTipForm }) => {
         id={tip.id}
         color="whitesmoke"
         backgroundColor="transparent"
-        text="Edit tip"
+        text="Edit"
         clickFunction={editTip}
       />}
         <MultiTextBoxes tip={tip} /> 
