@@ -15,6 +15,7 @@ import QuoteSvg from "../components/icons/QuoteSvg";
 import BulletSvg from "../components/icons/BulletSvg";
 import NumberedSvg from "../components/icons/NumberedSvg";
 import TableSvg from "../components/icons/TableSvg";
+
 //import CollapseSvg from "../components/icons/Collapse"
 //import ExpandSvg from "../components/icons/Expand"
 function defaultOnClick(e) {
@@ -33,6 +34,7 @@ const SvgButton = ({
   showText = true,
   marginLeft = null,
   reverse = false,
+  borderColor = "var(--border-grey)",
 }) => {
   function getSvg(type) {
     const svgLookup = {
@@ -78,7 +80,7 @@ const SvgButton = ({
     color: color,
     backgroundColor: backgroundColor,
     borderRadius: borderRadius,
-    borderColor: "var(--border-grey)",
+    borderColor: borderColor,
     borderWidth: "2px",
     borderStyle: "solid",
     display: "grid",
