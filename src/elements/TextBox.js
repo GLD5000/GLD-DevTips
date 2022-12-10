@@ -212,7 +212,7 @@ function wrapLists(arrayOfObjects) {
     const type = findObjectType(wrappedObject);
     const nonListItem = type === "nonList";
     if (nonListItem) {
-      const wasListItem = listType !== type;
+      const wasListItem = listType !== type && listType !== null;
       if (wasListItem) {
         // list type just changed
         // make ol or ul object
