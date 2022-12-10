@@ -1,4 +1,4 @@
-import { recursiveParser } from "../../elements/TextBox";
+import { recursiveParser } from "../../utilities/markdownParser";
 
 const flagMap = new Map([
   // [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
@@ -28,9 +28,9 @@ const flagMap = new Map([
 let index = 0;
 function parseLinks(cell) {
   index +=1;
-  console.group(`recursiveParser(cell, index, flagMap)`);
-  console.log(recursiveParser(cell, index, flagMap));
-  console.groupEnd();
+  // console.group(`recursiveParser(cell, index, flagMap)`);
+  // console.log(recursiveParser(cell, index, flagMap));
+  // console.groupEnd();
   return recursiveParser(cell, index, flagMap);
 }
 
