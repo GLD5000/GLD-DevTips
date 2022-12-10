@@ -16,7 +16,7 @@ import CodeBox from "./CodeBox";
 import Table from "../components/tips/Table";
 import Hint from "./Hint";
 
-const lineEndRegex = /(PpPpEEE)[\r\n]*\s*/;
+const lineEndRegex = /PpPpEEE\r\n/;
 
 const blockFlagStart = "PpPpSSS[ ]{0,3}";
 const blockFlagEndOptional = "(PpPpEEE)?";
@@ -110,8 +110,7 @@ function stringHasFlag(string, flagMap) {
   const returnObject = {};
   const isEmptyString = string == null;
 
-  console.log(string);
-  if (isEmptyString) return returnObject;
+  if (isEmptyString) return {type: "empty"};
 
   const workingObject = { string: string, firstFlagIndex: string.length };
 
