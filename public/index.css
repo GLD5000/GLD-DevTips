@@ -58,12 +58,12 @@ button {
 }
 
 .text {
-  padding: 8px;
+  padding: 0.5rem;
 }
 
 .hint,
 .titleInput {
-  padding: 8px;
+  padding: 0.5rem;
   width: 100%;
   height: fit-content;
   overflow: hidden;
@@ -75,7 +75,7 @@ button {
 .table {
   margin-top: 12px;
   margin-bottom: 12px;
-  padding: 8px;
+  padding: 0.5rem;
   width: 100%;
   height: fit-content;
   overflow-x: auto;
@@ -111,7 +111,7 @@ textarea {
 table,
 th,
 td {
-  padding: 8px;
+  padding: 0.5rem;
   text-align: center;
   border: 2px solid whitesmoke;
   border-collapse: collapse;
@@ -191,7 +191,7 @@ button {
 
 .svg-btn-grid {
   display: grid;
-  gap: 8px;
+  gap: 0.5rem;
   grid-template-columns: repeat(4, 1fr);
   justify-content: space-around;
 }
@@ -243,7 +243,7 @@ button {
 }
 .tip {
   border: solid 1px var(--border-grey);
-  gap: 8px;
+  gap: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -276,6 +276,7 @@ li {
 
 .MultiTextContainer {
   display: flex;
+  gap: 1rem;
   flex-direction: column;
   margin-left: 0;
   width: 100%;
@@ -343,7 +344,7 @@ li {
 .field-container {
   display: grid;
   grid-template-rows: auto auto;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .tip,
@@ -361,7 +362,7 @@ h3 {
 
 .form-control {
   margin: 20px 0;
-  gap: 8px;
+  gap: 0.5rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
@@ -408,7 +409,7 @@ b {
   border-left: solid 12px rgb(242, 220, 28);
   margin-top: 12px;
   margin-bottom: 12px;
-  padding: 8px;
+  padding: 0.5rem;
   color: black;
   background-color: cornsilk;
   white-space: pre-wrap;
@@ -418,14 +419,14 @@ b {
   border-left: solid 12px rgb(154, 154, 154);
   margin-top: 12px;
   margin-bottom: 12px;
-  padding: 8px;
+  padding: 0.5rem;
   color: black;
   background-color: rgb(228, 228, 228);
   white-space: pre-wrap;
 }
 
 thead {
-  font-size: 18px;
+  font-size: 1.125rem;
   background: #424242;
 }
 h1 {
