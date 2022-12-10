@@ -1,15 +1,33 @@
+import SvgButton from "../elements/SvgButton"
+
+import { useState } from "react";
+
 function removeParagraphs(string){
   const regex = /(PpPpEEE)|(PpPpSSS)/g;
   return string.replaceAll(regex, ``);
 }
 
 
-
 export default function CodeBox ({content, parse = false}) {
   // console.log(content);
   const code = parse? removeParagraphs(content): content;
+  const [showTextState, setShowTextState] = useState(() => false);
   return (
-    <code className="code">{`${code}`}</code>
+    <code className="code">
+      {`${code}`}
+      <SvgButton
+            type="duplicate"
+            key={1 + "copyCode"}
+            text="Copied!"
+            clickFunction={()=> {navigator.clipboard.writeText(content); setShowTextState(true); setTimeout(() => setShowTextState(false), 2200)}}
+            wide = {false}
+            showText = {showTextState}
+            borderColor = "transparent"
+            reverse = {true}
+          
+      />
+
+      </code>
   )
 }
 
