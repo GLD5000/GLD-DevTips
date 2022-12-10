@@ -36,9 +36,15 @@ const tableBlockClosed = new RegExp(
   blockFlagEnd + blockFlagStart + tableFlag + blockFlagEnd
 );
 
+const hintFlag = "\\?{3,}";
+const hintBlockOpen = new RegExp(blockFlagStart + hintFlag + blockFlagEnd);
+const hintBlockClosed = new RegExp(
+  blockFlagStart + hintFlag + blockFlagEnd
+);
 const defaultFlagMap = new Map([
-  [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
-  [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
+    [hintBlockOpen, { closingFlag: hintBlockClosed, type: "hint" }],
+    [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
+    [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
   [/(PpPpSSS)\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
   [/(PpPpSSS)\s?#####(?!#)/, { closingFlag: lineEndRegex, type: "h5" }],
   [/(PpPpSSS)\s?####(?!#)/, { closingFlag: lineEndRegex, type: "h4" }],

@@ -69,14 +69,13 @@ function getReturnArray(type, index, appendIndexedField) {
         appendIndexedField(e, "\r\n|||\r\nHeaderA,HeaderB\r\nRow1a,Row1b\r\n|||\r\n"); 
       },
     },
-    // {
-    //   type: "table",
-    //   text: "Test",
-    //   function: (e) => {
-    //     appendIndexedField(e, "\r\n|||\r\n#HeaderA,[Link](www.examplelink.com)\r\n_Row1a_,**Row1b**\r\n|||\r\n"); 
-    //   },
-    // },
-
+    {
+      type: "hint",
+      text: "hint",
+      function: (e) => {
+        appendIndexedField(e, "\r\n???\r\nHint\r\n???\r\n"); 
+      },
+    },
   ];
 
   return (

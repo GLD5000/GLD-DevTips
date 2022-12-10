@@ -15,7 +15,7 @@ import QuoteSvg from "../components/icons/QuoteSvg";
 import BulletSvg from "../components/icons/BulletSvg";
 import NumberedSvg from "../components/icons/NumberedSvg";
 import TableSvg from "../components/icons/TableSvg";
-
+import HintSvg from "../components/icons/HintSvg";
 //import CollapseSvg from "../components/icons/Collapse"
 //import ExpandSvg from "../components/icons/Expand"
 function defaultOnClick(e) {
@@ -55,6 +55,7 @@ const SvgButton = ({
       bullet: <BulletSvg stroke={color} />,
       numbered: <NumberedSvg stroke={color} />,
       table: <TableSvg stroke={color} />,
+      hint: <HintSvg stroke={color} />,
     };
     return svgLookup[type];
   }
