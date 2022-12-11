@@ -35,6 +35,7 @@ const SvgButton = ({
   marginLeft = null,
   reverse = false,
   borderColor = "var(--border-grey)",
+  classes = ""
 }) => {
   function getSvg(type) {
     const svgLookup = {
@@ -97,7 +98,7 @@ const SvgButton = ({
         id={id}
         name={name}
         onClick={clickFunction}
-        className="svg-btn"
+        className={"svg-btn" + " " + classes}
         style={style}
         aria-label={name}
       >

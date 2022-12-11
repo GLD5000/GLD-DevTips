@@ -33,6 +33,7 @@ button {
   cursor: pointer;
 }
 .code {
+  position: relative;
   background-color: #000;
   color: rgb(140, 241, 124);
   border: solid var(--border-grey) 1px;
@@ -55,6 +56,11 @@ button {
 .code::-ms-input-placeholder {
   /* Microsoft Edge */
   color: rgb(140, 241, 124);
+}
+
+.copy-btn {
+  position: sticky;
+  left: 0;
 }
 
 .text {

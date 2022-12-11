@@ -23,8 +23,9 @@ export default function CodeBox ({content, parse = false}) {
             wide = {false}
             showText = {showTextState}
             borderColor = "transparent"
-            reverse = {true}
-          
+            reverse = {false}
+            classes = "copy-btn"
+            marginLeft = "0"
       />
 
       </code>
