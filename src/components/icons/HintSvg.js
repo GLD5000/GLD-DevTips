@@ -1,10 +1,10 @@
 export default function HintSvg({fill = "white", stroke = "black"}) {
-    const style = {
-      stroke: stroke,
-      strokeWidth: "1",
-      strokeLinecap: "round",
-      fill: fill,
-    };
+    // const style = {
+    //   stroke: stroke,
+    //   strokeWidth: "1",
+    //   strokeLinecap: "round",
+    //   fill: fill,
+    // };
   
     return (
       <div className="svg-wrapper">

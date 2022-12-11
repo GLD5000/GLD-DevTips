@@ -15,8 +15,7 @@ import P from "../elements/P";
 import CodeBox from "../elements/CodeBox";
 import Table from "../components/tips/Table";
 import Hint from "../elements/Hint";
-
-
+import Span from "../elements/Span";
 
 const lineEndRegex = /PpPpEEE\r\n/;
 
@@ -38,13 +37,12 @@ const tableBlockClosed = new RegExp(
 
 const hintFlag = "\\?{3,}";
 const hintBlockOpen = new RegExp(blockFlagStart + hintFlag + blockFlagEnd);
-const hintBlockClosed = new RegExp(
-  blockFlagStart + hintFlag + blockFlagEnd
-);
+const hintBlockClosed = new RegExp(blockFlagStart + hintFlag + blockFlagEnd);
 const defaultFlagMap = new Map([
-    [hintBlockOpen, { closingFlag: hintBlockClosed, type: "hint" }],
-    [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
-    [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
+  [/"(?=.+")/, { closingFlag: /"/, type: "span" }],
+  [hintBlockOpen, { closingFlag: hintBlockClosed, type: "hint" }],
+  [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
+  [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
   [/(PpPpSSS)\s?######/, { closingFlag: lineEndRegex, type: "h6" }],
   [/(PpPpSSS)\s?#####(?!#)/, { closingFlag: lineEndRegex, type: "h5" }],
   [/(PpPpSSS)\s?####(?!#)/, { closingFlag: lineEndRegex, type: "h4" }],
@@ -66,7 +64,6 @@ const defaultFlagMap = new Map([
   ["_", { closingFlag: "_", type: "italic" }],
 ]);
 
-
 function wrapText(index, text, type) {
   const newKey = "x" + index;
   const typeHandler = {
@@ -86,6 +83,7 @@ function wrapText(index, text, type) {
     code: <CodeBox key={"cb" + newKey} content={text} parse={true} />,
     table: <Table key={"table" + newKey} content={text} parse={true} />,
     hint: <Hint key={"hint" + newKey} content={text} />,
+    span: <Span key={"span" + newKey} content={text} />,
   };
 
   return typeHandler[type];
@@ -96,13 +94,19 @@ function markParagraphs(string) {
 }
 
 function findStringMatch(flag, string, startAt = 0) {
+  if (flag === /"/){
+
+    console.log(`flag ${flag}`);
+    console.log(`string ${string}`);
+    console.log(`startAt ${startAt}`);
+  }
   const failedReturn = { length: 0, index: -1 };
   if (string === undefined) return failedReturn;
   if (flag === undefined) return { length: 0, index: string.length };
   if (startAt === -1) startAt = 0;
 
   const isString = typeof flag !== "object";
-  
+
   if (isString) {
     const index = string.indexOf(flag, startAt);
     const flagMissing = index === -1;
@@ -113,7 +117,7 @@ function findStringMatch(flag, string, startAt = 0) {
   const matchReturnArray = string.match(flag);
   if (matchReturnArray === null) return failedReturn;
   const match = string.match(flag)[0];
-  const index = string.indexOf(match, startAt - 5);
+  const index = string.indexOf(match, startAt);
   return { length: match.length, index: index };
 }
 
@@ -121,7 +125,7 @@ function stringHasFlag(string, flagMap) {
   const returnObject = {};
   const isEmptyString = string == null;
 
-  if (isEmptyString) return {type: "empty"};
+  if (isEmptyString) return { type: "empty" };
 
   const workingObject = { string: string, firstFlagIndex: string.length };
 
@@ -145,6 +149,8 @@ function stringHasFlag(string, flagMap) {
       workingObject.secondFlagIndex = secondStringMatch.index;
       workingObject.flagFromMap = flag;
       returnObject.type = flagMap.get(workingObject.flagFromMap).type;
+      if (returnObject.type === "span") console.log(workingObject);
+      if (returnObject.type === "span") console.log(secondStringMatch);
       ({
         beforeFlag: returnObject["beforeFlag"],
         flaggedText: returnObject["flaggedText"],
@@ -253,7 +259,8 @@ export function recursiveParser(text, index, flagMap = defaultFlagMap) {
     flagMap
   );
   if (type === undefined) return text;
-  const shouldParse = type !== "code" && type !== "table" && type !== "link";
+  const shouldParse =
+    type !== "code" && type !== "table" && type !== "link" && type !== "span";
   const processedflaggedText = shouldParse
     ? recursiveParser(flaggedText, index)
     : flaggedText;
@@ -275,13 +282,12 @@ export function recursiveParser(text, index, flagMap = defaultFlagMap) {
 }
 
 export default function markdownParserFull(text) {
-    let index = 0;
+  let index = 0;
 
-    if (text === null) return null;
-    const string = markParagraphs(text);
+  if (text === null) return null;
+  const string = markParagraphs(text);
 
-    const arrayOfObjects = recursiveParser(string, index);
-    const returnArray = wrapLists(arrayOfObjects);
-    return returnArray;
-
+  const arrayOfObjects = recursiveParser(string, index);
+  const returnArray = wrapLists(arrayOfObjects);
+  return returnArray;
 }
