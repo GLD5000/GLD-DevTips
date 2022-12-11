@@ -49,7 +49,7 @@ const InputField = ({ type, changeText, name, defaultValue }) => {
         placeholder={placeHolder}
         name={name}
         className={type}
-        rows="8"
+        rows="12"
         cols="70"
         onInput={handleChange}
         defaultValue={defaultValue}

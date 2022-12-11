@@ -24,7 +24,7 @@ function defaultOnClick(e) {
 const SvgButton = ({
   borderRadius = "4px",
   color = "whitesmoke",
-  backgroundColor = "black",
+  backgroundColor = "transparent",
   text = "Add",
   clickFunction = defaultOnClick,
   id = null,
@@ -45,7 +45,7 @@ const SvgButton = ({
       down: <DownSvg stroke={color} />,
       add: <AddSvg stroke={color} />,
       delete: <DeleteSvg stroke={color} />,
-      duplicate: <DuplicateSvg stroke={color} fill={backgroundColor} />,
+      duplicate: <DuplicateSvg stroke={color} fill="black" />,
       preview: <PreviewSvg stroke={color} fill={backgroundColor} />,
       write: <PencilSvg stroke={color} fill={backgroundColor} />,
       cancelWrite: <UnPencilSvg stroke={color} fill={backgroundColor} />,

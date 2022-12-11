@@ -140,8 +140,6 @@ const MultiInput = ({
           <SvgButton
             type="up"
             key={index + "moveFieldUp"}
-            color="black"
-            backgroundColor="coral"
             text="Up"
             clickFunction={moveFieldUp}
             id={index +"-moveFieldUp"}
@@ -149,8 +147,7 @@ const MultiInput = ({
           <SvgButton
             type="down"
             key={index + "moveFieldDown"}
-            color="black"
-            backgroundColor="lavender"
+            backgroundColor="transparent"
             text="Down"
             clickFunction={moveFieldDown}
             id={index +"-moveFieldDown"}
@@ -160,8 +157,6 @@ const MultiInput = ({
           <SvgButton
             type="duplicate"
             key={index + "duplicateField"}
-            color="black"
-            backgroundColor="LightGreen"
             text="Copy"
             clickFunction={duplicateField}
             id={index +"-duplicatefield"}
@@ -169,8 +164,6 @@ const MultiInput = ({
           <SvgButton
             type="delete"
             key={index + "deleteIndexedField"}
-            color="black"
-            backgroundColor="indianred"
             text="Delete"
             clickFunction={deleteIndexedField}
             id={index +"-deleteIndexedField"}

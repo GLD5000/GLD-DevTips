@@ -100,7 +100,6 @@ select,
 textarea,
 input {
   border: 1px solid var(--border-grey);
-
   background-color: inherit;
 }
 textarea {
