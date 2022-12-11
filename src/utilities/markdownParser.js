@@ -17,7 +17,7 @@ import Table from "../components/tips/Table";
 import Hint from "../elements/Hint";
 import Span from "../elements/Span";
 
-const lineEndRegex = /PpPpEEE\r\n/;
+const lineEndRegex = /PpPpEEE(\r\n)?/;
 
 const blockFlagStart = "PpPpSSS[ ]{0,3}";
 const blockFlagEndOptional = "(PpPpEEE)?";
