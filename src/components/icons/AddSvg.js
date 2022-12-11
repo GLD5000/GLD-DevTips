@@ -3,7 +3,7 @@ export default function AddSvg({fill = "white", stroke = "black"}) {
     stroke: stroke,
     strokeWidth: "1",
     strokeLinecap: "round",
-    fill: fill,
+    fill: "none",
   };
 
   return (
@@ -15,8 +15,9 @@ export default function AddSvg({fill = "white", stroke = "black"}) {
         width="100%"
         viewBox="0 0 16 16"
       >
-        <path d="M 2,8 h 12 M 8,2 v 12" style={style}
+        <path d="M 4,8 h 8 M 8,4 v 8" style={style}
         />
+        <circle cx="8" cy="8" r="7" style={style}/>
       </svg>
     </div>
   );

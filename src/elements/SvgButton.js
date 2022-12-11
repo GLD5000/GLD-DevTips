@@ -35,7 +35,11 @@ const SvgButton = ({
   marginLeft = null,
   reverse = false,
   borderColor = "var(--border-grey)",
-  classes = ""
+  classes = "",
+  onMouseEnter=null, 
+  onMouseLeave=null,
+  onFocus=null,
+  onBlur=null,
 }) => {
   function getSvg(type) {
     const svgLookup = {
@@ -92,13 +96,19 @@ const SvgButton = ({
   };
   if (showText) style.gap = "8px";
   if (wide !== true && marginLeft === null) style.marginLeft = "auto";
+  let className = "svg-btn";
+  if (classes !== "") className += " " + classes;
   return (
     <>
       <button
+      onMouseEnter={onMouseEnter} 
+      onMouseLeave={onMouseLeave}
+      onFocus={onFocus}
+      onBlur={onBlur}
         id={id}
         name={name}
         onClick={clickFunction}
-        className={"svg-btn" + " " + classes}
+        className={className}
         style={style}
         aria-label={name}
       >

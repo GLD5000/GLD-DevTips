@@ -1,4 +1,15 @@
 import SvgButton from "../../elements/SvgButton"
+import { useState } from "react";
+
+const colourLookup = {
+    false: {colour: "whitesmoke", background: "transparent"},
+    true: {colour: "whitesmoke", background: "transparent"},
+}
+const colourLookupHover = {
+    true: {colour: "black", background: "pink"},
+    false: {colour: "black", background: "aquamarine"},
+}
+
 
 export default function WriteTipBtn({
     showAddTipForm,
@@ -7,37 +18,59 @@ export default function WriteTipBtn({
     setSearchQuery,
     clearTags,
 }) {
-
+    
+    const [buttonState, setButtonState] = useState(() => {
+        return {
+            colour: showAddTipForm ? "black" : "whitesmoke",
+            background: showAddTipForm ? "pink" : "transparent"
+        }
+    });
+    function setButtonStateFromObject(object){
+        setButtonState(() => {
+            return {
+                colour: object.colour,
+                background: object.background
+            }
+        })
+    }
     
     function onClickAdd() {
-        if (showAddTipForm === true) onClose();
-        if (showAddTipForm === false) {
-            clearTags();
-            setSearchQuery(()=> "  ")};
-        setShowAddTipForm((state) => !state);
+        if (showAddTipForm === true) {onClose();
+        return;
+        }
+        clearTags();
+        setSearchQuery(()=> "  ");
+        setShowAddTipForm(true);
+        setButtonStateFromObject(colourLookupHover[true]);
     }
     function onClose() {
         addObjectToInputFormState(null);
         setSearchQuery(() => "")
+        setShowAddTipForm(false);
+        setButtonStateFromObject(colourLookupHover[false]);       
     }
     const AddTipText = showAddTipForm
     ? "Cancel"
     : "Create";
-    const AddTipColour = showAddTipForm ? "pink" : "aquamarine";
     const type = showAddTipForm
     ? "cancelWrite"
-    : "write";
+    : "add";
     return (
-        <div style={{width:"fit-content", gridColumn:"4"}}>
+        <div  style={{width:"fit-content", gridColumn:"4"}}>
+            
 
             <SvgButton
             wide="false"
             type={type}
-        color="black"
-        backgroundColor={AddTipColour}
+        color={buttonState.colour}
+        backgroundColor={buttonState.background}
         text={AddTipText}
         clickFunction={onClickAdd}
         reverse={true}
+        onMouseEnter={() => setButtonStateFromObject(colourLookupHover[showAddTipForm])} 
+        onMouseLeave={() => setButtonStateFromObject(colourLookup[showAddTipForm])}
+        onFocus={() => setButtonStateFromObject(colourLookupHover[showAddTipForm])}
+        onBlur={() => setButtonStateFromObject(colourLookup[showAddTipForm])}
       />
         </div>
 )
