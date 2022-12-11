@@ -20,7 +20,7 @@ export default function CodeBox ({content, parse = false}) {
             key={1 + "copyCode"}
             text="Copied!"
             clickFunction={()=> {navigator.clipboard.writeText(content); setShowTextState(true); setTimeout(() => setShowTextState(false), 2200)}}
-            wide = {false}
+            wide = {true}
             showText = {showTextState}
             borderColor = "transparent"
             reverse = {false}
