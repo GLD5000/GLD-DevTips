@@ -19,7 +19,7 @@ export default function CodeBox ({content, parse = false}) {
             type="duplicate"
             key={1 + "copyCode"}
             text="Copied!"
-            clickFunction={()=> {navigator.clipboard.writeText(content); setShowTextState(true); setTimeout(() => setShowTextState(false), 2200)}}
+            clickFunction={()=> {if (code.includes("Pp")) alert(code);navigator.clipboard.writeText(code); setShowTextState(true); setTimeout(() => setShowTextState(false), 2200)}}
             wide = {true}
             showText = {showTextState}
             borderColor = "transparent"
