@@ -82,7 +82,7 @@ function wrapText(index, text, type) {
     paragraph: <P key={"pa" + newKey} content={text} />,
     code: <CodeBox key={"cb" + newKey} content={text} parse={true} />,
     table: <Table key={"table" + newKey} content={text} parse={true} />,
-    hint: <Hint key={"hint" + newKey} content={text} />,
+    hint: <Hint key={"hint" + newKey} content={text} parse={false} />,
     span: <Span key={"span" + newKey} content={text} />,
   };
 
@@ -92,6 +92,11 @@ function markParagraphs(string) {
   const regex = /[\r\n]+/g;
   return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\r\nPpPpSSS") + "PpPpEEE";
 }
+export function removeParagraphs(string){
+  const regex = /(PpPpEEE)|(PpPpSSS)/g;
+  return string.replaceAll(regex, ``);
+}
+
 
 function findStringMatch(flag, string, startAt = 0) {
   if (flag === /"/){
