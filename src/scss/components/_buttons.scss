@@ -1,0 +1,345 @@
+@use "../abstracts" as *;
+
+.btn,
+.textmode {
+  position: relative;
+  //white-space: normal;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  font-size: $font-btn-size;
+  background-color: $neutral-200;
+}
+.copy-single,
+.copy-all,
+.save-btn {
+  cursor: copy;
+}
+
+.hover-btn:hover::after,
+.hover-btn:focus::after,
+.prefix:hover::after,
+.prefix:focus::after {
+  font-size: $font-btn-size;
+
+  color: $neutral-0;
+  background-color: $neutral-500;
+  //transition-duration: 0s;
+  content: attr(data-content);
+  text-align: center;
+  line-height: 1;
+  bottom: 100%;
+  left: calc(-1 * $gap);
+  padding: 6px;
+  margin-left: auto;
+  position: absolute;
+  height: auto;
+  width: auto;
+  cursor: copy;
+  border: $gap solid $neutral-1000;
+  border-bottom: 0;
+  //border-left: 0;
+  border-radius: 0 6px 0 0;
+}
+.mode:hover::after,
+.mode:focus::after {
+  border-bottom: $gap solid $neutral-1000;
+  //background-color: $neutral-1000;
+}
+
+/*   .copy-single:focus::after {
+      background-color: $neutral-1000;
+  }
+ */
+/* .textmode::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  //vertical-align: middle;
+  line-height: 1.25;
+  content: attr(data-label);
+  font-size: $font-btn-size;
+  white-space: normal;
+}
+ */
+.btn-small {
+  flex: 1 1 50%;
+  font-size: $font-btn-size;
+}
+
+.btn-dual,
+.textmode,
+.btn-med {
+  flex: 1 1 50%;
+  font-size: $font-btn-size;
+}
+
+.btn-tiny {
+  flex: 1 1 50%;
+  font-size: $font-btn-size;
+}
+
+.dice {
+  align-items: center;
+  width: 100%;
+  //aspect-ratio: 2/1;
+  border: none;
+  background: $rainbow-gradient;
+  display: flex;
+  //grid-template-columns: 1fr 1fr auto;
+  //grid-template-rows: 1fr auto;
+  /*grid-template:20px 1fr 20px / 20px 1fr 20px 1fr 20px;
+  cursor:default;*/
+}
+.dieA {
+  transform: rotateZ(-2deg);
+}
+.dieB {
+  transform: rotateZ(1deg);
+}
+
+.dieA,
+.dieB {
+  border: $border;
+  //border-radius: $gemHalf;
+  box-shadow: $box-shadow;
+  background-color: $neutral-500;
+  display: grid;
+  grid-template: $gemQuart repeat(3, 1fr) $gemQuart/ $gemQuart repeat(3, 1fr) $gemQuart;
+  min-height: calc(2.25 * $gem);
+  max-width: 40%;
+  margin: auto;
+  aspect-ratio: 1 / 1;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+.dots {
+  background-color: $neutral-0;
+  border: $border;
+  border-radius: 50%;
+}
+
+.dotA,
+.dotD {
+  grid-area: 2/2;
+}
+.dotB {
+  grid-area: 3/3;
+}
+.dotC,
+.dotG {
+  grid-area: 4/4;
+}
+.dotE {
+  grid-area: 2/4;
+}
+.dotF {
+  grid-area: 4/2;
+}
+
+.btn:hover,
+.textmode:hover,
+.btn:focus-within,
+.textmode:focus-within {
+  outline: none;
+  color: $neutral-0;
+  background-color: $neutral-500;
+}
+.saved-palette:hover {
+  filter: contrast(1.1);
+}
+.saved-palette:hover::after {
+  font-size: $gem3Quart;
+
+  color: $neutral-0;
+  background-color: $neutral-500a;
+  font-weight: 200;
+  //padding: 0.25em;
+  cursor: pointer;
+  white-space: pre;
+  align-items: center;
+  line-height: 1.125;
+
+  content: attr(data-content);
+  text-align: center;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  position: absolute;
+  border: 4px solid $neutral-1000;
+}
+
+.flexbox-history li,
+.saved-palette,
+.scheme-button {
+  display: block;
+  height: auto;
+  font-family: $font-clipboard;
+  font-size: calc(0.75 * $gem);
+  font-weight: 500;
+  padding: 0.25em;
+  cursor: pointer;
+  white-space: pre;
+  //align-items: center;
+  text-align: left;
+  line-height: 1.125;
+  background: none;
+}
+
+.flexbox-history li,
+.saved-palette,
+.scheme-button {
+  display: block;
+  //border: 2px solid transparent; //$neutral-300;
+  height: $gem;
+  width: 100%; //calc(100% - 8px);
+  color: $vscode-hex-orange;
+  background-color: $neutral-1000;
+  line-height: 0.8;
+}
+.scheme-button {
+  width: auto; //calc(100% - 8px);
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.scheme-button:hover {
+  filter: brightness(120%);
+  color: $neutral-0;
+}
+
+.dimmed {
+  filter: brightness(85%) grayscale(100%);
+}
+.neutral-scheme {
+  background-color: $neutral-300;
+  //color: $neutral-1000;
+}
+.dimmed-neutral {
+  background-color: $neutral-600;
+  //color: $neutral-0;
+}
+
+.current-colours {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: auto;
+  border: 4px solid $neutral-1000;
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
+}
+.primary-name {
+  font-size: $font-primary-size;
+}
+.swatch-name {
+  color: inherit;
+  //.primary-wrapper::before
+  grid-column: 2;
+  text-align: center;
+  left: 0;
+  top: calc(1.25 * $gem);
+  line-height: 90%;
+}
+.swatch-info {
+  //.primary-wrapper::after
+  text-align: center;
+  left: 0;
+  top: $gem4;
+  width: 100%;
+  line-height: 90%;
+  font-family: $font-ratings;
+  font-size: $font-ratings-size;
+  font-weight: 500;
+}
+
+.swatch-info {
+  color: inherit;
+  width: 100%;
+  text-align: center;
+  cursor: text;
+}
+.close-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-content: flex-end;
+}
+.copy-single {
+  position: relative;
+  display: block;
+  width: min-content;
+}
+.svg-wrapper {
+  stroke: inherit;
+  width: $icon-size;
+  height: $icon-size;
+}
+.name-label-container{
+  stroke: inherit;
+}
+.svg-icon {
+  display: block;
+} 
+.close-btn {
+  margin-left: auto;
+  width: $icon-size-sml;
+  height: $icon-size-sml;
+}
+.close-btn .background {
+  display: none;
+}
+.close-btn:hover .background {
+  display: block;
+}
+.icon-copybtn-svg {
+  // grid-column: 1;
+  fill: inherit;
+  stroke: inherit;
+}
+.icon-copybtn {
+  color: inherit;
+  fill: inherit;
+  stroke: inherit;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  text-align: left;
+  place-items: start start;
+}
+.icon-copybtn-text {
+  color: inherit;
+  position: relative;
+  // grid-column: 2;
+  font-family: $font-ratings;
+  font-size: $font-ratings-size;
+  display: none;
+}
+.icon-copybtn:focus .icon-copybtn-text,
+.icon-copybtn:hover .icon-copybtn-text {
+  display: block;
+}
+svg,
+.pointless {
+  pointer-events: none;
+}
+
+svg {
+  fill: inherit;
+  stroke: inherit;
+  display: block;
+}
+.btn-gradient{
+  display:block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.svg-wrapper-sml{
+  grid-column: 2;
+}

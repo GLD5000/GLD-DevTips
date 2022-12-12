@@ -1,0 +1,152 @@
+@use "../abstracts" as *;
+
+.hidden {
+  display: none;
+}
+/* Grid areas */
+.header {
+  grid-area: header;
+}
+.swatch-palette {
+  grid-area: palette;
+}
+.footer {
+  grid-area: footer;
+}
+.body-grid {
+  // background-color: $neutral-600;
+  background: linear-gradient(to bottom right, $neutral-500, $neutral-600);
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: clamp(270px, 100vw, 170em);
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template:
+    "header header header" auto
+    ". palette ." 1fr
+    "footer footer footer" auto
+    / 1em 1fr 1em;
+}
+.swatch-palette {
+  overflow-y: auto;
+  grid-auto-rows: calc(5.4 * $gem);
+  grid-template-columns: 1fr;
+}
+@media all and (min-width: 0) {
+  .swatch-palette {
+    overflow-y: auto;
+    grid-auto-rows: $gem5;
+    grid-template-rows: none;
+    grid-template-columns: 1fr;
+  }
+  .primary-swatch {
+    grid-column: span 1;
+    grid-row: span 3;
+  }
+  .btn-scheme, .btn-copy, .btn-history{
+    grid-row: span 2;
+  }
+
+}
+@media all and (min-width: $bp-tiny) {
+  //37.5em
+  .swatch-palette {
+    overflow-y: auto;
+    grid-auto-rows: $gem6;
+    grid-template-rows: none;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-history {
+    grid-row: span 2;
+  }
+
+  .btn-scheme {
+    grid-row: span 2;
+  }
+}
+@media all and (min-width: $bp-small) {
+  //60em
+  .swatch-palette {
+    overflow-y: auto;
+    grid-auto-rows: calc(6.8 * $gem);
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-history {
+    grid-row: span 1;
+    grid-column: span 2;
+  }
+  .btn-scheme {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-row: span 1;
+    grid-column: span 2;
+  }
+}
+@media all and (min-width: $bp-medium) {
+  //80em
+  .swatch-palette {
+    overflow-y: auto;
+    grid-auto-rows: calc(6.4 * $gem);
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 3;
+    grid-column: span 2;
+  }
+  .btn-history {
+    grid-row: 1 / 3;
+    grid-column: 4;
+  }
+  .btn-scheme {
+    grid-row: span 2;
+    grid-column: span 1;
+  }
+  .btn-copy {
+    grid-row: 3 / 4;
+    grid-column: 3 / 5;
+  }
+}
+@media all and (min-width: $bp-large) {
+  //120em
+  .swatch-palette {
+    overflow-y: auto;
+    grid-auto-rows: calc(6.4 * $gem);
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .primary-swatch {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-copy {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .btn-history {
+    //grid-row: 2;
+    //grid-column: 3;
+    grid-row: span 2;
+    grid-column: span 1;
+
+  }
+  .btn-scheme {
+    grid-row: span 2;
+    grid-column: span 1;
+  }
+}
