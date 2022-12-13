@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 function defaultOnInput(value, index) {
   console.log(`No function assigned!
   Value is: ${value}
@@ -12,15 +11,7 @@ const MainTitle = ({
   name = undefined,
   defaultValue = "",
 }) => {
-  const delay = 500;
 
-  const debounce = (handler, delay = 250) => {
-    let timerId;
-    return (...args) => {
-      clearTimeout(timerId);
-      timerId = setTimeout(() => handler(...args), delay);
-    };
-  };
 
   const handler = (e) => {
     const value = e.target.value;
@@ -28,10 +19,6 @@ const MainTitle = ({
     onInput(value, index);
   };
 
-  const debouncedHandler = useCallback(debounce(handler, delay), [
-    handler,
-    delay,
-  ]);
 
   return (
     <input
@@ -39,7 +26,7 @@ const MainTitle = ({
       className="titleInput"
       type="text"
       placeholder=" Add a title or topic for your tip..."
-      onChange={(e) => debouncedHandler(e)}
+      onChange={(e) => handler(e)}
       name={name}
       autoComplete="off"
       defaultValue={defaultValue}
