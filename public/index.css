@@ -321,6 +321,7 @@ li {
   grid-column: 5;
 }
 .header-container {
+  z-index: +1;
   width: 100vw;
   grid-area: header;
   position: sticky;

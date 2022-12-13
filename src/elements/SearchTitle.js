@@ -10,6 +10,7 @@ export default function SearchTitle({
   searchQuery,
   listId,
 }) {
+  const placeholder = searchQuery.length > 0? searchQuery: " Type or select a title...";
   return (
     <>
       <button className="tip-title-btn" onClick={onClick}>
@@ -21,7 +22,7 @@ export default function SearchTitle({
         )}
       </button>
       <InputText
-        placeholder=" Type or select a title..."
+        placeholder={placeholder}
         onInput={setSearchQuery}
         type="search"
         value={searchQuery}
