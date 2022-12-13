@@ -46,10 +46,9 @@ const AddTip = ({
     newObject.updated = "Last save: " + newObject.date;
     addNewObjectToTips(newObject);
     clearInputFormState();
-    setShowAddTipForm(false);
   }
   function clearInputFormState() {
-    setSearchQuery(() => "");
+    // setSearchQuery(() => "");
 
     addObjectToInputFormState(null);
     setShowAddTipForm(false);
