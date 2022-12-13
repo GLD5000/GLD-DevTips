@@ -375,6 +375,7 @@ h3 {
 }
 
 .label-box {
+  width: 100%;
   display: grid;
 }
 
