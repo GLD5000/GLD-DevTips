@@ -182,8 +182,8 @@ const MultiInput = ({
   };
   const inputArray = makeInputArray();
   const submitText = isOwner
-    ? "Submit"
-    : signedIn? "Submit (Wrong User)": "Sign in to Submit";
+    ? "Save"
+    : signedIn? "Save (Wrong User)": "Sign in to Save";
   const submitBackColour = isOwner ? "green" : "silver";
   const submitTextColour = isOwner ? "white" : "black";
   const submitFunction = isOwner ? onSubmit: signedIn? signedInNonOwner: authClickHandler;
