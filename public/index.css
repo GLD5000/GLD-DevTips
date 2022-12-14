@@ -477,3 +477,8 @@ h6 {
 select {
   width: 100%;
 }
+.file-name{
+  right:0.5rem;
+  bottom: 0.5rem;
+ position: absolute;
+}
