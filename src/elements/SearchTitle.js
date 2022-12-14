@@ -10,7 +10,8 @@ export default function SearchTitle({
   searchQuery,
   listId,
 }) {
-  const placeholder = searchQuery.length > 0? searchQuery: " Type or select a title...";
+  const placeholder =  " Type or select a title...";
+  const defaultValue = searchQuery.length > 0? searchQuery: null;
   return (
     <>
       <button className="tip-title-btn" onClick={onClick}>
@@ -27,6 +28,8 @@ export default function SearchTitle({
         type="search"
         value={searchQuery}
         listId={listId}
+        controlled={true}
+        defaultValue={defaultValue}
       />
     </>
   );
