@@ -42,12 +42,12 @@ const TagSet = ({ setTagState, tagState, title = "Filter Tags", keyMod=0, update
   const buttonArray = makeButtonArray();
 
   return (
-    <label>
+    <>
       <h2>{title}</h2>
       <section className="filter-container">
         <>{buttonArray}</>
       </section>
-    </label>
+    </>
   );
 
 
