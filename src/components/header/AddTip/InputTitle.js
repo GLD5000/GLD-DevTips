@@ -8,7 +8,8 @@ const InputTitle = ({
   onInput = defaultOnInput,
   type = "text",
   name = undefined,
-  defaultValue = null
+  defaultValue = null,
+  autoFocus = false
 }) => {
 
 
@@ -19,15 +20,24 @@ const InputTitle = ({
   };
 
 
-  return (
-    <input
+  return (<>
+    {autoFocus? (<input
+      autoFocus
       type={type}
       onChange={(e) => handler(e)}
       placeholder={placeholder}
       name={name}
-      autoComplete="off"
+      autoComplete="true"
       defaultValue={defaultValue}
-    ></input>
+    ></input>) : (<input
+      type={type}
+      onChange={(e) => handler(e)}
+      placeholder={placeholder}
+      name={name}
+      autoComplete="true"
+      defaultValue={defaultValue}
+    ></input>)}
+  </>
   );
 };
 

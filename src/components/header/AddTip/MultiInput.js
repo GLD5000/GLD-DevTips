@@ -33,6 +33,7 @@ const MultiInput = ({
     const index = getIndexOfE(e);
     const newObject = deepCloneInputFormState();
     const duplicateObject = {...newObject.sections[index]};
+    newObject.sections[index].title = newObject.sections[index].title === undefined? `Copy of section ${index +1}`: `${newObject.sections[index].title} (copy)`;
     newObject.sections.splice(index, 0, duplicateObject);
 
     setInputFormState(() => {
@@ -115,7 +116,8 @@ const MultiInput = ({
     });
   }
   function makeInputArray() {
-    return inputFormState.sections.map((object, index) => {
+    return inputFormState.sections.map((object, index, arr) => {
+      const autoFocus = index === arr.length -1;
       const returnObject = (
         <div key={(keyInc + "a" + index)} className="field-container">
           <h2>Section {index + 1}</h2>
@@ -126,6 +128,7 @@ const MultiInput = ({
             changeValue={changeValue}
             title={object.title}
             appendIndexedField={appendIndexedField}
+            autoFocus={autoFocus}
           />
           <InputField
             key={(keyInc + "a" + index) + "InputField"}

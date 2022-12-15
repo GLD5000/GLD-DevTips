@@ -115,6 +115,7 @@ export default function InputButtons({
   changeValue,
   title,
   appendIndexedField,
+  autoFocus,
 }) {
   const extraButtons = getReturnArray(type, index, appendIndexedField);
   return (
@@ -139,6 +140,7 @@ export default function InputButtons({
           name={index}
           onInput={changeValue}
           defaultValue={title}
+          autoFocus={autoFocus}
         />
       </label>
       {extraButtons}
