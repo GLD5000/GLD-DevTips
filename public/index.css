@@ -580,11 +580,6 @@ video {
   border-width: 1px;
 }
 
-.border-l-violet-600 {
-  --tw-border-opacity: 1;
-  border-left-color: rgb(124 58 237 / var(--tw-border-opacity));
-}
-
 .italic {
   font-style: italic;
 }
