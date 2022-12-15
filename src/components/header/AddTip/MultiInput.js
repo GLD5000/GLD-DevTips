@@ -31,6 +31,8 @@ const MultiInput = ({
         }),
         { type: "text", content: "" },
       ];
+      autoFocusIndex = newObject.sections.length -1;
+
       return newObject;
     });
   }
