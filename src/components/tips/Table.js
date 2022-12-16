@@ -17,7 +17,7 @@ function parseDataToArray(text){
   return returnArray;
 }
 function splitRow(row){
-  return row.replace(/\\,/g,"C-O-M-M-A").split(",").map(string => string.replace("C-O-M-M-A",","));
+  return row.replace(/\\,/g,"C-O-M-M-A").split(/[,\t]/).map(string => string.replace("C-O-M-M-A",","));
 }
 function rowHandler(row, rowIndex) {
   if (rowIndex === 0) return;
