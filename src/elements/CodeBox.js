@@ -14,7 +14,7 @@ export default function CodeBox ({content, parse = false}) {
   const [showTextState, setShowTextState] = useState(() => false);
 const firsLineBreak = code.search(/\r?\n/);
 const isLineBreak = firsLineBreak > -1;
-const codeFileName = isLineBreak && code.slice(0,firsLineBreak).includes(".")? code.slice(0,firsLineBreak): null;
+const codeFileName = isLineBreak && code.search(/^[*\w.]+(?=(\r?\n))/) > -1? code.slice(0,firsLineBreak): null;
   const codeBody = codeFileName? code.slice(firsLineBreak + 1): code;
   const classes = [
     "bg-black",
