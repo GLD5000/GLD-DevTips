@@ -37,7 +37,7 @@ button {
   cursor: pointer;
 }
 .code {
-  position: relative;
+  /* position: relative; */
   background-color: #000;
   color: rgb(140, 241, 124);
   border: solid var(--border-grey) 1px;

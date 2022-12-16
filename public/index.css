@@ -563,6 +563,18 @@ video {
   visibility: visible;
 }
 
+.z-50 {
+  z-index: 50;
+}
+
+.z-\[999\] {
+  z-index: 999;
+}
+
+.z-\[50\] {
+  z-index: 50;
+}
+
 .table {
   display: table;
 }
@@ -634,7 +646,7 @@ button {
 }
 
 .code {
-  position: relative;
+  /* position: relative; */
   background-color: #000;
   color: rgb(140, 241, 124);
   border: solid var(--border-grey) 1px;

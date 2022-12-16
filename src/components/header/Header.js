@@ -14,7 +14,7 @@ const Header = ({
   clearTags
 }) => {
   return (
-    <section className="header-container">
+    <section className="header-container z-[999]">
       <header className="header">
         <GldSvg />
         <h1>{title}</h1>
