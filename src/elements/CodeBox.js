@@ -16,8 +16,22 @@ const firsLineBreak = code.search(/\r?\n/);
 const isLineBreak = firsLineBreak > -1;
 const codeFileName = isLineBreak? code.slice(0,firsLineBreak): null;
   const codeBody = isLineBreak? code.slice(firsLineBreak + 1): code;
+  const classes = [
+    "bg-black",
+    "text-emerald-300",
+    "rounded",
+    "border-solid",
+    "border",
+    "border-gray-500",
+    "font-mono",
+    "white-space-pre",
+    "overflow-x-auto",
+
+
+
+  ].join(" ");
   return (
-    <code className="code">
+    <code className={classes}>
       {`${codeBody}`}
       <label>
 
