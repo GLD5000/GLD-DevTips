@@ -563,16 +563,8 @@ video {
   visibility: visible;
 }
 
-.z-50 {
-  z-index: 50;
-}
-
 .z-\[999\] {
   z-index: 999;
-}
-
-.z-\[50\] {
-  z-index: 50;
 }
 
 .table {
@@ -592,20 +584,16 @@ video {
   overflow-x: auto;
 }
 
+.whitespace-pre {
+  white-space: pre;
+}
+
 .rounded {
   border-radius: 0.25rem;
 }
 
 .border {
   border-width: 1px;
-}
-
-.border-2 {
-  border-width: 2px;
-}
-
-.border-r {
-  border-right-width: 1px;
 }
 
 .border-solid {
@@ -691,7 +679,6 @@ button {
   border: solid var(--border-grey) 1px;
   border-radius: var(--border-radius);
   font-family: "Source Code Pro", monospace;
-  white-space: pre;
   overflow-x: auto;
 }
 

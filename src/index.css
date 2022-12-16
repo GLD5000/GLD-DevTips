@@ -43,7 +43,8 @@ button {
   border: solid var(--border-grey) 1px;
   border-radius: var(--border-radius);
   font-family: "Source Code Pro", monospace;
-  white-space: pre;
+  
+  ;
   overflow-x: auto;
 }
 .code::placeholder {

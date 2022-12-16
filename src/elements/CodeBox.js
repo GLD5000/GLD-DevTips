@@ -14,8 +14,8 @@ export default function CodeBox ({content, parse = false}) {
   const [showTextState, setShowTextState] = useState(() => false);
 const firsLineBreak = code.search(/\r?\n/);
 const isLineBreak = firsLineBreak > -1;
-const codeFileName = isLineBreak? code.slice(0,firsLineBreak): null;
-  const codeBody = isLineBreak? code.slice(firsLineBreak + 1): code;
+const codeFileName = isLineBreak && code.slice(0,firsLineBreak).includes(".")? code.slice(0,firsLineBreak): null;
+  const codeBody = codeFileName? code.slice(firsLineBreak + 1): code;
   const classes = [
     "bg-black",
     "text-emerald-300",
@@ -24,7 +24,7 @@ const codeFileName = isLineBreak? code.slice(0,firsLineBreak): null;
     "border",
     "border-gray-500",
     "font-mono",
-    "white-space-pre",
+    "whitespace-pre",
     "overflow-x-auto",
 
 
