@@ -154,8 +154,6 @@ function stringHasFlag(string, flagMap) {
       workingObject.secondFlagIndex = secondStringMatch.index;
       workingObject.flagFromMap = flag;
       returnObject.type = flagMap.get(workingObject.flagFromMap).type;
-      if (returnObject.type === "span") console.log(workingObject);
-      if (returnObject.type === "span") console.log(secondStringMatch);
       ({
         beforeFlag: returnObject["beforeFlag"],
         flaggedText: returnObject["flaggedText"],
