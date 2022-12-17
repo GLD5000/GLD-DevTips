@@ -100,6 +100,10 @@ const MultiInput = ({
     });
   }
   function appendIndexedField(e, textToAdd) {
+    console.group(`document.getSelection()`);
+    console.log(document.getSelection());
+    console.groupEnd();
+
     incrementKeys();
     const index = getIndexOfE(e);
     const newObject = deepCloneInputFormState();
@@ -108,6 +112,13 @@ const MultiInput = ({
     setInputFormState(() => {
       return newObject;
     });
+  }
+
+  function onHover(e){
+    console.log(`hovering ${e.target.id}`); 
+    console.log(document.getSelection());
+    console.log(document.getSelection().anchorNode);
+    console.log(document.getSelection().anchorNode);
   }
 
   function changeValue(inputObject, index) {
@@ -138,6 +149,7 @@ const MultiInput = ({
             changeValue={changeValue}
             title={object.title}
             appendIndexedField={appendIndexedField}
+            onHover={onHover}
             autoFocus={autoFocus}
           />
           <InputField

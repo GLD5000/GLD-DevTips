@@ -2,7 +2,7 @@ import InputTitle from "./InputTitle";
 import InputSelect from "./InputSelect";
 import SvgButton from "../../../elements/SvgButton";
 
-function getReturnArray(type, index, appendIndexedField) {
+function getReturnArray(type, index, appendIndexedField, onHover) {
   if (type === "code") return null;
   const buttonArraySelector = {
     text: ["header","bold","italic","quote","code","link","bullet","numbered","table","hint"],
@@ -14,42 +14,48 @@ function getReturnArray(type, index, appendIndexedField) {
     header:  {
       type: "header",
       text: "Header",
-      function: (e) => {
+      onHover: (e) => {onHover(e);},
+      onClick: (e) => {
         appendIndexedField(e, "\r\n##Header\r\n\r\n");
       },
     },
     bold: {
       type: "bold",
       text: "Bold",
-      function: (e) => {
+      onHover: (e) => {onHover(e);},
+      onClick: (e) => {
         appendIndexedField(e, " **Bold**");
       },
     },
     italic:{
       type: "italic",
       text: "Italic",
-      function: (e) => {
+      onHover: (e) => {onHover(e);},
+      onClick: (e) => {
         appendIndexedField(e, " _Italic_");
       },
     },
     quote:{
       type: "quote",
       text: "Quote",
-      function: (e) => {
+      onHover: (e) => {onHover(e);},
+      onClick: (e) => {
         appendIndexedField(e, "\r\n>Block Quote");
       },
     },
     code:{
       type: "code",
       text: "Code",
-      function: (e) => {
+      onHover: (e) => {onHover(e);},
+      onClick: (e) => {
         appendIndexedField(e, "\r\n```Code\r\n\r\n  \r\n\r\n\r\n```\r\n");
       },
     },
     link:{
       type: "link",
       text: "Link",
-      function: (e) => {
+      onHover: (e) => {onHover(e);},
+      onClick: (e) => {
         appendIndexedField(e, " [Link](www.examplelink.com)");
       },
     },
@@ -57,28 +63,32 @@ function getReturnArray(type, index, appendIndexedField) {
     bullet:{
       type: "bullet",
       text: "Bullet Point",
-      function: (e) => {
+      onHover: (e) => {onHover(e);},
+      onClick: (e) => {
         appendIndexedField(e, "\r\n - Bullet Point");
       },
     },
     numbered:{
       type: "numbered",
       text: "Numbered List",
-      function: (e) => {
+      onHover: (e) => {onHover(e);},
+      onClick: (e) => {
         appendIndexedField(e, "\r\n n. Numbered List");
       },
     },
     table:{
       type: "table",
       text: "Table",
-      function: (e) => {
+      onHover: (e) => {onHover(e);},
+      onClick: (e) => {
         appendIndexedField(e, "\r\n|||\r\nHeaderA,HeaderB\r\nRow1a,Row1b\r\n|||\r\n"); 
       },
     },
     hint: {
       type: "hint",
       text: "hint",
-      function: (e) => {
+      onHover: (e) => {onHover(e);},
+      onClick: (e) => {
         appendIndexedField(e, "\r\n???\r\nHint\r\n???\r\n"); 
       },
     },
@@ -97,7 +107,8 @@ function getReturnArray(type, index, appendIndexedField) {
       key={btn.text}
       name={btn.text}
       text={btn.text}
-      clickFunction={btn.function}
+      clickFunction={btn.onClick}
+      hoverFunction={btn.onHover}
       marginLeft="0"
       showText={false}
     />});
@@ -115,9 +126,10 @@ export default function InputButtons({
   changeValue,
   title,
   appendIndexedField,
+  onHover,
   autoFocus,
 }) {
-  const extraButtons = getReturnArray(type, index, appendIndexedField);
+  const extraButtons = getReturnArray(type, index, appendIndexedField, onHover);
   return (
     <div className="input-buttons">
       <label className="label-box">
