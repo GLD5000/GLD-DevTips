@@ -67,10 +67,6 @@ export default function WriteTipBtn({
         text={AddTipText}
         clickFunction={onClickAdd}
         reverse={true}
-        onMouseEnter={() => setButtonStateFromObject(colourLookupHover[showAddTipForm])} 
-        onMouseLeave={() => setButtonStateFromObject(colourLookup[showAddTipForm])}
-        onFocus={() => setButtonStateFromObject(colourLookupHover[showAddTipForm])}
-        onBlur={() => setButtonStateFromObject(colourLookup[showAddTipForm])}
       />
         </div>
 )

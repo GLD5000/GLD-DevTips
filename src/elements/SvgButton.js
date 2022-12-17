@@ -36,10 +36,6 @@ const SvgButton = ({
   reverse = false,
   borderColor = "var(--border-grey)",
   classes = "",
-  onMouseEnter=null, 
-  onMouseLeave=null,
-  onFocus=null,
-  onBlur=null,
 }) => {
   function getSvg(type) {
     const svgLookup = {
@@ -101,11 +97,8 @@ const SvgButton = ({
   return (
     <>
       <button
-      onMouseEnter={onMouseEnter} 
-      onMouseLeave={onMouseLeave}
-      onFocus={onFocus}
-      onBlur={onBlur}
-        id={id}
+
+id={id}
         name={name}
         onClick={clickFunction}
         className={className}
