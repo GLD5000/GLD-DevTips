@@ -26,9 +26,14 @@ const informationLookup = {
   table: `Type or paste comma separated values (CSV) here...`,
 };
 
+const classNameLookup = {
+  text: "p-2 overflow-auto",
+  hint: "overflow-auto whitespace-pre-wrap border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black",
+  code: "p-2 bg-black text-vsGreen font-mono whitespace-pre overflow-auto",
+  table: "p-2 whitespace-pre overflow-auto",
+};
 
-
-const InputField = ({ type, changeText, name, defaultValue }) => {
+export default function InputField({ type, changeText, name, defaultValue }) {
   let showInformation = true;
   function handleChange(e) {
     const value = e.target.value;
@@ -42,13 +47,13 @@ const InputField = ({ type, changeText, name, defaultValue }) => {
   const information = getInformation(type);
 
   return (
-    <label className="label-box" >
+    <label className="label-box">
       {showInformation === true && information}
 
       <textarea
         placeholder={placeHolder}
         name={name}
-        className={type}
+        className={classNameLookup[type]}
         rows="12"
         cols="70"
         onInput={handleChange}
@@ -56,6 +61,4 @@ const InputField = ({ type, changeText, name, defaultValue }) => {
       ></textarea>
     </label>
   );
-};
-
-export default InputField;
+}
