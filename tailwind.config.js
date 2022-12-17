@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        frAutoFr: "1fr auto 1fr",
+        autoAuto: "auto auto",
+      },
       colors: {
         vsGreen: "rgb(140, 241, 124)",
       }
