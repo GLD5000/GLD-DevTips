@@ -33,7 +33,7 @@ const classNameLookup = {
   table: "p-2 whitespace-pre overflow-auto",
 };
 
-export default function InputField({ type, changeText, name, defaultValue }) {
+export default function InputField({ type, changeText, name, defaultValue, id = null }) {
   let showInformation = true;
   function handleChange(e) {
     const value = e.target.value;
@@ -51,6 +51,7 @@ export default function InputField({ type, changeText, name, defaultValue }) {
       {showInformation === true && information}
 
       <textarea
+        id={id}
         placeholder={placeHolder}
         name={name}
         className={classNameLookup[type]}

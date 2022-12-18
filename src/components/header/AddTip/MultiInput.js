@@ -154,7 +154,7 @@ const MultiInput = ({
           />
           <InputField
             key={keyInc + "a" + index + "InputField"}
-            id={index + "InputField"}
+            id={index+"-InputField"}
             name={index}
             type={object.type}
             defaultValue={object.content}
