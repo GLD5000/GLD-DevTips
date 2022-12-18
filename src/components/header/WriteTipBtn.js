@@ -1,10 +1,10 @@
 import SvgButton from "../../elements/SvgButton"
 import { useState } from "react";
 
-const colourLookup = {
-    false: {colour: "whitesmoke", background: "transparent"},
-    true: {colour: "whitesmoke", background: "transparent"},
-}
+// const colourLookup = {
+//     false: {colour: "whitesmoke", background: "transparent"},
+//     true: {colour: "whitesmoke", background: "transparent"},
+// }
 const colourLookupHover = {
     true: {colour: "black", background: "pink"},
     false: {colour: "black", background: "aquamarine"},

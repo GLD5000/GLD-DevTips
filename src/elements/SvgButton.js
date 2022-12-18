@@ -98,8 +98,7 @@ const SvgButton = ({
   return (
     <>
       <button
-
-id={id}
+        id={id}
         name={name}
         onClick={clickFunction}
         onMouseEnter={hoverFunction}

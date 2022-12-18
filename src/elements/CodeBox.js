@@ -18,7 +18,6 @@ export default function CodeBox({ content, parse = false }) {
       ? code.slice(0, firsLineBreak)
       : null;
   const codeBody = codeFileName ? code.slice(firsLineBreak + 1) : code;
-  const classes = [].join(" ");
   return (
     <code className="bg-black border-neutral-500 text-vsGreen rounded border-solid border font-mono whitespace-pre overflow-x-auto">
       {`${codeBody}`}
