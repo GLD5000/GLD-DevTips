@@ -112,8 +112,7 @@ const MultiInput = ({
     const inputElement = document.getElementById(sectionIndex + "-InputField");
     const currentValue = inputElement.value;
     const content = currentValue + textToAdd.join("");
-    updateTextArea(selection, content)
-
+    updateTextArea(selection, content);
 
     // setInputFormState(() => {
     //   return newObject;
@@ -128,6 +127,9 @@ const MultiInput = ({
     inputElement.focus();
   }
   function toggleFlags(textToAdd, oldContent, selection) {
+    console.group(`oldContent`);
+    console.log(oldContent);
+    console.groupEnd();
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const FirstFlagIsPresent =
       indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
@@ -136,29 +138,24 @@ const MultiInput = ({
 
     if (FirstFlagIsPresent && SecondFlagIsPresent) {
       console.count("RemoveFlags");
+      const preSelection = oldContent[0].slice(0, indexOfFirstFlag);
+      const selectedText = oldContent[1] === textToAdd[1]? "": oldContent[1];
+      const postSelection = oldContent[2].slice(textToAdd[2].length);
       selection.start = indexOfFirstFlag;
-      selection.end = selection.start + oldContent[1].length;
-      return [
-        oldContent[0].slice(0, indexOfFirstFlag),
-        oldContent[1],
-        oldContent[2].slice(textToAdd[2].length),
-      ].join("");
+      selection.end = selection.start + selectedText.length;
+      
+      return [preSelection, selectedText, postSelection].join("");
     }
     console.count("AddFlags");
-
     const preSelection = oldContent[0] + textToAdd[0];
-    const selectedText = oldContent[1];
+    const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
     const postSelection = textToAdd[2] + oldContent[2];
     console.log(`preSelection ${preSelection}`);
     console.log(`selectedText ${selectedText}`);
     console.log(`postSelection ${postSelection}`);
     selection.start = preSelection.length;
     selection.end = selection.start + selectedText.length;
-    return [
-      preSelection,
-      selectedText,
-      postSelection,
-    ].join("");
+    return [preSelection, selectedText, postSelection].join("");
   }
 
   function splitContent(selection, string) {
@@ -173,13 +170,12 @@ const MultiInput = ({
     // incrementKeys();
     // const newObject = deepCloneInputFormState();
     console.count("insertTextArea");
-    const inputElement = document.getElementById(selection.section + "-InputField");
+    const inputElement = document.getElementById(
+      selection.section + "-InputField"
+    );
     const currentValue = inputElement.value;
     console.log(`currentValue ${currentValue}`);
-    const oldContent = splitContent(
-      selection,
-      currentValue
-    );
+    const oldContent = splitContent(selection, currentValue);
     const newContent = toggleFlags(textToAdd, oldContent, selection);
     // newObject.sections[selection.section].content = newContent;
 
@@ -195,8 +191,8 @@ const MultiInput = ({
     const sectionIsMatch = sectionIndex === selection.section;
     const selectionNotEmpty = selection.start !== selection.end;
     // if (sectionIsMatch && selectionNotEmpty) {
-      if (sectionIsMatch) {
-        insertTextArea(selection, textToAdd);
+    if (sectionIsMatch) {
+      insertTextArea(selection, textToAdd);
       return;
     }
     appendTextArea(sectionIndex, textToAdd);
