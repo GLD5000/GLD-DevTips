@@ -190,11 +190,13 @@ const MultiInput = ({
   }
 
   function AddToTextarea(e, textToAdd) {
+    console.log(selection);
     const sectionIndex = getSectionIndexFromId(e);
     const sectionIsMatch = sectionIndex === selection.section;
     const selectionNotEmpty = selection.start !== selection.end;
-    if (sectionIsMatch && selectionNotEmpty) {
-      insertTextArea(selection, textToAdd);
+    // if (sectionIsMatch && selectionNotEmpty) {
+      if (sectionIsMatch) {
+        insertTextArea(selection, textToAdd);
       return;
     }
     appendTextArea(sectionIndex, textToAdd);
