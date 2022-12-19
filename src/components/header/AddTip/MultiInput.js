@@ -105,13 +105,19 @@ const MultiInput = ({
     //incrementKeys();
     console.count("AppendFlags");
 
-    const newObject = deepCloneInputFormState();
-    const content = newObject.sections[sectionIndex].content + textToAdd.join("");
-    newObject.sections[sectionIndex].content = content;
+    // const newObject = deepCloneInputFormState();
+    // const content = newObject.sections[sectionIndex].content + textToAdd.join("");
+    // newObject.sections[sectionIndex].content = content;
+
+    const inputElement = document.getElementById(sectionIndex + "-InputField");
+    const currentValue = inputElement.value;
+    const content = currentValue + textToAdd.join("");
     updateTextArea(selection, content)
-    setInputFormState(() => {
-      return newObject;
-    });
+
+
+    // setInputFormState(() => {
+    //   return newObject;
+    // });
   }
   function updateTextArea({ section, start, end }, content) {
     const inputElement = document.getElementById(section + "-InputField");
@@ -142,8 +148,10 @@ const MultiInput = ({
 
     const preSelection = oldContent[0] + textToAdd[0];
     const selectedText = oldContent[1];
-    const postSelection = textToAdd[2] + oldContent[0];
-    console.log(preSelection);
+    const postSelection = textToAdd[2] + oldContent[2];
+    console.log(`preSelection ${preSelection}`);
+    console.log(`selectedText ${selectedText}`);
+    console.log(`postSelection ${postSelection}`);
     selection.start = preSelection.length;
     selection.end = selection.start + selectedText.length;
     return [
@@ -163,17 +171,21 @@ const MultiInput = ({
 
   function insertTextArea(selection, textToAdd) {
     // incrementKeys();
-    const newObject = deepCloneInputFormState();
+    // const newObject = deepCloneInputFormState();
+    console.count("insertTextArea");
+    const inputElement = document.getElementById(selection.section + "-InputField");
+    const currentValue = inputElement.value;
+    console.log(`currentValue ${currentValue}`);
     const oldContent = splitContent(
       selection,
-      newObject.sections[selection.section].content
+      currentValue
     );
     const newContent = toggleFlags(textToAdd, oldContent, selection);
-    newObject.sections[selection.section].content = newContent;
+    // newObject.sections[selection.section].content = newContent;
 
-    setInputFormState(() => {
-      return newObject;
-    });
+    // setInputFormState(() => {
+    //   return newObject;
+    // });
     updateTextArea(selection, newContent);
   }
 
