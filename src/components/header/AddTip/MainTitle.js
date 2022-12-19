@@ -22,7 +22,7 @@ const MainTitle = ({
 
   return (
     <input
-      autoFocus
+      // autoFocus
       className="titleInput"
       type="text"
       placeholder=" Add a title or topic for your tip..."

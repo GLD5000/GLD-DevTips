@@ -2,6 +2,7 @@ import InputField from "./InputField";
 import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
 import SvgButton from "../../../elements/SvgButton";
+const selection = {};
 let keyInc = 0;
 let autoFocusIndex = null;
 const MultiInput = ({
@@ -31,14 +32,14 @@ const MultiInput = ({
         }),
         { type: "text", content: "" },
       ];
-      autoFocusIndex = newObject.sections.length -1;
+      autoFocusIndex = newObject.sections.length - 1;
 
       return newObject;
     });
   }
   function duplicateField(e) {
     incrementKeys();
-    const index = getIndexOfE(e);
+    const index = getSectionIndexFromId(e);
     const newObject = deepCloneInputFormState();
     const duplicateObject = { ...newObject.sections[index] };
     autoFocusIndex = index + 1;
@@ -65,7 +66,7 @@ const MultiInput = ({
   }
   function moveFieldUp(e) {
     incrementKeys();
-    const index = getIndexOfE(e);
+    const index = getSectionIndexFromId(e);
     const newObject = deepCloneInputFormState();
     const newSections = swapArrayPositions(newObject.sections, index, "up");
 
@@ -76,7 +77,7 @@ const MultiInput = ({
   }
   function moveFieldDown(e) {
     incrementKeys();
-    const index = getIndexOfE(e);
+    const index = getSectionIndexFromId(e);
     const newObject = deepCloneInputFormState();
     const newSections = swapArrayPositions(newObject.sections, index, "down");
 
@@ -85,12 +86,12 @@ const MultiInput = ({
       return newObject;
     });
   }
-  function getIndexOfE(e) {
+  function getSectionIndexFromId(e) {
     return parseInt(e.target.id.split("-")[0]);
   }
   function deleteIndexedField(e) {
     incrementKeys();
-    const index = getIndexOfE(e);
+    const index = getSectionIndexFromId(e);
     const newObject = deepCloneInputFormState();
     const newSections = newObject.sections.filter((_, i) => index !== i);
 
@@ -99,26 +100,103 @@ const MultiInput = ({
       return newObject;
     });
   }
-  function appendIndexedField(e, textToAdd) {
-    console.group(`document.getSelection()`);
-    console.log(document.getSelection());
-    console.groupEnd();
 
-    incrementKeys();
-    const index = getIndexOfE(e);
+  function appendTextArea(sectionIndex, textToAdd) {
+    //incrementKeys();
+    console.count("AppendFlags");
+
     const newObject = deepCloneInputFormState();
-    newObject.sections[index].content += textToAdd;
-
+    const content = newObject.sections[sectionIndex].content + textToAdd.join("");
+    newObject.sections[sectionIndex].content = content;
+    updateTextArea(selection, content)
     setInputFormState(() => {
       return newObject;
     });
   }
+  function updateTextArea({ section, start, end }, content) {
+    const inputElement = document.getElementById(section + "-InputField");
+    inputElement.select();
+    inputElement.setRangeText(content);
+    inputElement.selectionStart = start;
+    inputElement.selectionEnd = end;
+    inputElement.focus();
+  }
+  function toggleFlags(textToAdd, oldContent, selection) {
+    const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
+    const FirstFlagIsPresent =
+      indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
+    const SecondFlagIsPresent =
+      oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
 
-  function onHover(e){
-    console.log(`hovering ${e.target.id}`); 
-    console.log(document.getSelection());
-    console.log(document.getSelection().anchorNode);
-    console.log(document.getSelection().anchorNode);
+    if (FirstFlagIsPresent && SecondFlagIsPresent) {
+      console.count("RemoveFlags");
+      selection.start = indexOfFirstFlag;
+      selection.end = selection.start + oldContent[1].length;
+      return [
+        oldContent[0].slice(0, indexOfFirstFlag),
+        oldContent[1],
+        oldContent[2].slice(textToAdd[2].length),
+      ].join("");
+    }
+    console.count("AddFlags");
+
+    const preSelection = oldContent[0] + textToAdd[0];
+    const selectedText = oldContent[1];
+    const postSelection = textToAdd[2] + oldContent[0];
+    console.log(preSelection);
+    selection.start = preSelection.length;
+    selection.end = selection.start + selectedText.length;
+    return [
+      preSelection,
+      selectedText,
+      postSelection,
+    ].join("");
+  }
+
+  function splitContent(selection, string) {
+    return [
+      string.slice(0, selection.start),
+      string.slice(selection.start, selection.end),
+      string.slice(selection.end),
+    ];
+  }
+
+  function insertTextArea(selection, textToAdd) {
+    // incrementKeys();
+    const newObject = deepCloneInputFormState();
+    const oldContent = splitContent(
+      selection,
+      newObject.sections[selection.section].content
+    );
+    const newContent = toggleFlags(textToAdd, oldContent, selection);
+    newObject.sections[selection.section].content = newContent;
+
+    setInputFormState(() => {
+      return newObject;
+    });
+    updateTextArea(selection, newContent);
+  }
+
+  function AddToTextarea(e, textToAdd) {
+    const sectionIndex = getSectionIndexFromId(e);
+    const sectionIsMatch = sectionIndex === selection.section;
+    const selectionNotEmpty = selection.start !== selection.end;
+    if (sectionIsMatch && selectionNotEmpty) {
+      insertTextArea(selection, textToAdd);
+      return;
+    }
+    appendTextArea(sectionIndex, textToAdd);
+  }
+
+  function onHover(e) {
+    const sectionNumber = getSectionIndexFromId(e);
+    selection.start = document.getElementById(
+      sectionNumber + "-InputField"
+    ).selectionStart;
+    selection.end = document.getElementById(
+      sectionNumber + "-InputField"
+    ).selectionEnd;
+    selection.section = sectionNumber;
   }
 
   function changeValue(inputObject, index) {
@@ -148,13 +226,13 @@ const MultiInput = ({
             index={index}
             changeValue={changeValue}
             title={object.title}
-            appendIndexedField={appendIndexedField}
+            AddToTextarea={AddToTextarea}
             onHover={onHover}
             autoFocus={autoFocus}
           />
           <InputField
             key={keyInc + "a" + index + "InputField"}
-            id={index+"-InputField"}
+            id={index + "-InputField"}
             name={index}
             type={object.type}
             defaultValue={object.content}

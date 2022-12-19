@@ -39,6 +39,7 @@ export default function InputField({ type, changeText, name, defaultValue, id = 
     const value = e.target.value;
     const index = e.target.name;
     changeText({ content: value }, index);
+    
   }
   const placeHolder = placeHolderObject[type];
   function getInformation(type) {
@@ -46,9 +47,10 @@ export default function InputField({ type, changeText, name, defaultValue, id = 
   }
   const information = getInformation(type);
 
-  return (
-    <label className="label-box">
+  return (<>
+    <label className="label-box" id={id + "info"}>
       {showInformation === true && information}
+    </label>
 
       <textarea
         id={id}
@@ -60,6 +62,6 @@ export default function InputField({ type, changeText, name, defaultValue, id = 
         onInput={handleChange}
         defaultValue={defaultValue}
       ></textarea>
-    </label>
+  </>
   );
 }

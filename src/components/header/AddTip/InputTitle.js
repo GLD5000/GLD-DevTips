@@ -18,7 +18,7 @@ const InputTitle = ({
     const index = e.target.name;
     onInput({title: value}, index);
   };
-
+  autoFocus = false;
 
   return (<>
     {autoFocus? (<input
