@@ -79,7 +79,7 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
         onHover(e);
       },
       onClick: (e) => {
-        AddToTextarea(e, ["[Link Name](", "www.examplelink.com", ")"]);
+        AddToTextarea(e, ["[","Link Name","](url)"]);
       },
     },
 
