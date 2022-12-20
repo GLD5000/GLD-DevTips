@@ -126,17 +126,82 @@ const MultiInput = ({
     inputElement.selectionEnd = end;
     inputElement.focus();
   }
+
+  function toggleHeaderFlags(textToAdd, oldContent, selection) {
+    console.log("isHeader");
+    console.group(`oldContent`);
+    console.log(oldContent);
+    console.groupEnd();
+
+    const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
+    const firstFlagIsPresent =
+      indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
+
+    const intermidiateFlag = "\n###";
+    const indexOfIntermidiateFlag = oldContent[0].lastIndexOf(intermidiateFlag);
+    const intermidiateFlagIsPresent =
+      indexOfIntermidiateFlag === oldContent[0].length - intermidiateFlag.length;
+
+    const finalFlag = "\n####";
+    const indexOfFinalFlag = oldContent[0].lastIndexOf(finalFlag);
+    const finalFlagIsPresent =
+      indexOfFinalFlag === oldContent[0].length - finalFlag.length;
+
+
+    if (finalFlagIsPresent) {
+      console.count("RemoveFlags");
+      const preSelection = oldContent[0].slice(0, indexOfFirstFlag);
+      const selectedText = oldContent[1] === textToAdd[1]? "": oldContent[1];
+      const postSelection = oldContent[2].slice(textToAdd[2].length);
+      selection.start = indexOfFirstFlag;
+      selection.end = selection.start + selectedText.length;
+      
+      return [preSelection, selectedText, postSelection].join("");
+    }
+
+    if (firstFlagIsPresent || intermidiateFlagIsPresent) {
+      console.count("AddHash");
+
+      const preSelection = oldContent[0] + "#";
+      const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
+      const postSelection = oldContent[2];
+      console.log(`preSelection ${preSelection}`);
+      console.log(`selectedText ${selectedText}`);
+      console.log(`postSelection ${postSelection}`);
+      selection.start = preSelection.length;
+      selection.end = selection.start + selectedText.length;
+        
+      return [preSelection, selectedText, postSelection].join("");
+    }
+    
+
+    console.count("AddFlags");
+    const preSelection = oldContent[0] + textToAdd[0];
+    const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
+    const postSelection = textToAdd[2] + oldContent[2];
+    console.log(`preSelection ${preSelection}`);
+    console.log(`selectedText ${selectedText}`);
+    console.log(`postSelection ${postSelection}`);
+    selection.start = preSelection.length;
+    selection.end = selection.start + selectedText.length;
+    return [preSelection, selectedText, postSelection].join("");
+  }
+
+
   function toggleFlags(textToAdd, oldContent, selection) {
+    if (textToAdd[1] === "Header") {
+      return toggleHeaderFlags(textToAdd, oldContent, selection);
+    }
     console.group(`oldContent`);
     console.log(oldContent);
     console.groupEnd();
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
-    const FirstFlagIsPresent =
+    const firstFlagIsPresent =
       indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
     const SecondFlagIsPresent =
       oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
 
-    if (FirstFlagIsPresent && SecondFlagIsPresent) {
+    if (firstFlagIsPresent && SecondFlagIsPresent) {
       console.count("RemoveFlags");
       const preSelection = oldContent[0].slice(0, indexOfFirstFlag);
       const selectedText = oldContent[1] === textToAdd[1]? "": oldContent[1];
@@ -189,7 +254,7 @@ const MultiInput = ({
     console.log(selection);
     const sectionIndex = getSectionIndexFromId(e);
     const sectionIsMatch = sectionIndex === selection.section;
-    const selectionNotEmpty = selection.start !== selection.end;
+    // const selectionNotEmpty = selection.start !== selection.end;
     // if (sectionIsMatch && selectionNotEmpty) {
     if (sectionIsMatch) {
       insertTextArea(selection, textToAdd);
