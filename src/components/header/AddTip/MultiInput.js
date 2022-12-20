@@ -167,7 +167,7 @@ const MultiInput = ({
 
       return [preSelection, selectedText, postSelection].join("");
     }
-    if (selection.start !== 0 && oldContent[0][oldContent[0].length-1] !== "\n") textToAdd[0] = "\n" + textToAdd[0]
+    if (textToAdd[0].length < 3 && selection.start !== 0 && oldContent[0][oldContent[0].length-1] !== "\n") textToAdd[0] = "\n" + textToAdd[0]
     const preSelection = oldContent[0] + textToAdd[0];
     const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
     const postSelection = textToAdd[2] + oldContent[2];
