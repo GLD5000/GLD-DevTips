@@ -116,35 +116,39 @@ const MultiInput = ({
     inputElement.focus();
   }
   function toggleHeaderFlags(textToAdd, oldContent, selection) {
-    const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
-    const firstFlagIsPresent =
-      indexOfFirstFlag > -1 &&
-      indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
-
-    const intermidiateFlag = "\n###";
-    const indexOfIntermidiateFlag = oldContent[0].lastIndexOf(intermidiateFlag);
-    const intermidiateFlagIsPresent =
-      indexOfIntermidiateFlag > -1 &&
-      indexOfIntermidiateFlag ===
-        oldContent[0].length - intermidiateFlag.length;
-
-    const finalFlag = "\n####";
+    const finalFlag = "####";
     const indexOfFinalFlag = oldContent[0].lastIndexOf(finalFlag);
     const finalFlagIsPresent =
       indexOfFinalFlag > -1 &&
       indexOfFinalFlag === oldContent[0].length - finalFlag.length;
 
+    const shortFlag = "##";
+    let indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
+    if (indexOfFirstFlag === -1) indexOfFirstFlag = oldContent[0].lastIndexOf(shortFlag);
+    if (selection.start === 0 || indexOfFirstFlag === 0 || oldContent[0][oldContent[0].length-1] === "\n") textToAdd[0] = textToAdd[0].slice(1); 
+    const firstFlagIsPresent = finalFlagIsPresent === false &&
+    indexOfFirstFlag > -1 &&
+    indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
+    
+    const intermediateFlag = "###";
+    const indexOfIntermediateFlag = oldContent[0].lastIndexOf(intermediateFlag);
+    const intermediateFlagIsPresent = finalFlagIsPresent === false &&
+      indexOfIntermediateFlag > -1 &&
+      indexOfIntermediateFlag ===
+        oldContent[0].length - intermediateFlag.length;
+
+
     if (finalFlagIsPresent) {
-      const preSelection = oldContent[0].slice(0, indexOfFirstFlag);
+      const preSelection = oldContent[0].slice(0, indexOfFinalFlag);
       const selectedText = oldContent[1] === textToAdd[1] ? "" : oldContent[1];
       const postSelection = oldContent[2].slice(textToAdd[2].length);
-      selection.start = indexOfFirstFlag;
+      selection.start = indexOfFinalFlag;
       selection.end = selection.start + selectedText.length;
 
       return [preSelection, selectedText, postSelection].join("");
     }
 
-    if (firstFlagIsPresent || intermidiateFlagIsPresent) {
+    if (firstFlagIsPresent || intermediateFlagIsPresent) {
       const preSelection = oldContent[0] + "#";
       const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
       const postSelection = oldContent[2];
