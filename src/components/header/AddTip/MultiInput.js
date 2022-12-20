@@ -100,21 +100,12 @@ const MultiInput = ({
       return newObject;
     });
   }
-  function addTextareaToState(index, newContent){
+  function addTextareaToState(index, newContent) {
     setInputFormState(() => {
       const newObject = deepCloneInputFormState();
       newObject.sections[index].content = newContent;
       return newObject;
     });
-  }
-
-
-  function appendTextArea(sectionIndex, textToAdd) {
-    const inputElement = document.getElementById(sectionIndex + "-InputField");
-    const currentValue = inputElement.value;
-    const newContent = currentValue + textToAdd.join("");
-    updateTextArea(selection, newContent);
-    addTextareaToState(selection.index, newContent);
   }
   function updateTextArea({ index, start, end }, content) {
     const inputElement = document.getElementById(index + "-InputField");
@@ -124,21 +115,23 @@ const MultiInput = ({
     inputElement.selectionEnd = end;
     inputElement.focus();
   }
-
   function toggleHeaderFlags(textToAdd, oldContent, selection) {
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const firstFlagIsPresent =
+      indexOfFirstFlag > -1 &&
       indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
 
     const intermidiateFlag = "\n###";
     const indexOfIntermidiateFlag = oldContent[0].lastIndexOf(intermidiateFlag);
     const intermidiateFlagIsPresent =
+      indexOfIntermidiateFlag > -1 &&
       indexOfIntermidiateFlag ===
-      oldContent[0].length - intermidiateFlag.length;
+        oldContent[0].length - intermidiateFlag.length;
 
     const finalFlag = "\n####";
     const indexOfFinalFlag = oldContent[0].lastIndexOf(finalFlag);
     const finalFlagIsPresent =
+      indexOfFinalFlag > -1 &&
       indexOfFinalFlag === oldContent[0].length - finalFlag.length;
 
     if (finalFlagIsPresent) {
@@ -168,7 +161,6 @@ const MultiInput = ({
     selection.end = selection.start + selectedText.length;
     return [preSelection, selectedText, postSelection].join("");
   }
-
   function toggleFlags(textToAdd, oldContent, selection) {
     if (textToAdd[1] === "Header") {
       return toggleHeaderFlags(textToAdd, oldContent, selection);
@@ -195,7 +187,6 @@ const MultiInput = ({
     selection.end = selection.start + selectedText.length;
     return [preSelection, selectedText, postSelection].join("");
   }
-
   function splitContent(selection, string) {
     return [
       string.slice(0, selection.start),
@@ -203,7 +194,6 @@ const MultiInput = ({
       string.slice(selection.end),
     ];
   }
-
   function insertTextArea(selection, textToAdd) {
     const inputElement = document.getElementById(
       selection.index + "-InputField"
@@ -215,21 +205,12 @@ const MultiInput = ({
     updateTextArea(selection, newContent);
     addTextareaToState(selection.index, newContent);
   }
-
   function AddToTextarea(e, textToAdd) {
     const sectionIndex = getSectionIndexFromId(e);
-    const sectionIsMatch = sectionIndex === selection.index;
-    // const selectionNotEmpty = selection.start !== selection.end;
-    // if (sectionIsMatch && selectionNotEmpty) {
-    if (sectionIsMatch) {
-      insertTextArea(selection, textToAdd);
-      return;
-    }
-    appendTextArea(sectionIndex, textToAdd);
+    updateSelection(sectionIndex);
+    insertTextArea(selection, textToAdd);
   }
-
-  function onHover(e) {
-    const sectionNumber = getSectionIndexFromId(e);
+  function updateSelection(sectionNumber) {
     selection.start = document.getElementById(
       sectionNumber + "-InputField"
     ).selectionStart;
@@ -238,7 +219,6 @@ const MultiInput = ({
     ).selectionEnd;
     selection.index = sectionNumber;
   }
-
   function changeValue(inputObject, index) {
     setInputFormState((object) => {
       const newObject = { ...object };
@@ -253,6 +233,7 @@ const MultiInput = ({
       if (title !== undefined) newObject.sections[index].title = title;
       return newObject;
     });
+    //updateSelection(index);
   }
   function makeInputArray() {
     return inputFormState.sections.map((object, index) => {
@@ -267,7 +248,6 @@ const MultiInput = ({
             changeValue={changeValue}
             title={object.title}
             AddToTextarea={AddToTextarea}
-            onHover={onHover}
             autoFocus={autoFocus}
           />
           <InputField

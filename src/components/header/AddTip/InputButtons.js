@@ -25,9 +25,6 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
     header: {
       type: "header",
       text: "Header",
-      onHover: (e) => {
-        onHover(e);
-      },
       onClick: (e) => {
         AddToTextarea(e, ["\n##", "Header", ""]);
       },
@@ -35,9 +32,6 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
     bold: {
       type: "bold",
       text: "Bold",
-      onHover: (e) => {
-        onHover(e);
-      },
       onClick: (e) => {
         AddToTextarea(e, ["**", "Bold", "**"]);
       },
@@ -45,9 +39,6 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
     italic: {
       type: "italic",
       text: "Italic",
-      onHover: (e) => {
-        onHover(e);
-      },
       onClick: (e) => {
         AddToTextarea(e, ["_", "Italic", "_"]);
       },
@@ -55,9 +46,6 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
     quote: {
       type: "quote",
       text: "Quote",
-      onHover: (e) => {
-        onHover(e);
-      },
       onClick: (e) => {
         AddToTextarea(e, ["\n>", "Block Quote", ""]);
       },
@@ -65,9 +53,6 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
     code: {
       type: "code",
       text: "Code",
-      onHover: (e) => {
-        onHover(e);
-      },
       onClick: (e) => {
         AddToTextarea(e, ["\n```", "Code\n\n  \n\n\n", "```\n"]);
       },
@@ -75,9 +60,6 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
     link: {
       type: "link",
       text: "Link",
-      onHover: (e) => {
-        onHover(e);
-      },
       onClick: (e) => {
         AddToTextarea(e, ["[","Link Name","](url)"]);
       },
@@ -86,9 +68,6 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
     bullet: {
       type: "bullet",
       text: "Bullet Point",
-      onHover: (e) => {
-        onHover(e);
-      },
       onClick: (e) => {
         AddToTextarea(e, ["\n - ", "Bullet Point", ""]);
       },
@@ -96,9 +75,6 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
     numbered: {
       type: "numbered",
       text: "Numbered List",
-      onHover: (e) => {
-        onHover(e);
-      },
       onClick: (e) => {
         AddToTextarea(e, ["\n n. ", "Numbered List", ""]);
       },
@@ -106,9 +82,6 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
     table: {
       type: "table",
       text: "Table",
-      onHover: (e) => {
-        onHover(e);
-      },
       onClick: (e) => {
         AddToTextarea(e, [
           "\n|||\n",
@@ -120,9 +93,6 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
     hint: {
       type: "hint",
       text: "hint",
-      onHover: (e) => {
-        onHover(e);
-      },
       onClick: (e) => {
         AddToTextarea(e, ["\n???\n", "Hint", "\n???\n"]);
       },
