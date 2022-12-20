@@ -167,7 +167,7 @@ const MultiInput = ({
     }
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const firstFlagIsPresent =
-      indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
+    indexOfFirstFlag > -1 &&  indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
     const SecondFlagIsPresent =
       oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
 
