@@ -175,63 +175,86 @@ export async function addTagToDb(lowerCaseTagName, tag) {
 }
 const tagsObject = {};
 
-function App() {
-  async function tagHexLookup(tag, tagColours) {
-    const lowerCaseTagName = tag.toLowerCase();
-    const tagNotPresent = tagColours[lowerCaseTagName] === undefined;
+async function tagHexLookup(tag, tagColours, isOwner) {
+  const lowerCaseTagName = tag.toLowerCase();
+  const tagNotPresent = tagColours[lowerCaseTagName] === undefined;
 
-    if (tagNotPresent) {
-      const backgroundColour = getRandomColour();
-      const textColour = AutoTextColour(backgroundColour);
-      tagColours[lowerCaseTagName] = {
-        name: tag,
-        backgroundColour: backgroundColour,
-        textColour: textColour,
-      };
-      if (isOwner) {
-        addTagToDb(lowerCaseTagName, tagColours[lowerCaseTagName]);
-      }
-    }
-    return tagColours;
-  }
-
-  async function getDocDataFromDb(docRef) {
-    const gotDoc = await getDoc(docRef);
-    const dataObject = await gotDoc.data();
-    return dataObject;
-  }
-
-  async function checkRole(user) {
-    console.log("checkRole");
-    const uid = user.uid;
-    const rolesDoc = await getDoc(rolesDocRef);
-    const role = await rolesDoc.data()[uid];
-    const isOwner = role === "owner";
+  if (tagNotPresent) {
+    const backgroundColour = getRandomColour();
+    const textColour = AutoTextColour(backgroundColour);
+    tagColours[lowerCaseTagName] = {
+      name: tag,
+      backgroundColour: backgroundColour,
+      textColour: textColour,
+    };
     if (isOwner) {
-      console.log("Is owner = " + isOwner);
-      console.log("signing in...");
-      setSignedIn(true);
-
-      setIsOwner(true);
-    } else {
-      console.log("signing in...");
-      setSignedIn(true);
-      setIsOwner(false);
-
-      console.log(
-        "You are not authorised to submit tips to the database- sorry!"
-      );
-
-      setIsOwner(false);
+      addTagToDb(lowerCaseTagName, tagColours[lowerCaseTagName]);
     }
-    return isOwner;
   }
+  return tagColours;
+}
+async function getDocDataFromDb(docRef) {
+  const gotDoc = await getDoc(docRef);
+  const dataObject = await gotDoc.data();
+  return dataObject;
+}
+async function checkRole(user, setSignedIn, setIsOwner) {
+  console.log("checkRole");
+  const uid = user.uid;
+  const rolesDoc = await getDoc(rolesDocRef);
+  const role = await rolesDoc.data()[uid];
+  const isOwner = role === "owner";
+  if (isOwner) {
+    console.log("Is owner = " + isOwner);
+    console.log("signing in...");
+    setSignedIn(true);
+
+    setIsOwner(true);
+  } else {
+    console.log("signing in...");
+    setSignedIn(true);
+    setIsOwner(false);
+
+    console.log(
+      "You are not authorised to submit tips to the database- sorry!"
+    );
+
+    setIsOwner(false);
+  }
+  return isOwner;
+}
+const inputFormStarter = {
+  title: null,
+  id: null,
+  sections: [{ type: "text", content: "" }],
+  tags: [],
+  date: null,
+};
+function initialiseInputFormState(inputFormStarter, setInputFormState) {
+  setInputFormState(() => inputFormStarter);
+  //Set all fields of InputFormState
+}
+function padIdNumber(number) {
+  return number.toString(10).padStart(4, "0");
+}
+
+function makeNewTipId(tipList) {
+  const number = Object.values(tipList).length + 1;
+  const paddedNumber = padIdNumber(number);
+  return paddedNumber;
+}
+
+function App() {
+
+  
+  const [signedIn, setSignedIn] = useState(() => false);
+  const [isOwner, setIsOwner] = useState(() => false);
   onAuthStateChanged(auth, (user) => {
     if (user) {
       if (userCount < 3) {
         userCount += 1;
         console.log(userCount);
-        if (userCount === 1 || signedIn === false) checkRole(user);
+        if (userCount === 1 || signedIn === false) checkRole(user, setSignedIn, setIsOwner);
       }
     } else {
       if (userCount !== 0) {
@@ -243,20 +266,15 @@ function App() {
       }
     }
   });
-
-  const inputFormStarter = {
-    title: null,
-    id: null,
-    sections: [{ type: "text", content: "" }],
-    tags: [],
-    date: null,
-  };
-  const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
-  function initialiseInputFormState() {
-    setInputFormState(() => inputFormStarter);
-    //Set all fields of InputFormState
+  async function authClickHandler() {
+    if (signedIn) {
+      await auth.signOut();
+    } else if (!signedIn) {
+      await signInWithPopup(auth, provider);
+    }
   }
 
+  const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
   function addFieldToInputFormState(key, value) {
     setInputFormState((object) => {
       const newObject = { ...object };
@@ -264,14 +282,13 @@ function App() {
       return newObject;
     });
   }
-
   function addObjectToInputFormState(object) {
     // console.log("Adding object to inputFormState...");
     // console.group(`object`);
     // console.log(object);
     // console.groupEnd();
     if (object === null) {
-      initialiseInputFormState();
+      initialiseInputFormState(inputFormStarter, setInputFormState);
       return;
     }
     // setInputFormState(() => null);
@@ -285,9 +302,9 @@ function App() {
       return newObject;
     });
   }
+
   const [tipList, setTip] = useState(exampleObject);
   const [showAddTipForm, setShowAddTipForm] = useState(() => false);
-
   async function getDbData() {
     const tipsObject = await getDocDataFromDb(tipsDocRef);
     setTip(() => tipsObject);
@@ -304,24 +321,7 @@ function App() {
     getDbData();
   }
 
-  const [signedIn, setSignedIn] = useState(() => false);
-  const [isOwner, setIsOwner] = useState(() => false);
 
-  async function authClickHandler() {
-    if (signedIn) {
-      await auth.signOut();
-    } else if (!signedIn) {
-      await signInWithPopup(auth, provider);
-    }
-  }
-
-  // const tagList = Object.fromEntries([
-  //   ...new Set(
-  //     Object.values(tipList)
-  //       .flatMap((tip) => tip.tags)
-  //       .map((x) => [x, "visible"])
-  //   ),
-  // ]);
   const [tagState, setTagState] = useState(tagsObject); // Tip init functions only run once
   function getTags(updatedTagState) {
     Object.keys(tagColours)
@@ -340,12 +340,11 @@ function App() {
       return { ...tagsObject };
     });
   }
-  //console.log(tagState);
-  //console.log(Object.keys(tagColours).sort());
+
   const tagListAll = Object.keys(tagState);
   function mapTagColours(tagColours) {
     tagListAll.forEach((tag) => {
-      tagHexLookup(tag, tagColours);
+      tagHexLookup(tag, tagColours, isOwner);
     });
     gotDbTagColours = false;
     return tagColours;
@@ -356,16 +355,7 @@ function App() {
   if (gotDbTagColours) {
     updateTagColours();
   }
-  function padIdNumber(number) {
-    return number.toString(10).padStart(4, "0");
-  }
-
-  function makeNewTipId() {
-    const number = Object.values(tipList).length + 1;
-    const paddedNumber = padIdNumber(number);
-    return paddedNumber;
-  }
-  const newTipId = makeNewTipId();
+  const newTipId = makeNewTipId(tipList);
   const [searchQuery, setSearchQuery] = useState("");
 
   function testtagState(tagState, tagArray) {
