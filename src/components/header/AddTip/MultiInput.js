@@ -125,7 +125,8 @@ const MultiInput = ({
     const shortFlag = "##";
     let indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     if (indexOfFirstFlag === -1) indexOfFirstFlag = oldContent[0].lastIndexOf(shortFlag);
-    if (selection.start === 0 || indexOfFirstFlag === 0 || oldContent[0][oldContent[0].length-1] === "\n") textToAdd[0] = textToAdd[0].slice(1); 
+    const shouldRemoveLineBreak = selection.start === 0 || indexOfFirstFlag === 0 || oldContent[0][oldContent[0].length-1] === "\n";
+    if (shouldRemoveLineBreak) textToAdd[0] = shortFlag; 
     const firstFlagIsPresent = finalFlagIsPresent === false &&
     indexOfFirstFlag > -1 &&
     indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
