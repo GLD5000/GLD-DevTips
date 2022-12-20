@@ -122,9 +122,27 @@ const MultiInput = ({
       indexOfFinalFlag > -1 &&
       indexOfFinalFlag === oldContent[0].length - finalFlag.length;
 
+    if (finalFlagIsPresent) {
+      const preSelection = oldContent[0].slice(0, indexOfFinalFlag);
+      const selectedText = oldContent[1] === textToAdd[1] ? "" : oldContent[1];
+      const postSelection = oldContent[2].slice(textToAdd[2].length);
+      selection.start = indexOfFinalFlag;
+      selection.end = selection.start + selectedText.length;
+
+      return [preSelection, selectedText, postSelection].join("");
+    }
+      
+
     const shortFlag = "##";
     let indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
-    if (indexOfFirstFlag === -1) indexOfFirstFlag = oldContent[0].lastIndexOf(shortFlag);
+    const indexOfShortFlag = oldContent[0].lastIndexOf(shortFlag);
+    if (indexOfFirstFlag === -1 && indexOfShortFlag > -1) {
+      indexOfFirstFlag = indexOfShortFlag;
+      textToAdd[0] = shortFlag; 
+
+
+
+    }
     const shouldRemoveLineBreak = selection.start === 0 || indexOfFirstFlag === 0 || oldContent[0][oldContent[0].length-1] === "\n";
     if (shouldRemoveLineBreak) textToAdd[0] = shortFlag; 
     const firstFlagIsPresent = finalFlagIsPresent === false &&
@@ -139,17 +157,8 @@ const MultiInput = ({
         oldContent[0].length - intermediateFlag.length;
 
 
-    if (finalFlagIsPresent) {
-      const preSelection = oldContent[0].slice(0, indexOfFinalFlag);
-      const selectedText = oldContent[1] === textToAdd[1] ? "" : oldContent[1];
-      const postSelection = oldContent[2].slice(textToAdd[2].length);
-      selection.start = indexOfFinalFlag;
-      selection.end = selection.start + selectedText.length;
 
-      return [preSelection, selectedText, postSelection].join("");
-    }
-
-    if (firstFlagIsPresent || intermediateFlagIsPresent) {
+    if (firstFlagIsPresent || intermediateFlagIsPresent ) {
       const preSelection = oldContent[0] + "#";
       const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
       const postSelection = oldContent[2];
@@ -158,7 +167,7 @@ const MultiInput = ({
 
       return [preSelection, selectedText, postSelection].join("");
     }
-
+    if (selection.start !== 0 && oldContent[0][oldContent[0].length-1] !== "\n") textToAdd[0] = "\n" + textToAdd[0]
     const preSelection = oldContent[0] + textToAdd[0];
     const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
     const postSelection = textToAdd[2] + oldContent[2];
