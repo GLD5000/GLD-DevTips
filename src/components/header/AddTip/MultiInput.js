@@ -100,26 +100,24 @@ const MultiInput = ({
       return newObject;
     });
   }
+  function addTextareaToState(index, newContent){
+    setInputFormState(() => {
+      const newObject = deepCloneInputFormState();
+      newObject.sections[index].content = newContent;
+      return newObject;
+    });
+  }
+
 
   function appendTextArea(sectionIndex, textToAdd) {
-    //incrementKeys();
-    console.count("AppendFlags");
-
-    // const newObject = deepCloneInputFormState();
-    // const content = newObject.sections[sectionIndex].content + textToAdd.join("");
-    // newObject.sections[sectionIndex].content = content;
-
     const inputElement = document.getElementById(sectionIndex + "-InputField");
     const currentValue = inputElement.value;
-    const content = currentValue + textToAdd.join("");
-    updateTextArea(selection, content);
-
-    // setInputFormState(() => {
-    //   return newObject;
-    // });
+    const newContent = currentValue + textToAdd.join("");
+    updateTextArea(selection, newContent);
+    addTextareaToState(selection.index, newContent);
   }
-  function updateTextArea({ section, start, end }, content) {
-    const inputElement = document.getElementById(section + "-InputField");
+  function updateTextArea({ index, start, end }, content) {
+    const inputElement = document.getElementById(index + "-InputField");
     inputElement.select();
     inputElement.setRangeText(content);
     inputElement.selectionStart = start;
@@ -128,11 +126,6 @@ const MultiInput = ({
   }
 
   function toggleHeaderFlags(textToAdd, oldContent, selection) {
-    console.log("isHeader");
-    console.group(`oldContent`);
-    console.log(oldContent);
-    console.groupEnd();
-
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const firstFlagIsPresent =
       indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
@@ -140,61 +133,46 @@ const MultiInput = ({
     const intermidiateFlag = "\n###";
     const indexOfIntermidiateFlag = oldContent[0].lastIndexOf(intermidiateFlag);
     const intermidiateFlagIsPresent =
-      indexOfIntermidiateFlag === oldContent[0].length - intermidiateFlag.length;
+      indexOfIntermidiateFlag ===
+      oldContent[0].length - intermidiateFlag.length;
 
     const finalFlag = "\n####";
     const indexOfFinalFlag = oldContent[0].lastIndexOf(finalFlag);
     const finalFlagIsPresent =
       indexOfFinalFlag === oldContent[0].length - finalFlag.length;
 
-
     if (finalFlagIsPresent) {
-      console.count("RemoveFlags");
       const preSelection = oldContent[0].slice(0, indexOfFirstFlag);
-      const selectedText = oldContent[1] === textToAdd[1]? "": oldContent[1];
+      const selectedText = oldContent[1] === textToAdd[1] ? "" : oldContent[1];
       const postSelection = oldContent[2].slice(textToAdd[2].length);
       selection.start = indexOfFirstFlag;
       selection.end = selection.start + selectedText.length;
-      
+
       return [preSelection, selectedText, postSelection].join("");
     }
 
     if (firstFlagIsPresent || intermidiateFlagIsPresent) {
-      console.count("AddHash");
-
       const preSelection = oldContent[0] + "#";
       const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
       const postSelection = oldContent[2];
-      console.log(`preSelection ${preSelection}`);
-      console.log(`selectedText ${selectedText}`);
-      console.log(`postSelection ${postSelection}`);
       selection.start = preSelection.length;
       selection.end = selection.start + selectedText.length;
-        
+
       return [preSelection, selectedText, postSelection].join("");
     }
-    
 
-    console.count("AddFlags");
     const preSelection = oldContent[0] + textToAdd[0];
     const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
     const postSelection = textToAdd[2] + oldContent[2];
-    console.log(`preSelection ${preSelection}`);
-    console.log(`selectedText ${selectedText}`);
-    console.log(`postSelection ${postSelection}`);
     selection.start = preSelection.length;
     selection.end = selection.start + selectedText.length;
     return [preSelection, selectedText, postSelection].join("");
   }
 
-
   function toggleFlags(textToAdd, oldContent, selection) {
     if (textToAdd[1] === "Header") {
       return toggleHeaderFlags(textToAdd, oldContent, selection);
     }
-    console.group(`oldContent`);
-    console.log(oldContent);
-    console.groupEnd();
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const firstFlagIsPresent =
       indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
@@ -202,22 +180,17 @@ const MultiInput = ({
       oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
 
     if (firstFlagIsPresent && SecondFlagIsPresent) {
-      console.count("RemoveFlags");
       const preSelection = oldContent[0].slice(0, indexOfFirstFlag);
-      const selectedText = oldContent[1] === textToAdd[1]? "": oldContent[1];
+      const selectedText = oldContent[1] === textToAdd[1] ? "" : oldContent[1];
       const postSelection = oldContent[2].slice(textToAdd[2].length);
       selection.start = indexOfFirstFlag;
       selection.end = selection.start + selectedText.length;
-      
+
       return [preSelection, selectedText, postSelection].join("");
     }
-    console.count("AddFlags");
     const preSelection = oldContent[0] + textToAdd[0];
     const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
     const postSelection = textToAdd[2] + oldContent[2];
-    console.log(`preSelection ${preSelection}`);
-    console.log(`selectedText ${selectedText}`);
-    console.log(`postSelection ${postSelection}`);
     selection.start = preSelection.length;
     selection.end = selection.start + selectedText.length;
     return [preSelection, selectedText, postSelection].join("");
@@ -232,28 +205,20 @@ const MultiInput = ({
   }
 
   function insertTextArea(selection, textToAdd) {
-    // incrementKeys();
-    // const newObject = deepCloneInputFormState();
-    console.count("insertTextArea");
     const inputElement = document.getElementById(
-      selection.section + "-InputField"
+      selection.index + "-InputField"
     );
     const currentValue = inputElement.value;
-    console.log(`currentValue ${currentValue}`);
     const oldContent = splitContent(selection, currentValue);
     const newContent = toggleFlags(textToAdd, oldContent, selection);
-    // newObject.sections[selection.section].content = newContent;
 
-    // setInputFormState(() => {
-    //   return newObject;
-    // });
     updateTextArea(selection, newContent);
+    addTextareaToState(selection.index, newContent);
   }
 
   function AddToTextarea(e, textToAdd) {
-    console.log(selection);
     const sectionIndex = getSectionIndexFromId(e);
-    const sectionIsMatch = sectionIndex === selection.section;
+    const sectionIsMatch = sectionIndex === selection.index;
     // const selectionNotEmpty = selection.start !== selection.end;
     // if (sectionIsMatch && selectionNotEmpty) {
     if (sectionIsMatch) {
@@ -271,7 +236,7 @@ const MultiInput = ({
     selection.end = document.getElementById(
       sectionNumber + "-InputField"
     ).selectionEnd;
-    selection.section = sectionNumber;
+    selection.index = sectionNumber;
   }
 
   function changeValue(inputObject, index) {
