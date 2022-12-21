@@ -19,17 +19,20 @@ export default function ToggleButton({
 }) {
   function getSvg(type) {
     const svgLookup = {
-      tick: { true: <TickSvg />, false: <UnTickSvg fill={backgroundColor}/> },
+      tick: { true: <TickSvg />, false: <UnTickSvg fill={backgroundColor} /> },
     };
     return svgLookup[type];
   }
   const svg = getSvg(type)[toggle];
-  
+
   function clickHandler(e) {
     //return if wrong
     clickFunction(e);
   }
-  if (toggle === false) backgroundColor = "#b0b0b0";
+  if (toggle === false) {
+    backgroundColor = "#b0b0b0";
+    color = "#000000";
+  }
   const styles = {
     color: color,
     backgroundColor: backgroundColor,
