@@ -27,17 +27,18 @@ const codeFlag = "[`~]{3,}";
 const codeBlockOpen = new RegExp(
   blockFlagStart + codeFlag + blockFlagEndOptional
 );
-const codeBlockClosed = new RegExp(codeFlag + blockFlagEnd);
+const codeBlockClosed = new RegExp(codeFlag + blockFlagEndOptional);
 
 const tableFlag = "[\\|]{3,}";
 const tableBlockOpen = new RegExp(blockFlagStart + tableFlag + blockFlagEnd);
 const tableBlockClosed = new RegExp(
-  blockFlagEnd + blockFlagStart + tableFlag + blockFlagEnd
+  blockFlagEnd + blockFlagStart + tableFlag + blockFlagEndOptional
 );
 
 const hintFlag = "\\?{3,}";
 const hintBlockOpen = new RegExp(blockFlagStart + hintFlag + blockFlagEnd);
-const hintBlockClosed = new RegExp(blockFlagStart + hintFlag + blockFlagEnd);
+const hintBlockClosed = new RegExp(blockFlagStart + hintFlag + blockFlagEndOptional);
+
 const defaultFlagMap = new Map([
   [/"(?=.+")/, { closingFlag: /"/, type: "span" }],
   [hintBlockOpen, { closingFlag: hintBlockClosed, type: "hint" }],
