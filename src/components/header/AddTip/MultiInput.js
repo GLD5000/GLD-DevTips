@@ -290,7 +290,7 @@ const MultiInput = ({
             <SvgButton
               type="down"
               key={index + "moveFieldDown"}
-              backgroundColor="transparent"
+              backgroundColor="bg-transparent"
               text="Down"
               clickFunction={moveFieldDown}
               id={index + "-moveFieldDown"}
@@ -341,7 +341,7 @@ const MultiInput = ({
         type="add"
         key="addField"
         color="black"
-        backgroundColor="dodgerBlue"
+        backgroundColor="bg-dodgerBlue"
         text="Add Section"
         clickFunction={addField}
         id="add-field"
@@ -350,7 +350,7 @@ const MultiInput = ({
         type="preview"
         key="preview"
         color="black"
-        backgroundColor="mediumPurple"
+        backgroundColor="bg-mediumPurple"
         text="Preview"
         clickFunction={onPreview}
       />

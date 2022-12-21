@@ -21,7 +21,44 @@ import HintSvg from "../components/icons/HintSvg";
 function defaultOnClick(e) {
   console.log(e.target);
 }
-const SvgButton = ({
+function getSvg(type, color, backgroundColor, svgClasses) {
+  const svgLookup = {
+    italic: <ItalicSvg stroke={color} />,
+    bold: <BoldSvg stroke={color} />,
+    up: <UpSvg stroke={color} />,
+    down: <DownSvg stroke={color} />,
+    add: <AddSvg stroke={color} />,
+    delete: <DeleteSvg stroke={color} />,
+    duplicate: <DuplicateSvg stroke={color} fill="black" />,
+    preview: <PreviewSvg stroke={color} fill={backgroundColor} />,
+    write: <PencilSvg stroke={color} fill={backgroundColor} />,
+    cancelWrite: <UnPencilSvg stroke={color} fill={backgroundColor} />,
+    header: <HeaderSvg stroke={color} />,
+    link: <LinkSvg stroke={color} />,
+    code: <CodeSvg stroke={color} />,
+    quote: <QuoteSvg stroke={color} />,
+    bullet: <BulletSvg stroke={color} />,
+    numbered: <NumberedSvg stroke={color} />,
+    table: <TableSvg stroke={color} />,
+    hint: <HintSvg stroke={color} />,
+  };
+  return svgLookup[type];
+}
+function getContent(reverse, showText, text, svg) {
+  return reverse ? (
+    <>
+      {showText && text}
+      {svg}
+    </>
+  ) : (
+    <>
+      {svg}
+      {showText && text}
+    </>
+  );
+}
+
+export default function SvgButton({
   borderRadius = "4px",
   color = "whitesmoke",
   backgroundColor = "transparent",
@@ -35,66 +72,21 @@ const SvgButton = ({
   marginLeft = null,
   reverse = false,
   borderColor = "var(--border-grey)",
-  classes = "",
   hoverFunction = null,
-}) => {
-  function getSvg(type) {
-    const svgLookup = {
-      italic: <ItalicSvg stroke={color} />,
-      bold: <BoldSvg stroke={color} />,
-      up: <UpSvg stroke={color} />,
-      down: <DownSvg stroke={color} />,
-      add: <AddSvg stroke={color} />,
-      delete: <DeleteSvg stroke={color} />,
-      duplicate: <DuplicateSvg stroke={color} fill="black" />,
-      preview: <PreviewSvg stroke={color} fill={backgroundColor} />,
-      write: <PencilSvg stroke={color} fill={backgroundColor} />,
-      cancelWrite: <UnPencilSvg stroke={color} fill={backgroundColor} />,
-      header: <HeaderSvg stroke={color} />,
-      link: <LinkSvg stroke={color} />,
-      code: <CodeSvg stroke={color} />,
-      quote: <QuoteSvg stroke={color} />,
-      bullet: <BulletSvg stroke={color} />,
-      numbered: <NumberedSvg stroke={color} />,
-      table: <TableSvg stroke={color} />,
-      hint: <HintSvg stroke={color} />,
-    };
-    return svgLookup[type];
-  }
-  const svg = getSvg(type);
-
-  function getContent(reverse) {
-    return reverse ? (
-      <>
-        {showText && text}
-        {svg}
-      </>
-    ) : (
-      <>
-        {svg}
-        {showText && text}
-      </>
-    );
-  }
-
-  const content = getContent(reverse);
+  buttonClasses="     ",
+  svgClasses = "  ",
+  className ="     ",
+}) {
+  const svg = getSvg(type, color, backgroundColor, svgClasses);
+  const content = getContent(reverse, showText, text, svg);
 
   const style = {
-    color: color,
-    backgroundColor: backgroundColor,
-    borderRadius: borderRadius,
-    borderColor: borderColor,
-    borderWidth: "2px",
-    borderStyle: "solid",
-    display: "grid",
     width: wide === true ? "100%" : "fit-content",
     gridTemplateColumns: wide === true ? "1fr auto 1fr" : "auto auto",
     alignItems: "center",
   };
   if (showText) style.gap = "8px";
   if (wide !== true && marginLeft === null) style.marginLeft = "auto";
-  let className = "svg-btn";
-  if (classes !== "") className += " " + classes;
   return (
     <>
       <button
@@ -102,14 +94,14 @@ const SvgButton = ({
         name={name}
         onClick={clickFunction}
         onMouseEnter={hoverFunction}
-        className={className}
-        style={style}
+        className={`text-${color} grid grid-cols-autoAuto ${backgroundColor} h-fit w-fit cursor-pointer overflow-hidden whitespace-pre-wrap rounded border-2 border-solid border-[${borderColor}] ${
+          buttonClasses && ` ${buttonClasses}`
+        }`}
+        // style={style}
         aria-label={name}
       >
         {content}
       </button>
     </>
   );
-};
-
-export default SvgButton;
+}

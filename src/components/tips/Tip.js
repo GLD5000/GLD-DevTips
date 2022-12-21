@@ -21,7 +21,7 @@ const Tip = ({ tip, setTagStateFromTip, editTip, showAddTipForm }) => {
         key={tip.id}
         id={tip.id}
         color="whitesmoke"
-        backgroundColor="transparent"
+        backgroundColor="bg-transparent"
         text="Edit"
         clickFunction={editTip}
       />}

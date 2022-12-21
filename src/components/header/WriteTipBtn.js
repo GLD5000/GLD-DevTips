@@ -6,8 +6,8 @@ import { useState } from "react";
 //     true: {colour: "whitesmoke", background: "transparent"},
 // }
 const colourLookupHover = {
-    true: {colour: "black", background: "pink"},
-    false: {colour: "black", background: "aquamarine"},
+    true: {colour: "text-black", background: "text-pink"},
+    false: {colour: "bg-black", background: "bg-aquamarine"},
 }
 
 
@@ -21,8 +21,8 @@ export default function WriteTipBtn({
     
     const [buttonState, setButtonState] = useState(() => {
         return {
-            colour: showAddTipForm ? "black" : "whitesmoke",
-            background: showAddTipForm ? "pink" : "transparent"
+            colour: showAddTipForm ? "text-black" : "text-whitesmoke",
+            background: showAddTipForm ? "bg-pink" : "bg-transparent"
         }
     });
     function setButtonStateFromObject(object){
