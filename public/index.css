@@ -692,12 +692,12 @@ video {
 
 .bg-dodgerBlue {
   --tw-bg-opacity: 1;
-  background-color: rgb(0 17 153 / var(--tw-bg-opacity));
+  background-color: rgb(17 136 221 / var(--tw-bg-opacity));
 }
 
 .bg-mediumPurple {
   --tw-bg-opacity: 1;
-  background-color: rgb(136 17 136 / var(--tw-bg-opacity));
+  background-color: rgb(153 51 221 / var(--tw-bg-opacity));
 }
 
 .p-3 {
