@@ -22,7 +22,7 @@ module.exports = {
         transparent: "#0000",
         quotePaleGrey: "#E4E4E4",
         quoteMedGrey: "#9A9A9A",
-        aquamarine: "#BEF9C7",
+        aquamarine: "#7Eb987",
       },
     },
   },
