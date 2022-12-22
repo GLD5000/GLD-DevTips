@@ -1,13 +1,6 @@
-export default function DuplicateSvg({fill = "white", stroke = "black"}) {
-  const style = {
-    stroke: stroke,
-    strokeWidth: "1",
-    strokeLinecap: "round",
-    fill: fill,
-  };
-
+export default function DuplicateSvg({ classes }) {
   return (
-    <div className="svg-wrapper">
+    <div className="svg-wrapper m-1">
       <svg
         id="add-svg"
         alt="Add Section"
@@ -15,10 +8,8 @@ export default function DuplicateSvg({fill = "white", stroke = "black"}) {
         width="100%"
         viewBox="0 0 16 16"
       >
-        <rect x="2" y="2" width="9" height="9" rx="1" style={style}
-        />
-        <rect x="5" y="5" width="9" height="9" rx="1" style={style}
-        />
+        <rect x="2" y="2" width="9" height="9" rx="1" className={classes} />
+        <rect x="5" y="5" width="9" height="9" rx="1" className={classes} />
       </svg>
     </div>
   );

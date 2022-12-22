@@ -21,26 +21,26 @@ import HintSvg from "../components/icons/HintSvg";
 function defaultOnClick(e) {
   console.log(e.target);
 }
-function getSvg(type, color, backgroundColor, svgClasses) {
+function getSvg(type, svgClasses) {
   const svgLookup = {
-    italic: <ItalicSvg stroke={color} />,
-    bold: <BoldSvg stroke={color} />,
-    up: <UpSvg stroke={color} />,
-    down: <DownSvg stroke={color} />,
-    add: <AddSvg stroke={color} />,
-    delete: <DeleteSvg stroke={color} />,
-    duplicate: <DuplicateSvg stroke={color} fill="black" />,
-    preview: <PreviewSvg stroke={color} fill={backgroundColor} />,
-    write: <PencilSvg stroke={color} fill={backgroundColor} />,
-    cancelWrite: <UnPencilSvg stroke={color} fill={backgroundColor} />,
-    header: <HeaderSvg stroke={color} />,
-    link: <LinkSvg stroke={color} />,
-    code: <CodeSvg stroke={color} />,
-    quote: <QuoteSvg stroke={color} />,
-    bullet: <BulletSvg stroke={color} />,
-    numbered: <NumberedSvg stroke={color} />,
-    table: <TableSvg stroke={color} />,
-    hint: <HintSvg stroke={color} />,
+    italic: <ItalicSvg classes={svgClasses} />,
+    bold: <BoldSvg classes={svgClasses} />,
+    up: <UpSvg classes={svgClasses} />,
+    down: <DownSvg classes={svgClasses} />,
+    add: <AddSvg classes={svgClasses} />,
+    delete: <DeleteSvg classes={svgClasses} />,
+    duplicate: <DuplicateSvg classes={svgClasses}/>,
+    preview: <PreviewSvg classes={svgClasses}/>,
+    write: <PencilSvg classes={svgClasses} />,
+    cancelWrite: <UnPencilSvg classes={svgClasses} />,
+    header: <HeaderSvg classes={svgClasses} />,
+    link: <LinkSvg classes={svgClasses} />,
+    code: <CodeSvg classes={svgClasses} />,
+    quote: <QuoteSvg classes={svgClasses} />,
+    bullet: <BulletSvg classes={svgClasses} />,
+    numbered: <NumberedSvg classes={svgClasses} />,
+    table: <TableSvg classes={svgClasses} />,
+    hint: <HintSvg classes={svgClasses} />,
   };
   return svgLookup[type];
 }
@@ -72,7 +72,7 @@ export default function SvgButton({
   reverse = false,
   hoverFunction = null,
   buttonClasses = false,
-  svgClasses = "",
+  svgClasses = "stroke-whitesmoke fill-none stroke-2",
   className = `p-2
    items-center 
    text-${color} 
@@ -83,7 +83,7 @@ export default function SvgButton({
      cursor-pointer rounded border-2 border-solid whitespace-pre-wrap 
     ${buttonClasses && buttonClasses}`,
 }) {
-  const svg = getSvg(type, color, backgroundColor, svgClasses);
+  const svg = getSvg(type, svgClasses);
   const content = getContent(reverse, showText, text, svg);
 
   const style = {

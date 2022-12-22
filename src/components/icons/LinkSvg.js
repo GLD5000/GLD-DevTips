@@ -1,14 +1,6 @@
-export default function LinkSvg({fill = "transparent", stroke = "black"}) {
-
-    const style = {
-        stroke: stroke,
-        strokeWidth: "2",
-        strokeLinecap: "round",
-        fill: fill,
-      };
-    
+export default function LinkSvg({ classes }) {
   return (
-    <div className="svg-wrapper">
+    <div className="svg-wrapper m-1">
       <svg
         id="link-svg"
         alt="Link"
@@ -16,10 +8,15 @@ export default function LinkSvg({fill = "transparent", stroke = "black"}) {
         width="100%"
         viewBox="0 0 16 16"
       >
-        <path d="M 10,8 C 8,5 8,5 5,5 3,5 2,6 2,8 c 0,2 1,3 3,3"  style={style} />
-        <path d="m 6,8 c 2,3 2,3 5,3 2,0 3,-1 3,-3 0,-2 -1,-3 -3,-3"
-  style={style} />
+        <path
+          d="M 10,8 C 8,5 8,5 5,5 3,5 2,6 2,8 c 0,2 1,3 3,3"
+          className={classes}
+        />
+        <path
+          d="m 6,8 c 2,3 2,3 5,3 2,0 3,-1 3,-3 0,-2 -1,-3 -3,-3"
+          className={classes}
+        />
       </svg>
     </div>
-  )
+  );
 }

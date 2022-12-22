@@ -1,15 +1,6 @@
-export default function TableSvg({fill = "transparent", stroke = "black"}) {
-
-    const style = {
-        stroke: stroke,
-        strokeWidth: "1",
-        strokeLinecap: "round",
-        strokeLineJoin: "round",
-        fill: fill,
-      };
-    
+export default function TableSvg({ classes }) {
   return (
-    <div className="svg-wrapper">
+    <div className="svg-wrapper m-1">
       <svg
         id="table-svg"
         alt="Table"
@@ -17,11 +8,8 @@ export default function TableSvg({fill = "transparent", stroke = "black"}) {
         width="100%"
         viewBox="0 0 16 16"
       >
-        <path d="M 2,3 H 14 V 7 H 2 V 3 13 H 14 V 7"  style={style} />
+        <path d="M 2,3 H 14 V 7 H 2 V 3 13 H 14 V 7" className={classes} />
       </svg>
     </div>
-  )
+  );
 }
-
-
-
