@@ -59,7 +59,6 @@ function getContent(reverse, showText, text, svg) {
 }
 
 export default function SvgButton({
-  borderRadius = "4px",
   color = "whitesmoke",
   backgroundColor = "transparent",
   text = "Add",
@@ -71,20 +70,18 @@ export default function SvgButton({
   showText = true,
   marginLeft = null,
   reverse = false,
-  borderColor = "var(--border-grey)",
   hoverFunction = null,
-  buttonClasses = "",
+  buttonClasses = false,
   svgClasses = "",
-  className = "items-center text-" +
-    color +
-    " grid " +
-    backgroundColor +
-    " h-fit " +
-    (wide === true ? "grid-cols-frAutoFr w-full" : "grid-cols-autoAuto w-fit") +
-    " cursor-pointer overflow-hidden whitespace-pre-wrap rounded border-2 border-solid border-[" +
-    borderColor +
-    "] " +
-    (buttonClasses && buttonClasses),
+  className = `p-2
+   items-center 
+   text-${color} 
+   grid 
+    ${backgroundColor}
+     h-full 
+    ${wide === true ? `grid-cols-frAutoFr w-full` : `grid-cols-autoAuto`}
+     cursor-pointer rounded border-2 border-solid whitespace-pre-wrap 
+    ${buttonClasses && buttonClasses}`,
 }) {
   const svg = getSvg(type, color, backgroundColor, svgClasses);
   const content = getContent(reverse, showText, text, svg);
@@ -102,7 +99,7 @@ export default function SvgButton({
         name={name}
         onClick={clickFunction}
         onMouseEnter={hoverFunction}
-        className={className}
+        className={className.replaceAll(/[\s]+/g, " ")}
         // style={style}
         aria-label={name}
       >

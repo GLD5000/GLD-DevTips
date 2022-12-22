@@ -34,9 +34,8 @@ export default function CodeBox({ content, parse = false }) {
             }}
             wide={true}
             showText={showTextState}
-            borderColor="transparent"
             reverse={true}
-            classes="copy-btn col-start-3"
+            buttonClasses="border-transparent sticky left-0 col-start-3"
             // marginLeft="auto"
           />
       </div>

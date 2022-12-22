@@ -32,12 +32,12 @@
   color: var(--text-grey);
 }
 
-button {
+/* button {
   background: none;
   padding: 0.5rem;
   border: none;
   cursor: pointer;
-}
+} */
 .code {
   /* position: relative; */
   background-color: #000;
@@ -179,10 +179,10 @@ body {
   width: 100vw;
 }
 
-button {
+/* button {
   height: fit-content;
   width: fit-content;
-}
+} */
 .btn {
   display: block;
   background: #000;
