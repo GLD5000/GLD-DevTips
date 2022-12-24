@@ -584,17 +584,8 @@ video {
   grid-column-start: 3;
 }
 
-.m-2 {
-  margin: 0.5rem;
-}
-
 .m-1 {
   margin: 0.25rem;
-}
-
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
 }
 
 .block {
@@ -726,32 +717,12 @@ video {
   background-color: rgb(153 51 221 / var(--tw-bg-opacity));
 }
 
-.fill-whitesmoke {
-  fill: #f7f7f7;
-}
-
-.fill-transparent {
-  fill: #0000;
-}
-
-.fill-current {
-  fill: currentColor;
-}
-
-.fill-inherit {
-  fill: inherit;
-}
-
 .fill-none {
   fill: none;
 }
 
 .stroke-whitesmoke {
   stroke: #f7f7f7;
-}
-
-.stroke-1 {
-  stroke-width: 1;
 }
 
 .stroke-2 {
@@ -764,10 +735,6 @@ video {
 
 .p-2 {
   padding: 0.5rem;
-}
-
-.p-4 {
-  padding: 1rem;
 }
 
 .font-mono {
