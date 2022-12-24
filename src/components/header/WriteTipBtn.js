@@ -55,6 +55,7 @@ export default function WriteTipBtn({
     const type = showAddTipForm
     ? "cancelWrite"
     : "add";
+    const svgClasses = showAddTipForm? "stroke-1 stroke-whitesmoke fill-none": "stroke-1 stroke-whitesmoke hover:stroke-black fill-none";
     return (
         <div  style={{width:"fit-content", gridColumn:"4"}}>
             
@@ -67,6 +68,7 @@ export default function WriteTipBtn({
         text={AddTipText}
         clickFunction={onClickAdd}
         reverse={true}
+        svgClasses={svgClasses}
       />
         </div>
 )

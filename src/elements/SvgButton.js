@@ -86,12 +86,6 @@ export default function SvgButton({
   const svg = getSvg(type, svgClasses);
   const content = getContent(reverse, showText, text, svg);
 
-  const style = {
-    width: wide === true ? "100%" : "fit-content",
-    gridTemplateColumns: wide === true ? "1fr auto 1fr" : "auto auto",
-  };
-  if (showText) style.gap = "8px";
-  if (wide !== true && marginLeft === null) style.marginLeft = "auto";
   return (
     <>
       <button
@@ -100,7 +94,6 @@ export default function SvgButton({
         onClick={clickFunction}
         onMouseEnter={hoverFunction}
         className={className.replaceAll(/[\s]+/g, " ")}
-        // style={style}
         aria-label={name}
       >
         {content}

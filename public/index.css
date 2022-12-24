@@ -725,8 +725,20 @@ video {
   stroke: #f7f7f7;
 }
 
+.stroke-white {
+  stroke: #fff;
+}
+
+.stroke-black {
+  stroke: #000;
+}
+
 .stroke-2 {
   stroke-width: 2;
+}
+
+.stroke-1 {
+  stroke-width: 1;
 }
 
 .p-3 {
@@ -1311,4 +1323,8 @@ h6 {
 
 select {
   width: 100%;
+}
+
+.hover\:stroke-black:hover {
+  stroke: #000;
 }
