@@ -243,6 +243,7 @@ function makeNewTipId(tipList) {
   const paddedNumber = padIdNumber(number);
   return paddedNumber;
 }
+const searchFromUrl = window.location.search.slice(1);
 
 function App() {
 
@@ -356,7 +357,7 @@ function App() {
     updateTagColours();
   }
   const newTipId = makeNewTipId(tipList);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(searchFromUrl);
 
   function testtagState(tagState, tagArray) {
     //console.log(tagState);

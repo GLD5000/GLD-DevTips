@@ -193,10 +193,30 @@ const MultiInput = ({
     if (textToAdd[0].length < 3 && selection.start !== 0 && oldContent[0][oldContent[0].length-1] !== "\n") textToAdd[0] = "\n" + textToAdd[0]
       return addFlags(oldContent, textToAdd);
     }
+
+
+  function toggleLinkFlags(textToAdd, oldContent, selection) {
+
+    const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
+    const firstFlagIsPresent =
+    indexOfFirstFlag > -1 &&  indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
+    const SecondFlagIsPresent =
+      oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
+
+    if (firstFlagIsPresent && SecondFlagIsPresent) {
+      return removeFlags(oldContent, textToAdd, indexOfFirstFlag);
+    }
+    return addFlags(oldContent, textToAdd);
+  }
   function toggleFlags(textToAdd, oldContent, selection) {
     if (textToAdd[1] === "Header") {
       return toggleHeaderFlags(textToAdd, oldContent, selection);
     }
+    
+    if (textToAdd[1] === "Link Name") {
+      return toggleLinkFlags(textToAdd, oldContent, selection);
+    }
+
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const firstFlagIsPresent =
     indexOfFirstFlag > -1 &&  indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
