@@ -237,10 +237,10 @@ button {
 }
 
 .svg-wrapper {
-  pointer-events: none;
-  --svg-size: 1.35rem;
+  /* pointer-events: none;
+  --svg-size: 1.5rem;
   height: var(--svg-size);
-  width: var(--svg-size);
+  width: var(--svg-size); */
 }
 .svg-wrapper-lg {
   height: 3rem;
