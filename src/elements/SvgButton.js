@@ -73,7 +73,7 @@ export default function SvgButton({
   hoverFunction = null,
   buttonClasses = false,
   svgClasses = "stroke-whitesmoke fill-none stroke-2",
-  className = `p-2
+  className = `px-2 py-1
    items-center 
    text-${color} 
    grid 
