@@ -24,6 +24,7 @@ const Tip = ({ tip, setTagStateFromTip, editTip, showAddTipForm }) => {
         backgroundColor="bg-transparent"
         text="Edit"
         clickFunction={editTip}
+        svgClasses="stroke-whitesmoke stroke-1 fill-none"
       />}
         <MultiTextBoxes tip={tip} /> 
         </>}
