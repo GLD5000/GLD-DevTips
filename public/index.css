@@ -721,14 +721,6 @@ video {
   fill: none;
 }
 
-.fill-current {
-  fill: currentColor;
-}
-
-.fill-whitesmoke {
-  fill: #f7f7f7;
-}
-
 .stroke-whitesmoke {
   stroke: #f7f7f7;
 }
@@ -1320,6 +1312,9 @@ h6 {
 .markdown-buttons {
   display: flex;
   gap: 0.5rem;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   flex-wrap: wrap;
   flex-direction: row;
   grid-column: span 2;
