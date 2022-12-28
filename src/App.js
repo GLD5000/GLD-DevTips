@@ -243,12 +243,10 @@ function makeNewTipId(tipList) {
   const paddedNumber = padIdNumber(number);
   return paddedNumber;
 }
-const url = window.location;
+const url = window.location.search;
 const urlObject = new URLSearchParams(url);
-console.log(url);
-console.log(urlObject.string);
-const searchFromUrl = window.location.search.slice(1);
-
+const searchFromUrl = urlObject.get("search");
+const tagsFromUrl = urlObject.getAll("tag");
 function App() {
 
   
@@ -332,7 +330,7 @@ function App() {
     Object.keys(tagColours)
       .sort()
       .forEach((key) => {
-        tagsObject[tagColours[key].name] = "visible";
+        tagsObject[tagColours[key].name] = tagsFromUrl.includes(tagColours[key].name)? "active": "visible";
       });
     updatedTagState = true;
   }
