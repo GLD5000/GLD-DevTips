@@ -58,7 +58,7 @@ const defaultFlagMap = new Map([
     { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: "paragraph" },
   ],
   [
-    /\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:?]+\))/,
+    /\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:?&=]+\))/,
     { closingFlag: ")", type: "link" },
   ],
   ["**", { closingFlag: "**", type: "bold" }],
