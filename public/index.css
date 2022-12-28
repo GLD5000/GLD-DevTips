@@ -717,20 +717,36 @@ video {
   background-color: rgb(153 51 221 / var(--tw-bg-opacity));
 }
 
+.fill-black {
+  fill: #000;
+}
+
 .fill-none {
   fill: none;
+}
+
+.fill-whitesmoke {
+  fill: #f7f7f7;
 }
 
 .stroke-whitesmoke {
   stroke: #f7f7f7;
 }
 
-.stroke-2 {
-  stroke-width: 2;
+.stroke-white {
+  stroke: #fff;
+}
+
+.stroke-black {
+  stroke: #000;
 }
 
 .stroke-1 {
   stroke-width: 1;
+}
+
+.stroke-2 {
+  stroke-width: 2;
 }
 
 .p-3 {

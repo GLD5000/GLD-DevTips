@@ -322,6 +322,7 @@ const MultiInput = ({
               text="Copy"
               clickFunction={duplicateField}
               id={index + "-duplicatefield"}
+              svgClasses="stroke-1 stroke-whitesmoke fill-black"
             />
             <SvgButton
               type="delete"
@@ -365,6 +366,8 @@ const MultiInput = ({
         text="Add Section"
         clickFunction={addField}
         id="add-field"
+        svgClasses="stroke-1 stroke-black fill-none"
+
       />
       <SvgButton
         type="preview"
@@ -373,6 +376,7 @@ const MultiInput = ({
         backgroundColor="bg-mediumPurple"
         text="Preview"
         clickFunction={onPreview}
+        svgClasses="stroke-1 stroke-black"
       />
       <Button
         key="saveTip"

@@ -37,6 +37,7 @@ export default function CodeBox({ content, parse = false }) {
             reverse={true}
             buttonClasses="border-transparent sticky left-0 col-start-3"
             // marginLeft="auto"
+            svgClasses="stroke-1 fill-black stroke-whitesmoke"
           />
       </div>
       {`${codeBody}`}

@@ -72,7 +72,7 @@ export default function SvgButton({
   reverse = false,
   hoverFunction = null,
   buttonClasses = false,
-  svgClasses = "stroke-whitesmoke fill-none stroke-2",
+  svgClasses = "stroke-whitesmoke fill-none stroke-1",
   className = `px-2 py-1
    items-center 
    text-${color} 
