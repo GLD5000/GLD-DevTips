@@ -361,22 +361,22 @@ const MultiInput = ({
       <SvgButton
         type="add"
         key="addField"
-        color="black"
+        color="text-black"
         backgroundColor="bg-dodgerBlue"
         text="Add Section"
         clickFunction={addField}
         id="add-field"
-        svgClasses="stroke-1 stroke-black fill-none"
+        svgClasses="stroke-1 stroke-current fill-none"
 
       />
       <SvgButton
         type="preview"
         key="preview"
-        color="black"
+        color="text-black"
         backgroundColor="bg-mediumPurple"
         text="Preview"
         clickFunction={onPreview}
-        svgClasses="stroke-1 stroke-black"
+        svgClasses="stroke-1 stroke-current"
       />
       <Button
         key="saveTip"

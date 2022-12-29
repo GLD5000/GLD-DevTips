@@ -20,8 +20,7 @@ const Tip = ({ tip, setTagStateFromTip, editTip, showAddTipForm }) => {
         type="write"
         key={tip.id}
         id={tip.id}
-        color="whitesmoke"
-        backgroundColor="bg-transparent"
+        buttonClasses="text-whitesmoke bg-transparent ml-auto"
         text="Edit"
         clickFunction={editTip}
         svgClasses="stroke-whitesmoke stroke-1 fill-none"

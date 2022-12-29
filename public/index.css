@@ -584,8 +584,16 @@ video {
   grid-column-start: 3;
 }
 
+.col-start-4 {
+  grid-column-start: 4;
+}
+
 .m-1 {
   margin: 0.25rem;
+}
+
+.ml-auto {
+  margin-left: auto;
 }
 
 .block {
@@ -627,6 +635,10 @@ video {
 
 .grid-cols-autoAuto {
   grid-template-columns: auto auto;
+}
+
+.grid-cols-autoFr {
+  grid-template-columns: auto 1fr;
 }
 
 .items-center {
@@ -693,11 +705,6 @@ video {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
-.bg-aquamarine {
-  --tw-bg-opacity: 1;
-  background-color: rgb(126 185 135 / var(--tw-bg-opacity));
-}
-
 .bg-transparent {
   background-color: #0000;
 }
@@ -725,28 +732,20 @@ video {
   fill: none;
 }
 
-.fill-whitesmoke {
-  fill: #f7f7f7;
+.fill-current {
+  fill: currentColor;
 }
 
 .stroke-whitesmoke {
   stroke: #f7f7f7;
 }
 
-.stroke-white {
-  stroke: #fff;
-}
-
-.stroke-black {
-  stroke: #000;
+.stroke-current {
+  stroke: currentColor;
 }
 
 .stroke-1 {
   stroke-width: 1;
-}
-
-.stroke-2 {
-  stroke-width: 2;
 }
 
 .p-3 {
@@ -780,14 +779,24 @@ video {
   color: rgb(140 241 124 / var(--tw-text-opacity));
 }
 
-.text-black {
+.text-aquamarine {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(126 185 135 / var(--tw-text-opacity));
+}
+
+.text-pink-300 {
+  --tw-text-opacity: 1;
+  color: rgb(249 168 212 / var(--tw-text-opacity));
 }
 
 .text-whitesmoke {
   --tw-text-opacity: 1;
   color: rgb(247 247 247 / var(--tw-text-opacity));
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .filter {
@@ -1346,6 +1355,32 @@ select {
   width: 100%;
 }
 
-.hover\:stroke-black:hover {
-  stroke: #000;
+.hover\:border:hover {
+  border-width: 1px;
+}
+
+.hover\:border-current:hover {
+  border-color: currentColor;
+}
+
+.hover\:bg-aquamarine:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(126 185 135 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-pink-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 168 212 / var(--tw-bg-opacity));
+}
+
+.hover\:text-black:hover {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.active\:scale-95:active {
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }

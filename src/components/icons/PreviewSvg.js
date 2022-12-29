@@ -9,7 +9,7 @@ export default function PreviewSvg({ classes }) {
         viewBox="0 0 16 16"
       >
         <path d="M 2,8 Q 8,2 14,8 M 2,8 Q 8,15 14,8 " className={classes + " fill-none"} />
-        <circle cx="8" cy="8" r="2" className={classes + " fill-black"} />
+        <circle cx="8" cy="8" r="2" className={classes + " fill-current"} />
       </svg>
     </div>
   );

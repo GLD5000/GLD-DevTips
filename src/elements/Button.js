@@ -22,7 +22,7 @@ export default function Button({
       id={id}
       name={name}
       onClick={clickHandler}
-      className={className}
+      className={"active:scale-95 " + className}
       style={{ color: color, backgroundColor: backgroundColor, borderRadius: borderRadius, border: border }}
     >
       {text}
