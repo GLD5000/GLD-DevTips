@@ -13,8 +13,8 @@ export default function Filters({
   function toggleExpanded(){
     setFilterExpanded(!filterExpanded);
   }
-  const tagsActive = Object.values(tagState).includes("active");
-  if (tagsActive) setFilterExpanded(true);
+  // const tagsActive = Object.values(tagState).includes("active");
+  // if (tagsActive) setFilterExpanded(true);
   return (
     <section className="filter-section">
       <TitleFilter
