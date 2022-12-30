@@ -28,7 +28,7 @@ export default function WriteTipBtn({
   const AddTipText = showAddTipForm ? "Cancel" : "Create";
   const type = showAddTipForm ? "cancelWrite" : "add";
   return (
-    <div className="height-fill width-fit col-start-4">
+    <div className="h-full width-fit col-start-4">
       <SvgButton
         wide="false"
         type={type}
