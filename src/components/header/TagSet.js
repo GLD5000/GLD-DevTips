@@ -36,6 +36,7 @@ const TagSet = ({ setTagState, tagState, title = "Filter Tags", keyMod=0, update
         backgroundColor={"IndianRed"}
         text={"Clear Tags"}
         clickFunction={clearTags}
+        className="bg-red-400 text-black hover:border-white"
       />,
     ]);
   }

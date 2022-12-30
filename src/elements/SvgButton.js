@@ -29,8 +29,8 @@ function getSvg(type, svgClasses) {
     down: <DownSvg classes={svgClasses} />,
     add: <AddSvg classes={svgClasses} />,
     delete: <DeleteSvg classes={svgClasses} />,
-    duplicate: <DuplicateSvg classes={svgClasses}/>,
-    preview: <PreviewSvg classes={svgClasses}/>,
+    duplicate: <DuplicateSvg classes={svgClasses} />,
+    preview: <PreviewSvg classes={svgClasses} />,
     write: <PencilSvg classes={svgClasses} />,
     cancelWrite: <UnPencilSvg classes={svgClasses} />,
     header: <HeaderSvg classes={svgClasses} />,
@@ -68,7 +68,6 @@ export default function SvgButton({
   type = "up",
   wide = true,
   showText = true,
-  marginLeft = null,
   reverse = false,
   hoverFunction = null,
   buttonClasses = `${color} ${backgroundColor}`,
@@ -77,9 +76,8 @@ export default function SvgButton({
    items-center 
    active:scale-95
    hover:border-current
-   grid 
-    
-     h-full 
+   grid     
+   h-full 
     ${wide === true ? `grid-cols-frAutoFr w-full` : `grid-cols-autoAuto`}
      cursor-pointer rounded border-2 border-solid whitespace-pre-wrap 
     ${buttonClasses && buttonClasses}`,

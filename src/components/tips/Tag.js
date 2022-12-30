@@ -1,4 +1,4 @@
-import Button from "../../elements/Button";
+import TagButton from "../../elements/TagButton";
 import tagHexLookup from "../../utilities/tagHex";
 
 const Tag = ({ tag, setTagStateFromTip}) => {
@@ -8,7 +8,7 @@ const Tag = ({ tag, setTagStateFromTip}) => {
   }
   const {backgroundColour, textColour} = tagHexLookup(tag);
   return (
-    <Button
+    <TagButton
       color={textColour}
       backgroundColor={backgroundColour}
       text={tag}

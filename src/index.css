@@ -183,10 +183,10 @@ body {
   height: fit-content;
   width: fit-content;
 } */
-.btn {
+/* .btn {
   display: block;
   background: #000;
-  /* color: whitesmoke; */
+  color: whitesmoke; 
   border: none;
   padding: 0.3rem 0.5rem;
   border-radius: var(--border-radius);
@@ -196,7 +196,7 @@ body {
   font-family: inherit;
   white-space: pre-wrap;
   overflow: hidden;
-}
+} */
 .tag-filter-btn {
   display: flex;
 }

@@ -2,7 +2,7 @@ function defaultOnClick(e) {
   console.log(e.target);
 }
 
-export default function Button({
+export default function TagButton({
   borderRadius = "4px",
   color = "white",
   backgroundColor = "black",
@@ -22,7 +22,8 @@ export default function Button({
       id={id}
       name={name}
       onClick={clickHandler}
-      className={"active:scale-95 py-1 px-2 border-2 "+ className}
+      className={"active:scale-95 hover:border-white py-1 px-2 border-2 "+ className}
+      style={{ color: color, backgroundColor: backgroundColor }}
     >
       {text}
     </button>
