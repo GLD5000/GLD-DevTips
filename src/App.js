@@ -246,7 +246,7 @@ function makeNewTipId(tipList) {
 const url = window.location.search;
 const urlObject = new URLSearchParams(url);
 const searchFromUrl = urlObject.get("search");
-const tagsFromUrl = urlObject.getAll("tag");
+const tagsFromUrl = urlObject.getAll("tag").map(x => x.toLowerCase());
 function App() {
 
   
@@ -330,7 +330,7 @@ function App() {
     Object.keys(tagColours)
       .sort()
       .forEach((key) => {
-        tagsObject[tagColours[key].name] = tagsFromUrl.includes(tagColours[key].name)? "active": "visible";
+        tagsObject[tagColours[key].name] = tagsFromUrl.includes(key)? "active": "visible";
       });
     updatedTagState = true;
   }
