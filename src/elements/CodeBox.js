@@ -19,8 +19,9 @@ export default function CodeBox({ content, parse = false }) {
       : null;
   const codeBody = codeFileName ? code.slice(firstLineBreak + 1) : code;
   return (
-    <code className="block overflow-x-auto whitespace-pre rounded border border-solid border-neutral-500 bg-black font-mono text-vsGreen">
-      <div className="grid grid-cols-autoFr justify-items-end">
+    <code className="block overflow-x-auto h-fit whitespace-pre rounded border border-solid border-neutral-500 bg-black font-mono text-vsGreen">
+      <h3 className="file-name p-3">{codeFileName}</h3>
+      {`${codeBody}`}
         <SvgButton
           type="duplicate"
           key={1 + "copyCode"}
@@ -35,12 +36,10 @@ export default function CodeBox({ content, parse = false }) {
           showText={showTextState}
           reverse={false}
           buttonClasses="border-transparent sticky left-0"
+          className=" w-full sticky left-0 bottom-0 flex items-center justify-center active:scale-95 border-2 border-transparent hover:border-current hover:border-2"
           // marginLeft="auto"
           svgClasses="stroke-1 fill-black stroke-whitesmoke"
         />
-        <h3 className="file-name p-3">{codeFileName}</h3>
-      </div>
-      {`${codeBody}`}
     </code>
   );
 }
