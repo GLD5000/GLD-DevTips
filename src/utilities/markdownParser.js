@@ -20,7 +20,7 @@ import Span from "../elements/Span";
 const lineEndRegex = /PpPpEEE(\r\n)?/;
 
 const blockFlagStart = "PpPpSSS[ ]{0,3}";
-const blockFlagEndOptional = "(PpPpEEE)?";
+const blockFlagEndOptional = "(PpPpEEE)?\r?\n?";
 const blockFlagEnd = "PpPpEEE\r\n";
 
 const codeFlag = "[`~]{3,}";
