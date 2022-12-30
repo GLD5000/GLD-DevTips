@@ -651,6 +651,14 @@ video {
   justify-items: end;
 }
 
+.gap-1 {
+  gap: 0.25rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .overflow-auto {
   overflow: auto;
 }
@@ -700,6 +708,11 @@ video {
   border-color: currentColor;
 }
 
+.border-borderGrey {
+  --tw-border-opacity: 1;
+  border-color: rgb(119 119 119 / var(--tw-border-opacity));
+}
+
 .border-x-hintYellow {
   --tw-border-opacity: 1;
   border-left-color: rgb(242 220 28 / var(--tw-border-opacity));
@@ -733,6 +746,14 @@ video {
 .bg-red-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
+}
+
+.bg-\[\] {
+  background-color: ;
+}
+
+.bg-\[\$\{\}\] {
+  background-color: ${};
 }
 
 .fill-black {

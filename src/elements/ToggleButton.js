@@ -36,14 +36,6 @@ export default function ToggleButton({
   const styles = {
     color: color,
     backgroundColor: backgroundColor,
-    borderRadius: borderRadius,
-    borderColor: "var(--border-grey)",
-    borderWidth: "2px",
-    borderStyle: "solid",
-    display: "grid",
-    gap: "6px",
-    gridTemplateColumns: "auto auto",
-    alignItems: "center",
   };
 
   return (
@@ -52,7 +44,7 @@ export default function ToggleButton({
         id={id}
         name={name}
         onClick={clickHandler}
-        className={className}
+        className={`px-2 py-1 border-borderGrey hover:border-white border-2 grid grid-cols-autoAuto gap-2 items-center`}
         style={styles}
       >
         {showText && text}
