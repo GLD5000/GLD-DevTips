@@ -245,8 +245,8 @@ function makeNewTipId(tipList) {
 }
 const url = window.location.search;
 const urlObject = new URLSearchParams(url);
-const searchFromUrl = urlObject.get("search");
-const tagsFromUrl = urlObject.getAll("tag").map(x => x.toLowerCase());
+const searchFromUrl = urlObject.get("title");
+const tagsFromUrl = urlObject.getAll("tags").map(x => x.toLowerCase());
 function App() {
 
   
