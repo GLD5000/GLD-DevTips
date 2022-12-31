@@ -28,6 +28,7 @@ let linkString;
     console.log(`urlField ${urlField}`);
     console.log(`tagIndex ${tagIndex}`);
     if (tagIndex !== false) url += getTags(urlField, tagIndex, titleIndex || undefined);
+    if (tagIndex !== false && titleIndex !== false) url += "&";
     if (titleIndex !== false) url += urlField.slice(titleIndex, tagIndex || undefined);
     console.log(url);
 
