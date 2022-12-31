@@ -10,15 +10,19 @@ let linkString;
     const urlField = item.slice(startSlice);
     
     let url = window.location.href + "?";
+    console.log("url");
+    console.log(url);
     const titleFlag = "title=";
     let titleIndex = urlField.indexOf(titleFlag);
     titleIndex = titleIndex > -1 && titleIndex;
+    console.log(`titleIndex ${titleIndex}`);
     const tagsFlag = "tags=";
     let tagIndex = urlField.indexOf(tagsFlag);
     tagIndex = tagIndex > -1 && tagIndex;
-    if (tagIndex) url += getTags(item, tagIndex + tagsFlag.length, titleIndex);
-    if (titleIndex) url += "title=" + item.slice(titleIndex + titleFlag.length, tagIndex);
-
+    console.log(`tagIndex ${tagIndex}`);
+    if (tagIndex !== false) url += getTags(urlField, tagIndex + tagsFlag.length, titleIndex);
+    if (titleIndex !== false) url += urlField.slice(titleIndex, tagIndex || undefined);
+    console.log(url);
 
     const indexOfClosedSquareBracket = item.indexOf("]")
     const text =  item.slice(0, indexOfClosedSquareBracket);
@@ -37,20 +41,19 @@ let linkString;
 
     const indexOfClosedSquareBracket = item.indexOf("]")
     const text =  item.slice(0, indexOfClosedSquareBracket);
-
     return {url, text, type};
   }
 
   function itemHandler(item){
-    if (typeof item !== "string") return item;
+    if (typeof item !== "string") return {url: undefined, text: item, type: "non-link"};
     const itemContainsLink = item.includes("http") || item.includes("www");
-    if (itemContainsLink === false) return item;
-    return sliceLinkSimple(item)
+    if (itemContainsLink === false) return sliceLinkLocalUrl(item);
+    return sliceLinkSimple(item);
   }
 
 
-export default function Link({ item}) {
-  const {url, text, type}  = itemHandler(item);
+export default function Link({content}) {
+  const {url, text, type}  = itemHandler(content);
 
   return (<>
     {type === "local"?
