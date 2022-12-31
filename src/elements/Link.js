@@ -27,9 +27,9 @@ let linkString;
     tagIndex = tagIndex > -1 && tagIndex;
     console.log(`urlField ${urlField}`);
     console.log(`tagIndex ${tagIndex}`);
-    if (tagIndex !== false) url += getTags(urlField, tagIndex, titleIndex || undefined);
+    if (tagIndex !== false) url += getTags(urlField, tagIndex, (titleIndex > tagIndex && titleIndex) || undefined);
     if (tagIndex !== false && titleIndex !== false) url += "&";
-    if (titleIndex !== false) url += urlField.slice(titleIndex, tagIndex || undefined);
+    if (titleIndex !== false) url += urlField.slice(titleIndex, (tagIndex > titleIndex && tagIndex) || undefined);
     console.log(url);
 
     const indexOfClosedSquareBracket = item.indexOf("]")
