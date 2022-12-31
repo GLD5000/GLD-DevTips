@@ -197,6 +197,11 @@ const MultiInput = ({
 
   function toggleLinkFlags(textToAdd, oldContent, selection) {
 
+    // could have selection or not
+    // [text](url)
+    // [title](title=title)
+    // [tag1 tag2](tags=tag1,tag2)
+
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const firstFlagIsPresent =
     indexOfFirstFlag > -1 &&  indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
