@@ -1,6 +1,12 @@
 let linkString; 
   function getTags(string, start, end = undefined){
-    return "tags=" + string.slice(start,end).split(",").join("&tags=");
+    if (string.indexOf(",") > -1) return string.slice(start,end).split(",").join("&tags=");
+    return string.slice(start,end);
+  }
+  function getUrl(){
+    let href = window.location.href;
+    if (href.indexOf("?") > -1) href = href.split("?")[0];
+    return href + "?";
   }
   function sliceLinkLocalUrl(item){
     const type = "local";
@@ -9,7 +15,7 @@ let linkString;
     const startSlice = indexOfOpenBracket + 1 || false;
     const urlField = item.slice(startSlice);
     
-    let url = window.location.href + "?";
+    let url = getUrl();
     console.log("url");
     console.log(url);
     const titleFlag = "title=";
@@ -19,8 +25,9 @@ let linkString;
     const tagsFlag = "tags=";
     let tagIndex = urlField.indexOf(tagsFlag);
     tagIndex = tagIndex > -1 && tagIndex;
+    console.log(`urlField ${urlField}`);
     console.log(`tagIndex ${tagIndex}`);
-    if (tagIndex !== false) url += getTags(urlField, tagIndex + tagsFlag.length, titleIndex);
+    if (tagIndex !== false) url += getTags(urlField, tagIndex, titleIndex || undefined);
     if (titleIndex !== false) url += urlField.slice(titleIndex, tagIndex || undefined);
     console.log(url);
 
