@@ -4,7 +4,7 @@ import { auth } from './firebase';
 //additional
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
-export default function useFirebaseAuth() {
+export default function useFirebaseAuth() { // auth function
   const [authUser, setAuthUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -41,18 +41,18 @@ export default function useFirebaseAuth() {
   };
 }
 
-const AuthUserContext = createContext({
+const AuthUserContext = createContext({ // context
   authUser: null,
   isLoading: true,
   signOut: async () => {}
 });
 
-export function AuthUserProvider({ children }) {
+export function AuthUserProvider({ children }) { // context provider
   const auth = useFirebaseAuth();
   return <AuthUserContext.Provider value={auth}>{children}</AuthUserContext.Provider>;
 }
 
-export const useAuth = () => useContext(AuthUserContext);
+export const useAuth = () => useContext(AuthUserContext); // custom hook
 
 //additional
 
