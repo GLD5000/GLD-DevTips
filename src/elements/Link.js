@@ -12,7 +12,7 @@
     
     const indexOfOpenBracket = item.indexOf("(");
     const startSlice = indexOfOpenBracket + 1 || false;
-    const urlField = item.slice(startSlice);
+    const urlField = item.slice(startSlice).replace("&","");
     
     let url = getUrl();
     console.log("url");
