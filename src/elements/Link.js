@@ -1,4 +1,3 @@
-let linkString; 
   function getTags(string, start, end = undefined){
     if (string.indexOf(",") > -1) return string.slice(start,end).split(",").join("&tags=");
     return string.slice(start,end);
