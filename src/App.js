@@ -21,6 +21,7 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
+import { AuthUserProvider } from "./auth";
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
   authDomain: "devtips-c1b63.firebaseapp.com",
@@ -199,14 +200,14 @@ async function getDocDataFromDb(docRef) {
   return dataObject;
 }
 async function checkRole(user, setSignedIn, setIsOwner) {
-  console.log("checkRole");
+  // console.log("checkRole");
   const uid = user.uid;
   const rolesDoc = await getDoc(rolesDocRef);
   const role = await rolesDoc.data()[uid];
   const isOwner = role === "owner";
   if (isOwner) {
-    console.log("Is owner = " + isOwner);
-    console.log("signing in...");
+    // console.log("Is owner = " + isOwner);
+    // console.log("signing in...");
     setSignedIn(true);
 
     setIsOwner(true);
@@ -256,13 +257,13 @@ function App() {
     if (user) {
       if (userCount < 3) {
         userCount += 1;
-        console.log(userCount);
+        // console.log(userCount);
         if (userCount === 1 || signedIn === false) checkRole(user, setSignedIn, setIsOwner);
       }
     } else {
       if (userCount !== 0) {
-        console.log("signing out...");
-        console.log(userCount);
+        // console.log("signing out...");
+        // console.log(userCount);
         setSignedIn(false);
         setIsOwner(false);
         userCount -= 1;
@@ -475,6 +476,8 @@ function App() {
     />
   );
   return (
+    <AuthUserProvider>
+  
     <section className="page-container">
       <h1>Hello, my name is Gareth...</h1>
       <Header
@@ -509,6 +512,7 @@ function App() {
       </section>
       <section className="footer"> footer</section>
     </section>
+    </AuthUserProvider>
   );
 }
 export default App;
