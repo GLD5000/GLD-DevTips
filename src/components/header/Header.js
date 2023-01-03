@@ -5,8 +5,6 @@ import AuthButton from "./AuthButton";
 
 const Header = ({
   title,
-  authClickHandler,
-  signedIn,
   showAddTipForm,
   setShowAddTipForm,
   addObjectToInputFormState,
@@ -15,9 +13,13 @@ const Header = ({
 }) => {
   return (
     <section className="header-container z-[999]">
-      <header className="header">
+      <header className=" justify-between col-start-2 flex flex-wrap max-w-[800px] min-w-[240px] w-[calc(100vw-1.25rem)]">
+        <div className="flex flex-wrap gap-1">
+
         <GldSvg />
         <h1>{title}</h1>
+        </div>
+        <div className="flex flex-wrap gap-1">
         <WriteTipBtn
           showAddTipForm={showAddTipForm}
           setShowAddTipForm={setShowAddTipForm}
@@ -25,7 +27,9 @@ const Header = ({
           setSearchQuery={setSearchQuery}
           clearTags={clearTags}
         />
-        <AuthButton authClickHandler={authClickHandler} signedIn={signedIn} />
+        <AuthButton />
+
+        </div>
       </header>
     </section>
   );

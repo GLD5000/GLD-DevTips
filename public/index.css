@@ -630,6 +630,50 @@ video {
   width: 100%;
 }
 
+.w-\[calc\(100vw-1\.25rem\)\] {
+  width: calc(100vw - 1.25rem);
+}
+
+.min-w-0 {
+  min-width: 0px;
+}
+
+.min-w-\[\] {
+  min-width: ;
+}
+
+.min-w-\[240\] {
+  min-width: 240;
+}
+
+.min-w-\[240px\] {
+  min-width: 240px;
+}
+
+.max-w-screen-sm {
+  max-width: 640px;
+}
+
+.max-w-screen-md {
+  max-width: 768px;
+}
+
+.max-w-screen-lg {
+  max-width: 1024px;
+}
+
+.max-w-\[\] {
+  max-width: ;
+}
+
+.max-w-\[800\] {
+  max-width: 800;
+}
+
+.max-w-\[800px\] {
+  max-width: 800px;
+}
+
 .transform {
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -647,12 +691,20 @@ video {
   grid-template-columns: auto auto;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .items-center {
   align-items: center;
 }
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .justify-items-end {
@@ -663,12 +715,24 @@ video {
   gap: 0.5rem;
 }
 
+.gap-1 {
+  gap: 0.25rem;
+}
+
 .overflow-auto {
   overflow: auto;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 
 .whitespace-pre {
