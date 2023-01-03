@@ -47,7 +47,7 @@ async function getDocDataFromDb(docRef) {
     return dataObject;
   }
 
-  async function getDbData() {
+  async function getDbData(setTip, tagColours, gotDbData, gotDbTagColours) {
     const tipsObject = await getDocDataFromDb(tipsDocRef);
     setTip(() => tipsObject);
 
