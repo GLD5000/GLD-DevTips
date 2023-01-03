@@ -17,7 +17,7 @@ const AddTip = ({
   
   const appAuth = useAuth();
   const signedIn = appAuth.authUser !== null;
-  const isOwner = signedIn === true && appAuth.isOwner === true;
+  const isOwner = signedIn === true && appAuth.authUser?.isOwner === true;
   const authClickHandler = appAuth.clickHandler;
 
 
