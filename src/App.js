@@ -7,16 +7,12 @@ import Filters from "./components/header/Filters";
 import getRandomColour from "./utilities/randomColour";
 import AutoTextColour from "./utilities/autoTextColour";
 
-//import tagHexLookup from "./utilities/tagHex";
-//import autoTextColour from "./utilities/autoTextColour";
-
 import { initializeApp } from "firebase/app";
-//import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-import useFirebaseAuth, { AuthUserProvider, useAuth } from "./auth";
+import { AuthUserProvider } from "./auth";
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
   authDomain: "devtips-c1b63.firebaseapp.com",
@@ -127,17 +123,14 @@ const object = createObject("A", "B");
   },
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
-//Firestore
-const database = getFirestore(app);
-const tipsDocRef = doc(database, "devtips", "tips");
-const tagsDocRef = doc(database, "devtips", "tags");
-const rolesDocRef = doc(database, "devtips", "roles");
+// Initialize Firebase//delete
+const app = initializeApp(firebaseConfig);//delete
+//Firestore//delete
+const database = getFirestore(app);//delete
+const tipsDocRef = doc(database, "devtips", "tips");//delete
+const tagsDocRef = doc(database, "devtips", "tags");//delete
 
-let userCount = 0;
-async function addTipToDb(object) {
+async function addTipToDb(object) {//delete
   console.log("Adding tag to db...");
   try {
     await updateDoc(tipsDocRef, {
@@ -152,7 +145,7 @@ async function addTipToDb(object) {
     console.error("Error adding document: ", e);
   }
 }
-export async function addTagToDb(lowerCaseTagName, tag) {
+async function addTagToDb(lowerCaseTagName, tag) {//delete
   try {
     await updateDoc(tagsDocRef, {
       [lowerCaseTagName]: tag,
@@ -182,7 +175,7 @@ async function tagHexLookup(tag, tagColours) {
   }
   return tagColours;
 }
-async function getDocDataFromDb(docRef) {
+async function getDocDataFromDb(docRef) { //delete
   const gotDoc = await getDoc(docRef);
   const dataObject = await gotDoc.data();
   return dataObject;
@@ -290,11 +283,8 @@ const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
     gotDbTagColours = false;
     return tagColours;
   }
-  function updateTagColours() {
-    mapTagColours(tagColours);
-  }
   if (gotDbTagColours) {
-    updateTagColours();
+    mapTagColours(tagColours);
   }
   const newTipId = makeNewTipId(tipList);
   const [searchQuery, setSearchQuery] = useState(searchFromUrl || "");
