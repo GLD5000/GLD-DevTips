@@ -13,15 +13,10 @@ import AutoTextColour from "./utilities/autoTextColour";
 import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-} from "firebase/auth";
+
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-import { AuthUserProvider } from "./auth";
+import useFirebaseAuth, { AuthUserProvider, useAuth } from "./auth";
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
   authDomain: "devtips-c1b63.firebaseapp.com",
@@ -140,12 +135,7 @@ const database = getFirestore(app);
 const tipsDocRef = doc(database, "devtips", "tips");
 const tagsDocRef = doc(database, "devtips", "tags");
 const rolesDocRef = doc(database, "devtips", "roles");
-//Auth
-const auth = getAuth();
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
-  prompt: "select_account",
-});
+
 let userCount = 0;
 async function addTipToDb(object) {
   console.log("Adding tag to db...");
@@ -176,7 +166,7 @@ export async function addTagToDb(lowerCaseTagName, tag) {
 }
 const tagsObject = {};
 
-async function tagHexLookup(tag, tagColours, isOwner) {
+async function tagHexLookup(tag, tagColours) {
   const lowerCaseTagName = tag.toLowerCase();
   const tagNotPresent = tagColours[lowerCaseTagName] === undefined;
 
@@ -188,9 +178,7 @@ async function tagHexLookup(tag, tagColours, isOwner) {
       backgroundColour: backgroundColour,
       textColour: textColour,
     };
-    if (isOwner) {
       addTagToDb(lowerCaseTagName, tagColours[lowerCaseTagName]);
-    }
   }
   return tagColours;
 }
@@ -198,31 +186,6 @@ async function getDocDataFromDb(docRef) {
   const gotDoc = await getDoc(docRef);
   const dataObject = await gotDoc.data();
   return dataObject;
-}
-async function checkRole(user, setSignedIn, setIsOwner) {
-  // console.log("checkRole");
-  const uid = user.uid;
-  const rolesDoc = await getDoc(rolesDocRef);
-  const role = await rolesDoc.data()[uid];
-  const isOwner = role === "owner";
-  if (isOwner) {
-    // console.log("Is owner = " + isOwner);
-    // console.log("signing in...");
-    setSignedIn(true);
-
-    setIsOwner(true);
-  } else {
-    console.log("signing in...");
-    setSignedIn(true);
-    setIsOwner(false);
-
-    console.log(
-      "You are not authorised to submit tips to the database- sorry!"
-    );
-
-    setIsOwner(false);
-  }
-  return isOwner;
 }
 const inputFormStarter = {
   title: null,
@@ -250,35 +213,9 @@ const searchFromUrl = urlObject.get("title");
 const tagsFromUrl = urlObject.getAll("tags").map(x => x.toLowerCase());
 export default function App() {
 console.count("App");
-  
-  const [signedIn, setSignedIn] = useState(() => false);
-  const [isOwner, setIsOwner] = useState(() => false);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      if (userCount < 3) {
-        userCount += 1;
-        // console.log(userCount);
-        if (userCount === 1 || signedIn === false) checkRole(user, setSignedIn, setIsOwner);
-      }
-    } else {
-      if (userCount !== 0) {
-        // console.log("signing out...");
-        // console.log(userCount);
-        setSignedIn(false);
-        setIsOwner(false);
-        userCount -= 1;
-      }
-    }
-  });
-  async function authClickHandler() {
-    if (signedIn) {
-      await auth.signOut();
-    } else if (!signedIn) {
-      await signInWithPopup(auth, provider);
-    }
-  }
 
-  const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
+
+const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
   function addFieldToInputFormState(key, value) {
     setInputFormState((object) => {
       const newObject = { ...object };
@@ -348,7 +285,7 @@ console.count("App");
   const tagListAll = Object.keys(tagState);
   function mapTagColours(tagColours) {
     tagListAll.forEach((tag) => {
-      tagHexLookup(tag, tagColours, isOwner);
+      tagHexLookup(tag, tagColours);
     });
     gotDbTagColours = false;
     return tagColours;
