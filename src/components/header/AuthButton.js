@@ -1,13 +1,17 @@
 import Button from "../../elements/Button";
-export default function AuthButton({ authClickHandler, signedIn }) {
-  const text = signedIn ? "Sign Out" : "Log In";
+import { useAuth } from "../../auth";
+export default function AuthButton() {
+  const appAuth = useAuth();
+   console.log(appAuth); 
+  const signedIn = appAuth.authUser !== null;
+  const text = signedIn ? "Log Out " + appAuth.authUser.name : "Log In";
   const className =
-    "h-full hover:border-black hover:text-black hover:bg-whitesmoke border-solid border-current col-start-5";
+    "h-full hover:border-black hover:text-black hover:bg-whitesmoke border-solid border-current col-start-5 whitespace-nowrap";
   return (
     <Button
       backgroundColor="transparent"
       text={text}
-      clickFunction={authClickHandler}
+      clickFunction={appAuth.clickHandler}
       className={className}
     />
   );
