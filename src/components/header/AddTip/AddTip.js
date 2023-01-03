@@ -1,22 +1,26 @@
 import InputForm from "./InputForm";
+import { useAuth } from "../../../auth";
 
 const AddTip = ({
-  authClickHandler,
   setTip,
   newTipId,
   tagListAll,
   addTipToDb,
-  signedIn,
-  isOwner,
   inputFormState,
   setInputFormState,
   addFieldToInputFormState,
   addObjectToInputFormState,
-  showAddTipForm,
   setShowAddTipForm,
   addNewObjectToTips,
   setSearchQuery,
 }) => {
+  
+  const appAuth = useAuth();
+  const signedIn = appAuth.authUser !== null;
+  const isOwner = signedIn === true && appAuth.isOwner === true;
+  const authClickHandler = appAuth.clickHandler;
+
+
   const currentId = inputFormState?.id || newTipId;
   function callbackMainTitle(value) {
     addFieldToInputFormState("title", value);
@@ -39,8 +43,6 @@ const AddTip = ({
 
   function onSubmit() {
     const newObject = makeNewTipObject();
-    console.log(`isOwner ${isOwner}`);
-    
     if (isOwner) addTipToDb(newObject);
     newObject.titleSuffix = " (saved)";
     newObject.updated = "Last save: " + newObject.date;

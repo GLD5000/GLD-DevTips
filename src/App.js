@@ -448,13 +448,10 @@ console.count("App");
 
   const topSection = showAddTipForm ? (
     <AddTip
-      authClickHandler={authClickHandler}
       setTip={setTip}
       newTipId={newTipId}
       tagListAll={tagListAll}
       addTipToDb={addTipToDb}
-      signedIn={signedIn}
-      isOwner={isOwner}
       inputFormState={inputFormState}
       setInputFormState={setInputFormState}
       addFieldToInputFormState={addFieldToInputFormState}
