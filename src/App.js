@@ -248,8 +248,8 @@ const url = window.location.search;
 const urlObject = new URLSearchParams(url);
 const searchFromUrl = urlObject.get("title");
 const tagsFromUrl = urlObject.getAll("tags").map(x => x.toLowerCase());
-function App() {
-
+export default function App() {
+console.count("App");
   
   const [signedIn, setSignedIn] = useState(() => false);
   const [isOwner, setIsOwner] = useState(() => false);
@@ -491,8 +491,6 @@ function App() {
         setTip={setTip}
         newTipId={newTipId}
         tagListAll={tagListAll}
-        authClickHandler={authClickHandler}
-        signedIn={signedIn}
         addTipToDb={addTipToDb}
         showAddTipForm={showAddTipForm}
         setShowAddTipForm={setShowAddTipForm}
@@ -515,4 +513,3 @@ function App() {
     </AuthUserProvider>
   );
 }
-export default App;
