@@ -199,7 +199,7 @@ function wrapLists(arrayOfObjects) {
   arrayOfObjects?.forEach((paragraph, index, arr) => {
     console.assert(
       typeof paragraph === "object",
-      `Paragraph is not an object ${paragraph}`
+      arrayOfObjects
     );
     if (typeof paragraph !== "object") return;
     const wrappedObject = paragraph;
