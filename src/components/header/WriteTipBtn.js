@@ -1,8 +1,8 @@
 import SvgButton from "../../elements/SvgButton";
 const writeClasses =
-  " hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent";
+  " focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent";
 const cancelClasses =
-  "bg-transparent text-pink-300 hover:bg-pink-300 hover:text-black";
+  "bg-transparent text-pink-300 focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black";
 
 export default function WriteTipBtn({
   showAddTipForm,
@@ -38,6 +38,7 @@ export default function WriteTipBtn({
         clickFunction={onClickAdd}
         reverse={true}
         buttonClasses={showAddTipForm ? cancelClasses : writeClasses}
+        activeClasses="active:bg-slate-400"
       />
     </div>
   );

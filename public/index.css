@@ -1463,6 +1463,31 @@ select {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.focus\:border-black:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
+.focus\:bg-aquamarine:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(126 185 135 / var(--tw-bg-opacity));
+}
+
+.focus\:bg-pink-300:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 168 212 / var(--tw-bg-opacity));
+}
+
+.focus\:bg-whitesmoke:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(247 247 247 / var(--tw-bg-opacity));
+}
+
+.focus\:text-black:focus {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
 .active\:scale-95:active {
   --tw-scale-x: .95;
   --tw-scale-y: .95;
