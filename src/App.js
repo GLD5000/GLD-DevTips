@@ -219,6 +219,7 @@ getTagsFirestore().then(result => {
 });
 getTipsFirestore().then(result => {
   if (!ignore) {
+    console.log(result);
     setTipsFirestore(result);
   }
 });

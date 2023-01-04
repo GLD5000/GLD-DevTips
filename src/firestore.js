@@ -1,11 +1,16 @@
 //import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc, where } from 'firebase/firestore'; 
 import { db } from './firebase';
 //Additional
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, collection, setDoc } from "firebase/firestore";
 
 const tipsDocRef = doc(db, "devtips", "tips");
 const tagsDocRef = doc(db, "devtips", "tags");
 const rolesDocRef = doc(db, "devtips", "roles");
+
+const tipsCollection = collection(db, "tips");
+const tagsCollection = collection(db, "tags");
+const rolesCollection = collection(db, "roles");
+
 
 export async function getUserRole(uid){
     const rolesDoc = await getDoc(rolesDocRef);
