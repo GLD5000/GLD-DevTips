@@ -11,6 +11,14 @@ const tipsCollection = collection(db, "tips");
 const tagsCollection = collection(db, "tags");
 const rolesCollection = collection(db, "roles");
 
+export async function addTipToCollection(){
+  
+}
+export async function addTagToCollection(){
+  
+}
+
+
 
 export async function getUserRole(uid){
     const rolesDoc = await getDoc(rolesDocRef);
