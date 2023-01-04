@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
@@ -13,6 +13,7 @@ import { getFirestore } from "firebase/firestore";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 import { AuthUserProvider } from "./auth";
+import {getTagsFirestore, getTipsFirestore} from "./firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
   authDomain: "devtips-c1b63.firebaseapp.com",
@@ -207,7 +208,25 @@ const tagsFromUrl = urlObject.getAll("tags").map(x => x.toLowerCase());
 export default function App() {
 console.count("App");
 
+const [tipsFirestore, setTipsFirestore] = useState(null);
+const [tagsFirestore, setTagsFirestore] = useState(null);
+useEffect(() => {
+let ignore = false;
+getTagsFirestore().then(result => {
+  if (!ignore) {
+    setTagsFirestore(result);
+  }
+});
+getTipsFirestore().then(result => {
+  if (!ignore) {
+    setTipsFirestore(result);
+  }
+});
+return () => {
+  ignore = true;
+};
 
+},[]);
 const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
   function addFieldToInputFormState(key, value) {
     setInputFormState((object) => {

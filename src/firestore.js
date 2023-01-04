@@ -47,17 +47,18 @@ async function getDocDataFromDb(docRef) {
     return dataObject;
   }
 
-  async function getDbData(setTip, tagColours, gotDbData, gotDbTagColours) {
+
+  export async function getTipsFirestore() {
     const tipsObject = await getDocDataFromDb(tipsDocRef);
-    setTip(() => tipsObject);
-
+    return tipsObject;
+  }
+  export async function getTagsFirestore() {
     const newTagColours = await getDocDataFromDb(tagsDocRef);
-    Object.entries(newTagColours).forEach((entry) => {
-      tagColours[entry[0]] = { ...entry[1], fromDb: true };
+    Object.keys(newTagColours).forEach((key) => {
+      newTagColours[key].fromDb = true;
+      newTagColours[key].active = false;
     });
-    gotDbTagColours = true;
-
-    gotDbData = true;
+    return newTagColours;
   }
 
   
