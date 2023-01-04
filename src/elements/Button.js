@@ -8,13 +8,13 @@ export default function Button({
   backgroundColor = "black",
   text = "Add",
   clickFunction = defaultOnClick,
-  id=null,
-  name=null,
+  id = null,
+  name = null,
   className = "btn",
   border = "1px solid var(--border-grey)",
-  
+  activeClasses = "active:bg-slate-400"
 }) {
-  function clickHandler(e){
+  function clickHandler(e) {
     clickFunction(e);
   }
   return (
@@ -22,10 +22,9 @@ export default function Button({
       id={id}
       name={name}
       onClick={clickHandler}
-      className={"active:scale-95 py-1 px-2 border-2 "+ className}
+      className={`border-2 py-1 px-2 active:bg-slate-300 ${activeClasses} ${className}`}
     >
       {text}
     </button>
   );
-};
-
+}

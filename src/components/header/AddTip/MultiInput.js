@@ -372,7 +372,7 @@ const MultiInput = ({
         clickFunction={addField}
         id="add-field"
         svgClasses="stroke-1 stroke-current fill-none"
-
+        activeClasses="active:bg-slate-400"
       />
       <SvgButton
         type="preview"
@@ -382,6 +382,8 @@ const MultiInput = ({
         text="Preview"
         clickFunction={onPreview}
         svgClasses="stroke-1 stroke-current"
+        activeClasses="active:bg-slate-400"
+
       />
       <Button
         key="saveTip"

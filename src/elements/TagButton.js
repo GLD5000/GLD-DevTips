@@ -8,13 +8,12 @@ export default function TagButton({
   backgroundColor = "black",
   text = "Add",
   clickFunction = defaultOnClick,
-  id=null,
-  name=null,
+  id = null,
+  name = null,
   className = "btn",
   border = "1px solid var(--border-grey)",
-  
 }) {
-  function clickHandler(e){
+  function clickHandler(e) {
     clickFunction(e);
   }
   return (
@@ -22,11 +21,12 @@ export default function TagButton({
       id={id}
       name={name}
       onClick={clickHandler}
-      className={"active:scale-95 hover:border-white py-1 px-2 border-2 "+ className}
+      className={
+        "border-2 py-1 px-2 hover:border-white active:bg-slate-600 " + className
+      }
       style={{ color: color, backgroundColor: backgroundColor }}
     >
       {text}
     </button>
   );
-};
-
+}

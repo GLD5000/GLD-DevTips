@@ -70,17 +70,17 @@ export default function SvgButton({
   showText = true,
   reverse = false,
   hoverFunction = null,
-  buttonClasses = `${color} ${backgroundColor}`,
+  activeClasses = `active:bg-slate-600`,
+  buttonClasses = null,
   svgClasses = "stroke-current fill-none stroke-1",
   className = `px-2 py-1
    items-center 
-   active:scale-95
    hover:border-current
    grid     
    h-full 
     ${wide === true ? `grid-cols-frAutoFr w-full` : `grid-cols-autoAuto`}
      cursor-pointer rounded border-2 border-solid whitespace-pre-wrap 
-    ${buttonClasses && buttonClasses}`,
+    ${color && color} ${backgroundColor && backgroundColor} ${buttonClasses && buttonClasses} ${activeClasses && activeClasses}`,
 }) {
   const svg = getSvg(type, svgClasses);
   const content = getContent(reverse, showText, text, svg);
