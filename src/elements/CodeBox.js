@@ -7,11 +7,11 @@ function removeParagraphs(string) {
 }
 
 export default function CodeBox({ content, parse = false }) {
-  const [copyButtonMessage, setCopyButtonMessage] = useState("Copy Code");
+  const [copyButtonMessage, setCopyButtonMessage] = useState("Copy");
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setCopyButtonMessage("Copy Code");
+      setCopyButtonMessage("Copy");
     }, 2000);
 
     return () => {
@@ -45,7 +45,7 @@ export default function CodeBox({ content, parse = false }) {
           showText={true}
           reverse={false}
           buttonClasses="border-transparent sticky left-0"
-          className=" w-full sticky left-0 bottom-0 flex items-center justify-center active:bg-slate-600 border-2 border-transparent hover:border-current hover:border-2"
+          className=" w-full sticky left-0 bottom-0 flex items-center justify-start active:bg-slate-600 border-2 border-transparent hover:border-current hover:border-2"
           // marginLeft="auto"
           svgClasses="stroke-1 fill-black stroke-whitesmoke"
         />
