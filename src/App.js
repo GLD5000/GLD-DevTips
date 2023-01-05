@@ -13,7 +13,7 @@ import { getFirestore } from "firebase/firestore";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 import { AuthUserProvider } from "./auth";
-import { DataProvider } from "./DataProvider";
+import  DataProvider  from "./DataProvider";
 
 import {
   getTagsFirestore,
