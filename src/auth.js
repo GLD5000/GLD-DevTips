@@ -66,6 +66,8 @@ const AuthUserContext = createContext({
   isLoading: true,
   clickHandler: async () => {},
 });
+export const useAuth = () => useContext(AuthUserContext); // custom hook
+
 export function AuthUserProvider({ children }) {
   // context provider
   // console.count("AuthUserProvider");
@@ -82,7 +84,6 @@ export function AuthUserProvider({ children }) {
   );
 }
 
-export const useAuth = () => useContext(AuthUserContext); // custom hook
 
 
 async function checkRole(user) {
