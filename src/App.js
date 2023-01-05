@@ -13,7 +13,7 @@ import { getFirestore } from "firebase/firestore";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 import { AuthUserProvider } from "./auth";
-import {getTagsFirestore, getTipsFirestore, addTipToCollection, addTagToCollection} from "./firestore";
+import {getTagsFirestore, getTipsFirestore, addTipToCollection, addTagToCollection, addTipToDb, addTagToDb} from "./firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
   authDomain: "devtips-c1b63.firebaseapp.com",
@@ -131,33 +131,33 @@ const database = getFirestore(app);//delete
 const tipsDocRef = doc(database, "devtips", "tips");//delete
 const tagsDocRef = doc(database, "devtips", "tags");//delete
 
-async function addTipToDb(object) {//delete
-  console.log("Adding tag to db...");
-  try {
-    await updateDoc(tipsDocRef, {
-      [object.id]: object,
-    });
-    const gotDoc = await getDoc(tipsDocRef);
-    console.log("Document written as: ", gotDoc.data()[object.id]);
-    Object.entries(tagColours).forEach((tag) => {
-      if (tag[1].fromDb !== true) addTagToDb(tag[0], tag[1]);
-    });
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}
-async function addTagToDb(lowerCaseTagName, tag) {//delete
-  try {
-    await updateDoc(tagsDocRef, {
-      [lowerCaseTagName]: tag,
-    });
-    const gotDoc = await getDoc(tagsDocRef);
+// async function addTipToDb(object) {//delete
+//   console.log("Adding tag to db...");
+//   try {
+//     await updateDoc(tipsDocRef, {
+//       [object.id]: object,
+//     });
+//     const gotDoc = await getDoc(tipsDocRef);
+//     console.log("Document written as: ", gotDoc.data()[object.id]);
+//     Object.entries(tagColours).forEach((tag) => {
+//       if (tag[1].fromDb !== true) addTagToDb(tag[0], tag[1]);
+//     });
+//   } catch (e) {
+//     console.error("Error adding document: ", e);
+//   }
+// }
+// async function addTagToDb(lowerCaseTagName, tag) {//delete
+//   try {
+//     await updateDoc(tagsDocRef, {
+//       [lowerCaseTagName]: tag,
+//     });
+//     const gotDoc = await getDoc(tagsDocRef);
 
-    console.log("Document written as: ", gotDoc.data()[lowerCaseTagName]);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}
+//     console.log("Document written as: ", gotDoc.data()[lowerCaseTagName]);
+//   } catch (e) {
+//     console.error("Error adding document: ", e);
+//   }
+// }
 const tagsObject = {};
 
 async function tagHexLookup(tag, tagColours) {
@@ -311,7 +311,7 @@ const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
   const newTipId = makeNewTipId(tipList);
   const [searchQuery, setSearchQuery] = useState(searchFromUrl || "");
 
-  function testtagState(tagState, tagArray) {
+  function checkTagVisible(tagState, tagArray) {
     //console.log(tagState);
     //console.log(tagArray);
     const tagStateValue = Object.values(tagState);
@@ -327,16 +327,16 @@ const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
     });
     return returnBoolean;
   }
-  function filterSearchTip(tip) {
+  function filterTip(tip) {
     return (
       tip.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      testtagState(tagState, tip.tags)
+      checkTagVisible(tagState, tip.tags)
     );
   }
-  function filterTiplist(tipList) {
-    return Object.values(tipList).filter((tip) => filterSearchTip(tip));
+  function filterTips(tipList) {
+    return Object.values(tipList).filter((tip) => filterTip(tip));
   }
-  const filteredTipList = filterTiplist(tipList);
+  const filteredTipList = filterTips(tipList);
 
   let tagArray = [];
   function createTagSet(filteredTipList) {

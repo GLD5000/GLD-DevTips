@@ -11,6 +11,10 @@ const tipsCollection = collection(db, "tips");
 const tagsCollection = collection(db, "tags");
 const rolesCollection = collection(db, "roles");
 
+const tipsObject = {};
+const tagsObject = {};
+
+
 export async function addTipToCollection(title, object){
   await setDoc(doc(tipsCollection, title), object);
 }
@@ -26,15 +30,14 @@ export async function getUserRole(uid){
     return role;
 }
 
-export async function addTipToDb(object, tagColours) {
+export async function addTipToDb(object) {
 
     try {
-    await updateDoc(tipsDocRef, {
-      [object.id]: object,
-    });
-    const gotDoc = await getDoc(tipsDocRef);
-    console.log("Document written as: ", gotDoc.data()[object.id]);
-    Object.entries(tagColours).forEach((tag) => {
+    await addTipToCollection(object.id, object);
+    const docRef = doc(tipsCollection, object.id);
+    const gotDoc = await getDoc(docRef);
+    console.log("Document written as: ", gotDoc.data());
+    Object.entries(tagsObject).forEach((tag) => {
       if (tag[1].fromDb !== true) addTagToDb(tag[0], tag[1]);
     });
   } catch (e) {
@@ -43,12 +46,13 @@ export async function addTipToDb(object, tagColours) {
 }
 export async function addTagToDb(lowerCaseTagName, tag) {
   try {
-    await updateDoc(tagsDocRef, {
-      [lowerCaseTagName]: tag,
-    });
-    const gotDoc = await getDoc(tagsDocRef);
-
-    console.log("Document written as: ", gotDoc.data()[lowerCaseTagName]);
+    await addTagToCollection(lowerCaseTagName, tag);
+    console.group(`tag`);
+    console.log(tag);
+    console.groupEnd();
+    const docRef = doc(tagsCollection, lowerCaseTagName);
+    const gotDoc = await getDoc(docRef);
+    console.log("Document written as: ", gotDoc.data());
   } catch (e) {
     console.error("Error adding document: ", e);
   }
@@ -59,12 +63,9 @@ async function getDocDataFromDb(docRef) {
     const dataObject = await gotDoc.data();
     return dataObject;
   }
-
-
   export async function getTipsFirestore() {
     const tipsQuery = query(tipsCollection, orderBy("id", "desc"));
     const tipsSnapshot = await getDocs(tipsQuery);
-    const tipsObject = {};
     tipsSnapshot.forEach((doc) => {
       tipsObject[doc.id] = doc.data();
     });
@@ -73,7 +74,6 @@ async function getDocDataFromDb(docRef) {
   export async function getTagsFirestore() {
     const tagsQuery = query(tagsCollection, orderBy("name", "asc"));
     const tagsSnapshot = await getDocs(tagsQuery);
-    const tagsObject = {};
     tagsSnapshot.forEach((doc) => {
       tagsObject[doc.id] = doc.data();
     });
