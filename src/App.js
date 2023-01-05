@@ -13,7 +13,16 @@ import { getFirestore } from "firebase/firestore";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 import { AuthUserProvider } from "./auth";
-import {getTagsFirestore, getTipsFirestore, addTipToCollection, addTagToCollection, addTipToDb, addTagToDb} from "./firestore";
+import { DataProvider } from "./DataProvider";
+
+import {
+  getTagsFirestore,
+  getTipsFirestore,
+  addTipToCollection,
+  addTagToCollection,
+  addTipToDb,
+  addTagToDb,
+} from "./firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
   authDomain: "devtips-c1b63.firebaseapp.com",
@@ -125,11 +134,11 @@ const object = createObject("A", "B");
 };
 
 // Initialize Firebase//delete
-const app = initializeApp(firebaseConfig);//delete
+const app = initializeApp(firebaseConfig); //delete
 //Firestore//delete
-const database = getFirestore(app);//delete
-const tipsDocRef = doc(database, "devtips", "tips");//delete
-const tagsDocRef = doc(database, "devtips", "tags");//delete
+const database = getFirestore(app); //delete
+const tipsDocRef = doc(database, "devtips", "tips"); //delete
+const tagsDocRef = doc(database, "devtips", "tags"); //delete
 
 // async function addTipToDb(object) {//delete
 //   console.log("Adding tag to db...");
@@ -172,11 +181,12 @@ async function tagHexLookup(tag, tagColours) {
       backgroundColour: backgroundColour,
       textColour: textColour,
     };
-      addTagToDb(lowerCaseTagName, tagColours[lowerCaseTagName]);
+    addTagToDb(lowerCaseTagName, tagColours[lowerCaseTagName]);
   }
   return tagColours;
 }
-async function getDocDataFromDb(docRef) { //delete
+async function getDocDataFromDb(docRef) {
+  //delete
   const gotDoc = await getDoc(docRef);
   const dataObject = await gotDoc.data();
   return dataObject;
@@ -204,33 +214,31 @@ function makeNewTipId(tipList) {
 const url = window.location.search;
 const urlObject = new URLSearchParams(url);
 const searchFromUrl = urlObject.get("title");
-const tagsFromUrl = urlObject.getAll("tags").map(x => x.toLowerCase());
+const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
 export default function App() {
-console.count("App");
+  console.count("App");
 
-const [tipsFirestore, setTipsFirestore] = useState(null);
-const [tagsFirestore, setTagsFirestore] = useState(null);
-useEffect(() => {
-let ignore = false;
-getTagsFirestore().then(result => {
-  if (!ignore) {
-    console.log(result);
-    setTagsFirestore(result);
-
-  }
-});
-getTipsFirestore().then(result => {
-  if (!ignore) {
-    console.log(result);
-    setTipsFirestore(result);
-  }
-});
-return () => {
-  ignore = true;
-};
-
-},[]);
-const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
+  const [tipsFirestore, setTipsFirestore] = useState(null);
+  const [tagsFirestore, setTagsFirestore] = useState(null);
+  useEffect(() => {
+    let ignore = false;
+    getTagsFirestore().then((result) => {
+      if (!ignore) {
+        console.log(result);
+        setTagsFirestore(result);
+      }
+    });
+    getTipsFirestore().then((result) => {
+      if (!ignore) {
+        console.log(result);
+        setTipsFirestore(result);
+      }
+    });
+    return () => {
+      ignore = true;
+    };
+  }, []);
+  const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
   function addFieldToInputFormState(key, value) {
     setInputFormState((object) => {
       const newObject = { ...object };
@@ -277,13 +285,14 @@ const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
     getDbData();
   }
 
-
   const [tagState, setTagState] = useState(tagsObject); // Tip init functions only run once
   function getTags(updatedTagState) {
     Object.keys(tagColours)
       .sort()
       .forEach((key) => {
-        tagsObject[tagColours[key].name] = tagsFromUrl.includes(key)? "active": "visible";
+        tagsObject[tagColours[key].name] = tagsFromUrl.includes(key)
+          ? "active"
+          : "visible";
       });
     updatedTagState = true;
   }
@@ -387,12 +396,12 @@ const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
     });
   }
 
-
-  function setTagStateFromTip(tag){
-    const newValue = tagState[tag] === "active"? "visible": "active";
+  function setTagStateFromTip(tag) {
+    const newValue = tagState[tag] === "active" ? "visible" : "active";
     setTagState((object) => {
-      return {...object, [tag]: newValue}}); // Tip return new object to trigger re-render
-      setFilterExpanded(() => true);
+      return { ...object, [tag]: newValue };
+    }); // Tip return new object to trigger re-render
+    setFilterExpanded(() => true);
   }
 
   const topSection = showAddTipForm ? (
@@ -423,39 +432,40 @@ const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
   );
   return (
     <AuthUserProvider>
-  
-    <section className="page-container">
-      <h1>Hello, my name is Gareth...</h1>
-      <Header
-        title="DevTips"
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        setTagState={setTagState}
-        tagState={tagState}
-        tagSet={tagSet}
-        titleSet={titleSet}
-        setTip={setTip}
-        newTipId={newTipId}
-        tagListAll={tagListAll}
-        addTipToDb={addTipToDb}
-        showAddTipForm={showAddTipForm}
-        setShowAddTipForm={setShowAddTipForm}
-        addObjectToInputFormState={addObjectToInputFormState}
-        clearTags={clearTags}
-      />
-      <section className="body-container">
-        {topSection}
-        <section className="tip-container">
-          <Tips
-            tipList={filteredTipList}
-            setTagStateFromTip={setTagStateFromTip}
-            editTip={editTip}
+      <DataProvider>
+        <section className="page-container">
+          <h1>Hello, my name is Gareth...</h1>
+          <Header
+            title="DevTips"
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            setTagState={setTagState}
+            tagState={tagState}
+            tagSet={tagSet}
+            titleSet={titleSet}
+            setTip={setTip}
+            newTipId={newTipId}
+            tagListAll={tagListAll}
+            addTipToDb={addTipToDb}
             showAddTipForm={showAddTipForm}
+            setShowAddTipForm={setShowAddTipForm}
+            addObjectToInputFormState={addObjectToInputFormState}
+            clearTags={clearTags}
           />
+          <section className="body-container">
+            {topSection}
+            <section className="tip-container">
+              <Tips
+                tipList={filteredTipList}
+                setTagStateFromTip={setTagStateFromTip}
+                editTip={editTip}
+                showAddTipForm={showAddTipForm}
+              />
+            </section>
+          </section>
+          <section className="footer"> footer</section>
         </section>
-      </section>
-      <section className="footer"> footer</section>
-    </section>
+      </DataProvider>
     </AuthUserProvider>
   );
 }
