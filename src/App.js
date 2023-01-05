@@ -13,7 +13,7 @@ import { getFirestore } from "firebase/firestore";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 import { AuthUserProvider } from "./auth";
-import {getTagsFirestore, getTipsFirestore} from "./firestore";
+import {getTagsFirestore, getTipsFirestore, addTipToCollection, addTagToCollection} from "./firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
   authDomain: "devtips-c1b63.firebaseapp.com",
@@ -215,12 +215,23 @@ let ignore = false;
 getTagsFirestore().then(result => {
   if (!ignore) {
     setTagsFirestore(result);
+    // Object.entries(result).forEach(entry => {
+    //   const key = entry[0];
+    //   const value = entry[1];
+    //   addTagToCollection(key,value);
+    // })
+
   }
 });
 getTipsFirestore().then(result => {
   if (!ignore) {
     console.log(result);
     setTipsFirestore(result);
+    // Object.entries(result).forEach(entry => {
+    //   const key = entry[0];
+    //   const value = entry[1];
+    //   addTipToCollection(key,value);
+    // })
   }
 });
 return () => {

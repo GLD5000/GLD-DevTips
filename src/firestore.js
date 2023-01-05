@@ -11,18 +11,18 @@ const tipsCollection = collection(db, "tips");
 const tagsCollection = collection(db, "tags");
 const rolesCollection = collection(db, "roles");
 
-export async function addTipToCollection(){
-  
+export async function addTipToCollection(title, object){
+  await setDoc(doc(tipsCollection, title), object);
 }
-export async function addTagToCollection(){
-  
+export async function addTagToCollection(title, object){
+  await setDoc(doc(tagsCollection, title), object);
 }
 
 
 
 export async function getUserRole(uid){
-    const rolesDoc = await getDoc(rolesDocRef);
-    const role = await rolesDoc.data()[uid];
+    const rolesDoc = await getDoc(doc(rolesCollection, uid));
+    const role = await rolesDoc.data()["role"];
     return role;
 }
 
