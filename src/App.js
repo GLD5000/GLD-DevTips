@@ -218,26 +218,26 @@ const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
 export default function App() {
   console.count("App");
 
-  const [tipsFirestore, setTipsFirestore] = useState(null);
-  const [tagsFirestore, setTagsFirestore] = useState(null);
-  useEffect(() => {
-    let ignore = false;
-    getTagsFirestore().then((result) => {
-      if (!ignore) {
-        console.log(result);
-        setTagsFirestore(result);
-      }
-    });
-    getTipsFirestore().then((result) => {
-      if (!ignore) {
-        console.log(result);
-        setTipsFirestore(result);
-      }
-    });
-    return () => {
-      ignore = true;
-    };
-  }, []);
+  // const [tipsFirestore, setTipsFirestore] = useState(null);
+  // const [tagsFirestore, setTagsFirestore] = useState(null);
+  // useEffect(() => {
+  //   let ignore = false;
+  //   getTagsFirestore().then((result) => {
+  //     if (!ignore) {
+  //       console.log(result);
+  //       setTagsFirestore(result);
+  //     }
+  //   });
+  //   getTipsFirestore().then((result) => {
+  //     if (!ignore) {
+  //       console.log(result);
+  //       setTipsFirestore(result);
+  //     }
+  //   });
+  //   return () => {
+  //     ignore = true;
+  //   };
+  // }, []);
   const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
   function addFieldToInputFormState(key, value) {
     setInputFormState((object) => {
