@@ -1,12 +1,23 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { getTagsFirestore, getTipsFirestore} from "./firestore";
+const url = window.location.search;
+const urlObject = new URLSearchParams(url);
+const searchFromUrl = urlObject.get("title");
+const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
+function activateTagsFromArray(tags, array){
+  console.group(`array`);
+  console.log(array);
+  console.groupEnd();
+  array.forEach(tagId => tags[tagId.toLowerCase()].active = true);
+  return tags;
+}
 
 function useData() {
   const [uiMode, setUiMode] = useState(() => {
     return { edit: false, tags: false };
   });
   const [filters, setFilter] = useState(() => {
-      return { active: false, searchTitle: undefined };
+      return { active: false, searchString: searchFromUrl || "" };
     });
   const [tags, setTags] = useState(null);
   const [tips, setTips] = useState(null);
@@ -14,31 +25,51 @@ function useData() {
 
 
   useEffect(() => {
-    let ignore = false;
+    let runEffect = true;
     getTagsFirestore().then((result) => {
-      if (!ignore) {
+      if (runEffect) {
+        if (tagsFromUrl.length > 0) activateTagsFromArray(result, tagsFromUrl);
         console.log(result);
         setTags(result);
       }
     });
     getTipsFirestore().then((result) => {
-      if (!ignore) {
+      if (runEffect) {
         console.log(result);
         setTips(result);
       }
     });
     return () => {
-      ignore = true;
+      runEffect = false;
     };
   }, []);
+
+  function tagClick(tagId){}
+  function searchChange(searchString){
+    setFilter((stateObject) => {
+      return {...stateObject, searchString: searchString};
+
+    });
+  }
+  function previewTip(){}
+  function saveTip(){}
+  function editTip(){}
+  function deleteTip(){}
 
 
   return {
     uiMode, //edit: true, tags: true
+    inputForm,
     tags,
     filters,
     tips,
-    inputForm,
+    setUiMode,
+    tagClick,
+    searchChange,
+    previewTip,
+    saveTip,
+    editTip,
+    deleteTip,
   };
 }
 
