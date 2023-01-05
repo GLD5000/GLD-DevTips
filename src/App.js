@@ -214,12 +214,8 @@ useEffect(() => {
 let ignore = false;
 getTagsFirestore().then(result => {
   if (!ignore) {
+    console.log(result);
     setTagsFirestore(result);
-    // Object.entries(result).forEach(entry => {
-    //   const key = entry[0];
-    //   const value = entry[1];
-    //   addTagToCollection(key,value);
-    // })
 
   }
 });
@@ -227,11 +223,6 @@ getTipsFirestore().then(result => {
   if (!ignore) {
     console.log(result);
     setTipsFirestore(result);
-    // Object.entries(result).forEach(entry => {
-    //   const key = entry[0];
-    //   const value = entry[1];
-    //   addTipToCollection(key,value);
-    // })
   }
 });
 return () => {

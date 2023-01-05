@@ -1,7 +1,7 @@
 //import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc, where } from 'firebase/firestore'; 
 import { db } from './firebase';
 //Additional
-import { doc, getDoc, updateDoc, collection, setDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, updateDoc, collection, setDoc, query, orderBy } from "firebase/firestore";
 
 const tipsDocRef = doc(db, "devtips", "tips");
 const tagsDocRef = doc(db, "devtips", "tags");
@@ -62,16 +62,31 @@ async function getDocDataFromDb(docRef) {
 
 
   export async function getTipsFirestore() {
-    const tipsObject = await getDocDataFromDb(tipsDocRef);
+    const tipsQuery = query(tipsCollection, orderBy("id", "desc"));
+    const tipsSnapshot = await getDocs(tipsQuery);
+    const tipsObject = {};
+    tipsSnapshot.forEach((doc) => {
+      tipsObject[doc.id] = doc.data();
+    });
     return tipsObject;
   }
   export async function getTagsFirestore() {
-    const newTagColours = await getDocDataFromDb(tagsDocRef);
-    Object.keys(newTagColours).forEach((key) => {
-      newTagColours[key].fromDb = true;
-      newTagColours[key].active = false;
+    const tagsQuery = query(tagsCollection, orderBy("name", "asc"));
+    const tagsSnapshot = await getDocs(tagsQuery);
+    const tagsObject = {};
+    tagsSnapshot.forEach((doc) => {
+      tagsObject[doc.id] = doc.data();
     });
-    return newTagColours;
+    return tagsObject;
   }
 
-  
+      // Object.entries(result).forEach(entry => {
+    //   const key = entry[0];
+    //   const value = entry[1];
+    //   addTagToCollection(key,value);
+    // })
+    // Object.entries(result).forEach(entry => {
+    //   const key = entry[0];
+    //   const value = entry[1];
+    //   addTipToCollection(key,value);
+    // })
