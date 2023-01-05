@@ -67,7 +67,7 @@ async function getDocDataFromDb(docRef) {
     const tipsQuery = query(tipsCollection, orderBy("id", "desc"));
     const tipsSnapshot = await getDocs(tipsQuery);
     tipsSnapshot.forEach((doc) => {
-      tipsObject[doc.id] = doc.data();
+      tipsObject[doc.id] = {...doc.data(), visible: true};
     });
     return tipsObject;
   }
