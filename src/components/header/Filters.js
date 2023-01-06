@@ -1,5 +1,6 @@
 import TitleFilter from "./TitleFilter";
 import TagSet from "./TagSet";
+import { useDataContext } from "../../DataProvider";
 
 export default function Filters({
   searchQuery,
@@ -8,10 +9,13 @@ export default function Filters({
   setTagState,
   tagState,
   filterExpanded,
-  setFilterExpanded
+  setFilterExpanded,
 }) {
-  function toggleExpanded(){
-    setFilterExpanded(!filterExpanded);
+  const { showFilter, setshowFilter, tags } = useDataContext();
+  console.log(showFilter);
+  console.log(tagState);
+  function toggleExpanded() {
+    setshowFilter(!showFilter);
   }
   // const tagsActive = Object.values(tagState).includes("active");
   // if (tagsActive) setFilterExpanded(true);
@@ -24,14 +28,19 @@ export default function Filters({
         toggleExpanded={toggleExpanded}
         expanded={filterExpanded}
       />
-     {filterExpanded && <TagSet setTagState={setTagState} tagState={tagState} updateTagState={updateTagState}/>}
+      {showFilter && tags !== null && (
+        <TagSet
+          setTagState={setTagState}
+          tagState={tagState}
+          updateTagState={updateTagState}
+        />
+      )}
     </section>
   );
   function updateTagState(tag) {
-    const newValue = tagState[tag] === "active"? "visible": "active";
+    const newValue = tagState[tag] === "active" ? "visible" : "active";
     setTagState((object) => {
       return { ...object, [tag]: newValue }; // Tip return new object to trigger re-render
     });
   }
-
 }

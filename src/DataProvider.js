@@ -8,9 +8,8 @@ const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
 function useData() {
   const [filterActive, setFilterActive] = useState(false);
   const [searchString, setSearchString] = useState(searchFromUrl || "");
-  const [uiMode, setUiMode] = useState(() => {
-    return { edit: false, tags: false };
-  });
+  const [showSearch, setShowSearch] = useState(true);
+  const [showFilter, setshowFilter] = useState(true);
   const [inputForm, setInputForm] = useState(null);
   const [tags, setTags] = useState(null);
   const [tips, setTips] = useState(null);
@@ -51,13 +50,15 @@ function useData() {
   function deleteTip() {}
 
   return {
-    uiMode,
+    showSearch,
+    setShowSearch,
+    showFilter,
+    setshowFilter,
     inputForm,
     tags,
     filterActive,
     searchString,
     tips,
-    setUiMode,
     setInputForm,
     clickTag,
     changeSearch,
@@ -88,14 +89,13 @@ export default function DataProvider({ children }) {
     );
     log = false;
   }
-
+  console.count("dataContext.Provider");
   // },[])
 
   return <dataContext.Provider value={data}>{children}</dataContext.Provider>;
 }
 const dataContext = createContext({
   // shape of context
-  uiMode: null, //edit: true, tags: true
   tags: null,
   filters: null,
   tips: null,

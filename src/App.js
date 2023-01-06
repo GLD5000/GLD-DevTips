@@ -216,7 +216,7 @@ const urlObject = new URLSearchParams(url);
 const searchFromUrl = urlObject.get("title");
 const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
 export default function App() {
-  // console.count("App");
+  console.count("App");
 
   // const [tipsFirestore, setTipsFirestore] = useState(null);
   // const [tagsFirestore, setTagsFirestore] = useState(null);
