@@ -34,7 +34,7 @@ export default function useFirebaseAuth() {
 
   useEffect(() => {
     const authStateChanged = async (user) => {
-      console.count("auth changed state");
+      // console.count("auth changed state");
       setIsLoading(true);
       if (!user) {
         clear();
