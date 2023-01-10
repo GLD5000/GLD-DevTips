@@ -1,11 +1,29 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useReducer,
+} from "react";
 import { getTagsFirestore, getTipsFirestore } from "./firestore";
 const url = window.location.search;
 const urlObject = new URLSearchParams(url);
 const searchFromUrl = urlObject.get("title");
 const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
 
+function dataReducer(data, action) {
+  switch (action.type) {
+    case "clickTag": {
+      // toggle tag
+      // set filter active if tag active and filterActive === false
+      // filter tips if applicable
+      // show tags if applicable
+    }
+  }
+}
+
 function useData() {
+  //data/metadata
   const [filterActive, setFilterActive] = useState(false);
   const [searchString, setSearchString] = useState(searchFromUrl || "");
   const [showSearch, setShowSearch] = useState(true);
@@ -13,6 +31,14 @@ function useData() {
   const [inputForm, setInputForm] = useState(null);
   const [tags, setTags] = useState(null);
   const [tips, setTips] = useState(null);
+
+  // const [{filterActive,
+  //   searchString,
+  //   showSearch,
+  //   showFilter,
+  //   inputFormPointer,
+  //   tags,
+  //   tips,         },dispatch] = useReducer(dataReducer, {});
 
   useEffect(() => {
     let runEffect = true;

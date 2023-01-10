@@ -318,6 +318,10 @@ export default function App() {
     mapTagColours(tagColours);
   }
   const newTipId = makeNewTipId(tipList);
+  console.group(`tipList`);
+  console.log(tipList);
+  console.groupEnd();
+  console.log(newTipId);
   const [searchQuery, setSearchQuery] = useState(searchFromUrl || "");
 
   function checkTagVisible(tagState, tagArray) {
