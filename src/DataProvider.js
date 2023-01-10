@@ -23,7 +23,26 @@ function dataReducer(data, action) {
 }
 
 function useData() {
-  //data/metadata
+
+  
+
+  //data state: useReducer
+  //tags object
+  // tips object
+  //next tip ID
+  
+  //Filter state: use reducer
+  // active tags set
+  // search string
+  // active tips array?
+  // Show tags
+
+  //Edit state: useState
+  // input form pointer
+  // top section
+
+  
+
   const [filterActive, setFilterActive] = useState(false);
   const [searchString, setSearchString] = useState(searchFromUrl || "");
   const [showSearch, setShowSearch] = useState(true);
