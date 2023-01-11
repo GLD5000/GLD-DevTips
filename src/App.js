@@ -14,6 +14,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 import { AuthUserProvider } from "./auth";
 import  DataProvider  from "./DataProvider";
+import AppDataProvider from "./contexts/Providers/AppDataProvider";
 
 import {
   getTagsFirestore,
@@ -216,7 +217,7 @@ const urlObject = new URLSearchParams(url);
 const searchFromUrl = urlObject.get("title");
 const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
 export default function App() {
-  console.count("App");
+  // console.count("App");
 
   // const [tipsFirestore, setTipsFirestore] = useState(null);
   // const [tagsFirestore, setTagsFirestore] = useState(null);
@@ -318,10 +319,10 @@ export default function App() {
     mapTagColours(tagColours);
   }
   const newTipId = makeNewTipId(tipList);
-  console.group(`tipList`);
-  console.log(tipList);
-  console.groupEnd();
-  console.log(newTipId);
+  // console.group(`tipList`);
+  // console.log(tipList);
+  // console.groupEnd();
+  // console.log(newTipId);
   const [searchQuery, setSearchQuery] = useState(searchFromUrl || "");
 
   function checkTagVisible(tagState, tagArray) {
@@ -436,7 +437,7 @@ export default function App() {
   );
   return (
     <AuthUserProvider>
-      <DataProvider>
+      <AppDataProvider>
         <section className="page-container">
           <h1>Hello, my name is Gareth...</h1>
           <Header
@@ -469,7 +470,7 @@ export default function App() {
           </section>
           <section className="footer"> footer</section>
         </section>
-      </DataProvider>
+      </AppDataProvider>
     </AuthUserProvider>
   );
 }

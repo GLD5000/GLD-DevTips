@@ -3,24 +3,13 @@ import {
   useEffect,
   createContext,
   useContext,
-  useReducer,
 } from "react";
-import { getTagsFirestore, getTipsFirestore } from "./firestore";
+import { getTagsFirestore, getTipsFirestore } from "../../firestore";
 const url = window.location.search;
 const urlObject = new URLSearchParams(url);
 const searchFromUrl = urlObject.get("title");
 const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
 
-function dataReducer(data, action) {
-  switch (action.type) {
-    case "clickTag": {
-      // toggle tag
-      // set filter active if tag active and filterActive === false
-      // filter tips if applicable
-      // show tags if applicable
-    }
-  }
-}
 
 function useData() {
 
@@ -43,13 +32,10 @@ function useData() {
 
   
 
-  const [filterActive, setFilterActive] = useState(false);
-  const [searchString, setSearchString] = useState(searchFromUrl || "");
-  const [showSearch, setShowSearch] = useState(true);
-  const [showFilter, setshowFilter] = useState(true);
-  const [inputForm, setInputForm] = useState(null);
   const [tags, setTags] = useState(null);
   const [tips, setTips] = useState(null);
+  const [nextTipID, setNextTipID] = useState(null);
+
 
   // const [{filterActive,
   //   searchString,
@@ -118,7 +104,7 @@ export default function DataProvider({ children }) {
   const data = useData();
   // useEffect(() => {
   if (log === true && data.tags !== null) {
-    console.log(
+    console.table(
       "filterActive",
       data.filterActive,
       "searchString",
@@ -140,16 +126,9 @@ export default function DataProvider({ children }) {
   return <dataContext.Provider value={data}>{children}</dataContext.Provider>;
 }
 const dataContext = createContext({
-  // shape of context
   tags: null,
-  filters: null,
   tips: null,
-  inputForm: null,
-  clickTag: async () => {},
-  changeSearch: async () => {},
-  previewTip: async () => {},
   saveTip: async () => {},
-  editTip: async () => {},
   deleteTip: async () => {},
 });
 
