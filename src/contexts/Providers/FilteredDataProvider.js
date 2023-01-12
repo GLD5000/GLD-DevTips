@@ -12,15 +12,22 @@ function useData() {
   const [activeTips, setActiveTips] = useState(null);
 
   if (loadState === "awaitingData" && tags) setLoadState("dataReceived");
-  useEffect(() => {
-    console.log("useEffect run");
+  if (loadState === "dataReceived") {
+    initFiltersFromUrl(tags, setActiveTags, setSearchString);
+    console.log("Function run");
+    setLoadState("finished");
+  }
 
-    if (loadState === "dataReceived") {
-      initFiltersFromUrl(tags, setActiveTags, setSearchString);
-      console.log("Function run");
-      setLoadState("finished");
-    }
-  }, [loadState]);
+
+  // useEffect(() => {
+  //   console.log("useEffect run");
+
+  //   if (loadState === "dataReceived") {
+  //     initFiltersFromUrl(tags, setActiveTags, setSearchString);
+  //     console.log("Function run");
+  //     setLoadState("finished");
+  //   }
+  // }, [loadState]);
   
 
   // useEffect(() => {
