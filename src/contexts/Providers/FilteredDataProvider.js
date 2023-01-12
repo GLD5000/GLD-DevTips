@@ -5,6 +5,7 @@ import {
   useContext,
 } from "react";
 import { getTagsFirestore, getTipsFirestore } from "../../firestore";
+import { useAppDataContext } from "./AppDataProvider";
 const url = window.location.search;
 const urlObject = new URLSearchParams(url);
 const searchFromUrl = urlObject.get("title");
