@@ -1,109 +1,95 @@
-import {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-} from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { getTagsFirestore, getTipsFirestore } from "../../firestore";
 import { useAppDataContext } from "./AppDataProvider";
-const url = window.location.search;
-const urlObject = new URLSearchParams(url);
-const searchFromUrl = urlObject.get("title");
-const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
-
 
 function useData() {
-
-  
-
   //Filter state: use reducer
-  // active tags set
-  // search string
-  // active tips array?
   // Show tags
+  const [loadState, setLoadState] = useState(() => "awaitingData");
+  const { tags, tips } = useAppDataContext();
+  const [searchString, setSearchString] = useState();
+  const [activeTags, setActiveTags] = useState(null);
+  const [activeTips, setActiveTips] = useState(null);
 
+  if (loadState === "awaitingData" && tags) setLoadState("dataReceived");
+  useEffect(() => {
+    console.log("useEffect run");
 
+    if (loadState === "dataReceived") {
+      initFiltersFromUrl(tags, setActiveTags, setSearchString);
+      console.log("Function run");
+      setLoadState("finished");
+    }
+  }, [loadState]);
   
 
-  const [tags, setTags] = useState(null);
-  const [tips, setTips] = useState(null);
-  const [nextTipID, setNextTipID] = useState(null);
+  // useEffect(() => {
+  //   let runEffect = true;
+  //   getTagsFirestore().then((result) => {
+  //     if (runEffect) {
+  //       if (tagsFromUrl.length > 0)
+  //         // activateTagsFromArray(
+  //         //   result,
+  //         //   tagsFromUrl,
+  //         //   filterActive,
+  //         //   setFilterActive
+  //         // );
+  //         // console.log(result);
+  //         // setTags(result);
+  //     }
+  //   });
+  //   getTipsFirestore().then((result) => {
+  //     if (runEffect) {
+  //       // console.log(result);
+  //       // setTips(result);
+  //     }
+  //   });
+  //   return () => {
+  //     runEffect = false;
+  //   };
+  // }, []);
 
-
-
-  useEffect(() => {
-    let runEffect = true;
-    getTagsFirestore().then((result) => {
-      if (runEffect) {
-        if (tagsFromUrl.length > 0)
-          // activateTagsFromArray(
-          //   result,
-          //   tagsFromUrl,
-          //   filterActive,
-          //   setFilterActive
-          // );
-        // console.log(result);
-        setTags(result);
-      }
-    });
-    getTipsFirestore().then((result) => {
-      if (runEffect) {
-        // console.log(result);
-        setTips(result);
-      }
-    });
-    return () => {
-      runEffect = false;
-    };
-  }, []);
-
-  function clickTag(tagId) {}
-  function changeSearch(searchString) {
+  // function clickTag(tagId) {}
+  // function changeSearch(searchString) {
     // setSearchString(searchString);
-  }
-  function previewTip() {}
-  function saveTip() {}
-  function editTip() {}
-  function deleteTip() {}
+  // }
+  // function previewTip() {}
+  // function saveTip() {}
+  // function editTip() {}
+  // function deleteTip() {}
 
   return {
-    // showSearch,
-    // setShowSearch,
-    // showFilter,
-    // setshowFilter,
-    // inputForm,
-    // tags,
-    // filterActive,
-    // searchString,
-    // tips,
-    // setInputForm,
-    // clickTag,
-    // changeSearch,
-    // previewTip,
-    // saveTip,
-    // editTip,
-    // deleteTip,
+    searchString,
+    setSearchString,
+    activeTags,
+    activeTips,  
   };
 }
-let log = true;
 export default function FilteredDataProvider({ children }) {
   const data = useData();
-
+  console.log(data);
   return <filteredData.Provider value={data}>{children}</filteredData.Provider>;
 }
 const filteredData = createContext();
 
 export const useFilteredDataContext = () => useContext(filteredData); // custom hook
 
-function activateTagsFromArray(tags, array, filterActive, setFilterActive) {
-  // console.group(`array`);
-  // console.log(array);
-  // console.groupEnd();
-  array.forEach((tagId) => {
-    const key = tagId.toLowerCase();
-    if (tags[key] === undefined) return;
-    if (filterActive === false) setFilterActive(true);
-    tags[key].active = true;
-  });
-  return tags;
+function initFiltersFromUrl(tags, setActiveTags, setSearchString){
+  const url = window.location.search;
+  const urlObject = new URLSearchParams(url);
+  const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
+  const searchFromUrl = urlObject.get("title");
+
+  if (searchFromUrl) setSearchString(searchFromUrl);
+  if (tagsFromUrl.length > 0) setActiveTags(activateTagsFromArray(tags, tagsFromUrl))
+}
+
+function activateTagsFromArray(tags, array) {
+
+  const returnSet = new Set(array.reduce((returnArray, tagId) => {
+    if (tags[tagId] === undefined) return returnArray;
+    returnArray.push(tags[tagId])
+    return returnArray;
+  },[]));
+  return returnSet;
 }
