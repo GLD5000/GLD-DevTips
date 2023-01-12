@@ -22,7 +22,6 @@ function useData() {
       if (runEffect) {
         setTips(result);
         const newTipId = getNewTipId();
-        console.log(newTipId);
         setNextTipId(newTipId);
       }
     });
