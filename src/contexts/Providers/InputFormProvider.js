@@ -1,21 +1,23 @@
 import { useState, createContext, useContext } from "react";
 
-export default function InputFormProvider({ children }) {
-  const data = useData();
+export default function InputContextProvider({ children }) {
+  const inputPointer = useData();
 
-  return <InputForm.Provider value={data}>{children}</InputForm.Provider>;
+  return <InputContext.Provider value={inputPointer}>{children}</InputContext.Provider>;
 }
 
 function useData() {
-  const [data, setData] = useState(false);
+  const [inputTip, setInputTip] = useState(null);
+  const [inputPointer, setInputPointer] = useState(null);
 
   return {
-    data,
-    setData,
+    inputPointer,
+    setInputPointer,
+    inputTip, setInputTip
   };
 }
-const InputForm = createContext();
+const InputContext = createContext();
 
-export function useInputForm() {
-  return useContext(InputForm);
+export function useInputContext() {
+  return useContext(InputContext);
 }
