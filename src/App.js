@@ -12,17 +12,11 @@ import { getFirestore } from "firebase/firestore";
 
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-import { AuthUserProvider } from "./auth";
-import  DataProvider  from "./DataProvider";
-import AppDataProvider from "./contexts/Providers/AppDataProvider";
+import CombinedProviders from "./contexts/CombinedProviders";
 
 import {
-  getTagsFirestore,
-  getTipsFirestore,
-  addTipToCollection,
-  addTagToCollection,
-  addTipToDb,
-  addTagToDb,
+  addTipToFirestore as addTipToDb,
+  addTagToFirestore as addTagToDb,
 } from "./firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyBJ7I6lUNnmKkJd60Gyoox-QfzO5wKdjCU",
@@ -436,8 +430,7 @@ export default function App() {
     />
   );
   return (
-    <AuthUserProvider>
-      <AppDataProvider>
+      <CombinedProviders>
         <section className="page-container">
           <h1>Hello, my name is Gareth...</h1>
           <Header
@@ -470,7 +463,6 @@ export default function App() {
           </section>
           <section className="footer"> footer</section>
         </section>
-      </AppDataProvider>
-    </AuthUserProvider>
+      </CombinedProviders>
   );
 }

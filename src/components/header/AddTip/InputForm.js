@@ -50,5 +50,19 @@ const InputForm = ({
       />
     </div>
   );
+
+
+  const inputFormStarter = {
+    title: null,
+    id: null,
+    sections: [{ type: "text", content: "" }],
+    tags: [],
+    date: null,
+  };
+  function initialiseInputFormState(inputFormStarter, setInputFormState) {
+    setInputFormState(() => inputFormStarter);
+    //Set all fields of InputFormState
+  }
+  
 };
 export default InputForm;

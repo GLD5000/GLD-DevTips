@@ -1,6 +1,4 @@
-//import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc, where } from 'firebase/firestore';
 import { db } from "./firebase";
-//Additional
 import {
   doc,
   getDoc,
@@ -11,10 +9,6 @@ import {
   orderBy,
 } from "firebase/firestore";
 
-// const tipsDocRef = doc(db, "devtips", "tips");
-// const tagsDocRef = doc(db, "devtips", "tags");
-// const rolesDocRef = doc(db, "devtips", "roles");
-
 const tipsCollection = collection(db, "tips");
 const tagsCollection = collection(db, "tags");
 const rolesCollection = collection(db, "roles");
@@ -22,10 +16,10 @@ const rolesCollection = collection(db, "roles");
 const tipsObject = {};
 const tagsObject = {};
 
-export async function addTipToCollection(title, object) {
+async function addTipToCollection(title, object) {
   await setDoc(doc(tipsCollection, title), object);
 }
-export async function addTagToCollection(title, object) {
+async function addTagToCollection(title, object) {
   await setDoc(doc(tagsCollection, title), object);
 }
 
@@ -35,20 +29,42 @@ export async function getUserRole(uid) {
   return role;
 }
 
-export async function addTipToDb(object) {
+export function getNewTipId(){
+  const number = 1 + getMaxIdNumber(tipsObject);
+  const paddedNumber = padIdNumber(number);
+  return paddedNumber;
+
+
+  function padIdNumber(number) {
+    return number.toString(10).padStart(4, "0");
+  }
+  function getMaxIdNumber(tips){
+    let max = 0;
+    Object.values(tips).forEach(tip => {
+      const integer = parseInt(tip.id);
+      if (integer > max) max = integer;
+    });
+    return max;
+  }
+  
+
+
+}
+
+export async function addTipToFirestore(object) {
   try {
     await addTipToCollection(object.id, object);
     const docRef = doc(tipsCollection, object.id);
     const gotDoc = await getDoc(docRef);
     console.log("Document written as: ", gotDoc.data());
     Object.entries(tagsObject).forEach((tag) => {
-      if (tag[1].fromDb !== true) addTagToDb(tag[0], tag[1]);
+      if (tag[1].fromDb !== true) addTagToFirestore(tag[0], tag[1]);
     });
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
-export async function addTagToDb(lowerCaseTagName, tag) {
+export async function addTagToFirestore(lowerCaseTagName, tag) {
   try {
     await addTagToCollection(lowerCaseTagName, tag);
     console.group(`tag`);

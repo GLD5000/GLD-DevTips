@@ -1,28 +1,10 @@
+import { useState, useEffect, createContext, useContext } from "react";
 import {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-} from "react";
-import { getTagsFirestore, getTipsFirestore } from "../../firestore";
-
-function makeNewTipId(tips) {
-  const number = 1 + getMaxIdNumber(tips);
-  const paddedNumber = padIdNumber(number);
-  return paddedNumber;
-}
-function padIdNumber(number) {
-  return number.toString(10).padStart(4, "0");
-}
-function getMaxIdNumber(tips){
-  let max = 0;
-  Object.values(tips).forEach(tip => {
-    const integer = parseInt(tip.id);
-    if (integer > max) max = integer;
-  });
-  return max;
-}
-
+  getTagsFirestore,
+  getTipsFirestore,
+  addTipToFirestore,
+  getNewTipId,
+} from "../../firestore";
 
 function useData() {
   const [tags, setTags] = useState(null);
@@ -39,7 +21,7 @@ function useData() {
     getTipsFirestore().then((result) => {
       if (runEffect) {
         setTips(result);
-        const newTipId = makeNewTipId(result);
+        const newTipId = getNewTipId();
         console.log(newTipId);
         setNextTipId(newTipId);
       }
@@ -49,9 +31,18 @@ function useData() {
     };
   }, []);
 
-  function saveTip() {}
-  function editTip() {}
-  function deleteTip() {}
+  async function saveTip(tip) {
+    await addTipToFirestore(tip);
+    getFirestoreData().then(() => {
+      console.log(tags, tips, nextTipId);
+    });
+  }
+  function deleteTip(tipId) {
+    alert("No no no");
+    // alert to confirm
+    // delete tip locally
+    // delete tip on database
+  }
 
   return {
     tags,
@@ -59,8 +50,18 @@ function useData() {
     nextTipId,
     saveTip,
     deleteTip,
-    editTip,
   };
+  async function getFirestoreData() {
+    getTagsFirestore().then((result) => {
+      setTags(result);
+    });
+    getTipsFirestore().then((result) => {
+      setTips(result);
+      const newTipId = getNewTipId();
+      console.log(newTipId);
+      setNextTipId(newTipId);
+    });
+  }
 }
 
 export default function AppDataProvider({ children }) {
@@ -70,5 +71,5 @@ export default function AppDataProvider({ children }) {
 }
 const dataContext = createContext();
 
-export const useDataContext = () => useContext(dataContext);
+export const useAppDataContext = () => useContext(dataContext);
 

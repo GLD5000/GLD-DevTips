@@ -15,20 +15,12 @@ function useData() {
 
   
 
-  //data state: useReducer
-  //tags object
-  // tips object
-  //next tip ID
-  
   //Filter state: use reducer
   // active tags set
   // search string
   // active tips array?
   // Show tags
 
-  //Edit state: useState
-  // input form pointer
-  // top section
 
   
 
@@ -37,25 +29,18 @@ function useData() {
   const [nextTipID, setNextTipID] = useState(null);
 
 
-  // const [{filterActive,
-  //   searchString,
-  //   showSearch,
-  //   showFilter,
-  //   inputFormPointer,
-  //   tags,
-  //   tips,         },dispatch] = useReducer(dataReducer, {});
 
   useEffect(() => {
     let runEffect = true;
     getTagsFirestore().then((result) => {
       if (runEffect) {
         if (tagsFromUrl.length > 0)
-          activateTagsFromArray(
-            result,
-            tagsFromUrl,
-            filterActive,
-            setFilterActive
-          );
+          // activateTagsFromArray(
+          //   result,
+          //   tagsFromUrl,
+          //   filterActive,
+          //   setFilterActive
+          // );
         // console.log(result);
         setTags(result);
       }
@@ -73,7 +58,7 @@ function useData() {
 
   function clickTag(tagId) {}
   function changeSearch(searchString) {
-    setSearchString(searchString);
+    // setSearchString(searchString);
   }
   function previewTip() {}
   function saveTip() {}
@@ -81,58 +66,33 @@ function useData() {
   function deleteTip() {}
 
   return {
-    showSearch,
-    setShowSearch,
-    showFilter,
-    setshowFilter,
-    inputForm,
-    tags,
-    filterActive,
-    searchString,
-    tips,
-    setInputForm,
-    clickTag,
-    changeSearch,
-    previewTip,
-    saveTip,
-    editTip,
-    deleteTip,
+    // showSearch,
+    // setShowSearch,
+    // showFilter,
+    // setshowFilter,
+    // inputForm,
+    // tags,
+    // filterActive,
+    // searchString,
+    // tips,
+    // setInputForm,
+    // clickTag,
+    // changeSearch,
+    // previewTip,
+    // saveTip,
+    // editTip,
+    // deleteTip,
   };
 }
 let log = true;
-export default function DataProvider({ children }) {
+export default function FilteredDataProvider({ children }) {
   const data = useData();
-  // useEffect(() => {
-  if (log === true && data.tags !== null) {
-    console.table(
-      "filterActive",
-      data.filterActive,
-      "searchString",
-      data.searchString,
-      "uiMode",
-      data.uiMode,
-      "inputForm",
-      data.inputForm,
-      "tags",
-      data.tags,
-      "tips",
-      data.tips
-    );
-    log = false;
-  }
-  console.count("dataContext.Provider");
-  // },[])
 
-  return <dataContext.Provider value={data}>{children}</dataContext.Provider>;
+  return <filteredData.Provider value={data}>{children}</filteredData.Provider>;
 }
-const dataContext = createContext({
-  tags: null,
-  tips: null,
-  saveTip: async () => {},
-  deleteTip: async () => {},
-});
+const filteredData = createContext();
 
-export const useDataContext = () => useContext(dataContext); // custom hook
+export const useFilteredDataContext = () => useContext(filteredData); // custom hook
 
 function activateTagsFromArray(tags, array, filterActive, setFilterActive) {
   // console.group(`array`);
