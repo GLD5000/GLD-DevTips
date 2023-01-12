@@ -13,6 +13,7 @@ import { getFirestore } from "firebase/firestore";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 import CombinedProviders from "./contexts/CombinedProviders";
+import DataProvider from "./DataProvider"
 
 import {
   addTipToFirestore as addTipToDb,
@@ -431,6 +432,7 @@ export default function App() {
   );
   return (
       <CombinedProviders>
+        <DataProvider>
         <section className="page-container">
           <h1>Hello, my name is Gareth...</h1>
           <Header
@@ -463,6 +465,7 @@ export default function App() {
           </section>
           <section className="footer"> footer</section>
         </section>
+        </DataProvider>
       </CombinedProviders>
   );
 }
