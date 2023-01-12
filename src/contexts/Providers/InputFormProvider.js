@@ -1,9 +1,13 @@
 import { useState, createContext, useContext } from "react";
 
-export default function InputContextProvider({ children }) {
+export default function InputFormProvider({ children }) {
   const inputPointer = useData();
 
-  return <InputContext.Provider value={inputPointer}>{children}</InputContext.Provider>;
+  return (
+    <InputFormContext.Provider value={inputPointer}>
+      {children}
+    </InputFormContext.Provider>
+  );
 }
 
 function useData() {
@@ -13,11 +17,12 @@ function useData() {
   return {
     inputPointer,
     setInputPointer,
-    inputTip, setInputTip
+    inputTip,
+    setInputTip,
   };
 }
-const InputContext = createContext();
+const InputFormContext = createContext();
 
-export function useInputContext() {
-  return useContext(InputContext);
+export function useInputFormContext() {
+  return useContext(InputFormContext);
 }
