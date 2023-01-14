@@ -134,7 +134,6 @@ export default function DataProvider({ children }) {
     );
     log = false;
   }
-  console.count("dataContext.Provider");
   // },[])
 
   return <dataContext.Provider value={data}>{children}</dataContext.Provider>;
