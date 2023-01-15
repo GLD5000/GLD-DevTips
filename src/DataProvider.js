@@ -118,20 +118,20 @@ export default function DataProvider({ children }) {
   const data = useData();
   // useEffect(() => {
   if (log === true && data.tags !== null) {
-    console.log(
-      "filterActive",
-      data.filterActive,
-      "searchString",
-      data.searchString,
-      "uiMode",
-      data.uiMode,
-      "inputForm",
-      data.inputForm,
-      "tags",
-      data.tags,
-      "tips",
-      data.tips
-    );
+    // console.log(
+    //   "filterActive",
+    //   data.filterActive,
+    //   "searchString",
+    //   data.searchString,
+    //   "uiMode",
+    //   data.uiMode,
+    //   "inputForm",
+    //   data.inputForm,
+    //   "tags",
+    //   data.tags,
+    //   "tips",
+    //   data.tips
+    // );
     log = false;
   }
   // },[])
