@@ -13,8 +13,13 @@ function useData() {
 
   if (loadState === "awaitingData" && tags) setLoadState("dataReceived");
   if (loadState === "dataReceived") {
-    initFiltersFromUrl(tags, setActiveTags, setSearchString);
-    console.log("Function run");
+    // initFiltersFromUrl(tags, setActiveTags, setSearchString);
+    const {tagsFromUrl, searchFromUrl} = getFiltersFromUrl();
+    if (tagsFromUrl) setActiveTags(tagsFromUrl);
+    if (tagsFromUrl || searchFromUrl) {
+      const filteredTips = getFilteredTips(tips, searchFromUrl, tagsFromUrl);
+      setActiveTips(filteredTips);
+    }
     setLoadState("finished");
   }
 
@@ -74,21 +79,34 @@ function useData() {
 }
 export default function FilteredDataProvider({ children }) {
   const data = useData();
-  console.log(data);
+  // console.log(data);
   return <filteredData.Provider value={data}>{children}</filteredData.Provider>;
 }
 const filteredData = createContext();
 
 export const useFilteredDataContext = () => useContext(filteredData); // custom hook
 
-function initFiltersFromUrl(tags, setActiveTags, setSearchString){
+function getFiltersFromUrl(){
+  const url = window.location.search;
+  if (url === "") return {tagsFromUrl: null, searchFromUrl: null};
+    const urlObject = new URLSearchParams(url);
+  const tags = urlObject.getAll("tags");
+  const tagsFromUrl = tags.length === 0? null: new Set(urlObject.getAll("tags").map((x) => x.toLowerCase()));
+  const searchFromUrl = urlObject.get("title");
+  return { tagsFromUrl, searchFromUrl};
+}
+
+function initFiltersFromUrl(tags, setActiveTags, setSearchString, setActiveTips){
   const url = window.location.search;
   const urlObject = new URLSearchParams(url);
   const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
   const searchFromUrl = urlObject.get("title");
 
   if (searchFromUrl) setSearchString(searchFromUrl);
-  if (tagsFromUrl.length > 0) setActiveTags(activateTagsFromArray(tags, tagsFromUrl))
+  if (tagsFromUrl.length > 0) {
+    setActiveTags(activateTagsFromArray(tags, tagsFromUrl))
+  };
+  // setActiveTips(getFilteredTips(tips, searchString, activeTags));
 }
 
 function activateTagsFromArray(tags, array) {
@@ -99,4 +117,23 @@ function activateTagsFromArray(tags, array) {
     return returnArray;
   },[]));
   return returnSet;
+}
+
+
+function checkTagVisible(activeTags, tipTags) {
+  
+  let returnBoolean = false;
+  tipTags.forEach((tag) => {
+    if (activeTags.has(tag.toLowerCase())) returnBoolean = true;
+  });
+
+  return returnBoolean;
+}
+function filterTip(tip, searchString, activeTags) {
+  const showTitle = searchString === null? true: tip.title.toLowerCase().includes(searchString.toLowerCase());
+  const showTags = (activeTags.size === 0)? true: checkTagVisible(activeTags, tip.tags);
+  return showTitle && showTags;
+}
+function getFilteredTips(tips, searchString, activeTags) {
+  return Object.values(tips).filter((tip) => filterTip(tip, searchString, activeTags));
 }
