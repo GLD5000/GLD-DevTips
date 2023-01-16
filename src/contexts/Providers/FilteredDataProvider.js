@@ -136,16 +136,16 @@ function useData() {
     filterDispatch,
   };
 }
-let run = 0;
+// let run = 0;
 export default function FilteredDataProvider({ children }) {
   const data = useData();
-  if (run < 10 && data.loadState === "dataReceived") {
-    // data.filterDispatch({ type: "TOGGLE_TAG", payload: "Bash" });
-    // data.filterDispatch({ payload: "UI" });
-    // data.filterDispatch({ type: "CHANGE_SEARCH_STRING", payload: "a" });
-    // data.filterDispatch({ type: "CLEAR_TAGS", payload: "suck your mum" });
-    run++;
-  }
+  // if (run < 10 && data.loadState === "dataReceived") {
+  //   // data.filterDispatch({ type: "TOGGLE_TAG", payload: "Bash" });
+  //   // data.filterDispatch({ payload: "UI" });
+  //   // data.filterDispatch({ type: "CHANGE_SEARCH_STRING", payload: "a" });
+  //   // data.filterDispatch({ type: "CLEAR_TAGS", payload: "suck your mum" });
+  //   run++;
+  // }
 
   console.log(data);
 
