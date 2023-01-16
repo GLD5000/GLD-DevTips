@@ -49,7 +49,6 @@ function useData() {
             activeTips: getFilteredTips(tips, oldSearchString, updatedTags),
           };
         }
-        
         case "TOGGLE_TAG":
         default: {
           const updatedTags = updateActiveTags(oldTags, action.payload);
@@ -59,6 +58,13 @@ function useData() {
             activeTips: getFilteredTips(tips, oldSearchString, updatedTags),
           };
         }
+        case "SET_FILTERS_FROM_URL":
+          return {
+            searchString: action.payload.searchFromUrl,
+            activeTags: action.payload.tagsFromUrl,
+            activeTips: getFilteredTips(tips, action.payload.searchFromUrl, action.payload.tagsFromUrl),
+          };
+  
     }
   }
 
@@ -66,10 +72,11 @@ function useData() {
   if (loadState === "dataReceived") {
     // initFiltersFromUrl(tags, setActiveTags, setSearchString);
     const { tagsFromUrl, searchFromUrl } = getFiltersFromUrl();
-    if (tagsFromUrl) setActiveTags(tagsFromUrl);
+    // if (tagsFromUrl) setActiveTags(tagsFromUrl);
     if (tagsFromUrl || searchFromUrl) {
-      const filteredTips = getFilteredTips(tips, searchFromUrl, tagsFromUrl);
-      setActiveTips(filteredTips);
+      // const filteredTips = getFilteredTips(tips, searchFromUrl, tagsFromUrl);
+      // setActiveTips(filteredTips);
+     filterDispatch({type: "SET_FILTERS_FROM_URL", payload: {tagsFromUrl,searchFromUrl}});
     }
     setLoadState("finished");
   }
@@ -133,9 +140,9 @@ let run = 0;
 export default function FilteredDataProvider({ children }) {
   const data = useData();
   if (run < 10 && data.loadState === "dataReceived") {
-    data.filterDispatch({ type: "TOGGLE_TAG", payload: "Bash" });
-    data.filterDispatch({ payload: "UI" });
-    data.filterDispatch({ type: "CHANGE_SEARCH_STRING", payload: "a" });
+    // data.filterDispatch({ type: "TOGGLE_TAG", payload: "Bash" });
+    // data.filterDispatch({ payload: "UI" });
+    // data.filterDispatch({ type: "CHANGE_SEARCH_STRING", payload: "a" });
     // data.filterDispatch({ type: "CLEAR_TAGS", payload: "suck your mum" });
     run++;
   }
