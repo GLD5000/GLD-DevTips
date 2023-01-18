@@ -20,6 +20,9 @@ async function addTipToCollection(title, object) {
   await setDoc(doc(tipsCollection, title), object);
 }
 async function addTagToCollection(title, object) {
+  console.log(`object.active ${object.active}`);
+  object.active = false;
+  console.log(`object.active ${object.active}`);
   await setDoc(doc(tagsCollection, title), object);
 }
 
