@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, useReducer } from "react";
 import {
   getTagsFirestore,
   getTipsFirestore,
@@ -7,27 +7,12 @@ import {
 } from "../../firestore";
 
 function useData() {
-  const [tags, setTags] = useState(null);
+  const [tags, tagsDispatch] = useReducer(tagReducer, null);
   const [tips, setTips] = useState(null);
   const [nextTipId, setNextTipId] = useState(null);
   console.count("App Data Provider");
   useEffect(() => {
-    let runEffect = true;
-    getTagsFirestore().then((result) => {
-      if (runEffect) {
-        initTags(setTags, result);
-      }
-    });
-    getTipsFirestore().then((result) => {
-      if (runEffect) {
-        setTips(result);
-        const newTipId = getNewTipId();
-        setNextTipId(newTipId);
-      }
-    });
-    return () => {
-      runEffect = false;
-    };
+    return fetchFirestoreData(tagsDispatch, setTips, setNextTipId);
   }, []);
 
   async function saveTip(tip) {
@@ -50,9 +35,9 @@ function useData() {
     saveTip,
     deleteTip,
   };
-  async function getFirestoreData() {
+  async function getFirestoreData(tagsDispatch, setTips) {
     getTagsFirestore().then((result) => {
-      setTags(result);
+      tagsDispatch({type: "INIT_TAGS", payload: result});
     });
     getTipsFirestore().then((result) => {
       setTips(result);
@@ -63,8 +48,26 @@ function useData() {
   }
 }
 
-function initTags(setTags, result) {
-  setTags(() => {
+function fetchFirestoreData(tagsDispatch, setTips, setNextTipId) {
+  let runEffect = true;
+  getTagsFirestore().then((result) => {
+    if (runEffect) {
+      initTags(tagsDispatch, result);
+    }
+  });
+  getTipsFirestore().then((result) => {
+    if (runEffect) {
+      setTips(result);
+      const newTipId = getNewTipId();
+      setNextTipId(newTipId);
+    }
+  });
+  return () => {
+    runEffect = false;
+  };
+}
+
+function initTags(tagsDispatch, result) {
     const tagsObject = result;
     const tagsFromUrl = getTagArrayFromUrl();
     console.log(tagsFromUrl);
@@ -73,11 +76,9 @@ function initTags(setTags, result) {
         tagsObject[tagId].active = true;
       });
     console.log(tagsObject);
+    tagsDispatch({type: "INIT_TAGS", payload: tagsObject});
 
-    return tagsObject;
   }
-  );
-}
 
 export default function AppDataProvider({ children }) {
   const data = useData();
@@ -98,4 +99,28 @@ function getTagArrayFromUrl() {
       ? null
       : searchObject.getAll("tags").map((x) => x.toLowerCase());
   return tagsFromUrl ;
+}
+
+
+function tagReducer(state, action) {
+  const oldTagsCopy = {...state};
+  switch (action.type) {
+    case "INIT_TAGS":{
+      console.log(action.payload);
+      return action.payload;
+    }
+    case "CLEAR_TAGS": {
+      Object.values(oldTagsCopy).forEach(oldTag => {oldTag.active = false;});
+      return oldTagsCopy;
+    }
+    case "ACTIVATE_TAGS": {
+      action.payload.forEach(tagId => {oldTagsCopy[tagId] = true;});
+      return oldTagsCopy;
+    }
+    case "TOGGLE_TAG":
+    default: {
+      oldTagsCopy[action.payload] = !oldTagsCopy[action.payload];
+      return oldTagsCopy;
+    }
+  }
 }

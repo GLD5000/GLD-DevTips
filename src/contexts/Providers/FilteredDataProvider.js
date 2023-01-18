@@ -5,23 +5,22 @@ import {
   useContext,
   useReducer,
 } from "react";
-import { getTagsFirestore, getTipsFirestore } from "../../firestore";
-import { useAppDataContext } from "./AppDataProvider";
-
+import { useTagsContext } from "./TagsProvider";
+import { useTipsContext } from "./TipsProvider";
 function useData() {
   //Filter state: use reducer
   // Show tags
   const [loadState, setLoadState] = useState(() => "awaitingData");
-  const { tags, tips } = useAppDataContext();
-  const [searchString, setSearchString] = useState();
+  const tags = useTagsContext();
+  const { tips } = useTipsContext();
+  const [searchString, setSearchString] = useState(getTitleFromUrl());
   const [activeTags, setActiveTags] = useState(null);
   const [activeTips, setActiveTips] = useState(null);
   const [filterState, filterDispatch] = useReducer(filterReducer, {
-    searchString: null,
+    searchString: getTitleFromUrl(),
     activeTags: new Set(),
     activeTips: null,
   });
-
   function updateActiveTags(oldTags, newTag) {
     const newTagId = newTag.toLowerCase();
     if (!oldTags || oldTags?.size === 0) return new Set([newTagId]);
@@ -41,114 +40,65 @@ function useData() {
           activeTags: state.activeTags,
           activeTips: getFilteredTips(tips, action.payload, oldTags),
         };
-        case "CLEAR_TAGS": {
-          const updatedTags = new Set();
-          return {
-            searchString: oldSearchString,
-            activeTags: updatedTags,
-            activeTips: getFilteredTips(tips, oldSearchString, updatedTags),
-          };
-        }
-        case "TOGGLE_TAG":
-        default: {
-          const updatedTags = updateActiveTags(oldTags, action.payload);
-          return {
-            searchString: oldSearchString,
-            activeTags: updatedTags,
-            activeTips: getFilteredTips(tips, oldSearchString, updatedTags),
-          };
-        }
-        case "SET_FILTERS_FROM_URL":
-          return {
-            searchString: action.payload.searchFromUrl,
-            activeTags: action.payload.tagsFromUrl,
-            activeTips: getFilteredTips(tips, action.payload.searchFromUrl, action.payload.tagsFromUrl),
-          };
-  
+      case "CLEAR_TAGS": {
+        const updatedTags = new Set();
+        return {
+          searchString: oldSearchString,
+          activeTags: updatedTags,
+          activeTips: getFilteredTips(tips, oldSearchString, updatedTags),
+        };
+      }
+      case "TOGGLE_TAG":
+      default: {
+        const updatedTags = updateActiveTags(oldTags, action.payload);
+        return {
+          searchString: oldSearchString,
+          activeTags: updatedTags,
+          activeTips: getFilteredTips(tips, oldSearchString, updatedTags),
+        };
+      }
+      case "SET_FILTERS_FROM_URL":
+        return {
+          searchString: action.payload.searchFromUrl,
+          activeTags: action.payload.tagsFromUrl,
+          activeTips: getFilteredTips(
+            tips,
+            action.payload.searchFromUrl,
+            action.payload.tagsFromUrl
+          ),
+        };
     }
   }
 
   if (loadState === "awaitingData" && tags) setLoadState("dataReceived");
   if (loadState === "dataReceived") {
-    // initFiltersFromUrl(tags, setActiveTags, setSearchString);
     const { tagsFromUrl, searchFromUrl } = getFiltersFromUrl();
-    // if (tagsFromUrl) setActiveTags(tagsFromUrl);
     if (tagsFromUrl || searchFromUrl) {
-      // const filteredTips = getFilteredTips(tips, searchFromUrl, tagsFromUrl);
-      // setActiveTips(filteredTips);
-     filterDispatch({type: "SET_FILTERS_FROM_URL", payload: {tagsFromUrl,searchFromUrl}});
+      if (tagsFromUrl) validateTags(tags, tagsFromUrl);
+      filterDispatch({
+        type: "SET_FILTERS_FROM_URL",
+        payload: { tagsFromUrl, searchFromUrl },
+      });
     }
     setLoadState("finished");
   }
-
-  function toggleTag() {
-    // update title // update both
-    // clear tags // replace tags
-  }
-  // useEffect(() => {
-  //   console.log("useEffect run");
-
-  //   if (loadState === "dataReceived") {
-  //     initFiltersFromUrl(tags, setActiveTags, setSearchString);
-  //     console.log("Function run");
-  //     setLoadState("finished");
-  //   }
-  // }, [loadState]);
-
-  // useEffect(() => {
-  //   let runEffect = true;
-  //   getTagsFirestore().then((result) => {
-  //     if (runEffect) {
-  //       if (tagsFromUrl.length > 0)
-  //         // activateTagsFromArray(
-  //         //   result,
-  //         //   tagsFromUrl,
-  //         //   filterActive,
-  //         //   setFilterActive
-  //         // );
-  //         // console.log(result);
-  //         // setTags(result);
-  //     }
-  //   });
-  //   getTipsFirestore().then((result) => {
-  //     if (runEffect) {
-  //       // console.log(result);
-  //       // setTips(result);
-  //     }
-  //   });
-  //   return () => {
-  //     runEffect = false;
-  //   };
-  // }, []);
-
-  // function clickTag(tagId) {}
-  // function changeSearch(searchString) {
-  // setSearchString(searchString);
-  // }
-  // function previewTip() {}
-  // function saveTip() {}
-  // function editTip() {}
-  // function deleteTip() {}
+  useEffect(() =>{
+    console.count("tags effect run");
+    if (tags) {
+      console.group(`tags`);
+      console.log(tags);
+      console.groupEnd();  
+    }
+},[tags]);
 
   return {
+    searchString, setSearchString,
     loadState,
-    filterState,
-    filterDispatch,
   };
 }
-// let run = 0;
 export default function FilteredDataProvider({ children }) {
   const data = useData();
-  // if (run < 10 && data.loadState === "dataReceived") {
-  //   // data.filterDispatch({ type: "TOGGLE_TAG", payload: "Bash" });
-  //   // data.filterDispatch({ payload: "UI" });
-  //   // data.filterDispatch({ type: "CHANGE_SEARCH_STRING", payload: "a" });
-  //   // data.filterDispatch({ type: "CLEAR_TAGS", payload: "suck your mum" });
-  //   run++;
-  // }
-
   console.log(data);
-
   return <filteredData.Provider value={data}>{children}</filteredData.Provider>;
 }
 const filteredData = createContext();
@@ -167,6 +117,26 @@ function getFiltersFromUrl() {
   const searchFromUrl = urlObject.get("title");
   return { tagsFromUrl, searchFromUrl };
 }
+function getTagArrayFromUrl() {
+  const search = window.location.search;
+  if (search === "") return { tagsFromUrl: null};
+  const searchObject = new URLSearchParams(search);
+  const tags = searchObject.getAll("tags");
+  const tagsFromUrl =
+    tags.length === 0
+      ? null
+      : searchObject.getAll("tags").map((x) => x.toLowerCase());
+  return { tagsFromUrl };
+}
+function getTitleFromUrl() {
+  const search = window.location.search;
+  if (search === "") return  null;
+  const searchObject = new URLSearchParams(search);
+  const searchFromUrl = searchObject.get("title");
+  return  searchFromUrl ;
+}
+
+
 
 function initFiltersFromUrl(
   tags,
