@@ -10,12 +10,12 @@ function useData() {
   const [tags, setTags] = useState(null);
   const [tips, setTips] = useState(null);
   const [nextTipId, setNextTipId] = useState(null);
-
+  console.count("App Data Provider");
   useEffect(() => {
     let runEffect = true;
     getTagsFirestore().then((result) => {
       if (runEffect) {
-        setTags(result);
+        initTags(setTags, result);
       }
     });
     getTipsFirestore().then((result) => {
@@ -63,6 +63,22 @@ function useData() {
   }
 }
 
+function initTags(setTags, result) {
+  setTags(() => {
+    const tagsObject = result;
+    const tagsFromUrl = getTagArrayFromUrl();
+    console.log(tagsFromUrl);
+    if (tagsFromUrl !== null)
+      tagsFromUrl.forEach((tagId) => {
+        tagsObject[tagId].active = true;
+      });
+    console.log(tagsObject);
+
+    return tagsObject;
+  }
+  );
+}
+
 export default function AppDataProvider({ children }) {
   const data = useData();
 
@@ -70,5 +86,16 @@ export default function AppDataProvider({ children }) {
 }
 const dataContext = createContext();
 
-export const useAppDataContext = () => useContext(dataContext);
+export const  useAppDataContext = () => useContext(dataContext);
 
+function getTagArrayFromUrl() {
+  const search = window.location.search;
+  if (search === "") return null;
+  const searchObject = new URLSearchParams(search);
+  const tags = searchObject.getAll("tags");
+  const tagsFromUrl =
+    tags.length === 0
+      ? null
+      : searchObject.getAll("tags").map((x) => x.toLowerCase());
+  return tagsFromUrl ;
+}
