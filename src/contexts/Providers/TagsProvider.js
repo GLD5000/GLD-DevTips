@@ -1,39 +1,54 @@
 import { useEffect, createContext, useContext, useReducer } from "react";
 import { getTagsFirestore } from "../../firestore";
 import { useTipsContext } from "./TipsProvider";
+import makeNewTag from "../../utilities/newTagMaker"
 
 function useData() {
-  const tips = useTipsContext();
-  const [tags, tagsDispatch] = useReducer(tagReducer, null);
+  const { tips, dispatchTips } = useTipsContext();
+  const [tags, dispatchTags] = useReducer(tagReducer, null);
   useEffect(() => {
-    return fetchFirestoreData(tagsDispatch);
+    return fetchFirestoreData(dispatchTags);
   }, []);
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      const status = tips.metadata.status;
+      if (status === "fetched") {
+        dispatchTags({ type: "COUNT_TAGS", payload: tips.data });
+      }
+    }
 
+    return () => {
+      isMounted = false;
+    };
+  }, [tips, dispatchTips]);
   return {
     tags,
-    tagsDispatch,
+    dispatchTags,
   };
 }
 
-function fetchFirestoreData(tagsDispatch) {
-  let runEffect = true;
+function fetchFirestoreData(dispatchTags) {
+  let isMounted = true;
   getTagsFirestore().then((result) => {
-    if (runEffect) {
-      initTags(tagsDispatch, result);
+    if (isMounted) {
+      initTags(dispatchTags, result);
     }
   });
   return () => {
-    runEffect = false;
+    isMounted = false;
   };
 }
 
-function initTags(tagsDispatch, result) {
-  tagsDispatch({ type: "ACTIVATE_TAGS_FROM_URL", payload: result });
+function initTags(dispatchTags, result) {
+  dispatchTags({ type: "ACTIVATE_TAGS_FROM_URL", payload: result });
 }
 
 export default function TagsProvider({ children }) {
   const data = useData();
-
+  console.group(`data`);
+  console.log(data);
+  console.groupEnd();
   return <TagContext.Provider value={data}>{children}</TagContext.Provider>;
 }
 const TagContext = createContext();
@@ -62,6 +77,29 @@ function tagReducer(state, action) {
           action.payload[tagId].active = true;
         });
       return action.payload;
+    }
+    case "COUNT_TAGS": {
+      // const tagsArray = Object.values(action.payload).reduce((array, tip) => {
+      //   return array.concat(...tip.tags);
+      // }, []);
+      // const tagsArray = Object.values(action.payload).flatMap(x => x.tags);
+      // console.log(tagsArray);
+      const tagsCount = Object.values(action.payload).flatMap(x => x.tags).reduce((acc, curr)=>{
+        acc[curr] = acc[curr]? acc[curr] + 1: 1;
+        return acc;},{});
+      Object.keys(tagsCount).forEach(tagName => {
+        const tagId = tagName.toLowerCase();
+        if (oldTagsCopy[tagId] === undefined) oldTagsCopy[tagId] = makeNewTag(tagName);
+        oldTagsCopy[tagId].count = tagsCount[tagName];
+            });
+      // console.log(tagsCount);
+      // tagsArray.forEach(tagName => {
+      //   const tagId = tagName.toLowerCase();
+      //   if (oldTagsCopy[tagId] === undefined) oldTagsCopy[tagId] = makeNewTag(tagName);
+      //   const countUndefined = oldTagsCopy[tagId].count === undefined;
+      //   oldTagsCopy[tagId].count = countUndefined? 1:  oldTagsCopy[tagId].count + 1; 
+      // });
+      return oldTagsCopy;
     }
     case "REPLACE_TAGS": {
       console.log(action.payload);

@@ -1,5 +1,4 @@
-import { ActionCodeOperation } from "firebase/auth";
-import { useState, useEffect, createContext, useContext, useReducer } from "react";
+import { useEffect, createContext, useContext, useReducer } from "react";
 import {
   getTipsFirestore,
   addTipToFirestore,
@@ -10,6 +9,20 @@ function tipsReducer(state, action){
   switch(action.type){
     case "INITIALISE": {
       return {metadata: {status: "fetched", nextTipId: getNewTipId()}, data: action.payload};
+    }
+    case "ADD_TIP": default: {
+      oldStateCopy.data[action.payload.id] = action.payload;
+      addTipToFirestore(action.payload);
+      return {metadata: {status: "added", tags: action.payload.tags, nextTipId: getNewTipId()}, data: oldStateCopy.data};
+    }
+    case "DELETE_TIP": {
+      const tags = oldStateCopy.data[action.payload.id].tags;
+      delete oldStateCopy.data[action.payload.id];
+      return {metadata: {status: "deleted", tags: tags, nextTipId: getNewTipId()}, data: oldStateCopy.data};
+    }
+    case "STATUS_IDLE": {
+      oldStateCopy.metadata.status = "idle";
+      return oldStateCopy;
     }
   }
 }
@@ -24,23 +37,6 @@ function useData() {
     tips,
     dispatchTips
   };
-  async function saveTip(tip) {
-    await addTipToFirestore(tip);
-    getFirestoreData().then(() => {
-    });
-  }
-  function deleteTip(tipId) {
-    alert("No no no");
-    // alert to confirm
-    // delete tip locally
-    // delete tip on database
-  }
-
-  async function getFirestoreData(setTips) {
-    getTipsFirestore().then((result) => {
-      setTips(result);
-    });
-  }
 }
 
 function fetchFirestoreData(dispatchTips) {
