@@ -17,13 +17,6 @@ function useData() {
   const [activeTips, setActiveTips] = useState(null);
 
 
-  useEffect(() =>{
-    if (tags) {
-      console.count("tags effect run");
-
-    }
-},[tags]);
-
   return {
     searchString, setSearchString,
     activeTips,
