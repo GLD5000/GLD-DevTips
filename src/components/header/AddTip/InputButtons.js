@@ -100,7 +100,7 @@ function getReturnArray(type, index, AddToTextarea, onHover) {
   };
 
   // navigator.clipboard.writeText(Object.keys(buttonObject).map(x => `"${x}"`));
-  // console.log(Object.keys(buttonObject));
+
   const returnArray = buttonArraySelector[type].map((name) => {
     const btn = buttonObject[name];
     return (

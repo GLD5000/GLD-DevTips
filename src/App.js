@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
@@ -10,10 +10,10 @@ import AutoTextColour from "./utilities/autoTextColour";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 import CombinedProviders from "./contexts/CombinedProviders";
-import DataProvider from "./DataProvider"
+import DataProvider from "./DataProvider";
 
 import {
   addTipToFirestore as addTipToDb,
@@ -137,13 +137,13 @@ const tipsDocRef = doc(database, "devtips", "tips"); //delete
 const tagsDocRef = doc(database, "devtips", "tags"); //delete
 
 // async function addTipToDb(object) {//delete
-//   console.log("Adding tag to db...");
+
 //   try {
 //     await updateDoc(tipsDocRef, {
 //       [object.id]: object,
 //     });
 //     const gotDoc = await getDoc(tipsDocRef);
-//     console.log("Document written as: ", gotDoc.data()[object.id]);
+
 //     Object.entries(tagColours).forEach((tag) => {
 //       if (tag[1].fromDb !== true) addTagToDb(tag[0], tag[1]);
 //     });
@@ -158,7 +158,6 @@ const tagsDocRef = doc(database, "devtips", "tags"); //delete
 //     });
 //     const gotDoc = await getDoc(tagsDocRef);
 
-//     console.log("Document written as: ", gotDoc.data()[lowerCaseTagName]);
 //   } catch (e) {
 //     console.error("Error adding document: ", e);
 //   }
@@ -220,13 +219,13 @@ export default function App() {
   //   let ignore = false;
   //   getTagsFirestore().then((result) => {
   //     if (!ignore) {
-  //       console.log(result);
+
   //       setTagsFirestore(result);
   //     }
   //   });
   //   getTipsFirestore().then((result) => {
   //     if (!ignore) {
-  //       console.log(result);
+
   //       setTipsFirestore(result);
   //     }
   //   });
@@ -243,9 +242,8 @@ export default function App() {
     });
   }
   function addObjectToInputFormState(object) {
-    // console.log("Adding object to inputFormState...");
     // console.group(`object`);
-    // console.log(object);
+
     // console.groupEnd();
     if (object === null) {
       initialiseInputFormState(inputFormStarter, setInputFormState);
@@ -296,8 +294,6 @@ export default function App() {
     getTags(updatedTagState);
 
     setTagState((oldState) => {
-      // console.log(oldState);
-      //console.log(tagsObject);
       return { ...tagsObject };
     });
   }
@@ -315,14 +311,12 @@ export default function App() {
   }
   const newTipId = makeNewTipId(tipList);
   // console.group(`tipList`);
-  // console.log(tipList);
+
   // console.groupEnd();
-  // console.log(newTipId);
+
   const [searchQuery, setSearchQuery] = useState(searchFromUrl || "");
 
   function checkTagVisible(tagState, tagArray) {
-    //console.log(tagState);
-    //console.log(tagArray);
     const tagStateValue = Object.values(tagState);
     if (!tagStateValue.includes("active")) return true;
     let returnBoolean = false;
@@ -330,7 +324,7 @@ export default function App() {
       if (entry[1] === "active") acc.push(entry[0]);
       return acc;
     }, []);
-    // console.log(activeTags);
+
     activeTags.forEach((activeTag) => {
       if (tagArray.includes(activeTag)) returnBoolean = true;
     });
@@ -431,8 +425,8 @@ export default function App() {
     />
   );
   return (
-      <CombinedProviders>
-        <DataProvider>
+    <CombinedProviders>
+      <DataProvider>
         <section className="page-container">
           <h1>Hello, my name is Gareth...</h1>
           <Header
@@ -465,7 +459,7 @@ export default function App() {
           </section>
           <section className="footer"> footer</section>
         </section>
-        </DataProvider>
-      </CombinedProviders>
+      </DataProvider>
+    </CombinedProviders>
   );
 }

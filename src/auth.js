@@ -73,9 +73,9 @@ export function AuthUserProvider({ children }) {
   // console.count("AuthUserProvider");
 
   const appAuth = useFirebaseAuth();
-  // console.log(appAuth.authUser);
+
   // console.group(`appAuth`);
-  // console.log(appAuth);
+
   // console.groupEnd();
   return (
     <AuthUserContext.Provider value={appAuth}>
@@ -83,8 +83,6 @@ export function AuthUserProvider({ children }) {
     </AuthUserContext.Provider>
   );
 }
-
-
 
 async function checkRole(user) {
   // console.count("checkRole");

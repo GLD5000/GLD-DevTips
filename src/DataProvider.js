@@ -3,7 +3,6 @@ import {
   useEffect,
   createContext,
   useContext,
-  useReducer,
 } from "react";
 import { getTagsFirestore, getTipsFirestore } from "./firestore";
 const url = window.location.search;
@@ -11,37 +10,8 @@ const urlObject = new URLSearchParams(url);
 const searchFromUrl = urlObject.get("title");
 const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
 
-function dataReducer(data, action) {
-  switch (action.type) {
-    case "clickTag": {
-      // toggle tag
-      // set filter active if tag active and filterActive === false
-      // filter tips if applicable
-      // show tags if applicable
-    }
-  }
-}
 
 function useData() {
-
-  
-
-  //data state: useReducer
-  //tags object
-  // tips object
-  //next tip ID
-  
-  //Filter state: use reducer
-  // active tags set
-  // search string
-  // active tips array?
-  // Show tags
-
-  //Edit state: useState
-  // input form pointer
-  // top section
-
-  
 
   const [filterActive, setFilterActive] = useState(false);
   const [searchString, setSearchString] = useState(searchFromUrl || "");
@@ -50,14 +20,6 @@ function useData() {
   const [inputForm, setInputForm] = useState(null);
   const [tags, setTags] = useState(null);
   const [tips, setTips] = useState(null);
-
-  // const [{filterActive,
-  //   searchString,
-  //   showSearch,
-  //   showFilter,
-  //   inputFormPointer,
-  //   tags,
-  //   tips,         },dispatch] = useReducer(dataReducer, {});
 
   useEffect(() => {
     let runEffect = true;
@@ -70,13 +32,12 @@ function useData() {
             filterActive,
             setFilterActive
           );
-        // console.log(result);
+
         setTags(result);
       }
     });
     getTipsFirestore().then((result) => {
       if (runEffect) {
-        // console.log(result);
         setTips(result);
       }
     });
@@ -156,7 +117,7 @@ export const useDataContext = () => useContext(dataContext); // custom hook
 
 function activateTagsFromArray(tags, array, filterActive, setFilterActive) {
   // console.group(`array`);
-  // console.log(array);
+
   // console.groupEnd();
   array.forEach((tagId) => {
     const key = tagId.toLowerCase();

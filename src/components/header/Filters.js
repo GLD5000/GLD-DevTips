@@ -12,8 +12,7 @@ export default function Filters({
   setFilterExpanded,
 }) {
   const { showFilter, setshowFilter, tags } = useDataContext();
-  // console.log(showFilter);
-  // console.log(tagState);
+
   function toggleExpanded() {
     setshowFilter(!showFilter);
   }

@@ -1,27 +1,18 @@
 import { useEffect, createContext, useContext, useReducer } from "react";
-import {
-  getTagsFirestore,
-} from "../../firestore";
+import { getTagsFirestore } from "../../firestore";
 import { useTipsContext } from "./TipsProvider";
 
 function useData() {
   const tips = useTipsContext();
-  console.group(`tips`);
-  console.log(tips);
-  console.groupEnd();
   const [tags, tagsDispatch] = useReducer(tagReducer, null);
   useEffect(() => {
     return fetchFirestoreData(tagsDispatch);
   }, []);
 
   return {
-    tags, tagsDispatch
+    tags,
+    tagsDispatch,
   };
-  async function getFirestoreData(tagsDispatch) {
-    getTagsFirestore().then((result) => {
-      tagsDispatch({type: "INIT_TAGS", payload: result});
-    });
-  }
 }
 
 function fetchFirestoreData(tagsDispatch) {
@@ -37,8 +28,8 @@ function fetchFirestoreData(tagsDispatch) {
 }
 
 function initTags(tagsDispatch, result) {
-    tagsDispatch({type: "ACTIVATE_TAGS_FROM_URL", payload: result});
-  }
+  tagsDispatch({ type: "ACTIVATE_TAGS_FROM_URL", payload: result });
+}
 
 export default function TagsProvider({ children }) {
   const data = useData();
@@ -47,39 +38,45 @@ export default function TagsProvider({ children }) {
 }
 const TagContext = createContext();
 
-export const  useTagsContext = () => useContext(TagContext);
+export const useTagsContext = () => useContext(TagContext);
 
 function getTagArrayFromUrl() {
   const search = window.location.search;
-  if (search === "") return null;
+  if (search === "") return [];
   const searchObject = new URLSearchParams(search);
   const tags = searchObject.getAll("tags");
   const tagsFromUrl =
     tags.length === 0
       ? null
       : searchObject.getAll("tags").map((x) => x.toLowerCase());
-  return tagsFromUrl ;
+  return tagsFromUrl;
 }
 
-
 function tagReducer(state, action) {
-  const oldTagsCopy = {...state};
+  const oldTagsCopy = { ...state };
   switch (action.type) {
     case "ACTIVATE_TAGS_FROM_URL": {
-      const tagArrayFromUrl = getTagArrayFromUrl()
-      tagArrayFromUrl.forEach(tagId => {action.payload[tagId].active = true;});
+      const tagArrayFromUrl = getTagArrayFromUrl();
+      if (tagArrayFromUrl.length > 0)
+        tagArrayFromUrl.forEach((tagId) => {
+          action.payload[tagId].active = true;
+        });
       return action.payload;
     }
-    case "REPLACE_TAGS":{
+    case "REPLACE_TAGS": {
       console.log(action.payload);
       return action.payload;
     }
     case "CLEAR_TAGS": {
-      Object.values(oldTagsCopy).forEach(oldTag => {oldTag.active = false;});
+      Object.values(oldTagsCopy).forEach((oldTag) => {
+        oldTag.active = false;
+      });
       return oldTagsCopy;
     }
     case "ACTIVATE_TAGS": {
-      action.payload.forEach(tagId => {oldTagsCopy[tagId].active = true;});
+      action.payload.forEach((tagId) => {
+        oldTagsCopy[tagId].active = true;
+      });
       return oldTagsCopy;
     }
     case "TOGGLE_TAG":

@@ -57,9 +57,6 @@ function fetchFirestoreData(dispatchTips) {
 
 export default function TipsProvider({ children }) {
   const data = useData();
-  console.group(`data in tips Providerrr`);
-  console.log(data);
-  console.groupEnd();
   return <TipsContext.Provider value={data}>{children}</TipsContext.Provider>;
 }
 const TipsContext = createContext();

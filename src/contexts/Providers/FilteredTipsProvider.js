@@ -8,8 +8,6 @@ import {
 import { useTagsContext } from "./TagsProvider";
 import { useTipsContext } from "./TipsProvider";
 function useData() {
-  //Filter state: use reducer
-  // Show tags
   const [loadState, setLoadState] = useState(() => "awaitingData");
   const tags = useTagsContext();
   const { tips } = useTipsContext();
@@ -20,11 +18,9 @@ function useData() {
 
 
   useEffect(() =>{
-    console.count("tags effect run");
     if (tags) {
-      console.group(`tags`);
-      console.log(tags);
-      console.groupEnd();  
+      console.count("tags effect run");
+
     }
 },[tags]);
 
@@ -35,7 +31,6 @@ function useData() {
 }
 export default function FilteredTipsProvider({ children }) {
   const data = useData();
-  console.log(data);
   return <FilteredTips.Provider value={data}>{children}</FilteredTips.Provider>;
 }
 const FilteredTips = createContext();
