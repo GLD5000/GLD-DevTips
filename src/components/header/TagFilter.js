@@ -1,28 +1,23 @@
 import ToggleButton from "../../elements/ToggleButton";
-import tagHexLookup from "../../utilities/tagHex.js";
-const TagFilter = ({ tag, updateTagState, tagState }) => {
-  const isActive = tagState[tag] === "active";
-
+export default function TagFilter({ tag, handleClickTag, tagState }) {
+  const { backgroundColour, textColour, active, name, count } = tag;
   function tagOnClick(e) {
-    const tag = e.target.name;
+    const tagId = e.target.name.toLowerCase();
 
-    if (tag !== undefined) updateTagState(tag);
+    if (tagId !== undefined) handleClickTag({ id: tagId, active: !active });
   }
-  const { backgroundColour, textColour } = tagHexLookup(tag);
   const ButtonClasses = ` border-1  rounded hover:border-current py-1 px-2 tag-filter-btn`;
 
   return (
     <ToggleButton
-      name={tag}
-      id={tag + "filterButton"}
+      name={name}
+      id={name + "filterButton"}
       color={textColour}
       backgroundColor={backgroundColour}
-      text={tag}
+      text={`${name} (${count})`}
       clickFunction={tagOnClick}
       className={ButtonClasses}
-      toggle={isActive}
+      toggle={active}
     />
   );
-};
-
-export default TagFilter;
+}

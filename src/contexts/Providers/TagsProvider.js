@@ -46,9 +46,6 @@ function initTags(dispatchTags, result) {
 
 export default function TagsProvider({ children }) {
   const data = useData();
-  console.group(`data`);
-  console.log(data);
-  console.groupEnd();
   return <TagContext.Provider value={data}>{children}</TagContext.Provider>;
 }
 const TagContext = createContext();
@@ -79,11 +76,6 @@ function tagReducer(state, action) {
       return action.payload;
     }
     case "COUNT_TAGS": {
-      // const tagsArray = Object.values(action.payload).reduce((array, tip) => {
-      //   return array.concat(...tip.tags);
-      // }, []);
-      // const tagsArray = Object.values(action.payload).flatMap(x => x.tags);
-      // console.log(tagsArray);
       const tagsCount = Object.values(action.payload).flatMap(x => x.tags).reduce((acc, curr)=>{
         acc[curr] = acc[curr]? acc[curr] + 1: 1;
         return acc;},{});
@@ -92,13 +84,8 @@ function tagReducer(state, action) {
         if (oldTagsCopy[tagId] === undefined) oldTagsCopy[tagId] = makeNewTag(tagName);
         oldTagsCopy[tagId].count = tagsCount[tagName];
             });
-      // console.log(tagsCount);
-      // tagsArray.forEach(tagName => {
-      //   const tagId = tagName.toLowerCase();
-      //   if (oldTagsCopy[tagId] === undefined) oldTagsCopy[tagId] = makeNewTag(tagName);
-      //   const countUndefined = oldTagsCopy[tagId].count === undefined;
-      //   oldTagsCopy[tagId].count = countUndefined? 1:  oldTagsCopy[tagId].count + 1; 
-      // });
+
+      Object.entries(oldTagsCopy).forEach(entry => {if (entry[1].count === undefined) delete oldTagsCopy[entry[0]]; })
       return oldTagsCopy;
     }
     case "REPLACE_TAGS": {
@@ -119,7 +106,7 @@ function tagReducer(state, action) {
     }
     case "TOGGLE_TAG":
     default: {
-      oldTagsCopy[action.payload].active = !oldTagsCopy[action.payload].active;
+      oldTagsCopy[action.payload.id].active = action.payload.active;
       return oldTagsCopy;
     }
   }

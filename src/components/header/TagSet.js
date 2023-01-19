@@ -1,33 +1,35 @@
 import TagFilter from "./TagFilter";
 import Button from "../../elements/Button";
+import { useTagsContext } from "../../contexts/Providers/TagsProvider";
 
-const TagSet = ({ setTagState, tagState, title = "Filter Tags", keyMod=0, updateTagState }) => {
-
-
-  function clearTags() {
-    setTagState((old) => {
-      const newObject = { ...old };
-      Object.keys(newObject).forEach((key) => {
-        newObject[key] = "visible";
-      });
-      return newObject;
-    });
+export default function TagSet({
+  setTagState,
+  tagState,
+  title = "Filter Tags",
+  keyMod = 0,
+  updateTagState,
+}) {
+  const { tags, dispatchTags } = useTagsContext();
+  function handleClickTag(payload) {
+    dispatchTags({ type: "TOGGLE_TAG", payload: payload });
   }
-  function tagStateReducer(acc, entry, key) {
+  function handleClickClear() {
+    dispatchTags({ type: "CLEAR_TAGS" });
+  }
+  function tagStateReducer(acc, tag) {
     // make first button a clear all
-    const tag = entry[0];
     acc.push(
       <TagFilter
-        key={tag + "A" + key + 1 + "B" + keyMod}
+        key={tag.name}
         tag={tag}
-        updateTagState={updateTagState}
+        handleClickTag={handleClickTag}
         tagState={tagState}
       />
     );
     return acc;
   }
   function makeButtonArray() {
-    return Object.entries(tagState).reduce(tagStateReducer, [
+    return Object.values(tags).reduce(tagStateReducer, [
       <Button
         name="Clear Tags"
         id="clear-tags"
@@ -35,7 +37,7 @@ const TagSet = ({ setTagState, tagState, title = "Filter Tags", keyMod=0, update
         color={"black"}
         backgroundColor={"IndianRed"}
         text={"Clear Tags"}
-        clickFunction={clearTags}
+        clickFunction={handleClickClear}
         className="bg-red-400 text-black hover:border-white"
       />,
     ]);
@@ -50,9 +52,4 @@ const TagSet = ({ setTagState, tagState, title = "Filter Tags", keyMod=0, update
       </section>
     </>
   );
-
-
-
-};
-
-export default TagSet;
+}
