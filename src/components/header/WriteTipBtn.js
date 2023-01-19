@@ -1,4 +1,5 @@
 import SvgButton from "../../elements/SvgButton";
+import { useInputFormContext } from "../../contexts/Providers/InputFormProvider";
 const writeClasses =
   " focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent";
 const cancelClasses =
@@ -8,21 +9,16 @@ export default function WriteTipBtn({
   showAddTipForm,
   setShowAddTipForm,
   addObjectToInputFormState,
-  setSearchQuery,
-  clearTags,
 }) {
   function onClickAdd() {
     if (showAddTipForm === true) {
       onClose();
       return;
     }
-    clearTags();
-    setSearchQuery(() => "  ");
     setShowAddTipForm(true);
   }
   function onClose() {
     addObjectToInputFormState(null);
-    setSearchQuery(() => "");
     setShowAddTipForm(false);
   }
   const AddTipText = showAddTipForm ? "Cancel" : "Create";
