@@ -1,7 +1,12 @@
-const TitleButtons = ({ titleSet, onClick, listId }) => {
+import { useFilteredTipsContext } from "../../contexts/Providers/FilteredTipsProvider";
+
+export default function TitleButtons ({ listId }) {
+  const  tips = useFilteredTipsContext();
+  const titleSet = Object.values(tips);
   function makeButtonArray() {
-    return titleSet.map((title, index) => {
-      const object = <option key={index} value={title}></option>;
+    return titleSet.map((tip) => {
+      const title = tip.title;
+      const object = <option key={title} value={title}></option>;
 
       return object;
     });
@@ -15,4 +20,3 @@ const TitleButtons = ({ titleSet, onClick, listId }) => {
   );
 };
 
-export default TitleButtons;

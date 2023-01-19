@@ -208,31 +208,8 @@ function makeNewTipId(tipList) {
 }
 const url = window.location.search;
 const urlObject = new URLSearchParams(url);
-const searchFromUrl = urlObject.get("title");
 const tagsFromUrl = urlObject.getAll("tags").map((x) => x.toLowerCase());
 export default function App() {
-  // console.count("App");
-
-  // const [tipsFirestore, setTipsFirestore] = useState(null);
-  // const [tagsFirestore, setTagsFirestore] = useState(null);
-  // useEffect(() => {
-  //   let ignore = false;
-  //   getTagsFirestore().then((result) => {
-  //     if (!ignore) {
-
-  //       setTagsFirestore(result);
-  //     }
-  //   });
-  //   getTipsFirestore().then((result) => {
-  //     if (!ignore) {
-
-  //       setTipsFirestore(result);
-  //     }
-  //   });
-  //   return () => {
-  //     ignore = true;
-  //   };
-  // }, []);
   const [inputFormState, setInputFormState] = useState(() => inputFormStarter);
   function addFieldToInputFormState(key, value) {
     setInputFormState((object) => {
@@ -310,58 +287,15 @@ export default function App() {
     mapTagColours(tagColours);
   }
   const newTipId = makeNewTipId(tipList);
-  // console.group(`tipList`);
 
-  // console.groupEnd();
 
-  const [searchQuery, setSearchQuery] = useState(searchFromUrl || "");
 
-  function checkTagVisible(tagState, tagArray) {
-    const tagStateValue = Object.values(tagState);
-    if (!tagStateValue.includes("active")) return true;
-    let returnBoolean = false;
-    const activeTags = Object.entries(tagState).reduce((acc, entry) => {
-      if (entry[1] === "active") acc.push(entry[0]);
-      return acc;
-    }, []);
-
-    activeTags.forEach((activeTag) => {
-      if (tagArray.includes(activeTag)) returnBoolean = true;
-    });
-    return returnBoolean;
-  }
-  function filterTip(tip) {
-    return (
-      tip.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      checkTagVisible(tagState, tip.tags)
-    );
-  }
-  function filterTips(tipList) {
-    return Object.values(tipList).filter((tip) => filterTip(tip));
-  }
-  const filteredTipList = filterTips(tipList);
-
-  let tagArray = [];
-  function createTagSet(filteredTipList) {
-    filteredTipList.forEach((tip) => {
-      tagArray.push(...tip.tags);
-    });
-    return new Set(tagArray);
-  }
-
-  function createTitleSet(filteredTipList) {
-    return filteredTipList.map((x) => x.title);
-  }
-
-  const tagSet = createTagSet(filteredTipList);
-  const titleSet = createTitleSet(filteredTipList);
 
   async function editTip(e) {
     const id = e.target.id;
     const tipObject = tipList[id];
     addObjectToInputFormState(tipObject);
     setShowAddTipForm(true);
-    setSearchQuery(() => tipObject.title);
     clearTags();
   }
 
@@ -411,15 +345,9 @@ export default function App() {
       showAddTipForm={showAddTipForm}
       setShowAddTipForm={setShowAddTipForm}
       addNewObjectToTips={addNewObjectToTips}
-      setSearchQuery={setSearchQuery}
     />
   ) : (
     <Filters
-      searchQuery={searchQuery}
-      setSearchQuery={setSearchQuery}
-      titleSet={titleSet}
-      setTagState={setTagState}
-      tagState={tagState}
       filterExpanded={filterExpanded}
       setFilterExpanded={setFilterExpanded}
     />
@@ -431,12 +359,6 @@ export default function App() {
           <h1>Hello, my name is Gareth...</h1>
           <Header
             title="DevTips"
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            setTagState={setTagState}
-            tagState={tagState}
-            tagSet={tagSet}
-            titleSet={titleSet}
             setTip={setTip}
             newTipId={newTipId}
             tagListAll={tagListAll}
@@ -450,7 +372,6 @@ export default function App() {
             {topSection}
             <section className="tip-container">
               <Tips
-                tipList={filteredTipList}
                 setTagStateFromTip={setTagStateFromTip}
                 editTip={editTip}
                 showAddTipForm={showAddTipForm}
