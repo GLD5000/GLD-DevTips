@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
@@ -288,9 +288,6 @@ export default function App() {
   }
   const newTipId = makeNewTipId(tipList);
 
-
-
-
   async function editTip(e) {
     const id = e.target.id;
     const tipObject = tipList[id];
@@ -359,9 +356,6 @@ export default function App() {
           <h1>Hello, my name is Gareth...</h1>
           <Header
             title="DevTips"
-            setTip={setTip}
-            newTipId={newTipId}
-            tagListAll={tagListAll}
             addTipToDb={addTipToDb}
             showAddTipForm={showAddTipForm}
             setShowAddTipForm={setShowAddTipForm}
