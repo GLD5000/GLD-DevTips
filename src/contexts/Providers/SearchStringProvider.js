@@ -8,9 +8,6 @@ function useData() {
 }
 export default function SearchStringProvider({ children }) {
   const data = useData();
-  console.group(`data`);
-  console.log(data);
-  console.groupEnd();
   return <SearchString.Provider value={data}>{children}</SearchString.Provider>;
 }
 const SearchString = createContext();
