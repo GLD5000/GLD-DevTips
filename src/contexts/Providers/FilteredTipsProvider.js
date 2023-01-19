@@ -40,16 +40,21 @@ function checkTagVisible(activeTags, tipTags) {
 
   return returnBoolean;
 }
-function filterTip(tip, searchString, activeTags) {
-  const showTitle =
-    !searchString ||
-    tip.title.toLowerCase().includes(searchString.toLowerCase());
+function filterTip(tip, searchString, activeTags, stringMissing) {
+  const showTitle = stringMissing
+    ? false
+    : tip.title.toLowerCase().includes(searchString.toLowerCase());
   const showTags =
     activeTags.size > 0 ? checkTagVisible(activeTags, tip.tags) : false;
+
   return showTitle || showTags;
 }
 function getFilteredTips(tips, searchString, activeTags) {
+  const stringMissing = !searchString || searchString.length < 1;
+  const tagsMissing = activeTags.size === 0;
+  if (stringMissing && tagsMissing) return Object.values(tips);
+
   return Object.values(tips).filter((tip) =>
-    filterTip(tip, searchString, activeTags)
+    filterTip(tip, searchString, activeTags, stringMissing)
   );
 }
