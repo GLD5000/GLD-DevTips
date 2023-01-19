@@ -1,17 +1,17 @@
 import CollapseSvg from "../components/icons/CollapseSvg";
 import ExpandSvg from "../components/icons/ExpandSvg";
 import InputText from "../elements/InputText";
+import { useSearchStringContext } from "../contexts/Providers/SearchStringProvider";
 
 export default function SearchTitle({
   title,
   onClick,
   expanded,
-  setSearchQuery,
-  searchQuery,
   listId,
 }) {
+  const { searchString, setSearchString } = useSearchStringContext();
   const placeholder = " Type or select a title...";
-  const defaultValue = searchQuery.length > 0 ? searchQuery : null;
+  const defaultValue = searchString > 0 ? searchString : null;
   return (
     <>
       <button
@@ -27,9 +27,9 @@ export default function SearchTitle({
       </button>
       <InputText
         placeholder={placeholder}
-        onInput={setSearchQuery}
+        onInput={setSearchString}
         type="search"
-        value={searchQuery}
+        value={searchString}
         listId={listId}
         controlled={true}
         defaultValue={defaultValue}
