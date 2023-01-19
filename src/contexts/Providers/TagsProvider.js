@@ -5,7 +5,7 @@ import makeNewTag from "../../utilities/newTagMaker"
 
 function useData() {
   const { tips, dispatchTips } = useTipsContext();
-  const [tags, dispatchTags] = useReducer(tagReducer, null);
+  const [tags, dispatchTags] = useReducer(tagReducer, {data: null, metadata:{status: "loading", activeTags: new Set()}});
   useEffect(() => {
     return fetchFirestoreData(dispatchTags);
   }, []);
@@ -65,15 +65,17 @@ function getTagArrayFromUrl() {
 }
 
 function tagReducer(state, action) {
-  const oldTagsCopy = { ...state };
+  const oldTagsCopy = { ...state.data };
+  const oldMetaDataCopy = { ...state.metadata };
   switch (action.type) {
     case "ACTIVATE_TAGS_FROM_URL": {
       const tagArrayFromUrl = getTagArrayFromUrl();
       if (tagArrayFromUrl.length > 0)
         tagArrayFromUrl.forEach((tagId) => {
           action.payload[tagId].active = true;
+          oldMetaDataCopy.activeTags.add(tagId);
         });
-      return action.payload;
+      return {data: action.payload, metadata: oldMetaDataCopy};
     }
     case "COUNT_TAGS": {
       const tagsCount = Object.values(action.payload).flatMap(x => x.tags).reduce((acc, curr)=>{
@@ -85,29 +87,35 @@ function tagReducer(state, action) {
         oldTagsCopy[tagId].count = tagsCount[tagName];
             });
 
-      Object.entries(oldTagsCopy).forEach(entry => {if (entry[1].count === undefined) delete oldTagsCopy[entry[0]]; })
-      return oldTagsCopy;
+      Object.entries(oldTagsCopy).forEach(entry => {
+        if (entry[1].count === undefined) delete oldTagsCopy[entry[0]]; 
+      })
+      oldMetaDataCopy.status = "loaded";
+      return {data: oldTagsCopy, metadata: oldMetaDataCopy};
     }
     case "REPLACE_TAGS": {
       console.log(action.payload);
-      return action.payload;
+      return {data: action.payload, metadata: oldMetaDataCopy};
     }
     case "CLEAR_TAGS": {
       Object.values(oldTagsCopy).forEach((oldTag) => {
         oldTag.active = false;
       });
-      return oldTagsCopy;
+      oldMetaDataCopy.activeTags.clear();
+      return {data: oldTagsCopy, metadata: oldMetaDataCopy};
     }
     case "ACTIVATE_TAGS": {
       action.payload.forEach((tagId) => {
         oldTagsCopy[tagId].active = true;
       });
-      return oldTagsCopy;
+      return {data: oldTagsCopy, metadata: oldMetaDataCopy};
     }
     case "TOGGLE_TAG":
     default: {
       oldTagsCopy[action.payload.id].active = action.payload.active;
-      return oldTagsCopy;
+      if (action.payload.active) oldMetaDataCopy.activeTags.add(action.payload.id);
+      if (!action.payload.active) oldMetaDataCopy.activeTags.delete(action.payload.id);
+      return {data: oldTagsCopy, metadata: oldMetaDataCopy};
     }
   }
 }

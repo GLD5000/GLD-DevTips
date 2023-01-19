@@ -9,7 +9,7 @@ export default function TagSet({
   keyMod = 0,
   updateTagState,
 }) {
-  const { tags, dispatchTags } = useTagsContext();
+  const {  tags:{data: tags} , dispatchTags } = useTagsContext();
   function handleClickTag(payload) {
     dispatchTags({ type: "TOGGLE_TAG", payload: payload });
   }

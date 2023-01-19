@@ -1,9 +1,10 @@
 import Tip from "./Tip";
+import {useFilteredTipsContext} from "../../contexts/Providers/FilteredTipsProvider"
 const Tips = ({ tipList, setTagStateFromTip, editTip, showAddTipForm }) => {
-  const tipFlipReverse = tipList.slice(0).reverse();
+  const tips = useFilteredTipsContext();
   return (
     <>
-      {tipFlipReverse.map((tip) => (
+      {tips.map((tip) => (
         <Tip
           key={tip.id}
           tip={tip}

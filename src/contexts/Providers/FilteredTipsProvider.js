@@ -1,29 +1,33 @@
-import {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  useReducer,
-} from "react";
+import { createContext, useContext } from "react";
 import { useTagsContext } from "./TagsProvider";
 import { useTipsContext } from "./TipsProvider";
+import { useSearchStringContext } from "./SearchStringProvider";
+
 function useData() {
-  const [loadState, setLoadState] = useState(() => "awaitingData");
-  const tags = useTagsContext();
-  const { tips } = useTipsContext();
-  const [searchString, setSearchString] = useState(getTitleFromUrl());
-  const filteredTips = [];
-  const [activeTags, setActiveTags] = useState(null);
-  const [activeTips, setActiveTips] = useState(null);
+  const {
 
+    tags: { metadata: {activeTags} },
+    tags: {
+      metadata: { status },
+    },
+  } = useTagsContext();
+  const {
+    tips: { data: tips },
+  } = useTipsContext();
+  const { searchString } = useSearchStringContext();
+  let activeTips = [];
 
-  return {
-    searchString, setSearchString,
-    activeTips,
-  };
+  if (activeTags && tips && status === "loaded") {
+    activeTips = getFilteredTips(tips, searchString, activeTags);
+  }
+
+  return activeTips;
 }
 export default function FilteredTipsProvider({ children }) {
   const data = useData();
+  console.group(`data`);
+  console.log(data);
+  console.groupEnd();
   return <FilteredTips.Provider value={data}>{children}</FilteredTips.Provider>;
 }
 const FilteredTips = createContext();
@@ -32,15 +36,11 @@ export const useFilteredTipsContext = () => useContext(FilteredTips); // custom 
 
 function getTitleFromUrl() {
   const search = window.location.search;
-  if (search === "") return  null;
+  if (search === "") return null;
   const searchObject = new URLSearchParams(search);
   const searchFromUrl = searchObject.get("title");
-  return  searchFromUrl ;
+  return searchFromUrl;
 }
-
-
-
-
 
 function checkTagVisible(activeTags, tipTags) {
   let returnBoolean = false;
@@ -50,17 +50,15 @@ function checkTagVisible(activeTags, tipTags) {
 
   return returnBoolean;
 }
-function filterTip(tip, searchString, tags) {
+function filterTip(tip, searchString, activeTags) {
   const showTitle =
-    searchString === null
-      ? true
-      : tip.title.toLowerCase().includes(searchString.toLowerCase());
-  const showTags =
-    checkTagVisible(tags, tip.tags);
+    !searchString ||
+    tip.title.toLowerCase().includes(searchString.toLowerCase());
+  const showTags = activeTags.size > 0 ?checkTagVisible(activeTags, tip.tags): true;
   return showTitle && showTags;
 }
-function getFilteredTips(tips, searchString, tags) {
+function getFilteredTips(tips, searchString, activeTags) {
   return Object.values(tips).filter((tip) =>
-    filterTip(tip, searchString, tags)
+    filterTip(tip, searchString, activeTags)
   );
 }
