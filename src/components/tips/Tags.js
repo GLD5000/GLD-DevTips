@@ -1,13 +1,17 @@
 import Tag from "./Tag";
+import { useTagsContext } from "../../contexts/Providers/TagsProvider";
 
-const Tags = ({ tagArray, setTagStateFromTip}) => {
+export default function Tags ({tagArray}) {
+  const {  tags:{data: tags} , dispatchTags } = useTagsContext();
+  function handleClickTag(payload) {
+    dispatchTags({ type: "TOGGLE_TAG", payload: payload });
+  }
   return (
     <div className="tagsList">
-      {tagArray.map((tag, index) => (
-        <Tag key={index} tag={tag} setTagStateFromTip={setTagStateFromTip} />
+      {tagArray.map(tag => (
+        <Tag key={tag} tag={tags[tag.toLowerCase()]} handleClickTag={handleClickTag} />
       ))}
     </div>
   );
 };
 
-export default Tags;

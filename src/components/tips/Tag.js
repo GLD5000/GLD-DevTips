@@ -1,20 +1,21 @@
 import TagButton from "../../elements/TagButton";
-import tagHexLookup from "../../utilities/tagHex";
 
-const Tag = ({ tag, setTagStateFromTip}) => {
+export default function Tag ({ tag, handleClickTag}) {
+  const { backgroundColour, textColour, active, name} = tag;
+
   function tagOnClick(e) {
-    const tag = e.target.innerHTML;
-    setTagStateFromTip(tag);
+    const tagId = e.target.name.toLowerCase();
+
+    if (tagId !== undefined) handleClickTag({ id: tagId, active: !active });
   }
-  const {backgroundColour, textColour} = tagHexLookup(tag);
   return (
     <TagButton
       color={textColour}
       backgroundColor={backgroundColour}
-      text={tag}
+      text={name}
+      name={name}
       clickFunction={tagOnClick}
     />
   );
 };
 
-export default Tag;
