@@ -4,43 +4,28 @@ import MainTitle from "./MainTitle";
 
 import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
 
-export default function InputForm({
-  tagListAll,
-  setInputFormState,
-  addFieldToInputFormState,
-  addObjectToInputFormState,
-  callbackMainTitle,
-  currentId,
-}) {
+export default function InputForm() {
   const {
     inputForm: { data: inputFormState },
     dispatchInputForm,
+    inputForm: {metadata: {currentTipId}}
   } = useInputFormContext();
 
   return (
+    <div className="add-tip-container">
     <div className="add-form">
       <div className="form-control">
         <label className="label-box">
           <h2>Add Title</h2>
           <MainTitle
-            onInput={callbackMainTitle}
-            name={currentId + "MainTitle"}
-            id={currentId + "MainTitle"}
-            defaultValue={inputFormState?.title || null}
           />
         </label>
         <SelectMulti
-          tagListAll={tagListAll}
-          inputFormState={inputFormState}
-          addFieldToInputFormState={addFieldToInputFormState}
         />
       </div>
       <MultiInput
-        inputFormState={inputFormState}
-        setInputFormState={setInputFormState}
-        addFieldToInputFormState={addFieldToInputFormState}
-        addObjectToInputFormState={addObjectToInputFormState}
       />
+    </div>
     </div>
   );
 }
