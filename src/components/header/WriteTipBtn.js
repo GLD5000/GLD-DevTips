@@ -6,34 +6,30 @@ const cancelClasses =
   "bg-transparent text-pink-300 focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black";
 
 export default function WriteTipBtn({
-  showAddTipForm,
-  setShowAddTipForm,
-  addObjectToInputFormState,
 }) {
-  function onClickAdd() {
-    if (showAddTipForm === true) {
+
+  const {dispatchInputForm, inputForm:{metadata: {editing}}} = useInputFormContext();
+  function onCreate() {
+    if (editing === true) {
       onClose();
       return;
     }
-    setShowAddTipForm(true);
+    dispatchInputForm({type: "NEW_TIP"});
   }
   function onClose() {
-    addObjectToInputFormState(null);
-    setShowAddTipForm(false);
+    dispatchInputForm({type: "CANCEL_EDIT"});
   }
-  const AddTipText = showAddTipForm ? "Cancel" : "Create";
-  const type = showAddTipForm ? "cancelWrite" : "add";
+  const AddTipText = editing ? "Cancel" : "Create";
+  const type = editing ? "cancelWrite" : "add";
   return (
     <div className="h-full width-fit col-start-4">
       <SvgButton
         wide="false"
         type={type}
-        // color={buttonState.colour}
-        // backgroundColor={buttonState.background}
         text={AddTipText}
-        clickFunction={onClickAdd}
+        clickFunction={onCreate}
         reverse={true}
-        buttonClasses={showAddTipForm ? cancelClasses : writeClasses}
+        buttonClasses={editing ? cancelClasses : writeClasses}
         activeClasses="active:bg-slate-400"
       />
     </div>
