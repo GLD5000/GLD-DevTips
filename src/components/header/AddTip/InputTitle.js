@@ -9,7 +9,6 @@ const InputTitle = ({
   type = "text",
   name = undefined,
   defaultValue = null,
-  autoFocus = false
 }) => {
 
 
@@ -18,26 +17,16 @@ const InputTitle = ({
     const index = e.target.name;
     onInput({title: value}, index);
   };
-  autoFocus = false;
 
-  return (<>
-    {autoFocus? (<input
-      autoFocus
+  return (
+    <input
       type={type}
       onChange={(e) => handler(e)}
       placeholder={placeholder}
       name={name}
       autoComplete="true"
       defaultValue={defaultValue}
-    ></input>) : (<input
-      type={type}
-      onChange={(e) => handler(e)}
-      placeholder={placeholder}
-      name={name}
-      autoComplete="true"
-      defaultValue={defaultValue}
-    ></input>)}
-  </>
+    ></input>
   );
 };
 

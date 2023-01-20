@@ -131,7 +131,6 @@ export default function InputButtons({
   title,
   AddToTextarea,
   onHover,
-  autoFocus,
 }) {
   const extraButtons = getReturnArray(type, index, AddToTextarea, onHover);
   return (
@@ -156,7 +155,6 @@ export default function InputButtons({
           name={index}
           onInput={changeValue}
           defaultValue={title}
-          autoFocus={autoFocus}
         />
       </label>
       {extraButtons}
