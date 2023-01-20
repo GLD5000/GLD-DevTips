@@ -2,10 +2,12 @@ import MultiInput from "./MultiInput";
 import SelectMulti from "../../../elements/SelectMulti";
 import MainTitle from "./MainTitle";
 
-const InputForm = ({
+import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
+
+export default function InputForm ({
   authClickHandler,
   tagListAll,
-  inputFormState,
+  // inputFormState,
   setInputFormState,
   addFieldToInputFormState,
   addObjectToInputFormState,
@@ -15,8 +17,8 @@ const InputForm = ({
   currentId,
   signedIn,
   isOwner,
-}) => {
-
+}) {
+  const {InputForm: {data: inputFormState}, dispatchInputForm} = useInputFormContext();
 
 
   return (
@@ -52,4 +54,3 @@ const InputForm = ({
   );
   
 };
-export default InputForm;
