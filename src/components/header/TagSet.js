@@ -3,7 +3,7 @@ import Button from "../../elements/Button";
 
 export default function TagSet({
   title = "Filter Tags",
-tags, dispatchTags}) {
+tags, dispatchTags, activeTags}) {
   function handleClickTag(payload) {
     dispatchTags({ type: "TOGGLE_TAG", payload: payload });
   }
@@ -17,6 +17,7 @@ tags, dispatchTags}) {
         key={tag.name}
         tag={tag}
         handleClickTag={handleClickTag}
+        activeTags={activeTags}
       />
     );
     return acc;
