@@ -2,105 +2,27 @@ import InputField from "./InputField";
 import InputButtons from "./InputButtons";
 import SvgButton from "../../../elements/SvgButton";
 import SaveButtons from "./SaveButtons";
+import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
+import SectionButtons from "./SectionButtons";
 const selection = {};
-let keyInc = 0;
-let autoFocusIndex = null;
-const MultiInput = ({
-  inputFormState,
-  setInputFormState,
-}) => {
-  function deepCloneInputFormState() {
-    return {
-      ...inputFormState,
-      sections: inputFormState.sections.map((x) => {
-        return { ...x };
-      }),
-      tags: [...inputFormState.tags],
-    };
-  }
-  function addField() {
-    setInputFormState((object) => {
-      const newObject = { ...object };
-      newObject.sections = [
-        ...newObject.sections.map((x) => {
-          return { ...x };
-        }),
-        { type: "text", content: "" },
-      ];
-      autoFocusIndex = newObject.sections.length - 1;
+let keyInc;
+export default function MultiInput ({
+}) {
+  const {
+    inputForm: { data: {sections} },
+    dispatchInputForm,
+  } = useInputFormContext();
 
-      return newObject;
-    });
-  }
-  function duplicateField(e) {
-    incrementKeys();
-    const index = getSectionIndexFromId(e);
-    const newObject = deepCloneInputFormState();
-    const duplicateObject = { ...newObject.sections[index] };
-    autoFocusIndex = index + 1;
-    newObject.sections[index].title =
-      newObject.sections[index].title === undefined
-        ? `Copy of section ${index + 1}`
-        : `${newObject.sections[index].title} (copy)`;
-    newObject.sections.splice(index, 0, duplicateObject);
 
-    setInputFormState(() => {
-      return newObject;
-    });
-  }
-  function swapArrayPositions(array, index, direction = "up") {
-    const indexModifier = direction === "down" ? 1 : -1;
-    const secondIndex = index + indexModifier;
-    const indexLimit = array.length - 1;
-    if (secondIndex > indexLimit || secondIndex < 0) return array;
-    [array[index], array[secondIndex]] = [array[secondIndex], array[index]];
-    return array;
-  }
-  function incrementKeys() {
-    keyInc += 1;
-  }
-  function moveFieldUp(e) {
-    incrementKeys();
-    const index = getSectionIndexFromId(e);
-    const newObject = deepCloneInputFormState();
-    const newSections = swapArrayPositions(newObject.sections, index, "up");
-
-    setInputFormState(() => {
-      newObject.sections = newSections;
-      return newObject;
-    });
-  }
-  function moveFieldDown(e) {
-    incrementKeys();
-    const index = getSectionIndexFromId(e);
-    const newObject = deepCloneInputFormState();
-    const newSections = swapArrayPositions(newObject.sections, index, "down");
-
-    setInputFormState(() => {
-      newObject.sections = newSections;
-      return newObject;
-    });
-  }
   function getSectionIndexFromId(e) {
     return parseInt(e.target.id.split("-")[0]);
   }
-  function deleteIndexedField(e) {
-    incrementKeys();
-    const index = getSectionIndexFromId(e);
-    const newObject = deepCloneInputFormState();
-    const newSections = newObject.sections.filter((_, i) => index !== i);
 
-    setInputFormState(() => {
-      newObject.sections = newSections;
-      return newObject;
-    });
+  function addField() {
+    dispatchInputForm({type: "ADD_SECTION"});
   }
   function addTextareaToState(index, newContent) {
-    setInputFormState(() => {
-      const newObject = deepCloneInputFormState();
-      newObject.sections[index].content = newContent;
-      return newObject;
-    });
+    dispatchInputForm({type: "REPLACE_SECTION_DATA_FIELD", field: "content", index: index, value: newContent});
   }
   function updateTextArea({ index, start, end }, content) {
     const inputElement = document.getElementById(index + "-InputField");
@@ -261,24 +183,23 @@ const MultiInput = ({
     selection.index = sectionNumber;
   }
   function changeValue(inputObject, index) {
-    setInputFormState((object) => {
-      const newObject = { ...object };
-      const targetSection = newObject.sections[index];
-      const type = inputObject.type || targetSection["type"];
-      const content = inputObject.content || targetSection["content"];
-      newObject.sections[index] = {
-        type: type,
-        content: content,
-      };
-      const title = inputObject.title || targetSection["title"];
-      if (title !== undefined) newObject.sections[index].title = title;
-      return newObject;
-    });
+    // setInputFormState((object) => {
+    //   const newObject = { ...object };
+    //   const targetSection = newObject.sections[index];
+    //   const type = inputObject.type || targetSection["type"];
+    //   const content = inputObject.content || targetSection["content"];
+    //   newObject.sections[index] = {
+    //     type: type,
+    //     content: content,
+    //   };
+    //   const title = inputObject.title || targetSection["title"];
+    //   if (title !== undefined) newObject.sections[index].title = title;
+    //   return newObject;
+    // });
     //updateSelection(index);
   }
   function makeInputArray() {
-    return inputFormState.sections.map((object, index) => {
-      const autoFocus = index === autoFocusIndex;
+    return sections.map((object, index) => {
       const returnObject = (
         <div key={keyInc + "a" + index} className="field-container">
           <h2>Section {index + 1}</h2>
@@ -289,7 +210,6 @@ const MultiInput = ({
             changeValue={changeValue}
             title={object.title}
             AddToTextarea={AddToTextarea}
-            autoFocus={autoFocus}
           />
           <InputField
             key={keyInc + "a" + index + "InputField"}
@@ -299,39 +219,7 @@ const MultiInput = ({
             defaultValue={object.content}
             changeText={changeValue}
           />
-          <div className="svg-btn-grid">
-            <SvgButton
-              type="up"
-              key={index + "moveFieldUp"}
-              text="Up"
-              clickFunction={moveFieldUp}
-              id={index + "-moveFieldUp"}
-            />
-            <SvgButton
-              type="down"
-              key={index + "moveFieldDown"}
-              backgroundColor="bg-transparent"
-              text="Down"
-              clickFunction={moveFieldDown}
-              id={index + "-moveFieldDown"}
-            />
-
-            <SvgButton
-              type="duplicate"
-              key={index + "duplicateField"}
-              text="Copy"
-              clickFunction={duplicateField}
-              id={index + "-duplicatefield"}
-              svgClasses="stroke-1 stroke-whitesmoke fill-black"
-            />
-            <SvgButton
-              type="delete"
-              key={index + "deleteIndexedField"}
-              text="Delete"
-              clickFunction={deleteIndexedField}
-              id={index + "-deleteIndexedField"}
-            />
-          </div>
+          <SectionButtons index={index}/>
         </div>
       );
       return returnObject;
@@ -360,4 +248,3 @@ const MultiInput = ({
   );
 };
 
-export default MultiInput;
