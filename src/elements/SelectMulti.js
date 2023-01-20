@@ -10,13 +10,12 @@ export default function SelectMulti() {
   const {
     dispatchInputForm,
     inputForm: {
-      data: { tags: activeTags },
+      metadata: { existingTagsSet },
     },
     inputForm: {
       metadata: { newTagsString },
     },
   } = useInputFormContext();
-
   return (
     <>
       <TagSet
@@ -24,7 +23,7 @@ export default function SelectMulti() {
         title={"Choose Tags"}
         tags={tags}
         dispatchTags={dispatchInputForm}
-        activeTags={activeTags}
+        activeTags={existingTagsSet}
       />
 
       <label className="label-box">

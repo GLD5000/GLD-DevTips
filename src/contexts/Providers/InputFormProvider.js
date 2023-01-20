@@ -55,9 +55,13 @@ function useData() {
         return {
           data: dataStarter,
           metadata: {
-            ...oldMetadata,
-            inputPointer: -1,
+            focusId: "",
+            preview: false,
             editing: true,
+            existingTagsSet: new Set(),
+            newTagsArray: [],
+            date: null,
+            currentTipId: -1,
           },
         };
       }

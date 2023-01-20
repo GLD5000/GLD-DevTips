@@ -1,6 +1,8 @@
 import ToggleButton from "../../elements/ToggleButton";
 export default function TagFilter({ tag, handleClickTag, activeTags }) {
-  const { backgroundColour, textColour, active, name, count } = tag;
+  const { backgroundColour, textColour, name, count } = tag;
+  const tagId = name.toLowerCase();
+  const active = activeTags.has(tagId)
   function tagOnClick(e) {
     const tagName = e.target.name;
     const tagId = tagName.toLowerCase();
