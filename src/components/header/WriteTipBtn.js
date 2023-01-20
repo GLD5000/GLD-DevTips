@@ -5,8 +5,7 @@ const writeClasses =
 const cancelClasses =
   "bg-transparent text-pink-300 focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black";
 
-export default function WriteTipBtn({
-}) {
+export default function WriteTipBtn() {
 
   const {dispatchInputForm, inputForm:{metadata: {editing}}} = useInputFormContext();
   function onCreate() {
