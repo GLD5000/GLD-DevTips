@@ -1,38 +1,30 @@
 import TitleFilter from "./TitleFilter";
 import TagSet from "./TagSet";
-import { useDataContext } from "../../DataProvider";
+import { useTagsContext } from "../../contexts/Providers/TagsProvider";
 
 export default function Filters({
-  searchQuery,
-  setSearchQuery,
-  titleSet,
   setTagState,
   tagState,
-  filterExpanded,
-  setFilterExpanded,
 }) {
-  const { showFilter, setshowFilter, tags } = useDataContext();
-
+  // const { showFilter, setshowFilter, tags } = useDataContext();
+  const {
+    tags: {metadata: { showTags }},
+    tags: { data: tags },
+    dispatchTags,
+  } = useTagsContext();
   function toggleExpanded() {
-    setshowFilter(!showFilter);
+    dispatchTags({ type: "TOGGLE_SHOW_TAGS", payload: !showTags });
   }
   // const tagsActive = Object.values(tagState).includes("active");
   // if (tagsActive) setFilterExpanded(true);
   return (
     <section className="filter-section">
       <TitleFilter
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        titleSet={titleSet}
         toggleExpanded={toggleExpanded}
-        expanded={filterExpanded}
+        expanded={showTags}
       />
-      {showFilter && tags !== null && (
-        <TagSet
-          setTagState={setTagState}
-          tagState={tagState}
-          updateTagState={updateTagState}
-        />
+      {showTags && tags !== null && (
+        <TagSet tags={tags} dispatchTags={dispatchTags} />
       )}
     </section>
   );

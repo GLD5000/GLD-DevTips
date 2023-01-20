@@ -12,9 +12,6 @@ const inputFormStarter = {
 
 export default function InputFormProvider({ children }) {
   const data = useData();
-  console.group(`data`);
-  console.log(data);
-  console.groupEnd();
   return (
     <InputFormContext.Provider value={data}>
       {children}

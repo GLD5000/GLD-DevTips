@@ -7,7 +7,7 @@ function useData() {
   const { tips, dispatchTips } = useTipsContext();
   const [tags, dispatchTags] = useReducer(tagReducer, {
     data: null,
-    metadata: { status: "loading", activeTags: new Set() },
+    metadata: { showTags: true, status: "loading", activeTags: new Set() },
   });
   useEffect(() => {
     return fetchFirestoreData(dispatchTags);
@@ -68,7 +68,7 @@ function getTagArrayFromUrl() {
 }
 
 function tagReducer(state, action) {
-  const oldTagsCopy = { ...state.data };
+  const oldDataCopy = { ...state.data };
   const oldMetaDataCopy = { ...state.metadata };
   switch (action.type) {
     case "ACTIVATE_TAGS_FROM_URL": {
@@ -91,42 +91,46 @@ function tagReducer(state, action) {
         }, {});
       Object.keys(tagsCount).forEach((tagName) => {
         const tagId = tagName.toLowerCase();
-        if (oldTagsCopy[tagId] === undefined)
-          oldTagsCopy[tagId] = makeNewTag(tagName);
-        oldTagsCopy[tagId].count = tagsCount[tagName];
+        if (oldDataCopy[tagId] === undefined)
+          oldDataCopy[tagId] = makeNewTag(tagName);
+        oldDataCopy[tagId].count = tagsCount[tagName];
       });
 
-      Object.entries(oldTagsCopy).forEach((entry) => {
-        if (entry[1].count === undefined) delete oldTagsCopy[entry[0]];
+      Object.entries(oldDataCopy).forEach((entry) => {
+        if (entry[1].count === undefined) delete oldDataCopy[entry[0]];
       });
       oldMetaDataCopy.status = "loaded";
-      return { data: oldTagsCopy, metadata: oldMetaDataCopy };
+      return { data: oldDataCopy, metadata: oldMetaDataCopy };
     }
     case "REPLACE_TAGS": {
       console.log(action.payload);
       return { data: action.payload, metadata: oldMetaDataCopy };
     }
+    case "TOGGLE_SHOW_TAGS": {
+      oldMetaDataCopy.showTags = action.payload;
+      return { data: oldDataCopy, metadata: oldMetaDataCopy };
+    }
     case "CLEAR_TAGS": {
-      Object.values(oldTagsCopy).forEach((oldTag) => {
+      Object.values(oldDataCopy).forEach((oldTag) => {
         oldTag.active = false;
       });
       oldMetaDataCopy.activeTags.clear();
-      return { data: oldTagsCopy, metadata: oldMetaDataCopy };
+      return { data: oldDataCopy, metadata: oldMetaDataCopy };
     }
     case "ACTIVATE_TAGS": {
       action.payload.forEach((tagId) => {
-        oldTagsCopy[tagId].active = true;
+        oldDataCopy[tagId].active = true;
       });
-      return { data: oldTagsCopy, metadata: oldMetaDataCopy };
+      return { data: oldDataCopy, metadata: oldMetaDataCopy };
     }
     case "TOGGLE_TAG":
     default: {
-      oldTagsCopy[action.payload.id].active = action.payload.active;
+      oldDataCopy[action.payload.id].active = action.payload.active;
       if (action.payload.active)
         oldMetaDataCopy.activeTags.add(action.payload.id);
       if (!action.payload.active)
         oldMetaDataCopy.activeTags.delete(action.payload.id);
-      return { data: oldTagsCopy, metadata: oldMetaDataCopy };
+      return { data: oldDataCopy, metadata: oldMetaDataCopy };
     }
   }
 }

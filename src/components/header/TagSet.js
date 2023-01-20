@@ -1,15 +1,9 @@
 import TagFilter from "./TagFilter";
 import Button from "../../elements/Button";
-import { useTagsContext } from "../../contexts/Providers/TagsProvider";
 
 export default function TagSet({
-  setTagState,
-  tagState,
   title = "Filter Tags",
-  keyMod = 0,
-  updateTagState,
-}) {
-  const {  tags:{data: tags} , dispatchTags } = useTagsContext();
+tags, dispatchTags}) {
   function handleClickTag(payload) {
     dispatchTags({ type: "TOGGLE_TAG", payload: payload });
   }
@@ -23,7 +17,6 @@ export default function TagSet({
         key={tag.name}
         tag={tag}
         handleClickTag={handleClickTag}
-        tagState={tagState}
       />
     );
     return acc;

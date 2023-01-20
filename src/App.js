@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "./components/header/Header";
 import Tips from "./components/tips/Tips";
 import AddTip from "./components/header/AddTip/AddTip";
+import TopSection from "./components/header/TopSection";
 import Filters from "./components/header/Filters";
 
 import getRandomColour from "./utilities/randomColour";
@@ -14,6 +15,7 @@ import { doc, getDoc } from "firebase/firestore";
 
 import CombinedProviders from "./contexts/CombinedProviders";
 import DataProvider from "./DataProvider";
+
 
 import {
   addTipToFirestore as addTipToDb,
@@ -329,26 +331,7 @@ export default function App() {
     setFilterExpanded(() => true);
   }
 
-  const topSection = showAddTipForm ? (
-    <AddTip
-      setTip={setTip}
-      newTipId={newTipId}
-      tagListAll={tagListAll}
-      addTipToDb={addTipToDb}
-      inputFormState={inputFormState}
-      setInputFormState={setInputFormState}
-      addFieldToInputFormState={addFieldToInputFormState}
-      addObjectToInputFormState={addObjectToInputFormState}
-      showAddTipForm={showAddTipForm}
-      setShowAddTipForm={setShowAddTipForm}
-      addNewObjectToTips={addNewObjectToTips}
-    />
-  ) : (
-    <Filters
-      filterExpanded={filterExpanded}
-      setFilterExpanded={setFilterExpanded}
-    />
-  );
+
   return (
     <CombinedProviders>
       <DataProvider>
@@ -363,7 +346,7 @@ export default function App() {
             clearTags={clearTags}
           />
           <section className="body-container">
-            {topSection}
+            <TopSection/>
             <section className="tip-container">
               <Tips
                 setTagStateFromTip={setTagStateFromTip}
