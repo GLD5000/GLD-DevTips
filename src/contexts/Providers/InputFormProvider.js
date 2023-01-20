@@ -5,10 +5,10 @@ const inputFormStarter = {
   title: null,
   id: null,
   sections: [{ type: "text", content: "" }],
-  tags: [],
+  tags: new Set(),
+  newTagsArray: [],
   date: null,
 };
-
 
 export default function InputFormProvider({ children }) {
   const data = useData();
@@ -28,7 +28,12 @@ function useData() {
   } = useTipsContext();
   const [inputForm, dispatchInputForm] = useReducer(inputFormReducer, {
     data: inputFormStarter,
-    metadata: { inputPointer: -1, editing: false, nextTipId: nextTipId, tips: tips },
+    metadata: {
+      inputPointer: -1,
+      editing: false,
+      nextTipId: nextTipId,
+      tips: tips,
+    },
   });
 
   useEffect(() => {
@@ -61,6 +66,24 @@ function inputFormReducer(state, action) {
   const oldMetadata = { ...state.metadata };
 
   switch (action.type) {
+    case "TOGGLE_TAG": {
+      if (action.payload.active) oldData.tags.add(action.payload.id);
+      if (!action.payload.active) oldData.tags.delete(action.payload.id);
+      return { data: oldData, metadata: oldMetadata };
+    }
+    case "CLEAR_TAGS": {
+      oldData.tags.clear();
+      return { data: oldData, metadata: oldMetadata };
+    }
+    case "UPDATE_NEW_TAGS": {
+      const newString = action.payload;
+      oldData.newTagsArray =
+        newString.length === 0
+          ? []
+          : newString.split(" ");
+
+      return { data: oldData, metadata: oldMetadata };
+    }
     case "EDIT_TIP": {
       const tipToEdit = oldMetadata.tips[action.payload];
       return {
@@ -68,7 +91,7 @@ function inputFormReducer(state, action) {
         metadata: {
           ...oldMetadata,
           inputPointer: action.payload,
-          editing: true
+          editing: true,
         },
       };
     }
@@ -82,14 +105,14 @@ function inputFormReducer(state, action) {
         },
       };
     }
-    default: 
+    default:
     case "NEW_TIP": {
       return {
         data: inputFormStarter,
         metadata: {
           ...oldMetadata,
           inputPointer: -1,
-          editing: true
+          editing: true,
         },
       };
     }
@@ -99,10 +122,9 @@ function inputFormReducer(state, action) {
         metadata: {
           ...oldMetadata,
           inputPointer: -1,
-          editing: false
+          editing: false,
         },
       };
     }
-
   }
 }
