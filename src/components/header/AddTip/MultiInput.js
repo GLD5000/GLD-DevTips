@@ -1,17 +1,12 @@
 import InputField from "./InputField";
-import Button from "../../../elements/Button";
 import InputButtons from "./InputButtons";
 import SvgButton from "../../../elements/SvgButton";
+import SaveButtons from "./SaveButtons";
 const selection = {};
 let keyInc = 0;
 let autoFocusIndex = null;
 const MultiInput = ({
-  authClickHandler,
-  onSubmit,
-  onPreview,
   inputFormState,
-  signedIn,
-  isOwner,
   setInputFormState,
 }) => {
   function deepCloneInputFormState() {
@@ -342,22 +337,7 @@ const MultiInput = ({
       return returnObject;
     });
   }
-  function signedInNonOwner() {
-    alert("You are not allowed to submit to the database- sorry!");
-  }
   const inputArray = makeInputArray();
-  const submitText = isOwner
-    ? "Save"
-    : signedIn
-    ? "Save (Wrong User)"
-    : "Sign in to Save";
-  const submitBackColour = isOwner ? "green" : "silver";
-  const submitTextColour = isOwner ? "white" : "black";
-  const submitFunction = isOwner
-    ? onSubmit
-    : signedIn
-    ? signedInNonOwner
-    : authClickHandler;
 
   return (
     <>
@@ -374,24 +354,8 @@ const MultiInput = ({
         svgClasses="stroke-1 stroke-current fill-none"
         activeClasses="active:bg-slate-400"
       />
-      <SvgButton
-        type="preview"
-        key="preview"
-        color="text-black"
-        backgroundColor="bg-mediumPurple"
-        text="Preview"
-        clickFunction={onPreview}
-        svgClasses="stroke-1 stroke-current"
-        activeClasses="active:bg-slate-400"
 
-      />
-      <Button
-        key="saveTip"
-        color={submitTextColour}
-        backgroundColor={submitBackColour}
-        text={submitText}
-        clickFunction={submitFunction}
-      />
+      <SaveButtons/>
     </>
   );
 };

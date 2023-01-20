@@ -4,22 +4,18 @@ import MainTitle from "./MainTitle";
 
 import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
 
-export default function InputForm ({
-  authClickHandler,
+export default function InputForm({
   tagListAll,
-  // inputFormState,
   setInputFormState,
   addFieldToInputFormState,
   addObjectToInputFormState,
   callbackMainTitle,
-  onSubmit,
-  onPreview,
   currentId,
-  signedIn,
-  isOwner,
 }) {
-  const {InputForm: {data: inputFormState}, dispatchInputForm} = useInputFormContext();
-
+  const {
+    inputForm: { data: inputFormState },
+    dispatchInputForm,
+  } = useInputFormContext();
 
   return (
     <div className="add-form">
@@ -40,17 +36,11 @@ export default function InputForm ({
         />
       </div>
       <MultiInput
-        signedIn={signedIn}
-        authClickHandler={authClickHandler}
-        onSubmit={onSubmit}
         inputFormState={inputFormState}
         setInputFormState={setInputFormState}
         addFieldToInputFormState={addFieldToInputFormState}
         addObjectToInputFormState={addObjectToInputFormState}
-        onPreview={onPreview}
-        isOwner={isOwner}
       />
     </div>
   );
-  
-};
+}
