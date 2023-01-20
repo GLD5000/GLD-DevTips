@@ -8,15 +8,13 @@ export default function Filters({
 }) {
   // const { showFilter, setshowFilter, tags } = useDataContext();
   const {
-    tags: {metadata: { showTags }},
+    tags: {metadata: { showTags, activeTags }},
     tags: { data: tags },
     dispatchTags,
   } = useTagsContext();
   function toggleExpanded() {
     dispatchTags({ type: "TOGGLE_SHOW_TAGS", payload: !showTags });
   }
-  // const tagsActive = Object.values(tagState).includes("active");
-  // if (tagsActive) setFilterExpanded(true);
   return (
     <section className="filter-section">
       <TitleFilter
@@ -24,14 +22,8 @@ export default function Filters({
         expanded={showTags}
       />
       {showTags && tags !== null && (
-        <TagSet tags={tags} dispatchTags={dispatchTags} />
+        <TagSet tags={tags} dispatchTags={dispatchTags} activeTags={activeTags}/>
       )}
     </section>
   );
-  function updateTagState(tag) {
-    const newValue = tagState[tag] === "active" ? "visible" : "active";
-    setTagState((object) => {
-      return { ...object, [tag]: newValue }; // Tip return new object to trigger re-render
-    });
-  }
 }
