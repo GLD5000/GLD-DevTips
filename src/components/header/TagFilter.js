@@ -1,10 +1,11 @@
 import ToggleButton from "../../elements/ToggleButton";
-export default function TagFilter({ tag, handleClickTag }) {
+export default function TagFilter({ tag, handleClickTag, activeTags }) {
   const { backgroundColour, textColour, active, name, count } = tag;
   function tagOnClick(e) {
-    const tagId = e.target.name.toLowerCase();
+    const tagName = e.target.name;
+    const tagId = tagName.toLowerCase();
 
-    if (tagId !== undefined) handleClickTag({ id: tagId, active: !active });
+    if (tagId !== undefined) handleClickTag({ id: tagId, active: !activeTags.has(tagId) });
   }
   const ButtonClasses = ` border-1  rounded hover:border-current py-1 px-2 tag-filter-btn`;
 
