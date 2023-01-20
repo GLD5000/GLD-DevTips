@@ -125,11 +125,12 @@ function tagReducer(state, action) {
     }
     case "TOGGLE_TAG":
     default: {
-      oldDataCopy[action.payload.id].active = action.payload.active;
+
+      oldDataCopy[action.payload.name.toLowerCase()].active = action.payload.active;
       if (action.payload.active)
-        oldMetaDataCopy.activeTags.add(action.payload.id);
+        oldMetaDataCopy.activeTags.add(action.payload.name);
       if (!action.payload.active)
-        oldMetaDataCopy.activeTags.delete(action.payload.id);
+        oldMetaDataCopy.activeTags.delete(action.payload.name);
       return { data: oldDataCopy, metadata: oldMetaDataCopy };
     }
   }

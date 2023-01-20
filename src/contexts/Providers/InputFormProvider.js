@@ -100,29 +100,27 @@ function useData() {
       }
       case "TOGGLE_TAG": {
         if (action.payload.active)
-          oldMetadata.existingTagsSet.add(action.payload.id);
+          oldMetadata.existingTagsSet.add(action.payload.name);
         if (!action.payload.active)
-          oldMetadata.existingTagsSet.delete(action.payload.id);
-        oldData.tags = [
-          ...oldMetadata.existingTagsSet,
-          ...oldMetadata.newTagsArray,
-        ];
-        console.log();
+          oldMetadata.existingTagsSet.delete(action.payload.name);
+          oldData.tags = [...new Set([...oldMetadata.newTagsArray, ...oldMetadata.existingTagsSet])];
+          console.log(oldData.tags);
+
         return { data: oldData, metadata: oldMetadata };
       }
       case "CLEAR_TAGS": {
         oldMetadata.existingTagsSet.clear();
-        oldData.tags = [
-          ...oldMetadata.existingTagsSet,
-          ...oldMetadata.newTagsArray,
-        ];
+        oldData.tags = [...new Set([...oldMetadata.newTagsArray, ...oldMetadata.existingTagsSet])];
+        console.log(oldData.tags);
+
         return { data: oldData, metadata: oldMetadata };
       }
       case "UPDATE_NEW_TAGS": {
         const newString = action.payload;
-        oldData.newTagsArray =
-          newString.length === 0 ? [] : newString.split(" ");
-
+        oldMetadata.newTagsArray =
+          newString.length === 0 ? [] : [...new Set (newString.split(" ").filter(x => x.length >0))];
+          oldData.tags = [...new Set([...oldMetadata.newTagsArray, ...oldMetadata.existingTagsSet])];
+        console.log(oldData.tags);
         return { data: oldData, metadata: oldMetadata };
       }
       case "REPLACE_SECTION_DATA_FIELD": {

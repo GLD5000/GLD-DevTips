@@ -13,9 +13,11 @@ export default function SelectMulti() {
       metadata: { existingTagsSet },
     },
     inputForm: {
-      metadata: { newTagsString },
+      metadata: { newTagsArray },
     },
   } = useInputFormContext();
+const newTagsString = newTagsArray.join(" ");
+console.log(newTagsArray);
   return (
     <>
       <TagSet
@@ -38,7 +40,6 @@ export default function SelectMulti() {
     </>
   );
   function updateCustomTags(value) {
-    console.log(value);
-    dispatchInputForm({ tpye: "UPDATE_NEW_TAGS", payload: value });
+    dispatchInputForm({ type: "UPDATE_NEW_TAGS", payload: value });
   }
 }

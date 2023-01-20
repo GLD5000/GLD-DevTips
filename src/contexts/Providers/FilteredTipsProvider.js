@@ -35,7 +35,7 @@ export const useFilteredTipsContext = () => useContext(FilteredTips); // custom 
 function checkTagVisible(activeTags, tipTags) {
   let returnBoolean = false;
   tipTags.forEach((tag) => {
-    if (activeTags.has(tag.toLowerCase())) returnBoolean = true;
+    if (activeTags.has(tag)) returnBoolean = true;
   });
 
   return returnBoolean;
