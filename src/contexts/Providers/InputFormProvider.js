@@ -54,7 +54,7 @@ function useData() {
       default:
       case "NEW_TIP": {
         return {
-          data: {...dataStarter, id: nextTipId},
+          data: { ...dataStarter, id: nextTipId },
           metadata: {
             focusId: "",
             preview: false,
