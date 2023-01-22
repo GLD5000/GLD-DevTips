@@ -21,9 +21,7 @@ export default function Tip({
       <TipTitle title={title} onClick={toggleExpanded} expanded={expanded} />
       {expanded && (
         <>
-          {showAddTipForm === false && (
             <EditButton key={"edit" + tip.id} tipId={tip.id} />
-          )}
           <MultiTextBoxes tip={tip} />
         </>
       )}
