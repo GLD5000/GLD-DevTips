@@ -33,12 +33,12 @@ const classNameLookup = {
   table: "p-2 whitespace-pre overflow-auto",
 };
 
-export default function InputField({ type, changeText, name, defaultValue, id = null }) {
+export default function InputField({ type, changeText, name, value, id = null }) {
   let showInformation = true;
   function handleChange(e) {
     const value = e.target.value;
     const index = e.target.name;
-    changeText({ content: value }, index);
+    changeText({ type:"REPLACE_SECTION_DATA_FIELD", payload:{index, value, field: "content" }});
     
   }
   const placeHolder = placeHolderObject[type];
@@ -60,7 +60,7 @@ export default function InputField({ type, changeText, name, defaultValue, id = 
         rows="12"
         cols="70"
         onInput={handleChange}
-        defaultValue={defaultValue}
+        value={value}
       ></textarea>
   </>
   );

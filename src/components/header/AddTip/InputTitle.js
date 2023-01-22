@@ -8,16 +8,16 @@ const InputTitle = ({
   onInput = defaultOnInput,
   type = "text",
   name = undefined,
-  defaultValue = null,
+  value = "",
 }) => {
-
-
   const handler = (e) => {
     const value = e.target.value;
     const index = e.target.name;
-    onInput({title: value}, index);
+    onInput({
+      type: "REPLACE_SECTION_DATA_FIELD",
+      payload: { index, value, field: "title" },
+    });
   };
-
   return (
     <input
       type={type}
@@ -25,7 +25,7 @@ const InputTitle = ({
       placeholder={placeholder}
       name={name}
       autoComplete="true"
-      defaultValue={defaultValue}
+      value={value}
     ></input>
   );
 };

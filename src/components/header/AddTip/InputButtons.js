@@ -143,7 +143,7 @@ export default function InputButtons({
           index={index}
           name={index}
           changeType={changeValue}
-          defaultValue={type}
+          value={type}
         />
       </label>
       <label className="label-box">
@@ -154,7 +154,7 @@ export default function InputButtons({
           index={index}
           name={index}
           onInput={changeValue}
-          defaultValue={title}
+          value={title}
         />
       </label>
       {extraButtons}

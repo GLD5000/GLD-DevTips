@@ -1,4 +1,4 @@
-const InputSelect = ({ type, name, changeType, defaultValue }) => {
+const InputSelect = ({ type, name, changeType, value }) => {
 
   function makeOptionsArray(type) {
     const options = ["text", "code", "hint", "table"];
@@ -10,12 +10,15 @@ const InputSelect = ({ type, name, changeType, defaultValue }) => {
   function handleChange(e){
     const value = e.target.value;
     const index = e.target.name;
-    changeType({type: value}, index);
+    changeType({
+      type: "REPLACE_SECTION_DATA_FIELD",
+      payload: { index, value, field: "type" },
+    });
 
   }
   const optionsArray = makeOptionsArray(type);
   return (
-    <select name={name} id="" onChange={handleChange} defaultValue={defaultValue}>
+    <select name={name} id="" onChange={handleChange} value={value}>
       {optionsArray}
     </select>
   );
