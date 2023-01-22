@@ -74,6 +74,7 @@ function useData() {
             ...oldMetadata,
             inputPointer: action.payload,
             editing: true,
+            existingTagsSet: new Set(tipToEdit.tags)
           },
         };
       }
