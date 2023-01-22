@@ -6,9 +6,6 @@ import { useState } from "react";
 
 export default function Tip({
   tip,
-  setTagStateFromTip,
-  editTip,
-  showAddTipForm,
 }) {
   const [expanded, setExpanded] = useState(() => false);
   function toggleExpanded() {
@@ -21,11 +18,11 @@ export default function Tip({
       <TipTitle title={title} onClick={toggleExpanded} expanded={expanded} />
       {expanded && (
         <>
-            <EditButton key={"edit" + tip.id} tipId={tip.id} />
+          <EditButton key={"edit" + tip.id} tipId={tip.id} />
           <MultiTextBoxes tip={tip} />
         </>
       )}
-      <Tags tagArray={tip.tags} setTagStateFromTip={setTagStateFromTip} />
+      <Tags tagArray={tip.tags} />
       {tip.updated && <p>{tip.updated}</p>}
     </div>
   );
