@@ -72,7 +72,6 @@ function useData() {
           data: tipToEdit,
           metadata: {
             ...oldMetadata,
-            inputPointer: action.payload,
             editing: true,
             existingTagsSet: new Set(tipToEdit.tags)
           },
@@ -83,12 +82,22 @@ function useData() {
           data: dataStarter,
           metadata: {
             ...oldMetadata,
-            inputPointer: -1,
             editing: false,
           },
         };
       }
       case "SAVE_TIP": {
+        if (tips[oldData.id] !== undefined) {
+            let text = `
+            This will overwrite tip id:    ${oldData.id}
+
+            Are you sure you wish to continue?`;
+            if (window.confirm(text) === true) {
+              alert("You pressed OK!");
+            } else {
+             alert("You canceled!");
+        }
+      }
         console.log(oldData, formattedDate(), nextTipId);
         return { data: oldData, metadata: oldMetadata };
       }
