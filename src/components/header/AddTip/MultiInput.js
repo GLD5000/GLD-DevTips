@@ -5,11 +5,10 @@ import SaveButtons from "./SaveButtons";
 import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
 import SectionButtons from "./SectionButtons";
 const selection = {};
-let keyInc;
-export default function MultiInput ({
-}) {
+export default function MultiInput () {
   const {
     inputForm: { data: {sections} },
+    inputForm:{metadata: keyIncrementer},
     dispatchInputForm,
   } = useInputFormContext();
 
@@ -201,23 +200,23 @@ export default function MultiInput ({
   function makeInputArray() {
     return sections.map((object, index) => {
       const returnObject = (
-        <div key={keyInc + "a" + index} className="field-container">
+        <div key={keyIncrementer + "a" + index} className="field-container">
           <h2>Section {index + 1}</h2>
           <InputButtons
-            key={keyInc + "a" + index + "InputButtons"}
+            key={keyIncrementer + "a" + index + "InputButtons"}
             type={object.type}
             index={index}
-            changeValue={changeValue}
+            changeValue={dispatchInputForm}
             title={object.title}
             AddToTextarea={AddToTextarea}
           />
           <InputField
-            key={keyInc + "a" + index + "InputField"}
+            key={keyIncrementer + "a" + index + "InputField"}
             id={index + "-InputField"}
             name={index}
             type={object.type}
-            defaultValue={object.content}
-            changeText={changeValue}
+            value={object.content}
+            changeText={dispatchInputForm}
           />
           <SectionButtons index={index}/>
         </div>

@@ -1,7 +1,7 @@
 import SvgButton from "../../../elements/SvgButton"
-let keyInc = 0;
-
+import {useInputFormContext} from "../../../contexts/Providers/InputFormProvider";
 export default function SectionButtons({index}) {
+  const {dispatchInputForm, inputForm: {data:{sections}}} = useInputFormContext();
   return (
     <div className="svg-btn-grid">
     <SvgButton
@@ -37,50 +37,45 @@ export default function SectionButtons({index}) {
     />
   </div>
 )
+
+function moveFieldUp(e) {
+  
+  const index = getSectionIndexFromId(e);
+  const newSections = swapArrayPositions(sections, index, "up");
+  dispatchInputForm({type: "REPLACE_FIELD", payload: {field: "sections", value: newSections}});
+  
+}
+function moveFieldDown(e) {
+  
+  const index = getSectionIndexFromId(e);
+  const duplicateSections = sections.map(x => {return{...x}});
+  const newSections = swapArrayPositions(duplicateSections, index, "down");
+
+  dispatchInputForm({type: "REPLACE_FIELD", payload: {field: "sections", value: newSections}});
+}
+function getSectionIndexFromId(e) {
+  return parseInt(e.target.id.split("-")[0]);
+}
+function deleteIndexedField(e) {
+  
+  const index = getSectionIndexFromId(e);
+  const newSections = sections.filter((_, i) => index !== i);
+  dispatchInputForm({type: "REPLACE_FIELD", payload: {field: "sections", value: newSections}});
 }
 
-  function moveFieldUp(e) {
-    incrementKeys();
-    // const index = getSectionIndexFromId(e);
-    // const newObject = deepCloneInputFormState();
-    // const newSections = swapArrayPositions(newObject.sections, index, "up");
-
+function duplicateField(e) {
+  
+  const index = getSectionIndexFromId(e);
+    const duplicateObject = { ...sections[index] };
+    duplicateObject.title =
+    sections[index].title === undefined
+    ? `Copy of section ${index + 1}`
+    : `${sections[index].title} (copy)`;
+    dispatchInputForm({type: "REPLACE_FIELD", payload: {field: "sections", value: [...sections, duplicateObject]}});
   }
-  function moveFieldDown(e) {
-    incrementKeys();
-    // const index = getSectionIndexFromId(e);
-    // const newObject = deepCloneInputFormState();
-    // const newSections = swapArrayPositions(newObject.sections, index, "down");
-  }
-  function getSectionIndexFromId(e) {
-    return parseInt(e.target.id.split("-")[0]);
-  }
-  function deleteIndexedField(e) {
-    incrementKeys();
-    // const index = getSectionIndexFromId(e);
-    // const newObject = deepCloneInputFormState();
-    // const newSections = newObject.sections.filter((_, i) => index !== i);
-
-  }
-
-  function duplicateField(e) {
-    incrementKeys();
-    const index = getSectionIndexFromId(e);
-    // const newObject = deepCloneInputFormState();
-    // const duplicateObject = { ...newObject.sections[index] };
-    // newObject.sections[index].title =
-    //   newObject.sections[index].title === undefined
-    //     ? `Copy of section ${index + 1}`
-    //     : `${newObject.sections[index].title} (copy)`;
-    // newObject.sections.splice(index, 0, duplicateObject);
-
-  }
-
-
-  function incrementKeys() {
-    keyInc += 1;
-  }
-
+  
+  
+  
   function swapArrayPositions(array, index, direction = "up") {
     const indexModifier = direction === "down" ? 1 : -1;
     const secondIndex = index + indexModifier;
@@ -89,3 +84,4 @@ export default function SectionButtons({index}) {
     [array[index], array[secondIndex]] = [array[secondIndex], array[index]];
     return array;
   }
+}

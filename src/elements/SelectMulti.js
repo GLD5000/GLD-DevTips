@@ -17,7 +17,6 @@ export default function SelectMulti() {
     },
   } = useInputFormContext();
 const newTagsString = newTagsArray.join(" ");
-console.log(newTagsArray);
   return (
     <>
       <TagSet
