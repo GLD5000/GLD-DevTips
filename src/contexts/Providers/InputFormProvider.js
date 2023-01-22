@@ -30,7 +30,7 @@ export default function InputFormProvider({ children }) {
 
 function useData() {
   const {
-    dispatchTips,
+    // dispatchTips,
     tips: { data: tips },
     tips: {
       metadata: { nextTipId },
