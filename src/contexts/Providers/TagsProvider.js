@@ -33,11 +33,20 @@ function useData() {
 
 function fetchFirestoreData(dispatchTags) {
   let isMounted = true;
-  getTagsFirestore().then((result) => {
-    if (isMounted) {
-      initTags(dispatchTags, result);
-    }
-  });
+  const tagsLocal = window.sessionStorage.getItem("tags");
+  if (tagsLocal === null) {
+    console.log("starting tag fetch");
+    getTagsFirestore().then((result) => {
+      if (isMounted) {
+        initTags(dispatchTags, result);
+        window.sessionStorage.removeItem("tags");
+        window.sessionStorage.setItem("tags", JSON.stringify(result));
+      }
+    });
+  }
+  const payload = JSON.parse(tagsLocal);
+  initTags(dispatchTags,payload);
+
   return () => {
     isMounted = false;
   };
@@ -125,8 +134,8 @@ function tagReducer(state, action) {
     }
     case "TOGGLE_TAG":
     default: {
-
-      oldDataCopy[action.payload.name.toLowerCase()].active = action.payload.active;
+      oldDataCopy[action.payload.name.toLowerCase()].active =
+        action.payload.active;
       if (action.payload.active)
         oldMetaDataCopy.activeTags.add(action.payload.name);
       if (!action.payload.active)

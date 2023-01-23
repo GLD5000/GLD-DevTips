@@ -4,21 +4,35 @@ import {
   addTipToFirestore,
   getNewTipId,
 } from "../../firestore";
-function tipsReducer(state, action){
-  const oldStateCopy = {...state};
-  switch(action.type){
+function tipsReducer(state, action) {
+  const oldStateCopy = { ...state };
+  switch (action.type) {
     case "INITIALISE": {
-      return {metadata: {status: "fetched", nextTipId: getNewTipId()}, data: action.payload};
+      return {
+        metadata: { status: "fetched", nextTipId: getNewTipId() },
+        data: action.payload,
+      };
     }
-    case "ADD_TIP": default: {
+    case "ADD_TIP":
+    default: {
       oldStateCopy.data[action.payload.id] = action.payload;
       addTipToFirestore(action.payload);
-      return {metadata: {status: "added", tags: action.payload.tags, nextTipId: getNewTipId()}, data: oldStateCopy.data};
+      return {
+        metadata: {
+          status: "added",
+          tags: action.payload.tags,
+          nextTipId: getNewTipId(),
+        },
+        data: oldStateCopy.data,
+      };
     }
     case "DELETE_TIP": {
       const tags = oldStateCopy.data[action.payload.id].tags;
       delete oldStateCopy.data[action.payload.id];
-      return {metadata: {status: "deleted", tags: tags, nextTipId: getNewTipId()}, data: oldStateCopy.data};
+      return {
+        metadata: { status: "deleted", tags: tags, nextTipId: getNewTipId() },
+        data: oldStateCopy.data,
+      };
     }
     case "STATUS_IDLE": {
       oldStateCopy.metadata.status = "idle";
@@ -28,26 +42,39 @@ function tipsReducer(state, action){
 }
 
 function useData() {
-  const [tips, dispatchTips] = useReducer(tipsReducer,{data: null, metadata: {status: "fetching", nextTipId: null}});
+  const [tips, dispatchTips] = useReducer(tipsReducer, {
+    data: null,
+    metadata: { status: "fetching", nextTipId: null },
+  });
   useEffect(() => {
     fetchFirestoreData(dispatchTips);
   }, []);
 
   return {
     tips,
-    dispatchTips
+    dispatchTips,
   };
 }
 
 function fetchFirestoreData(dispatchTips) {
-  let runEffect = true;
-  getTipsFirestore().then((result) => {
-    if (runEffect) {
-      dispatchTips({type: "INITIALISE", payload: result});
-    }
-  });
+  let isMounted = true;
+  const tipsLocal = window.sessionStorage.getItem("tips");
+  if (tipsLocal === null) {
+    console.log("starting tip fetch");
+
+    getTipsFirestore().then((result) => {
+      if (isMounted) {
+        dispatchTips({ type: "INITIALISE", payload: result });
+        window.sessionStorage.removeItem("tips");
+        window.sessionStorage.setItem("tips", JSON.stringify(result));
+
+      }
+    });
+  }
+  const payload = JSON.parse(tipsLocal);
+  dispatchTips({ type: "INITIALISE", payload: payload });
   return () => {
-    runEffect = false;
+    isMounted = false;
   };
 }
 
@@ -57,4 +84,4 @@ export default function TipsProvider({ children }) {
 }
 const TipsContext = createContext();
 
-export const  useTipsContext = () => useContext(TipsContext);
+export const useTipsContext = () => useContext(TipsContext);
