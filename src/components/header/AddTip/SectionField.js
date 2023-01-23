@@ -33,13 +33,21 @@ const classNameLookup = {
   table: "p-2 whitespace-pre overflow-auto",
 };
 
-export default function InputField({ type, changeText, name, value, id = null }) {
+export default function SectionField({
+  type,
+  changeText,
+  name,
+  value,
+  id = null,
+}) {
   let showInformation = true;
   function handleChange(e) {
     const value = e.target.value;
     const index = e.target.name;
-    changeText({ type:"REPLACE_SECTION_DATA_FIELD", payload:{index, value, field: "content" }});
-    
+    changeText({
+      type: "REPLACE_SECTION_DATA_FIELD",
+      payload: { index, value, field: "content" },
+    });
   }
   const placeHolder = placeHolderObject[type];
   function getInformation(type) {
@@ -47,10 +55,11 @@ export default function InputField({ type, changeText, name, value, id = null })
   }
   const information = getInformation(type);
 
-  return (<>
-    <label className="label-box" id={id + "info"}>
-      {showInformation === true && information}
-    </label>
+  return (
+    <>
+      <label className="label-box" id={id + "info"}>
+        {showInformation === true && information}
+      </label>
 
       <textarea
         id={id}
@@ -62,6 +71,6 @@ export default function InputField({ type, changeText, name, value, id = null })
         onInput={handleChange}
         value={value}
       ></textarea>
-  </>
+    </>
   );
 }

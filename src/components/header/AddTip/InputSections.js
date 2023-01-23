@@ -1,37 +1,44 @@
-import InputField from "./InputField";
+import SectionField from "./SectionField";
+import SectionHeader from "./SectionHeader";
 import InputButtons from "./InputButtons";
 import SvgButton from "../../../elements/SvgButton";
 import SaveButtons from "./SaveButtons";
 import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
 import SectionButtons from "./SectionButtons";
 const selection = {};
-export default function MultiInput () {
+export default function InputSections() {
   const {
-    inputForm: { data: {sections} },
-    inputForm:{metadata: keyIncrementer},
+    inputForm: {
+      data: { sections },
+    },
+    inputForm: { metadata: keyIncrementer },
     dispatchInputForm,
   } = useInputFormContext();
-
 
   function getSectionIndexFromId(e) {
     return parseInt(e.target.id.split("-")[0]);
   }
 
   function addField() {
-    dispatchInputForm({type: "ADD_SECTION"});
+    dispatchInputForm({ type: "ADD_SECTION" });
   }
   function addTextareaToState(index, newContent) {
-    dispatchInputForm({type: "REPLACE_SECTION_DATA_FIELD", field: "content", index: index, value: newContent});
+    dispatchInputForm({
+      type: "REPLACE_SECTION_DATA_FIELD",
+      field: "content",
+      index: index,
+      value: newContent,
+    });
   }
   function updateTextArea({ index, start, end }, content) {
-    const inputElement = document.getElementById(index + "-InputField");
+    const inputElement = document.getElementById(index + "-SectionField");
     inputElement.select();
     inputElement.setRangeText(content);
     inputElement.selectionStart = start;
     inputElement.selectionEnd = end;
     inputElement.focus();
   }
-  function removeFlags(oldContent, textToAdd, index){
+  function removeFlags(oldContent, textToAdd, index) {
     const preSelection = oldContent[0].slice(0, index);
     const selectedText = oldContent[1] === textToAdd[1] ? "" : oldContent[1];
     const postSelection = oldContent[2].slice(textToAdd[2].length);
@@ -40,7 +47,7 @@ export default function MultiInput () {
 
     return [preSelection, selectedText, postSelection].join("");
   }
-  function addFlags(oldContent, textToAdd){
+  function addFlags(oldContent, textToAdd) {
     const preSelection = oldContent[0] + textToAdd[0];
     const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
     const postSelection = textToAdd[2] + oldContent[2];
@@ -49,7 +56,7 @@ export default function MultiInput () {
     return [preSelection, selectedText, postSelection].join("");
   }
 
-  function addHash(oldContent, textToAdd){
+  function addHash(oldContent, textToAdd) {
     const preSelection = oldContent[0] + "#";
     const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
     const postSelection = oldContent[2];
@@ -57,62 +64,64 @@ export default function MultiInput () {
     selection.end = selection.start + selectedText.length;
 
     return [preSelection, selectedText, postSelection].join("");
-}
-  function findFlagIndex(string, flag){
+  }
+  function findFlagIndex(string, flag) {
     const index = string.lastIndexOf(flag);
-    const flagIsPresent =
-      index > -1 &&
-      index === string.length - flag.length;
+    const flagIsPresent = index > -1 && index === string.length - flag.length;
     return [flagIsPresent, index];
-
   }
 
   function toggleHeaderFlags(textToAdd, oldContent, selection) {
     const notAtStart = selection.start > 4;
-    const finalFlag = notAtStart? "\n####": "####";
+    const finalFlag = notAtStart ? "\n####" : "####";
 
-    const [finalFlagIsPresent, indexOfFinalFlag] =  findFlagIndex(oldContent[0], finalFlag);
+    const [finalFlagIsPresent, indexOfFinalFlag] = findFlagIndex(
+      oldContent[0],
+      finalFlag
+    );
 
     if (finalFlagIsPresent) {
       return removeFlags(oldContent, textToAdd, indexOfFinalFlag);
     }
-      
 
     const shortFlag = "##";
     let indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const indexOfShortFlag = oldContent[0].lastIndexOf(shortFlag);
     if (indexOfFirstFlag === -1 && indexOfShortFlag > -1) {
       indexOfFirstFlag = indexOfShortFlag;
-      textToAdd[0] = shortFlag; 
-
-
-
+      textToAdd[0] = shortFlag;
     }
-    const shouldRemoveLineBreak = selection.start === 0 || indexOfFirstFlag === 0 || oldContent[0][oldContent[0].length-1] === "\n";
-    if (shouldRemoveLineBreak) textToAdd[0] = shortFlag; 
-    const firstFlagIsPresent = finalFlagIsPresent === false &&
-    indexOfFirstFlag > -1 &&
-    indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
-    
+    const shouldRemoveLineBreak =
+      selection.start === 0 ||
+      indexOfFirstFlag === 0 ||
+      oldContent[0][oldContent[0].length - 1] === "\n";
+    if (shouldRemoveLineBreak) textToAdd[0] = shortFlag;
+    const firstFlagIsPresent =
+      finalFlagIsPresent === false &&
+      indexOfFirstFlag > -1 &&
+      indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
+
     const intermediateFlag = "###";
     const indexOfIntermediateFlag = oldContent[0].lastIndexOf(intermediateFlag);
-    const intermediateFlagIsPresent = finalFlagIsPresent === false &&
+    const intermediateFlagIsPresent =
+      finalFlagIsPresent === false &&
       indexOfIntermediateFlag > -1 &&
       indexOfIntermediateFlag ===
         oldContent[0].length - intermediateFlag.length;
 
-
-
-    if (firstFlagIsPresent || intermediateFlagIsPresent ) {
+    if (firstFlagIsPresent || intermediateFlagIsPresent) {
       return addHash(oldContent, textToAdd);
     }
-    if (textToAdd[0].length < 3 && selection.start !== 0 && oldContent[0][oldContent[0].length-1] !== "\n") textToAdd[0] = "\n" + textToAdd[0]
-      return addFlags(oldContent, textToAdd);
-    }
-
+    if (
+      textToAdd[0].length < 3 &&
+      selection.start !== 0 &&
+      oldContent[0][oldContent[0].length - 1] !== "\n"
+    )
+      textToAdd[0] = "\n" + textToAdd[0];
+    return addFlags(oldContent, textToAdd);
+  }
 
   function toggleLinkFlags(textToAdd, oldContent, selection) {
-
     // could have selection or not
     // [text](url)
     // [title](title=title)
@@ -120,7 +129,8 @@ export default function MultiInput () {
 
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const firstFlagIsPresent =
-    indexOfFirstFlag > -1 &&  indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
+      indexOfFirstFlag > -1 &&
+      indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
     const SecondFlagIsPresent =
       oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
 
@@ -133,14 +143,15 @@ export default function MultiInput () {
     if (textToAdd[1] === "Header") {
       return toggleHeaderFlags(textToAdd, oldContent, selection);
     }
-    
+
     if (textToAdd[1] === "Link Name") {
       return toggleLinkFlags(textToAdd, oldContent, selection);
     }
 
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const firstFlagIsPresent =
-    indexOfFirstFlag > -1 &&  indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
+      indexOfFirstFlag > -1 &&
+      indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
     const SecondFlagIsPresent =
       oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
 
@@ -158,7 +169,7 @@ export default function MultiInput () {
   }
   function insertTextArea(selection, textToAdd) {
     const inputElement = document.getElementById(
-      selection.index + "-InputField"
+      selection.index + "-SectionField"
     );
     const currentValue = inputElement.value;
     const oldContent = splitContent(selection, currentValue);
@@ -174,34 +185,18 @@ export default function MultiInput () {
   }
   function updateSelection(sectionNumber) {
     selection.start = document.getElementById(
-      sectionNumber + "-InputField"
+      sectionNumber + "-SectionField"
     ).selectionStart;
     selection.end = document.getElementById(
-      sectionNumber + "-InputField"
+      sectionNumber + "-SectionField"
     ).selectionEnd;
     selection.index = sectionNumber;
-  }
-  function changeValue(inputObject, index) {
-    // setInputFormState((object) => {
-    //   const newObject = { ...object };
-    //   const targetSection = newObject.sections[index];
-    //   const type = inputObject.type || targetSection["type"];
-    //   const content = inputObject.content || targetSection["content"];
-    //   newObject.sections[index] = {
-    //     type: type,
-    //     content: content,
-    //   };
-    //   const title = inputObject.title || targetSection["title"];
-    //   if (title !== undefined) newObject.sections[index].title = title;
-    //   return newObject;
-    // });
-    //updateSelection(index);
   }
   function makeInputArray() {
     return sections.map((object, index) => {
       const returnObject = (
         <div key={keyIncrementer + "a" + index} className="field-container">
-          <h2>Section {index + 1}</h2>
+          <SectionHeader index={index}/>
           <InputButtons
             key={keyIncrementer + "a" + index + "InputButtons"}
             type={object.type}
@@ -210,15 +205,15 @@ export default function MultiInput () {
             title={object.title}
             AddToTextarea={AddToTextarea}
           />
-          <InputField
-            key={keyIncrementer + "a" + index + "InputField"}
-            id={index + "-InputField"}
+          <SectionField
+            key={keyIncrementer + "a" + index + "SectionField"}
+            id={index + "-SectionField"}
             name={index}
             type={object.type}
             value={object.content}
             changeText={dispatchInputForm}
           />
-          <SectionButtons index={index}/>
+          <SectionButtons index={index} />
         </div>
       );
       return returnObject;
@@ -242,8 +237,7 @@ export default function MultiInput () {
         activeClasses="active:bg-slate-400"
       />
 
-      <SaveButtons/>
+      <SaveButtons />
     </>
   );
-};
-
+}

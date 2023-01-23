@@ -3,7 +3,7 @@ import TagSet from "../components/header/TagSet";
 import { useTagsContext } from "../contexts/Providers/TagsProvider";
 import { useInputFormContext } from "../contexts/Providers/InputFormProvider";
 let keyMod = 0;
-export default function SelectMulti() {
+export default function InputTags() {
   const {
     tags: { data: tags },
   } = useTagsContext();
@@ -16,7 +16,7 @@ export default function SelectMulti() {
       metadata: { newTagsArray },
     },
   } = useInputFormContext();
-const newTagsString = newTagsArray.join(" ");
+  const newTagsString = newTagsArray.join(" ");
   return (
     <>
       <TagSet
