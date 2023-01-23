@@ -4,9 +4,9 @@ export default function Tag ({ tag, handleClickTag}) {
   const { backgroundColour, textColour, active, name} = tag;
 
   function tagOnClick(e) {
-    const tagId = e.target.name.toLowerCase();
+    const name = e.target.name;
 
-    if (tagId !== undefined) handleClickTag({ name: tagId, active: !active });
+    if (name !== undefined) handleClickTag({ name: name, active: !active });
   }
   return (
     <TagButton
