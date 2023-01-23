@@ -71,8 +71,11 @@ function fetchFirestoreData(dispatchTips) {
       }
     });
   }
-  const payload = JSON.parse(tipsLocal);
-  dispatchTips({ type: "INITIALISE", payload: payload });
+  if (tipsLocal !== null){
+
+    const payload = JSON.parse(tipsLocal);
+    dispatchTips({ type: "INITIALISE", payload: payload });
+  }
   return () => {
     isMounted = false;
   };

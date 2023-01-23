@@ -44,9 +44,11 @@ function fetchFirestoreData(dispatchTags) {
       }
     });
   }
+  if (tagsLocal !== null) {
+
   const payload = JSON.parse(tagsLocal);
   initTags(dispatchTags,payload);
-
+  }
   return () => {
     isMounted = false;
   };
