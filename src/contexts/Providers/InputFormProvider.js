@@ -106,7 +106,7 @@ function useData() {
         return { data: oldData, metadata: oldMetadata };
       }
       case "PREVIEW_TIP": {
-        console.log(oldData, formattedDate(), nextTipId);
+        oldMetadata.preview = true;
         return { data: oldData, metadata: oldMetadata };
       }
       case "REPLACE_FIELD": {

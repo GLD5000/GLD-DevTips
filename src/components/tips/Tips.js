@@ -1,10 +1,12 @@
 import Tip from "./Tip";
 import {useFilteredTipsContext} from "../../contexts/Providers/FilteredTipsProvider"
-const Tips = ({ tipList, setTagStateFromTip, editTip, showAddTipForm }) => {
+import { useInputFormContext } from "../../contexts/Providers/InputFormProvider";
+const Tips = ({ setTagStateFromTip, editTip, showAddTipForm }) => {
   const tips = useFilteredTipsContext();
+  const {inputForm: {metadata: {editing}}} = useInputFormContext();
   return (
     <>
-      {tips.map((tip) => (
+      {!editing && tips.map((tip) => (
         <Tip
           key={tip.id}
           tip={tip}
