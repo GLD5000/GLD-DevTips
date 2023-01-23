@@ -79,7 +79,12 @@ function useData() {
       }
       case "CANCEL_TIP": {
         return {
-          data: dataStarter,
+          data: {
+            title: "",
+            id: "",
+            sections: [{ type: "text", content: "" }],
+            tags: [],
+          },
           metadata: {
             ...oldMetadata,
             editing: false,

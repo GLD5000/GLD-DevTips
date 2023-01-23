@@ -1,4 +1,4 @@
-import InputTitle from "./InputTitle";
+import SectionTitle from "./SectionTitle";
 import InputSelect from "./InputSelect";
 import SvgButton from "../../../elements/SvgButton";
 
@@ -148,8 +148,8 @@ export default function InputButtons({
       </label>
       <label className="label-box">
         Section Title:
-        <InputTitle
-          key={index + "InputTitle"}
+        <SectionTitle
+          key={index + "SectionTitle"}
           placeholder=" Add Title (optional)"
           index={index}
           name={index}

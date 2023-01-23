@@ -1,6 +1,6 @@
 const SectionTitle = ({title = null, type}) => {
   return (<>
-    {(type === "table")?
+    {(type === "table"|| type === "code")?
     (<h3 style={{margin: "auto"}}>{title}</h3>):
     (<h3>{title}</h3>)}
   </>

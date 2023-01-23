@@ -1,33 +1,43 @@
-function defaultOnInput(value) {
+import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
+
+function defaultOnInput(value, index) {
   console.log(`No function assigned!
-  Value is: ${value}`);
+  Value is: ${value}
+  index/name is: ${index}`);
 }
 
-const InputTitle = ({
+export default function InputTitle({
   placeholder = "Type here...",
   onInput = defaultOnInput,
   type = "text",
   name = undefined,
-  value = "",
-}) => {
+  defaultValue = "",
+}) {
+  const {
+    inputForm: {
+      data: { title },
+    },
+    dispatchInputForm,
+  } = useInputFormContext();
+
   const handler = (e) => {
     const value = e.target.value;
     const index = e.target.name;
-    onInput({
-      type: "REPLACE_SECTION_DATA_FIELD",
-      payload: { index, value, field: "title" },
+    dispatchInputForm({
+      type: "REPLACE_FIELD",
+      payload: { field: "title", value: value },
     });
   };
+
   return (
     <input
-      type={type}
+      className="titleInput"
+      type="text"
+      placeholder=" Add a title or topic for your tip..."
       onChange={(e) => handler(e)}
-      placeholder={placeholder}
       name={name}
-      autoComplete="true"
-      value={value}
+      autoComplete="off"
+      defaultValue={title}
     ></input>
   );
-};
-
-export default InputTitle;
+}
