@@ -71,14 +71,13 @@ export default function SvgButton({
   reverse = false,
   hoverFunction = null,
   activeClasses = `active:bg-slate-600`,
-  buttonClasses = null,
+  buttonClasses = `grid-cols-frAutoFr w-full`,
   svgClasses = "stroke-current fill-none stroke-1",
   className = `px-2 py-1
    items-center 
    hover:border-current
    grid     
    h-full 
-    ${wide === true ? `grid-cols-frAutoFr w-full` : `grid-cols-autoAuto`}
      cursor-pointer rounded border-2 border-solid whitespace-pre-wrap 
     ${color && color} ${backgroundColor && backgroundColor} ${buttonClasses && buttonClasses} ${activeClasses && activeClasses}`,
 }) {

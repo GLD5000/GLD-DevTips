@@ -26,8 +26,9 @@ export default function SectionControls({ index }) {
   },[focusId]);
 
   return (
-    <div className=" flex flex-row gap-2">
+    <div className="h-min w-full flex flex-wrap gap-2">
       <SvgButton
+        buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"        
         type="up"
         key={index + "moveFieldUp"}
         text="Up"
@@ -35,6 +36,7 @@ export default function SectionControls({ index }) {
         id={index + "-moveFieldUp"}
       />
       <SvgButton
+        buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"        
         type="down"
         key={index + "moveFieldDown"}
         backgroundColor="bg-transparent"
@@ -44,6 +46,8 @@ export default function SectionControls({ index }) {
       />
 
       <SvgButton
+              buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"        
+
         type="duplicate"
         key={index + "duplicateField"}
         text="Copy"
@@ -52,6 +56,8 @@ export default function SectionControls({ index }) {
         svgClasses="stroke-1 stroke-whitesmoke fill-black"
       />
       <SvgButton
+              buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"        
+
         type="add"
         key="addField"
         text="Add"
@@ -59,6 +65,8 @@ export default function SectionControls({ index }) {
         id={index + "-addField"}
       />
      {index > 0 && <SvgButton
+             buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"        
+
         type="delete"
         key={index + "deleteIndexedField"}
         text="Delete"

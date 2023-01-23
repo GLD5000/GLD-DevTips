@@ -115,6 +115,7 @@ function getReturnArray(type, index, AddToTextarea) {
         hoverFunction={btn.onHover}
         marginLeft="0"
         showText={false}
+        buttonClasses={`w-fit grid grid-cols-autoAuto`}
       />
     );
   });
