@@ -2,16 +2,7 @@ import InputSections from "./InputSections";
 import InputTags from "../../../elements/InputTags";
 import InputTitle from "./InputTitle";
 
-import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
-
 export default function InputForm() {
-  const {
-    inputForm: { data: inputFormState },
-    dispatchInputForm,
-    inputForm: {
-      metadata: { currentTipId },
-    },
-  } = useInputFormContext();
 
   return (
     <div className="add-tip-container">

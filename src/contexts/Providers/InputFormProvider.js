@@ -16,7 +16,6 @@ const metadataStarter = {
   newTagsArray: [],
   date: null,
   currentTipId: -1,
-  keyIncrementer: 0,
 };
 
 export default function InputFormProvider({ children }) {

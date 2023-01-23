@@ -11,7 +11,6 @@ export default function InputSections() {
     inputForm: {
       data: { sections },
     },
-    inputForm: { metadata: keyIncrementer },
     dispatchInputForm,
   } = useInputFormContext();
 
@@ -195,10 +194,10 @@ export default function InputSections() {
   function makeInputArray() {
     return sections.map((object, index) => {
       const returnObject = (
-        <div key={keyIncrementer + "a" + index} className="field-container">
+        <div key={index + "field-container"} className="field-container">
           <SectionHeader index={index}/>
           <InputButtons
-            key={keyIncrementer + "a" + index + "InputButtons"}
+            key={index + "InputButtons"}
             type={object.type}
             index={index}
             changeValue={dispatchInputForm}
@@ -206,7 +205,7 @@ export default function InputSections() {
             AddToTextarea={AddToTextarea}
           />
           <SectionField
-            key={keyIncrementer + "a" + index + "SectionField"}
+            key={index + "SectionField"}
             id={index + "-SectionField"}
             name={index}
             type={object.type}
