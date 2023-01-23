@@ -1,6 +1,6 @@
 const InputSelect = ({ type, name, changeType, value }) => {
 
-  function makeOptionsArray(type) {
+  function makeOptionsArray() {
     const options = ["text", "code", "hint", "table"];
     return options.map((option, index) => 
        <option key={index} value={option}>{option}</option>

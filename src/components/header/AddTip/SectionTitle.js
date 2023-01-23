@@ -24,7 +24,7 @@ const SectionTitle = ({
       onChange={(e) => handler(e)}
       placeholder={placeholder}
       name={name}
-      autoComplete="true"
+      autoComplete="off"
       value={value}
     ></input>
   );

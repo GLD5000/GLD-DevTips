@@ -8,7 +8,7 @@ export default function SectionOptions({
   title,
 }) {
   return (
-    <div className="input-buttons">
+    <div className="grid grid-cols-2 gap-2">
       <label className="label-box">
         Section Type:
         <InputSelect
