@@ -161,51 +161,9 @@ function useData() {
         oldData.sections[index][field] = value;
         return { data: oldData, metadata: oldMetadata };
       }
-      case "DELETE_SECTION": {
-        const index = action.payload.index;
-        const array = [...oldData.sections];
-        oldData.sections = array.filter((_, i) => index !== i);
-        // oldMetadata.focusId = oldData.sections.length;
-        oldMetadata.keyIncrementer++;
-        return { data: oldData, metadata: oldMetadata };
-      }
       case "ADD_SECTION": {
         // oldMetadata.focusId = oldData.sections.length;
         oldData.sections = [...oldData.sections, { type: "text", content: "" }];
-        return { data: oldData, metadata: oldMetadata };
-      }
-      case "COPY_SECTION": {
-        const index = action.payload.index;
-        const copiedSection = { ...oldData.sections[index] };
-        copiedSection.title =
-          oldData.sections[index].title === undefined
-            ? `Copy of section ${index + 1}`
-            : `${oldData.sections[index].title} (copy)`;
-        oldData.sections = [...oldData.sections, copiedSection];
-        oldMetadata.keyIncrementer++;
-        // oldMetadata.focusId = oldData.sections.length;
-        return { data: oldData, metadata: oldMetadata };
-      }
-
-      //
-      case "MOVE_SECTION": {
-        const array = [...oldData.sections];
-        if (array.length > 1 && action.payload.index !== false) {
-          const index = action.payload.index;
-          const direction = action.payload.direction;
-          const indexModifier = direction === "down" ? 1 : -1;
-          const secondIndex = index + indexModifier;
-          const indexLimit = array.length - 1;
-          if (secondIndex <= indexLimit && secondIndex > 0) {
-            oldMetadata.keyIncrementer++;
-            [oldData.sections[index], oldData.sections[secondIndex]] = [
-              { ...array[secondIndex] },
-              { ...array[index] },
-            ];
-            action.payload.index = false;
-          }
-          console.log(oldData.sections.map((x) => x.title));
-        }
         return { data: oldData, metadata: oldMetadata };
       }
     }
