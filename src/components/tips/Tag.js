@@ -6,7 +6,7 @@ export default function Tag ({ tag, handleClickTag}) {
   function tagOnClick(e) {
     const tagId = e.target.name.toLowerCase();
 
-    if (tagId !== undefined) handleClickTag({ id: tagId, active: !active });
+    if (tagId !== undefined) handleClickTag({ name: tagId, active: !active });
   }
   return (
     <TagButton
