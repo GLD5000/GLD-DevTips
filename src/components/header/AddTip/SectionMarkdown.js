@@ -1,7 +1,7 @@
 import SvgButton from "../../../elements/SvgButton";
 import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
 
-function getReturnArray(type, index, AddToTextarea, onHover) {
+function getReturnArray(type, index, AddToTextarea) {
   if (type === "code") return null;
   const buttonArraySelector = {
     text: [
@@ -132,7 +132,7 @@ export default function SectionMarkdown({
     dispatchInputForm,
   } = useInputFormContext();
 
-  const extraButtons = getReturnArray(type, index, AddToTextarea, onHover);
+  const extraButtons = getReturnArray(type, index, AddToTextarea);
   return (<>
       {extraButtons}
   </>
@@ -169,9 +169,12 @@ export default function SectionMarkdown({
   function addTextareaToState(index, newContent) {
     dispatchInputForm({
       type: "REPLACE_SECTION_DATA_FIELD",
-      field: "content",
-      index: index,
-      value: newContent,
+      payload:{
+
+        field: "content",
+        index: index,
+        value: newContent,
+      }
     });
   }
 
