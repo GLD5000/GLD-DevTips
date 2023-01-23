@@ -1,6 +1,7 @@
 import InputSections from "./InputSections";
 import InputTags from "../../../elements/InputTags";
 import InputTitle from "./InputTitle";
+import SaveButtons from "./SaveButtons";
 
 export default function InputForm() {
 
@@ -15,6 +16,9 @@ export default function InputForm() {
           <InputTags />
         </div>
         <InputSections />
+        
+        <SaveButtons />
+
       </div>
     </div>
   );
