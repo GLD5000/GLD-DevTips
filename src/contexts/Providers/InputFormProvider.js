@@ -9,7 +9,7 @@ const dataStarter = {
   tags: [],
 };
 const metadataStarter = {
-  focusId: "",
+  focusId: -1,
   preview: false,
   editing: false,
   existingTagsSet: new Set(),
@@ -55,7 +55,7 @@ function useData() {
         return {
           data: { ...dataStarter, id: nextTipId },
           metadata: {
-            focusId: "",
+            focusId: -1,
             preview: false,
             editing: true,
             existingTagsSet: new Set(),
@@ -111,6 +111,11 @@ function useData() {
       }
       case "REPLACE_FIELD": {
         oldData[action.payload.field] = action.payload.value;
+        const focusId = action.payload.focusId;
+        if (focusId !== undefined) {
+          oldMetadata.focusId = focusId;
+        }
+
         return { data: oldData, metadata: oldMetadata };
       }
       case "TOGGLE_TAG": {
@@ -161,8 +166,8 @@ function useData() {
         return { data: oldData, metadata: oldMetadata };
       }
       case "ADD_SECTION": {
-        // oldMetadata.focusId = oldData.sections.length;
         oldData.sections = [...oldData.sections, { type: "text", content: "" }];
+        oldMetadata.focusId = oldData.sections.length -1;
         return { data: oldData, metadata: oldMetadata };
       }
     }

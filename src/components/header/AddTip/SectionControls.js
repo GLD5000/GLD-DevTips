@@ -1,4 +1,5 @@
 import SvgButton from "../../../elements/SvgButton";
+import { useEffect } from "react";
 import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
 export default function SectionControls({ index }) {
   const {
@@ -6,9 +7,26 @@ export default function SectionControls({ index }) {
     inputForm: {
       data: { sections },
     },
+    inputForm: {
+      metadata: { focusId },
+    },
   } = useInputFormContext();
+  useEffect(()=>{
+    let isMounted = true;
+    console.log(focusId);
+    if (isMounted && focusId > -1){
+      const inputElement = document.getElementById(
+        focusId + "-SectionField"
+      );
+      inputElement.focus();
+    }
+
+    return ()=> {isMounted = false;}
+
+  },[focusId]);
+
   return (
-    <div className=" grid w-full grid-cols-5 gap-2">
+    <div className=" flex flex-row gap-2">
       <SvgButton
         type="up"
         key={index + "moveFieldUp"}
@@ -40,23 +58,25 @@ export default function SectionControls({ index }) {
         clickFunction={addField}
         id={index + "-addField"}
       />
-      <SvgButton
+     {index > 0 && <SvgButton
         type="delete"
         key={index + "deleteIndexedField"}
         text="Delete"
         clickFunction={deleteIndexedField}
         id={index + "-deleteIndexedField"}
-      />
+      />}
     </div>
   );
 
   function moveFieldUp(e) {
     const index = getSectionIndexFromId(e);
     const newSections = swapArrayPositions(sections, index, "up");
-    dispatchInputForm({
-      type: "REPLACE_FIELD",
-      payload: { field: "sections", value: newSections },
-    });
+    if (newSections !== null){
+      dispatchInputForm({
+        type: "REPLACE_FIELD",
+        payload: { field: "sections", value: newSections, focusId: index - 1},
+      });
+    }
   }
   function moveFieldDown(e) {
     const index = getSectionIndexFromId(e);
@@ -64,11 +84,12 @@ export default function SectionControls({ index }) {
       return { ...x };
     });
     const newSections = swapArrayPositions(duplicateSections, index, "down");
-
-    dispatchInputForm({
-      type: "REPLACE_FIELD",
-      payload: { field: "sections", value: newSections },
-    });
+    if (newSections !== null){
+      dispatchInputForm({
+        type: "REPLACE_FIELD",
+        payload: { field: "sections", value: newSections, focusId: index + 1},
+      });
+    }
   }
   function getSectionIndexFromId(e) {
     return parseInt(e.target.id.split("-")[0]);
@@ -78,11 +99,12 @@ export default function SectionControls({ index }) {
     const newSections = sections.filter((_, i) => index !== i);
     dispatchInputForm({
       type: "REPLACE_FIELD",
-      payload: { field: "sections", value: newSections },
+      payload: { field: "sections", value: newSections, focusId:-1 },
     });
   }
 
   function duplicateField(e) {
+    console.log(`sections.length + 1 ${sections.length + 1}`);
     const index = getSectionIndexFromId(e);
     const duplicateObject = { ...sections[index] };
     duplicateObject.title =
@@ -91,7 +113,7 @@ export default function SectionControls({ index }) {
         : `${sections[index].title} (copy)`;
     dispatchInputForm({
       type: "REPLACE_FIELD",
-      payload: { field: "sections", value: [...sections, duplicateObject] },
+      payload: { field: "sections", value: [...sections, duplicateObject], focusId: sections.length },
     });
   }
 
@@ -99,7 +121,7 @@ export default function SectionControls({ index }) {
     const indexModifier = direction === "down" ? 1 : -1;
     const secondIndex = index + indexModifier;
     const indexLimit = array.length - 1;
-    if (secondIndex > indexLimit || secondIndex < 0) return array;
+    if (secondIndex > indexLimit || secondIndex < 0) return null;
     [array[index], array[secondIndex]] = [array[secondIndex], array[index]];
     return array;
   }
