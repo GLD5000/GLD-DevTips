@@ -44,7 +44,7 @@ export default function ToggleButton({
         id={id}
         name={name}
         onClick={clickHandler}
-        className={`px-2 py-1 border-borderGrey hover:border-white border-2 grid grid-cols-autoAuto gap-2 items-center`}
+        className={`grid grid-cols-autoAuto items-center gap-2 border-2 border-zinc-600 px-2 py-1 hover:border-white`}
         style={styles}
       >
         {showText && text}

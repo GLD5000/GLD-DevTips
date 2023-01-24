@@ -16,7 +16,7 @@ export default function InputSections() {
   function makeInputArray() {
     return sections.map((object, index) => {
       const returnObject = (
-        <div key={index + "field-container"} className="flex flex-col gap-2">
+        <div key={index + "field-container"} className="flex flex-col gap-2 w-full">
           <SectionHeader index={index} />
           <SectionOptions
             key={index + "SectionOptions"}

@@ -170,6 +170,13 @@ body {
 .add-tip-container {
   display: grid;
   justify-items: center;
+  grid-template-columns: 1fr;
+  overflow-x: hidden;
+  display: grid;
+  gap: 16px;
+  margin-bottom: 40px;
+
+
 }
 .tip-container {
   display: grid;
@@ -355,11 +362,6 @@ h3 {
   justify-content: space-between;
 }
 
-.add-form {
-  display: grid;
-  gap: 16px;
-  margin-bottom: 40px;
-}
 
 .form-control {
   margin: 20px 0;

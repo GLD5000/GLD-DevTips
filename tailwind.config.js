@@ -8,6 +8,15 @@ module.exports = {
         autoAuto: "auto auto",
         autoFr: "auto 1fr",
       },
+      minWidth:{
+        body: "240px",
+      },
+      maxWidth:{
+        body: "800px"
+      },
+      width:{
+        body: "calc(100vw - 1.25rem)",
+      },
       colors: {
         vsGreen: "rgb(140, 241, 124)",
         borderGrey: "#777",

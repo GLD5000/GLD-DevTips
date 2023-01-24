@@ -600,6 +600,10 @@ video {
   margin-left: auto;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .block {
   display: block;
 }
@@ -639,7 +643,7 @@ video {
   width: 100%;
 }
 
-.w-\[calc\(100vw-1\.25rem\)\] {
+.w-body {
   width: calc(100vw - 1.25rem);
 }
 
@@ -653,11 +657,11 @@ video {
   width: fit-content;
 }
 
-.min-w-\[240px\] {
+.min-w-body {
   min-width: 240px;
 }
 
-.max-w-\[800px\] {
+.max-w-body {
   max-width: 800px;
 }
 
@@ -714,12 +718,20 @@ video {
   justify-items: end;
 }
 
+.justify-items-center {
+  justify-items: center;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }
 
 .gap-1 {
   gap: 0.25rem;
+}
+
+.gap-4 {
+  gap: 1rem;
 }
 
 .overflow-auto {
@@ -793,6 +805,16 @@ video {
   border-color: currentColor;
 }
 
+.border-zinc-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(63 63 70 / var(--tw-border-opacity));
+}
+
+.border-zinc-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(82 82 91 / var(--tw-border-opacity));
+}
+
 .border-x-hintYellow {
   --tw-border-opacity: 1;
   border-left-color: rgb(242 220 28 / var(--tw-border-opacity));
@@ -828,6 +850,11 @@ video {
   background-color: #0000;
 }
 
+.bg-zinc-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(63 63 70 / var(--tw-bg-opacity));
+}
+
 .bg-mediumPurple {
   --tw-bg-opacity: 1;
   background-color: rgb(153 51 221 / var(--tw-bg-opacity));
@@ -836,6 +863,16 @@ video {
 .bg-cornsilk {
   --tw-bg-opacity: 1;
   background-color: rgb(255 248 220 / var(--tw-bg-opacity));
+}
+
+.bg-zinc-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 39 42 / var(--tw-bg-opacity));
+}
+
+.bg-zinc-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(24 24 27 / var(--tw-bg-opacity));
 }
 
 .fill-black {
@@ -1127,8 +1164,12 @@ body {
 }
 
 .add-tip-container {
-  display: grid;
   justify-items: center;
+  grid-template-columns: 1fr;
+  overflow-x: hidden;
+  display: grid;
+  gap: 16px;
+  margin-bottom: 40px;
 }
 
 .tip-container {
@@ -1332,12 +1373,6 @@ h3 {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-}
-
-.add-form {
-  display: grid;
-  gap: 16px;
-  margin-bottom: 40px;
 }
 
 .form-control {

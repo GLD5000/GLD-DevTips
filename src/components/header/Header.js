@@ -9,26 +9,24 @@ const Header = ({
   setShowAddTipForm,
   addObjectToInputFormState,
   setSearchQuery,
-  clearTags
+  clearTags,
 }) => {
   return (
     <section className="header-container z-[999]">
-      <header className=" justify-between col-start-2 flex flex-wrap max-w-[800px] min-w-[240px] w-[calc(100vw-1.25rem)]">
+      <header className=" col-start-2 flex w-body min-w-body max-w-body flex-wrap justify-between">
         <div className="flex flex-wrap gap-1">
-
-        <GldSvg />
-        <h1>{title}</h1>
+          <GldSvg />
+          <h1>{title}</h1>
         </div>
         <div className="flex flex-wrap gap-1">
-        <WriteTipBtn
-          showAddTipForm={showAddTipForm}
-          setShowAddTipForm={setShowAddTipForm}
-          addObjectToInputFormState={addObjectToInputFormState}
-          setSearchQuery={setSearchQuery}
-          clearTags={clearTags}
-        />
-        <AuthButton />
-
+          <WriteTipBtn
+            showAddTipForm={showAddTipForm}
+            setShowAddTipForm={setShowAddTipForm}
+            addObjectToInputFormState={addObjectToInputFormState}
+            setSearchQuery={setSearchQuery}
+            clearTags={clearTags}
+          />
+          <AuthButton />
         </div>
       </header>
     </section>
