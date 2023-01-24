@@ -12,7 +12,7 @@ const Header = ({
   clearTags,
 }) => {
   return (
-    <section className="header-container z-[999]">
+    <section className="p-2 w-screen sticky top-0 left-0 right-0 grid grid-cols-frAutoFr bg-neutral-700 z-[999]">
       <header className=" col-start-2 flex w-body min-w-body max-w-body flex-wrap justify-between">
         <div className="flex flex-wrap gap-1">
           <GldSvg />
