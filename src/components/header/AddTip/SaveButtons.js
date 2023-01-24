@@ -48,7 +48,6 @@ export default function SaveButtons() {
   );
 
   function onSubmit() {
-    // dispatchInputForm({type: "SAVE_TIP"});
 
     if (tips[data.id] !== undefined) {
       let text = `

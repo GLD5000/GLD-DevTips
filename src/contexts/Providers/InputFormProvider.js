@@ -1,6 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
 import { useTipsContext } from "./TipsProvider";
-import formattedDate from "../../utilities/formattedDate";
 
 const dataStarter = {
   title: "",
@@ -15,7 +14,6 @@ const metadataStarter = {
   existingTagsSet: new Set(),
   newTagsArray: [],
   date: null,
-  currentTipId: -1,
 };
 
 export default function InputFormProvider({ children }) {
@@ -29,7 +27,6 @@ export default function InputFormProvider({ children }) {
 
 function useData() {
   const {
-    // dispatchTips,
     tips: { data: tips },
     tips: {
       metadata: { nextTipId },
@@ -61,19 +58,16 @@ function useData() {
             existingTagsSet: new Set(),
             newTagsArray: [],
             date: null,
-            currentTipId: -1,
           },
         };
       }
       case "EDIT_TIP": {
         const tipToEdit = tips[action.payload];
+        oldMetadata.editing = true;
+        oldMetadata.existingTagsSet = new Set(tipToEdit.tags);
         return {
           data: tipToEdit,
-          metadata: {
-            ...oldMetadata,
-            editing: true,
-            existingTagsSet: new Set(tipToEdit.tags)
-          },
+          metadata: oldMetadata
         };
       }
       case "CANCEL_TIP": {
@@ -90,19 +84,8 @@ function useData() {
           },
         };
       }
-      case "SAVE_TIP": {
-        if (tips[oldData.id] !== undefined) {
-            let text = `
-            This will overwrite:    
-            '${oldData.title}'
-            Do you wish to continue?`;
-            if (window.confirm(text) === true) {
-              window.alert("You pressed OK!");
-            } else {
-              window.alert("You cancelled!");
-        }
-      }
-        console.log(oldData, formattedDate(), nextTipId);
+      case "CLOSE_FORM":{
+        oldMetadata.editing = false;
         return { data: oldData, metadata: oldMetadata };
       }
       case "PREVIEW_TIP": {
@@ -110,7 +93,10 @@ function useData() {
         return { data: oldData, metadata: oldMetadata };
       }
       case "REPLACE_FIELD": {
-        oldData[action.payload.field] = action.payload.value;
+        const field = action.payload.field;
+        const value = action.payload.value;
+        
+        oldData[field] = value;
         const focusId = action.payload.focusId;
         if (focusId !== undefined) {
           oldMetadata.focusId = focusId;
