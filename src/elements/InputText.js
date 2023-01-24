@@ -8,7 +8,7 @@ const InputText = ({
   onInput = defaultOnInput,
   type = "text",
   listId= null,
-  defaultValue=""
+  value=""
 }) => {
 
 
@@ -26,7 +26,7 @@ const InputText = ({
       placeholder={placeholder}
       list={listId}
       autoComplete="off"
-      defaultValue={defaultValue}
+      value={value}
     ></input>
   );
 };
