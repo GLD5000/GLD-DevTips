@@ -4,7 +4,7 @@ import { useInputFormContext } from "../../contexts/Providers/InputFormProvider"
 export default function TopSection() {
     const {inputForm:{metadata:{editing}}} = useInputFormContext();
   return (
-    <>
+    <div id="top-section" className="py-1 px-2 w-body min-w-body max-w-body border bg-zinc-900 rounded">
       {editing && (
         <InputForm
         />
@@ -13,6 +13,6 @@ export default function TopSection() {
         <Filters
         />
       )}
-    </>
+    </div>
   );
 }

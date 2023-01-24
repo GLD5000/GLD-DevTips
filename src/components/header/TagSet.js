@@ -41,7 +41,7 @@ tags, dispatchTags, activeTags}) {
   return (
     <>
       <h2>{title}</h2>
-      <section className="filter-container">
+      <section className="w-full flex flex-wrap justify-center items-center gap-2 p-2">
         <>{buttonArray}</>
       </section>
     </>

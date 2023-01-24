@@ -25,7 +25,7 @@ export default function WriteTipBtn() {
   const AddTipText = editing ? "Cancel" : "Create";
   const type = editing ? "cancelWrite" : "add";
   return (
-    <div className="width-fit col-start-4 h-full">
+    <div className="width-fit col-start-4 h-full ">
       <SvgButton
         wide="false"
         type={type}
@@ -33,7 +33,7 @@ export default function WriteTipBtn() {
         clickFunction={onCreate}
         reverse={true}
         buttonClasses={editing ? cancelClasses : writeClasses}
-        activeClasses="active:bg-slate-400"
+        activeClasses="active:bg-slate-400 grid-cols-autoFr "
       />
     </div>
   );

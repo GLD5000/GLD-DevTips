@@ -67,7 +67,7 @@ export default function SectionField({
         name={name}
         className={classNameLookup[type]}
         rows="12"
-        cols="70"
+        // cols="70"
         onInput={handleChange}
         value={value}
       ></textarea>

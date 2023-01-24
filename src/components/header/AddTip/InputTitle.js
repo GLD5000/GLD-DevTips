@@ -18,7 +18,7 @@ export default function InputTitle() {
 
   return (
     <input
-      className="titleInput"
+      className="w-full h-8 p-1"
       type="text"
       placeholder=" Add a title or topic for your tip..."
       onChange={(e) => handler(e)}

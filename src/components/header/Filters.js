@@ -16,7 +16,7 @@ export default function Filters({
     dispatchTags({ type: "TOGGLE_SHOW_TAGS", payload: !showTags });
   }
   return (
-    <section className="filter-section">
+    <section className="grid grid-rows-2 gap-2 w-full">
       <TitleFilter
         toggleExpanded={toggleExpanded}
         expanded={showTags}

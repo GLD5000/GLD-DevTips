@@ -143,14 +143,13 @@ body {
   font-family: "Poppins", sans-serif;
   background-color: var(--background-light);
 }
-.page-container {
+/*.page-container {
   color: whitesmoke;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-items: center;
-  /*border: 1px solid rgb(53, 53, 53);*/
   border-radius: var(--border-radius);
   overflow: hidden;
   overflow-y: scroll;
@@ -175,8 +174,8 @@ body {
   display: grid;
   gap: 16px;
   margin-bottom: 40px;
-
-
+  
+  
 }
 .tip-container {
   display: grid;
@@ -185,6 +184,7 @@ body {
   justify-items: center;
   width: 100vw;
 }
+*/
 
 /* button {
   height: fit-content;
@@ -290,15 +290,15 @@ li {
   width: 100%;
   margin-bottom: auto;
 }
-.filter-section {
+/* .filter-section {
   display: grid;
   grid-template-rows: auto auto;
   gap: 0.5rem;
 }
-.filter-section,
+.filter-section, */
+
 .tip,
 .add-tip-container {
-  /* color: whitesmoke; */
 
   border: solid 1px var(--border-grey);
 
@@ -466,10 +466,6 @@ h6 {
   align-items: flex-start;
 }
 
-.input-text {
-  width: 100%;
-  height: 2rem;
-}
 select {
   width: 100%;
 }

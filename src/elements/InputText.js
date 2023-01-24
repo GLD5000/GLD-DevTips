@@ -19,7 +19,7 @@ const InputText = ({
 
   return (
     <input
-      className="input-text p-1"
+      className="w-full h-8 p-1"
       type={type}
       onFocus={(e) => e.target.select()}
       onChange={(e) => handler(e.target.value)}

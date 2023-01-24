@@ -134,9 +134,9 @@ export default function SectionMarkdown({
   } = useInputFormContext();
 
   const extraButtons = getReturnArray(type, index, AddToTextarea);
-  return (<>
+  return (<div className="h-min">
       {extraButtons}
-  </>
+  </div>
   );
 
   function AddToTextarea(e, textToAdd) {

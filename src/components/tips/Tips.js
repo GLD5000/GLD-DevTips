@@ -5,7 +5,8 @@ const Tips = ({ setTagStateFromTip, editTip, showAddTipForm }) => {
   const tips = useFilteredTipsContext();
   const {inputForm: {metadata: {editing}}} = useInputFormContext();
   return (
-    <>
+    <section id="tip-container" className="grid gap-2 grid-cols-1 justify-items-center w-full">
+
       {!editing && tips.map((tip) => (
         <Tip
           key={tip.id}
@@ -15,7 +16,7 @@ const Tips = ({ setTagStateFromTip, editTip, showAddTipForm }) => {
           showAddTipForm={showAddTipForm}
         />
       ))}
-    </>
+    </section>
   );
 };
 

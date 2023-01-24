@@ -10,7 +10,7 @@ export default function Button({
   clickFunction = defaultOnClick,
   id = null,
   name = null,
-  className = "btn",
+  className = "w-full",
   border = "1px solid var(--border-grey)",
   activeClasses = "active:bg-slate-400"
 }) {

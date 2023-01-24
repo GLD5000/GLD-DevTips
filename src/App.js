@@ -8,19 +8,16 @@ export default function App() {
   return (
     <CombinedProviders>
       <DataProvider>
-        <section className="page-container">
+        <section id="page-container" className=" h-screen flex flex-col items-start justify-items-center overflow-y-scroll text-zinc-100 border-zinc-600">
           <h1>Hello, my name is Gareth...</h1>
           <Header
             title="DevTips"
           />
-          <section className="body-container">
+          <section id="body-container" className=" grid justify-items-center gap-2 w-screen h-fit pt-2">
             <TopSection/>
-            <section className="tip-container">
-              <Tips
-              />
-            </section>
+            <Tips />
           </section>
-          <section className="footer"> footer</section>
+          <section id="footer" className="footer"> footer</section>
         </section>
       </DataProvider>
     </CombinedProviders>
