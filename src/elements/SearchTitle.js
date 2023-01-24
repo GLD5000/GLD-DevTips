@@ -11,7 +11,6 @@ export default function SearchTitle({
 }) {
   const { searchString, setSearchString } = useSearchStringContext();
   const placeholder = " Type or select a title...";
-  const defaultValue = searchString > 0 ? searchString : null;
   return (
     <>
       <button
@@ -32,7 +31,6 @@ export default function SearchTitle({
         value={searchString}
         listId={listId}
         controlled={true}
-        defaultValue={defaultValue}
       />
     </>
   );

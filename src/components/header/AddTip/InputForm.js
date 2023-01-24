@@ -9,7 +9,6 @@ export default function InputForm() {
     <div className=" mb-10 grid justify-items-center gap-4 rounded  bg-zinc-900">
       <div className="form-control">
         <label className="label-box">
-          <h2>Add Title</h2>
           <InputTitle />
         </label>
         <InputTags />

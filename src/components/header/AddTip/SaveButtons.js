@@ -2,10 +2,14 @@ import SvgButton from "../../../elements/SvgButton";
 import Button from "../../../elements/Button";
 import { useAuth } from "../../../auth";
 import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
+import { useTipsContext } from "../../../contexts/Providers/TipsProvider";
+import formattedDate from "../../../utilities/formattedDate";
+import { useSearchStringContext } from "../../../contexts/Providers/SearchStringProvider";
 
 export default function SaveButtons() {
-  const { dispatchInputForm } = useInputFormContext();
-
+  const { dispatchInputForm, inputForm:{data} } = useInputFormContext();
+  const { dispatchTips, tips } = useTipsContext();
+  const {setSearchString} = useSearchStringContext();
   const appAuth = useAuth();
   const signedIn = appAuth.authUser !== null;
   const isOwner = signedIn === true && appAuth.authUser?.isOwner === true;
@@ -15,8 +19,6 @@ export default function SaveButtons() {
     : signedIn
     ? "Save (Wrong User)"
     : "Sign in to Save";
-  const submitBackColour = isOwner ? "bg-aquamarine" : "bg-silver";
-  const submitTextColour = isOwner ? "white" : "black";
   const submitFunction = isOwner
     ? onSubmit
     : signedIn
@@ -46,7 +48,23 @@ export default function SaveButtons() {
   );
 
   function onSubmit() {
-    dispatchInputForm({type: "SAVE_TIP"});
+    // dispatchInputForm({type: "SAVE_TIP"});
+
+    if (tips[data.id] !== undefined) {
+      let text = `
+      This will overwrite:    
+      '${data.title}'
+      Do you wish to continue?`;
+      if (window.confirm(text) === false) {
+        window.alert("You cancelled!");
+        return ;
+      }
+  }
+      // console.log(data.id, data.title, formattedDate());
+    dispatchTips({type: "ADD_TIP", payload: {tip: data, date:`Saved on: ${formattedDate()}`}});
+    setSearchString(data.title);
+    dispatchInputForm({type:"CLOSE_FORM"});
+
   }
   function onPreview() {
     dispatchInputForm({type: "PREVIEW_TIP"});

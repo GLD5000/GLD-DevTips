@@ -16,7 +16,7 @@ export const useSearchStringContext = () => useContext(SearchString); // custom 
 
 function getTitleFromUrl() {
   const search = window.location.search;
-  if (search === "") return null;
+  if (search === "") return "";
   const searchObject = new URLSearchParams(search);
   const searchFromUrl = searchObject.get("title");
   return searchFromUrl;

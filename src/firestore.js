@@ -20,9 +20,7 @@ async function addTipToCollection(title, object) {
   await setDoc(doc(tipsCollection, title), object);
 }
 async function addTagToCollection(title, object) {
-  console.log(`object.active ${object.active}`);
   object.active = false;
-  console.log(`object.active ${object.active}`);
   await setDoc(doc(tagsCollection, title), object);
 }
 
@@ -32,27 +30,6 @@ export async function getUserRole(uid) {
   return role;
 }
 
-export function getNewTipId(){
-  const number = 1 + getMaxIdNumber(tipsObject);
-  const paddedNumber = padIdNumber(number);
-  return paddedNumber;
-
-
-  function padIdNumber(number) {
-    return number.toString(10).padStart(4, "0");
-  }
-  function getMaxIdNumber(tips){
-    let max = 0;
-    Object.values(tips).forEach(tip => {
-      const integer = parseInt(tip.id);
-      if (integer > max) max = integer;
-    });
-    return max;
-  }
-  
-
-
-}
 
 export async function addTipToFirestore(object) {
   try {
@@ -60,6 +37,7 @@ export async function addTipToFirestore(object) {
     const docRef = doc(tipsCollection, object.id);
     const gotDoc = await getDoc(docRef);
     console.log("Document written as: ", gotDoc.data());
+    tipsObject[object.id] = gotDoc.data();
     Object.entries(tagsObject).forEach((tag) => {
       if (tag[1].fromDb !== true) addTagToFirestore(tag[0], tag[1]);
     });
@@ -75,6 +53,7 @@ export async function addTagToFirestore(lowerCaseTagName, tag) {
     console.groupEnd();
     const docRef = doc(tagsCollection, lowerCaseTagName);
     const gotDoc = await getDoc(docRef);
+    tagsObject[lowerCaseTagName] = gotDoc.data();
     console.log("Document written as: ", gotDoc.data());
   } catch (e) {
     console.error("Error adding document: ", e);
