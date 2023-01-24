@@ -4,6 +4,7 @@ export default function InputTitle() {
   const {
     inputForm: {
       data: { title },
+      data: { id },
     },
     dispatchInputForm,
   } = useInputFormContext();
@@ -17,6 +18,9 @@ export default function InputTitle() {
   };
 
   return (
+    <>
+              <h2>Tip No. {id}</h2>
+
     <input
       className="w-full h-8 p-1"
       type="text"
@@ -24,6 +28,7 @@ export default function InputTitle() {
       onChange={(e) => handler(e)}
       autoComplete="off"
       defaultValue={title}
-    ></input>
+      ></input>
+      </>
   );
 }
