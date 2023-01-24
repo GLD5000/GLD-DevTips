@@ -93,13 +93,13 @@ function useData() {
       case "SAVE_TIP": {
         if (tips[oldData.id] !== undefined) {
             let text = `
-            This will overwrite tip id:    ${oldData.id}
-
-            Are you sure you wish to continue?`;
+            This will overwrite:    
+            '${oldData.title}'
+            Do you wish to continue?`;
             if (window.confirm(text) === true) {
-              alert("You pressed OK!");
+              window.alert("You pressed OK!");
             } else {
-             alert("You canceled!");
+              window.alert("You cancelled!");
         }
       }
         console.log(oldData, formattedDate(), nextTipId);
