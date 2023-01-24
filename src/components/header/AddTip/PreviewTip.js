@@ -14,7 +14,7 @@ export default function PreviewTip() {
   return (
     <>
       {preview && (
-        <div className="border border-zinc-600 p-2">
+        <div className="border border-zinc-600 p-2 w-full">
           <h2 className=" w-full  rounded-none  rounded-t-lg border-b border-b-borderGrey text-center hover:bg-slate-800">
             {title}{" "}
           </h2>
