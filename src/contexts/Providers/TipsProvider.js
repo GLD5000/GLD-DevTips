@@ -54,8 +54,8 @@ function useData() {
       default: {
         const tip = action.payload.tip;
         const date = action.payload.date;
-        oldStateCopy.data[tip.id] = {...tip, updated: date};
         addTipToFirestore(tip);
+        oldStateCopy.data[tip.id] = {...tip, updated: date};
         window.sessionStorage.removeItem("tips");
         window.sessionStorage.setItem("tips", JSON.stringify(oldStateCopy.data));
         

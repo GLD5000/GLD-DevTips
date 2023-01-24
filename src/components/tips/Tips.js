@@ -14,6 +14,7 @@ const Tips = ({ setTagStateFromTip, editTip, showAddTipForm }) => {
           setTagStateFromTip={setTagStateFromTip}
           editTip={editTip}
           showAddTipForm={showAddTipForm}
+          updated={tip.updated}
         />
       ))}
     </section>
