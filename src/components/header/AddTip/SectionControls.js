@@ -13,7 +13,6 @@ export default function SectionControls({ index }) {
   } = useInputFormContext();
   useEffect(()=>{
     let isMounted = true;
-    console.log(focusId);
     if (isMounted && focusId > -1){
       const inputElement = document.getElementById(
         focusId + "-SectionField"
