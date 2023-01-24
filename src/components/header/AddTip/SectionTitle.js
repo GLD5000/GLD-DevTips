@@ -20,6 +20,7 @@ const SectionTitle = ({
   };
   return (
     <input
+      className="border-zinc-600 border rounded bg-inherit"
       type={type}
       onChange={(e) => handler(e)}
       placeholder={placeholder}

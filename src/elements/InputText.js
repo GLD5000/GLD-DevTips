@@ -19,7 +19,7 @@ const InputText = ({
 
   return (
     <input
-      className="w-full h-8 p-1"
+      className="border-zinc-600 border rounded bg-inherit w-full h-8 p-1"
       type={type}
       onFocus={(e) => e.target.select()}
       onChange={(e) => handler(e.target.value)}

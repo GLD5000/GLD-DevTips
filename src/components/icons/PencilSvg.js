@@ -1,6 +1,6 @@
 export default function PencilSvg({ classes }) {
   return (
-    <div className="svg-wrapper m-1">
+    <div className="pointer-events-none m-1 h-6 w-6">
       <svg
         id="add-svg"
         alt="Add Section"

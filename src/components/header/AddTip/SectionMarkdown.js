@@ -120,7 +120,7 @@ function getReturnArray(type, index, AddToTextarea) {
     );
   });
 
-  return <div className="markdown-buttons">{returnArray}</div>;
+  return <div className="flex gap-2 h-fit flex-wrap flex-row col-span-2 items-start">{returnArray}</div>;
 }
 
 const selection = {};

@@ -1,15 +1,10 @@
 import SectionTitle from "./SectionTitle";
 import InputSelect from "./InputSelect";
 
-export default function SectionOptions({
-  index,
-  type,
-  changeValue,
-  title,
-}) {
+export default function SectionOptions({ index, type, changeValue, title }) {
   return (
     <div className="grid grid-cols-2 gap-2">
-      <label className="label-box">
+      <label className="grid">
         Section Type:
         <InputSelect
           key={index + "InputSelect"}
@@ -20,7 +15,7 @@ export default function SectionOptions({
           value={type}
         />
       </label>
-      <label className="label-box">
+      <label className="grid">
         Section Title:
         <SectionTitle
           key={index + "SectionTitle"}

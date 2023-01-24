@@ -1,6 +1,6 @@
 export default function UpSvg({ classes }) {
   return (
-    <div className="svg-wrapper">
+    <div className="pointer-events-none h-6 w-6">
       <svg
         id="up-svg"
         alt="Move Up"

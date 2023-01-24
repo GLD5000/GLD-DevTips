@@ -31,7 +31,7 @@ const Td = ({ cell }) => {
     cell.includes("#")
   )
     cell = parseLinks(cell);
-  return <td>{cell}</td>;
+  return <td className=" p-1 text-center border-2 border-collapse border-neutral-400">{cell}</td>;
 };
 
 export default Td;

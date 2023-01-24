@@ -1,6 +1,6 @@
 export default function DeleteSvg({ classes }) {
   return (
-    <div className="svg-wrapper m-1">
+    <div className="pointer-events-none m-1 h-6 w-6">
       <svg
         id="add-svg"
         alt="Add Section"
@@ -13,7 +13,8 @@ export default function DeleteSvg({ classes }) {
       L 14,14 
       M 14,2
       L 2,14"
-className={classes}        />
+          className={classes}
+        />
       </svg>
     </div>
   );

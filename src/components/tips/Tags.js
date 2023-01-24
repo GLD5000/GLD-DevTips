@@ -7,7 +7,7 @@ export default function Tags ({tagArray}) {
     dispatchTags({ type: "TOGGLE_TAG", payload: payload });
   }
   return (
-    <div className="tagsList">
+    <div className=" flex w-full h-min  content-center justify-center flex-wrap gap-2">
       {tagArray.map(tag => (
         <Tag key={tag} tag={tags[tag.toLowerCase()]} handleClickTag={handleClickTag} />
       ))}

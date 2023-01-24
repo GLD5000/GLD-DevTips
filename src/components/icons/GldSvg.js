@@ -1,6 +1,6 @@
 export default function GldSvg() {
   return (
-    <div className="svg-wrapper-lg">
+    <div className=" w-12 h-12">
     <svg
     id="gld-svg"
     className="gld-svg"

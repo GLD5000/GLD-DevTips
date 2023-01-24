@@ -1,6 +1,6 @@
 export default function DownSvg({ classes }) {
   return (
-    <div className="svg-wrapper">
+    <div className="pointer-events-none h-6 w-6">
       <svg
         id="down-svg"
         alt="Move Down"

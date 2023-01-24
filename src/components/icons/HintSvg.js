@@ -1,6 +1,6 @@
 export default function HintSvg({ classes }) {
   return (
-    <div className="svg-wrapper m-1">
+    <div className="pointer-events-none m-1 h-6 w-6">
       <svg
         id="add-svg"
         alt="Add"
@@ -11,7 +11,13 @@ export default function HintSvg({ classes }) {
         <g id="g518" transform="translate(-0.5,-0.5)">
           <circle className={classes} id="path296" cx="8" cy="8" r="6.6" />
           <path className={classes} d="m 8,7 v 5" id="path352" />
-          <circle className={classes + " fill-current"} id="path354" cx="8" cy="4.5" r="1" />
+          <circle
+            className={classes + " fill-current"}
+            id="path354"
+            cx="8"
+            cy="4.5"
+            r="1"
+          />
         </g>
       </svg>
     </div>

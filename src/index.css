@@ -8,27 +8,30 @@
 :root {
   --border-grey: #777;
   --border-radius: 6px;
-  --background-dark:#1B1B1B;
-  --background-light:#343434;
-  --links-blue: #8CB4FB;
+  --background-dark: #1b1b1b;
+  --background-light: #343434;
+  --links-blue: #8cb4fb;
   --text-grey: #cdcdcd;
 }
 * {
   color: inherit;
-  border-radius:inherit;
+  border-radius: inherit;
   border-color: inherit;
 }
 
-*::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+*::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: var(--text-grey);
   opacity: 1; /* Firefox */
 }
 
-*:-ms-input-placeholder { /* Internet Explorer 10-11 */
+*:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: var(--text-grey);
 }
 
-*::-ms-input-placeholder { /* Microsoft Edge */
+*::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: var(--text-grey);
 }
 
@@ -38,32 +41,27 @@
   border: none;
   cursor: pointer;
 } */
-.code {
-  /* position: relative; */
+/* .code {
   background-color: #000;
   color: rgb(140, 241, 124);
   border: solid var(--border-grey) 1px;
   border-radius: var(--border-radius);
   font-family: "Source Code Pro", monospace;
-  
-  ;
+
   overflow-x: auto;
-}
-.code::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
+} */
+/* .code::placeholder {
   color: rgb(140, 241, 124);
-  opacity: 1; /* Firefox */
+  opacity: 1; 
 }
 
 .code:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
   color: rgb(140, 241, 124);
 }
 
 .code::-ms-input-placeholder {
-  /* Microsoft Edge */
   color: rgb(140, 241, 124);
-}
+} */
 
 .copy-btn {
   position: sticky;
@@ -103,35 +101,35 @@
 option {
   color: black;
 }
-select,
+/* select,
 textarea,
 input {
   border: 1px solid var(--border-grey);
   background-color: inherit;
-}
-textarea {
+} */
+/* textarea {
   resize: vertical;
   overflow-y: scroll;
-}
+} */
 
-.centered {
-  justify-content: center; /* center items horizontally, in this case */
-  align-items: center; /* center items vertically, in this case */
+/* .centered {
+  justify-content: center; 
+  align-items: center; 
   display: flex;
-}
+} */
 
-table,
+/* table,
 th,
 td {
   padding: 0.5rem;
   text-align: center;
   border: 2px solid whitesmoke;
   border-collapse: collapse;
-}
-a {
+} */
+/* a {
   display: inline;
-  color:#85B0FC;
-}
+  color: #85b0fc;
+} */
 
 * {
   box-sizing: border-box;
@@ -204,17 +202,17 @@ body {
   white-space: pre-wrap;
   overflow: hidden;
 } */
-.tag-filter-btn {
+/* .tag-filter-btn {
   display: flex;
-}
+} */
 
-.svg-btn-grid {
+/* .svg-btn-grid {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: repeat(4, 1fr);
   justify-content: space-around;
-}
-.svg-btn {
+} */
+/* .svg-btn {
   display: block;
   background: #000;
   border: none;
@@ -227,28 +225,28 @@ body {
   height: fit-content;
   width: fit-content;
   overflow: hidden;
-}
+} */
 
-.svg-btn:active,
+/* .svg-btn:active,
 .btn:active {
   transform: scale(0.98);
-}
+} */
 
-.btn-block {
+/* .btn-block {
   display: block;
   width: 100%;
-}
+} */
 
-.svg-wrapper {
+/* .pointer-events-none w-6 h-6 {
   pointer-events: none;
   --svg-size: 1.35rem;
   height: var(--svg-size);
   width: var(--svg-size);
-}
-.svg-wrapper-lg {
+} */
+/* .svg-wrapper-lg {
   height: 3rem;
   width: 3rem;
-}
+} */
 /* .tip {
   border: solid 1px var(--border-grey);
   gap: 0.5rem;
@@ -258,17 +256,17 @@ body {
   align-content: flex-start;
   overflow: hidden;
 } */
-ul,
+/* ul,
 ol {
   padding-left: 3em;
-}
-ul {
+} */
+/* ul {
   list-style-type: square;
-}
-li {
+} */
+/* li {
   padding-left: 1em;
-}
-.tagsList {
+} */
+/* .tagsList {
   display: flex;
   width: 100%;
   height: min-content;
@@ -276,20 +274,20 @@ li {
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.5rem;
-}
+} */
 
-.tip.reminder {
+/* .tip.reminder {
   border-left: 5px solid green;
-}
+} */
 
-.MultiTextContainer {
+/* .MultiTextContainer {
   display: flex;
   gap: 1rem;
   flex-direction: column;
   margin-left: 0;
   width: 100%;
   margin-bottom: auto;
-}
+} */
 /* .filter-section {
   display: grid;
   grid-template-rows: auto auto;
@@ -298,17 +296,16 @@ li {
 .filter-section, */
 
 /* .tip, */
-.add-tip-container {
-
+/* .add-tip-container {
   border: solid 1px var(--border-grey);
 
   width: clamp(240px, calc(100vw - 1.25rem), 800px);
   border-radius: var(--border-radius);
   background-color: var(--background-dark);
   padding: 0.5rem;
-}
+} */
 
-.header {
+/* .header {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: auto auto 1fr auto auto;
@@ -319,10 +316,10 @@ li {
 
   grid-column: 2;
   width: clamp(240px, calc(100vw - 1.25rem), 800px);
-}
-.auth-btn {
+} */
+/* .auth-btn {
   grid-column: 5;
-}
+} */
 /* .header-container {
   width: 100vw;
   grid-area: header;
@@ -356,26 +353,25 @@ li {
 } */
 
 /* .tip, */
-h3 {
+ /* {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-}
+} */
 
-
-.form-control {
+/* .form-control {
   margin: 20px 0;
   gap: 0.5rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-}
+} */
 
-.label-box {
+/* .label-box {
   display: grid;
-}
+} */
 
-.form-control-check {
+/* .form-control-check {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -388,7 +384,7 @@ h3 {
 .form-control-check input {
   flex: 2;
   height: 2rem;
-}
+} */
 
 h1,
 h2,
@@ -407,7 +403,7 @@ b {
   /* color: inherit; */
   white-space: pre-wrap;
 }
-.hint {
+/* .hint {
   border-radius: var(--border-radius);
   border-left: solid 12px rgb(242, 220, 28);
   margin-top: 12px;
@@ -416,8 +412,8 @@ b {
   color: black;
   background-color: cornsilk;
   white-space: pre-wrap;
-}
-.blockquote {
+} */
+/* .blockquote {
   border-radius: var(--border-radius);
   border-left: solid 12px rgb(154, 154, 154);
   margin-top: 12px;
@@ -426,12 +422,12 @@ b {
   color: black;
   background-color: rgb(228, 228, 228);
   white-space: pre-wrap;
-}
+} */
 
-thead {
+/* thead {
   font-size: 1.125rem;
   background: #424242;
-}
+} */
 h1 {
   font-size: 2rem;
 }
@@ -451,12 +447,12 @@ h6 {
   font-size: 0.85rem;
 }
 
-.input-buttons {
+/* .input-buttons {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: repeat(auto-fit, minmax(min-content, 50%));
-}
-.markdown-buttons {
+} */
+/* .markdown-buttons {
   display: flex;
   gap: 0.5rem;
   height: fit-content;
@@ -464,8 +460,8 @@ h6 {
   flex-direction: row;
   grid-column: span 2;
   align-items: flex-start;
-}
+} */
 
-select {
+/* select {
   width: 100%;
-}
+} */

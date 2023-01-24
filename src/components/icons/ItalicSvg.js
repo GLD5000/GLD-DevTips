@@ -1,6 +1,6 @@
 export default function ItalicSvg({ classes }) {
   return (
-    <div className="svg-wrapper m-1">
+    <div className="pointer-events-none m-1 h-6 w-6">
       <svg
         id="italic-svg"
         alt="Italic"

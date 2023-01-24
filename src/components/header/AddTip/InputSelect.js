@@ -18,7 +18,9 @@ const InputSelect = ({ type, name, changeType, value }) => {
   }
   const optionsArray = makeOptionsArray(type);
   return (
-    <select name={name} id="" onChange={handleChange} value={value}>
+    <select
+    className="border-zinc-600 border rounded bg-inherit w-full"
+    name={name} id="" onChange={handleChange} value={value}>
       {optionsArray}
     </select>
   );

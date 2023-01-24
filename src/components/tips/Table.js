@@ -28,8 +28,8 @@ const Table = ({ content, parse = false }) => {
   const tableArray  = parseDataToArray(content);
   return (
     <section className="table-wrapper">
-      <table>
-        <thead>
+      <table className="p-2 text-center border-2 border-collapse border-neutral-400">
+        <thead className=" text-lg bg-neutral-600">
           <Tr key="0" row={tableArray[0]} rowIndex="0" />
         </thead>
         <tbody>

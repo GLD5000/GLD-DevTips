@@ -1,6 +1,6 @@
 export default function AddSvg({ classes }) {
   return (
-    <div className="svg-wrapper m-1">
+    <div className=" pointer-events-none w-6 h-6  m-1">
       <svg
         id="add-svg"
         alt="Add"

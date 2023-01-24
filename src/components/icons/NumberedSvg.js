@@ -1,6 +1,6 @@
 export default function NumberedSvg({ classes }) {
   return (
-    <div className="svg-wrapper m-1">
+    <div className="pointer-events-none m-1 h-6 w-6">
       <svg
         id="numbered-svg"
         alt="Numbered"

@@ -27,10 +27,11 @@ const informationLookup = {
 };
 
 const classNameLookup = {
-  text: "p-2 overflow-auto",
-  hint: "overflow-auto whitespace-pre-wrap border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black",
-  code: "p-2 bg-black text-vsGreen font-mono whitespace-pre overflow-auto",
-  table: "p-2 whitespace-pre overflow-auto",
+  text: "resize-y p-2 overflow-auto border-zinc-600 border rounded bg-inherit",
+  hint: "resize-y overflow-auto whitespace-pre-wrap border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black",
+  code: "resize-y p-2 bg-black text-vsGreen font-mono whitespace-pre overflow-auto border-vsGreen border rounded ",
+  table:
+    "resize-y p-2 whitespace-pre overflow-auto border-zinc-600 border rounded bg-inherit",
 };
 
 export default function SectionField({
@@ -57,7 +58,7 @@ export default function SectionField({
 
   return (
     <>
-      <label className="label-box" id={id + "info"}>
+      <label className="grid " id={id + "info"}>
         {showInformation === true && information}
       </label>
 

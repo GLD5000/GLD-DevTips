@@ -64,10 +64,10 @@ export default function Link({content}) {
 
   return (<>
     {type === "local"?
-    (<a href={url}>
+    (<a className=" inline text-blue-700" href={url}>
       {text}
     </a>):
-    (<a href={url}  target="_blank" rel="noreferrer">
+    (<a className=" inline text-blue-700" href={url}  target="_blank" rel="noreferrer">
     {text}
   </a>)
     }

@@ -22,7 +22,7 @@ export default function InputTitle() {
               <h2>Tip No. {id}</h2>
 
     <input
-      className="w-full h-8 p-1"
+      className="border-zinc-600 border rounded bg-inherit  w-full h-8 p-1"
       type="text"
       placeholder=" Add a title or topic for your tip..."
       onChange={(e) => handler(e)}

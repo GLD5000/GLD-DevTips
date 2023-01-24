@@ -6,7 +6,7 @@ export default function TagFilter({ tag, handleClickTag, activeTags }) {
     const tagName = e.target.name;
     if (tagName !== undefined) handleClickTag({ name: tagName, active: !activeTags.has(tagName) });
   }
-  const ButtonClasses = ` border-1  rounded hover:border-current py-1 px-2 tag-filter-btn`;
+  const ButtonClasses = ` border-1 flex rounded hover:border-current py-1 px-2 tag-filter-btn`;
 
   return (
     <ToggleButton
