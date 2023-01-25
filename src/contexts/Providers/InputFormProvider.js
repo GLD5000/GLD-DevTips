@@ -154,10 +154,11 @@ function useData() {
       }
       case "UPDATE_NEW_TAGS": {
         const newString = action.payload;
+        console.log(newString);
         oldMetadata.newTagsArray =
           newString.length === 0
             ? []
-            : [...new Set(newString.split(" ").filter((x) => x.length > 0))];
+            : [...new Set(newString.split(" "))];
         oldData.tags = [
           ...new Set([
             ...oldMetadata.newTagsArray,
