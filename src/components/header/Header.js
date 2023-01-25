@@ -1,4 +1,4 @@
-import WriteTipBtn from "./WriteTipBtn";
+import CreateButton from "./CreateButton";
 import GldSvg from "../icons/GldSvg";
 import PropTypes from "prop-types";
 import AuthButton from "./AuthButton";
@@ -12,14 +12,14 @@ const Header = ({
   clearTags,
 }) => {
   return (
-    <section className="p-2 w-screen sticky top-0 left-0 right-0 grid grid-cols-frAutoFr bg-neutral-700 z-[999]">
+    <section className="sticky top-0 left-0 right-0 z-[999] grid w-screen grid-cols-frAutoFr bg-neutral-700 p-2">
       <header className=" col-start-2 flex w-body min-w-body max-w-body flex-wrap justify-between">
         <div className="flex flex-wrap gap-1">
           <GldSvg />
           <h1>{title}</h1>
         </div>
         <div className="flex flex-wrap gap-1">
-          <WriteTipBtn
+          <CreateButton
             showAddTipForm={showAddTipForm}
             setShowAddTipForm={setShowAddTipForm}
             addObjectToInputFormState={addObjectToInputFormState}

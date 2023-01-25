@@ -1,11 +1,13 @@
 import SvgButton from "../../elements/SvgButton";
 import { useInputFormContext } from "../../contexts/Providers/InputFormProvider";
+import { useTagsContext } from "../../contexts/Providers/TagsProvider";
 const writeClasses =
   " focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent";
 const cancelClasses =
   "bg-transparent text-pink-300 focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black";
 
-export default function WriteTipBtn() {
+export default function CreateButton() {
+  const { dispatchTags } = useTagsContext();
   const {
     dispatchInputForm,
     inputForm: {
@@ -17,6 +19,7 @@ export default function WriteTipBtn() {
       onClose();
       return;
     }
+    dispatchTags({ type: "CLEAR_TAGS" });
     dispatchInputForm({ type: "NEW_TIP" });
   }
   function onClose() {
