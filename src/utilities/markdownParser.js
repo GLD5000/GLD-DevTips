@@ -40,8 +40,6 @@ const hintBlockOpen = new RegExp(blockFlagStart + hintFlag + blockFlagEnd);
 const hintBlockClosed = new RegExp(blockFlagStart + hintFlag + blockFlagEndOptional);
 
 const defaultFlagMap = new Map([
-  [/`(?=.+`)/, { closingFlag: /`/, type: "codeSpan" }],
-  [/"(?=.+")/, { closingFlag: /"/, type: "span" }],
   [hintBlockOpen, { closingFlag: hintBlockClosed, type: "hint" }],
   [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
   [codeBlockOpen, { closingFlag: codeBlockClosed, type: "code" }],
@@ -62,6 +60,8 @@ const defaultFlagMap = new Map([
     /\[(?=[^\]]+\]\([\w\d.\-/:?&=,]+\))/,
     { closingFlag: ")", type: "link" },
   ],
+  [/`/, { closingFlag: /`/, type: "codeSpan" }],
+  [/"(?=.+")/, { closingFlag: /"/, type: "span" }],
   ["**", { closingFlag: "**", type: "bold" }],
   ["_", { closingFlag: "_", type: "italic" }],
 ]);
@@ -94,7 +94,6 @@ function wrapText(index, text, type) {
 function markParagraphs(string) {
   const regex = /[\r\n]+/g;
   const returnString = "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\r\nPpPpSSS") + "PpPpEEE";
-  // console.log(returnString);
   return returnString;
 }
 export function removeParagraphs(string){
@@ -104,12 +103,6 @@ export function removeParagraphs(string){
 
 
 function findStringMatch(flag, string, startAt = 0) {
-  if (flag === /"/){
-
-    console.log(`flag ${flag}`);
-    console.log(`string ${string}`);
-    console.log(`startAt ${startAt}`);
-  }
   const failedReturn = { length: 0, index: -1 };
   if (string === undefined) return failedReturn;
   if (flag === undefined) return { length: 0, index: string.length };
@@ -139,12 +132,11 @@ function stringHasFlag(string, flagMap) {
 
   const workingObject = { string: string, firstFlagIndex: string.length };
 
-  flagMap.forEach((_, flag) => {
-    const firstStringMatch = findStringMatch(flag, string);
+  flagMap.forEach((value, key) => {
+    const firstStringMatch = findStringMatch(key, string);
     const firstFlagMissing = firstStringMatch.index === -1;
     if (firstFlagMissing) return;
-    const secondFlagForMatch = flagMap.get(flag).closingFlag;
-    console.log(secondFlagForMatch);
+    const secondFlagForMatch = value.closingFlag;
     const secondStringMatch = findStringMatch(
       secondFlagForMatch,
       string,
@@ -158,8 +150,8 @@ function stringHasFlag(string, flagMap) {
       workingObject.firstFlagIndex = firstStringMatch.index;
       workingObject.secondFlagLength = secondStringMatch.length;
       workingObject.secondFlagIndex = secondStringMatch.index;
-      workingObject.flagFromMap = flag;
-      returnObject.type = flagMap.get(workingObject.flagFromMap).type;
+      workingObject.flagFromMap = key;
+      returnObject.type = value.type;
       ({
         beforeFlag: returnObject["beforeFlag"],
         flaggedText: returnObject["flaggedText"],
@@ -167,7 +159,6 @@ function stringHasFlag(string, flagMap) {
       } = sliceFlaggedText(workingObject));
     }
   });
-  if (returnObject.type === "code") console.log(returnObject);
   return returnObject;
 }
 
@@ -270,7 +261,7 @@ export function recursiveParser(text, index, flagMap = defaultFlagMap) {
   );
   if (type === undefined) return text;
   const shouldParse =
-    type !== "code" && type !== "table" && type !== "link" && type !== "span";
+  type !== "codeSpan" && type !== "code" && type !== "table" && type !== "link" && type !== "span";
   const processedflaggedText = shouldParse
     ? recursiveParser(flaggedText, index)
     : flaggedText;
