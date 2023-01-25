@@ -33,7 +33,7 @@ export default function InputTags() {
           key={keyMod + "b"}
           placeholder=" E.G.: JavaScript, Fundamentals"
           onInput={updateCustomTags}
-          defaultValue={newTagsString}
+          value={newTagsString}
         />
       </label>
     </>
