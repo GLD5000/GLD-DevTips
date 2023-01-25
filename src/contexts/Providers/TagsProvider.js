@@ -88,7 +88,7 @@ function tagReducer(state, action) {
         tagArrayFromUrl.forEach((tagId) => {
           if (action.payload[tagId]) {
             action.payload[tagId].active = true;
-            oldMetaDataCopy.activeTags.add(tagId);
+            oldMetaDataCopy.activeTags.add(action.payload[tagId].name);
           }
         });
       return { data: action.payload, metadata: oldMetaDataCopy };
