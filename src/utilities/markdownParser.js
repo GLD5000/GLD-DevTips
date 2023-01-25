@@ -16,6 +16,7 @@ import CodeBox from "../elements/CodeBox";
 import Table from "../components/tips/Table";
 import Hint from "../elements/Hint";
 import Span from "../elements/Span";
+import CodeSpan from "../elements/CodeSpan";
 
 const lineEndRegex = /PpPpEEE(\r\n)?/;
 
@@ -39,6 +40,7 @@ const hintBlockOpen = new RegExp(blockFlagStart + hintFlag + blockFlagEnd);
 const hintBlockClosed = new RegExp(blockFlagStart + hintFlag + blockFlagEndOptional);
 
 const defaultFlagMap = new Map([
+  [/`(?=.+`)/, { closingFlag: /`/, type: "codeSpan" }],
   [/"(?=.+")/, { closingFlag: /"/, type: "span" }],
   [hintBlockOpen, { closingFlag: hintBlockClosed, type: "hint" }],
   [tableBlockOpen, { closingFlag: tableBlockClosed, type: "table" }],
@@ -84,6 +86,7 @@ function wrapText(index, text, type) {
     table: <Table key={"table" + newKey} content={text} parse={true} />,
     hint: <Hint key={"hint" + newKey} content={text} parse={false} />,
     span: <Span key={"span" + newKey} content={text} />,
+    codeSpan: <CodeSpan key={"codeSpan" + newKey} content={text} />,
   };
 
   return typeHandler[type];
@@ -91,7 +94,7 @@ function wrapText(index, text, type) {
 function markParagraphs(string) {
   const regex = /[\r\n]+/g;
   const returnString = "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\r\nPpPpSSS") + "PpPpEEE";
-  console.log(returnString);
+  // console.log(returnString);
   return returnString;
 }
 export function removeParagraphs(string){
