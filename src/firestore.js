@@ -20,7 +20,7 @@ async function addTipToCollection(title, object) {
   await setDoc(doc(tipsCollection, title), object);
 }
 async function addTagToCollection(title, object) {
-  object.active = false;
+  object.fromDb = true;
   await setDoc(doc(tagsCollection, title), object);
 }
 
@@ -47,6 +47,7 @@ export async function addTipToFirestore(object) {
 }
 export async function addTagToFirestore(lowerCaseTagName, tag) {
   try {
+    if (tag.fromDb === true) return;
     await addTagToCollection(lowerCaseTagName, tag);
     console.group(`tag`);
     console.log(tag);

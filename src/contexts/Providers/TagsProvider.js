@@ -1,5 +1,5 @@
 import { useEffect, createContext, useContext, useReducer } from "react";
-import { getTagsFirestore } from "../../firestore";
+import { getTagsFirestore, addTagToFirestore } from "../../firestore";
 import { useTipsContext } from "./TipsProvider";
 import makeNewTag from "../../utilities/newTagMaker";
 
@@ -25,6 +25,9 @@ function useData() {
       isMounted = false;
     };
   }, [tips, dispatchTips]);
+  console.group(`tags`);
+  console.log(tags);
+  console.groupEnd();
   return {
     tags,
     dispatchTags,
@@ -102,8 +105,10 @@ function tagReducer(state, action) {
         }, {});
       Object.keys(tagsCount).forEach((tagName) => {
         const tagId = tagName.toLowerCase();
-        if (oldDataCopy[tagId] === undefined)
+        if (oldDataCopy[tagId] === undefined){
           oldDataCopy[tagId] = makeNewTag(tagName);
+          addTagToFirestore(tagId, oldDataCopy[tagId]);
+        }
         oldDataCopy[tagId].count = tagsCount[tagName];
       });
 
