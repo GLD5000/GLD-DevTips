@@ -1,7 +1,7 @@
 import SectionField from "./SectionField";
 import SectionHeader from "./SectionHeader";
 import SectionOptions from "./SectionOptions";
-import SectionMarkdown from "./SectionMarkdown";
+import SectionTextTools from "./SectionTextTools";
 import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
 import SectionControls from "./SectionControls";
 export default function InputSections() {
@@ -12,11 +12,13 @@ export default function InputSections() {
     dispatchInputForm,
   } = useInputFormContext();
 
-
   function makeInputArray() {
     return sections.map((object, index) => {
       const returnObject = (
-        <div key={index + "field-container"} className="flex flex-col gap-2 w-full">
+        <div
+          key={index + "field-container"}
+          className="flex w-full flex-col gap-2"
+        >
           <SectionHeader index={index} />
           <SectionOptions
             key={index + "SectionOptions"}
@@ -25,7 +27,7 @@ export default function InputSections() {
             changeValue={dispatchInputForm}
             title={object.title}
           />
-          <SectionMarkdown type={object.type} index={index}/>
+          <SectionTextTools type={object.type} index={index} />
           <SectionField
             key={index + "SectionField"}
             id={index + "-SectionField"}
