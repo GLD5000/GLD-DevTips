@@ -6,7 +6,7 @@ export default function makeNewTag(tagName){
     
       const backgroundColour = getRandomColour();
       const textColour = AutoTextColour(backgroundColour);
-      const newTag = {name: tagName, backgroundColour: backgroundColour, textColour: textColour, active: false};
+      const newTag = {name: tagName, backgroundColour: backgroundColour, textColour: textColour};
     
     return newTag;
   
