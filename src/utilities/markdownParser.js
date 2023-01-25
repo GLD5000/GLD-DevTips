@@ -20,15 +20,14 @@ import Span from "../elements/Span";
 const lineEndRegex = /PpPpEEE(\r\n)?/;
 
 const blockFlagStart = "PpPpSSS[ ]{0,3}";
-const blockFlagEndOptional = "(PpPpEEE)?\r?\n?";
+const blockFlagEndOptional = "(PpPpEEE)?[\r\n]*";
 const blockFlagEnd = "PpPpEEE\r\n";
 
 const codeFlag = "[`~]{3,}";
 const codeBlockOpen = new RegExp(
-  blockFlagStart + codeFlag + blockFlagEndOptional
+  blockFlagStart + codeFlag
 );
-const codeBlockClosed = new RegExp(codeFlag + blockFlagEndOptional);
-
+const codeBlockClosed = new RegExp(blockFlagEnd + blockFlagStart + codeFlag + blockFlagEndOptional);
 const tableFlag = "[\\|]{3,}";
 const tableBlockOpen = new RegExp(blockFlagStart + tableFlag + blockFlagEnd);
 const tableBlockClosed = new RegExp(
@@ -91,7 +90,9 @@ function wrapText(index, text, type) {
 }
 function markParagraphs(string) {
   const regex = /[\r\n]+/g;
-  return "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\r\nPpPpSSS") + "PpPpEEE";
+  const returnString = "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\r\nPpPpSSS") + "PpPpEEE";
+  console.log(returnString);
+  return returnString;
 }
 export function removeParagraphs(string){
   const regex = /(PpPpEEE)|(PpPpSSS)/g;
@@ -140,6 +141,7 @@ function stringHasFlag(string, flagMap) {
     const firstFlagMissing = firstStringMatch.index === -1;
     if (firstFlagMissing) return;
     const secondFlagForMatch = flagMap.get(flag).closingFlag;
+    console.log(secondFlagForMatch);
     const secondStringMatch = findStringMatch(
       secondFlagForMatch,
       string,
@@ -162,6 +164,7 @@ function stringHasFlag(string, flagMap) {
       } = sliceFlaggedText(workingObject));
     }
   });
+  if (returnObject.type === "code") console.log(returnObject);
   return returnObject;
 }
 
