@@ -50,7 +50,12 @@ function useData() {
       default:
       case "NEW_TIP": {
         return {
-          data: { ...dataStarter, id: nextTipId },
+          data: {
+            title: "",
+            id: nextTipId,
+            sections: [{ type: "text", content: "" }],
+            tags: [],
+          },
           metadata: {
             focusId: -1,
             preview: false,
@@ -67,7 +72,7 @@ function useData() {
         oldMetadata.existingTagsSet = new Set(tipToEdit.tags);
         return {
           data: tipToEdit,
-          metadata: oldMetadata
+          metadata: oldMetadata,
         };
       }
       case "CANCEL_TIP": {
@@ -79,14 +84,32 @@ function useData() {
             tags: [],
           },
           metadata: {
-            ...oldMetadata,
+            focusId: -1,
+            preview: false,
             editing: false,
+            existingTagsSet: new Set(),
+            newTagsArray: [],
+            date: null,
           },
         };
       }
-      case "CLOSE_FORM":{
+      case "CLOSE_FORM": {
         oldMetadata.editing = false;
-        return { data: oldData, metadata: oldMetadata };
+        return {           data: {
+          title: "",
+          id: "",
+          sections: [{ type: "text", content: "" }],
+          tags: [],
+        },
+        metadata: {
+          focusId: -1,
+          preview: false,
+          editing: false,
+          existingTagsSet: new Set(),
+          newTagsArray: [],
+          date: null,
+        },
+};
       }
       case "PREVIEW_TIP": {
         oldMetadata.preview = true;
@@ -95,7 +118,7 @@ function useData() {
       case "REPLACE_FIELD": {
         const field = action.payload.field;
         const value = action.payload.value;
-        
+
         oldData[field] = value;
         const focusId = action.payload.focusId;
         if (focusId !== undefined) {
@@ -153,7 +176,7 @@ function useData() {
       }
       case "ADD_SECTION": {
         oldData.sections = [...oldData.sections, { type: "text", content: "" }];
-        oldMetadata.focusId = oldData.sections.length -1;
+        oldMetadata.focusId = oldData.sections.length - 1;
         return { data: oldData, metadata: oldMetadata };
       }
     }
