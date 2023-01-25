@@ -56,8 +56,6 @@ function useData() {
         const date = action.payload.date;
         addTipToFirestore(tip);
         oldStateCopy.data[tip.id] = {...tip, updated: date};
-        window.sessionStorage.removeItem("tips");
-        window.sessionStorage.setItem("tips", JSON.stringify(oldStateCopy.data));
         
         return {
           metadata: {
@@ -94,8 +92,6 @@ function fetchFirestoreData(dispatchTips) {
     getTipsFirestore().then((result) => {
       if (isMounted) {
         dispatchTips({ type: "INITIALISE", payload: result });
-        window.sessionStorage.removeItem("tips");
-        window.sessionStorage.setItem("tips", JSON.stringify(result));
 
       }
     });

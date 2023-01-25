@@ -42,8 +42,6 @@ function fetchFirestoreData(dispatchTags) {
     getTagsFirestore().then((result) => {
       if (isMounted) {
         initTags(dispatchTags, result);
-        window.sessionStorage.removeItem("tags");
-        window.sessionStorage.setItem("tags", JSON.stringify(result));
       }
     });
   }
