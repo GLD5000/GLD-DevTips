@@ -98,7 +98,6 @@ function getReturnArray(type, index, AddToTextarea) {
     },
   };
 
-
   const returnArray = buttonArraySelector[type].map((name) => {
     const btn = buttonObject[name];
     return (
@@ -112,7 +111,6 @@ function getReturnArray(type, index, AddToTextarea) {
         name={btn.text}
         text={btn.text}
         clickFunction={btn.onClick}
-        hoverFunction={btn.onHover}
         marginLeft="0"
         showText={false}
         buttonClasses={`w-fit grid grid-cols-autoAuto`}
@@ -120,24 +118,19 @@ function getReturnArray(type, index, AddToTextarea) {
     );
   });
 
-  return <div className="flex gap-2 h-fit flex-wrap flex-row col-span-2 items-start">{returnArray}</div>;
+  return (
+    <div className="col-span-2 flex h-fit flex-row flex-wrap items-start gap-2">
+      {returnArray}
+    </div>
+  );
 }
 
 const selection = {};
-export default function SectionMarkdown({
-  index,
-  type,
-  onHover,
-}) {
-  const {
-    dispatchInputForm,
-  } = useInputFormContext();
+export default function SectionTextTools({ index, type }) {
+  const { dispatchInputForm } = useInputFormContext();
 
   const extraButtons = getReturnArray(type, index, AddToTextarea);
-  return (<div className="h-min">
-      {extraButtons}
-  </div>
-  );
+  return <div className="h-min">{extraButtons}</div>;
 
   function AddToTextarea(e, textToAdd) {
     const sectionIndex = getSectionIndexFromId(e);
@@ -170,16 +163,13 @@ export default function SectionMarkdown({
   function addTextareaToState(index, newContent) {
     dispatchInputForm({
       type: "REPLACE_SECTION_DATA_FIELD",
-      payload:{
-
+      payload: {
         field: "content",
         index: index,
         value: newContent,
-      }
+      },
     });
   }
-
-
 
   function updateTextArea({ index, start, end }, content) {
     const inputElement = document.getElementById(index + "-SectionField");
@@ -318,9 +308,4 @@ export default function SectionMarkdown({
       string.slice(selection.end),
     ];
   }
-
-
-
-
-
 }
