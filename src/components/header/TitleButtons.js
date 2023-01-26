@@ -7,7 +7,7 @@ export default function TitleButtons ({ listId }) {
     return titleSet.map((tip) => {
       const title = tip.title;
       const id = tip.id;
-      const object = <option className="text-black" key={title+id} value={title}></option>;
+      const object = <option className="text-black" key={id} value={title}></option>;
 
       return object;
     });
