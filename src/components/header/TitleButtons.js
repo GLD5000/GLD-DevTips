@@ -6,7 +6,8 @@ export default function TitleButtons ({ listId }) {
   function makeButtonArray() {
     return titleSet.map((tip) => {
       const title = tip.title;
-      const object = <option className="text-black" key={title} value={title}></option>;
+      const id = tip.id;
+      const object = <option className="text-black" key={title+id} value={title}></option>;
 
       return object;
     });
