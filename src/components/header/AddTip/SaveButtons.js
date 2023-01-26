@@ -1,16 +1,19 @@
 import SvgButton from "../../../elements/SvgButton";
 import Button from "../../../elements/Button";
-import { useAuth } from "../../../auth";
+import { useAuthContext } from "../../../auth";
 import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
 import { useTipsContext } from "../../../contexts/Providers/TipsProvider";
 import formattedDate from "../../../utilities/formattedDate";
 import { useSearchStringContext } from "../../../contexts/Providers/SearchStringProvider";
 
 export default function SaveButtons() {
-  const { dispatchInputForm, inputForm:{data} } = useInputFormContext();
+  const {
+    dispatchInputForm,
+    inputForm: { data },
+  } = useInputFormContext();
   const { dispatchTips, tips } = useTipsContext();
-  const {setSearchString} = useSearchStringContext();
-  const appAuth = useAuth();
+  const { setSearchString } = useSearchStringContext();
+  const appAuth = useAuthContext();
   const signedIn = appAuth.authUser !== null;
   const isOwner = signedIn === true && appAuth.authUser?.isOwner === true;
   const authClickHandler = appAuth.clickHandler;
@@ -24,10 +27,12 @@ export default function SaveButtons() {
     : signedIn
     ? signedInNonOwner
     : authClickHandler;
-  const conditionalClasses= isOwner ? "bg-aquamarine text-black hover:border-zinc-300" : "bg-transparent hover:bg-zinc-300 hover:text-black text-zinc-300";
-  
+  const conditionalClasses = isOwner
+    ? "bg-aquamarine text-black hover:border-zinc-300"
+    : "bg-transparent hover:bg-zinc-300 hover:text-black text-zinc-300";
+
   return (
-    <div className="grid grid-rows-2 w-full grid-cols-1 gap-2">
+    <div className="grid w-full grid-cols-1 grid-rows-2 gap-2">
       <SvgButton
         type="preview"
         key="preview"
@@ -48,7 +53,6 @@ export default function SaveButtons() {
   );
 
   function onSubmit() {
-
     if (tips[data.id] !== undefined) {
       let text = `
       This will overwrite:    
@@ -56,17 +60,19 @@ export default function SaveButtons() {
       Do you wish to continue?`;
       if (window.confirm(text) === false) {
         window.alert("You cancelled!");
-        return ;
+        return;
       }
-  }
-      // console.log(data.id, data.title, formattedDate());
-    dispatchTips({type: "ADD_TIP", payload: {tip: data, date:`Saved on: ${formattedDate()}`}});
+    }
+    // console.log(data.id, data.title, formattedDate());
+    dispatchTips({
+      type: "ADD_TIP",
+      payload: { tip: data, date: `Saved on: ${formattedDate()}` },
+    });
     setSearchString(data.title);
-    dispatchInputForm({type:"CLOSE_FORM"});
-
+    dispatchInputForm({ type: "CLOSE_FORM" });
   }
   function onPreview() {
-    dispatchInputForm({type: "PREVIEW_TIP"});
+    dispatchInputForm({ type: "PREVIEW_TIP" });
   }
   function signedInNonOwner() {
     alert("You are not allowed to submit to the database- sorry!");

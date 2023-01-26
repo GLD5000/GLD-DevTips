@@ -25,10 +25,10 @@ const blockFlagEndOptional = "(PpPpEEE)?[\r\n]*";
 const blockFlagEnd = "PpPpEEE\r\n";
 
 const codeFlag = "[`~]{3,}";
-const codeBlockOpen = new RegExp(
-  blockFlagStart + codeFlag
+const codeBlockOpen = new RegExp(blockFlagStart + codeFlag);
+const codeBlockClosed = new RegExp(
+  blockFlagEnd + blockFlagStart + codeFlag + blockFlagEndOptional
 );
-const codeBlockClosed = new RegExp(blockFlagEnd + blockFlagStart + codeFlag + blockFlagEndOptional);
 const tableFlag = "[\\|]{3,}";
 const tableBlockOpen = new RegExp(blockFlagStart + tableFlag + blockFlagEnd);
 const tableBlockClosed = new RegExp(
@@ -37,7 +37,9 @@ const tableBlockClosed = new RegExp(
 
 const hintFlag = "\\?{3,}";
 const hintBlockOpen = new RegExp(blockFlagStart + hintFlag + blockFlagEnd);
-const hintBlockClosed = new RegExp(blockFlagStart + hintFlag + blockFlagEndOptional);
+const hintBlockClosed = new RegExp(
+  blockFlagStart + hintFlag + blockFlagEndOptional
+);
 
 const defaultFlagMap = new Map([
   [hintBlockOpen, { closingFlag: hintBlockClosed, type: "hint" }],
@@ -56,10 +58,7 @@ const defaultFlagMap = new Map([
     /(PpPpSSS)(?!#)/,
     { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: "paragraph" },
   ],
-  [
-    /\[(?=[^\]]+\]\([\w\d.\-/:?&=,]+\))/,
-    { closingFlag: ")", type: "link" },
-  ],
+  [/\[(?=[^\]]+\]\([\w\d.\-/:?&=,]+\))/, { closingFlag: ")", type: "link" }],
   [/`/, { closingFlag: /`/, type: "codeSpan" }],
   [/"(?=.+")/, { closingFlag: /"/, type: "span" }],
   ["**", { closingFlag: "**", type: "bold" }],
@@ -93,14 +92,14 @@ function wrapText(index, text, type) {
 }
 function markParagraphs(string) {
   const regex = /[\r\n]+/g;
-  const returnString = "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\r\nPpPpSSS") + "PpPpEEE";
+  const returnString =
+    "PpPpSSS" + string.replaceAll(regex, "PpPpEEE\r\nPpPpSSS") + "PpPpEEE";
   return returnString;
 }
-export function removeParagraphs(string){
+export function removeParagraphs(string) {
   const regex = /(PpPpEEE)|(PpPpSSS)/g;
   return string.replaceAll(regex, ``);
 }
-
 
 function findStringMatch(flag, string, startAt = 0) {
   const failedReturn = { length: 0, index: -1 };
@@ -194,10 +193,7 @@ function wrapLists(arrayOfObjects) {
   let listType = null;
   if (Array.isArray(arrayOfObjects) === false) return arrayOfObjects;
   arrayOfObjects?.forEach((paragraph, index, arr) => {
-    console.assert(
-      typeof paragraph === "object",
-      arrayOfObjects
-    );
+    console.assert(typeof paragraph === "object", arrayOfObjects);
     if (typeof paragraph !== "object") return;
     const wrappedObject = paragraph;
     const type = findObjectType(wrappedObject);
@@ -261,7 +257,11 @@ export function recursiveParser(text, index, flagMap = defaultFlagMap) {
   );
   if (type === undefined) return text;
   const shouldParse =
-  type !== "codeSpan" && type !== "code" && type !== "table" && type !== "link" && type !== "span";
+    type !== "codeSpan" &&
+    type !== "code" &&
+    type !== "table" &&
+    type !== "link" &&
+    type !== "span";
   const processedflaggedText = shouldParse
     ? recursiveParser(flaggedText, index)
     : flaggedText;

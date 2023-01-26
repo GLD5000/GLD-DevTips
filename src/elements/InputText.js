@@ -7,19 +7,16 @@ const InputText = ({
   placeholder = "Type here...",
   onInput = defaultOnInput,
   type = "text",
-  listId= null,
-  value=""
+  listId = null,
+  value = "",
 }) => {
-
-
   const handler = (value) => {
     onInput(value);
   };
 
-
   return (
     <input
-      className="border-zinc-600 border rounded bg-inherit w-full h-8 p-1"
+      className="h-8 w-full rounded border border-zinc-600 bg-inherit p-1"
       type={type}
       onFocus={(e) => e.target.select()}
       onChange={(e) => handler(e.target.value)}

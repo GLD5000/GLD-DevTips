@@ -5,7 +5,6 @@ function removeParagraphs(string){
   return string.replaceAll(regex, ``);
 }
 
-
 function parseDataToArray(text){
   if (Array.isArray(text) ) return text;
   const rows = text.split(/\r?\n\s*/);

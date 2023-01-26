@@ -1,11 +1,14 @@
 import { default as markdownParserFull } from "../utilities/markdownParser";
 
-
 const Hint = ({ content, parse = true }) => {
   if (parse) {
     content = markdownParserFull(content);
   }
-  return <div className="whitespace-pre-wrap border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black">{content }</div>;
+  return (
+    <div className="whitespace-pre-wrap border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black">
+      {content}
+    </div>
+  );
 };
 
 export default Hint;
