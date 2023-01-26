@@ -1,8 +1,8 @@
 import TagButton from "../../elements/TagButton";
 
-export default function Tag ({ tag, handleClickTag}) {
+export default function Tag ({ tag, handleClickTag, active}) {
   if (tag === undefined) return (null);
-  const { backgroundColour, textColour, active, name} = tag;
+  const { backgroundColour, textColour, name} = tag;
 
   function tagOnClick(e) {
     const name = e.target.name;

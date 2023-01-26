@@ -45,7 +45,6 @@ function useData() {
         if (tagArrayFromUrl.length > 0)
           tagArrayFromUrl.forEach((tagId) => {
             if (action.payload[tagId]) {
-              action.payload[tagId].active = true;
               oldMetaDataCopy.activeTags.add(action.payload[tagId].name);
             }
           });
@@ -79,22 +78,11 @@ function useData() {
         return { data: oldDataCopy, metadata: oldMetaDataCopy };
       }
       case "CLEAR_TAGS": {
-        Object.values(oldDataCopy).forEach((oldTag) => {
-          oldTag.active = false;
-        });
         oldMetaDataCopy.activeTags.clear();
-        return { data: oldDataCopy, metadata: oldMetaDataCopy };
-      }
-      case "ACTIVATE_TAGS": {
-        action.payload.forEach((tagId) => {
-          oldDataCopy[tagId].active = true;
-        });
         return { data: oldDataCopy, metadata: oldMetaDataCopy };
       }
       case "TOGGLE_TAG":
       default: {
-        oldDataCopy[action.payload.name.toLowerCase()].active =
-          action.payload.active;
         if (action.payload.active)
           oldMetaDataCopy.activeTags.add(action.payload.name);
         if (!action.payload.active)
