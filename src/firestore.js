@@ -1,6 +1,7 @@
 import { db } from "./firebase";
 import {
   doc,
+  deleteDoc,
   getDoc,
   getDocs,
   collection,
@@ -13,6 +14,13 @@ import makeNewTag from "./utilities/newTagMaker";
 const tipsCollection = collection(db, "tips");
 const tagsCollection = collection(db, "tags");
 const rolesCollection = collection(db, "roles");
+
+export function deleteTipFromCollection(id) {
+    deleteDoc(doc(tipsCollection, id));
+}
+export function deleteTagFromCollection(id) {
+  deleteDoc(doc(tagsCollection, id));
+}
 
 
 async function addTipToCollection(title, object) {
@@ -29,7 +37,6 @@ export async function getUserRole(uid) {
   return role;
 }
 
-
 export async function addTipToFirestore(object) {
   try {
     await addTipToCollection(object.id, object);
@@ -38,21 +45,19 @@ export async function addTipToFirestore(object) {
 
     const tipsString = window.sessionStorage.getItem("tips");
     const tipsObject = JSON.parse(tipsString);
-    
+
     const docRef = doc(tipsCollection, object.id);
     const gotDoc = await getDoc(docRef);
     console.log("Document written as: ", gotDoc.data());
     tipsObject[object.id] = gotDoc.data();
-        window.sessionStorage.removeItem("tips");
-        window.sessionStorage.setItem("tips", JSON.stringify(tipsObject));
-        object.tags.forEach(tagName => {
+    window.sessionStorage.removeItem("tips");
+    window.sessionStorage.setItem("tips", JSON.stringify(tipsObject));
+    object.tags.forEach((tagName) => {
       const tagId = tagName.toLowerCase();
-      if (tagsObject[tagId] === undefined){
+      if (tagsObject[tagId] === undefined) {
         tagsObject[tagId] = makeNewTag(tagName);
         addTagToFirestore(tagId, tagsObject[tagId]);
       }
-
-
     });
     Object.entries(tagsObject).forEach((tag) => {
       if (tag[1].fromDb !== true) addTagToFirestore(tag[0], tag[1]);
@@ -65,7 +70,8 @@ export async function addTagToFirestore(lowerCaseTagName, tag) {
   try {
     const tagsString = window.sessionStorage.getItem("tags");
     const tagsObject = JSON.parse(tagsString);
-    if (tag.fromDb === true || tagsObject[lowerCaseTagName] !== undefined) return;
+    if (tag.fromDb === true || tagsObject[lowerCaseTagName] !== undefined)
+      return;
     await addTagToCollection(lowerCaseTagName, tag);
     const docRef = doc(tagsCollection, lowerCaseTagName);
     const gotDoc = await getDoc(docRef);
@@ -79,11 +85,6 @@ export async function addTagToFirestore(lowerCaseTagName, tag) {
   }
 }
 
-// async function getDocDataFromDb(docRef) {
-//   const gotDoc = await getDoc(docRef);
-//   const dataObject = await gotDoc.data();
-//   return dataObject;
-// }
 export async function getTipsFirestore() {
   const tipsQuery = query(tipsCollection, orderBy("id", "desc"));
   const tipsSnapshot = await getDocs(tipsQuery);
@@ -99,7 +100,7 @@ export async function getTipsFirestore() {
 export async function getTagsFirestore() {
   const tagsQuery = query(tagsCollection, orderBy("name", "asc"));
   const tagsSnapshot = await getDocs(tagsQuery);
-  const tagsObject = {}
+  const tagsObject = {};
   tagsSnapshot.forEach((doc) => {
     tagsObject[doc.id] = doc.data();
   });
@@ -109,13 +110,3 @@ export async function getTagsFirestore() {
   return tagsObject;
 }
 
-// Object.entries(result).forEach(entry => {
-//   const key = entry[0];
-//   const value = entry[1];
-//   addTagToCollection(key,value);
-// })
-// Object.entries(result).forEach(entry => {
-//   const key = entry[0];
-//   const value = entry[1];
-//   addTipToCollection(key,value);
-// })
