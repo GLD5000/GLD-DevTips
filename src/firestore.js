@@ -2,6 +2,8 @@ import { db } from "./firebase";
 import {
   doc,
   deleteDoc,
+  updateDoc,
+  deleteField,
   getDoc,
   getDocs,
   collection,
@@ -22,6 +24,21 @@ export function deleteTagFromCollection(id) {
   deleteDoc(doc(tagsCollection, id));
 }
 
+async function deleteFieldFromTag(id, field) {
+          await updateDoc(doc(tagsCollection, id), {
+            [field]: deleteField()
+      });
+
+}
+// async function deleteActiveField(tags){
+//   Object.entries(tags).forEach(async (entry)=>{
+//       const key = entry[0];
+//       const tag = entry[1];
+//       if (tag.active !== undefined){
+//        await deleteFieldFromTag(key, "active")
+//       }
+//   });
+// }
 
 async function addTipToCollection(title, object) {
   await setDoc(doc(tipsCollection, title), object);
