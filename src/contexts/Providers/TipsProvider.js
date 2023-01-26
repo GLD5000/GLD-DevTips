@@ -5,7 +5,6 @@ import { useAuthContext } from "../../auth";
 function useData() {
   const { authUser } = useAuthContext();
   let isOwner = authUser?.isOwner || false;
-  console.log(isOwner);
   const [tips, dispatchTips] = useReducer(tipsReducer, {
     data: null,
     metadata: { status: "fetching", nextTipId: -1 },
@@ -88,7 +87,6 @@ function fetchFirestoreData(dispatchTips) {
   let isMounted = true;
   const tipsLocal = window.sessionStorage.getItem("tips");
   if (tipsLocal === null) {
-    console.log("starting tip fetch");
 
     getTipsFirestore().then((result) => {
       if (isMounted) {

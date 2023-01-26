@@ -111,7 +111,6 @@ export default function SectionControls({ index }) {
   }
 
   function duplicateField(e) {
-    console.log(`sections.length + 1 ${sections.length + 1}`);
     const index = getSectionIndexFromId(e);
     const duplicateObject = { ...sections[index] };
     duplicateObject.title =

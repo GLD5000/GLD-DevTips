@@ -63,7 +63,6 @@ export default function SaveButtons() {
         return;
       }
     }
-    // console.log(data.id, data.title, formattedDate());
     dispatchTips({
       type: "ADD_TIP",
       payload: { tip: data, date: `Saved on: ${formattedDate()}` },

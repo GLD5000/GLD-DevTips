@@ -7,7 +7,6 @@ import makeNewTag from "../../utilities/newTagMaker";
 function useData() {
   const { authUser } = useAuthContext();
   let isOwner = authUser?.isOwner || false;
-  console.log(isOwner);
   const { tips, dispatchTips } = useTipsContext();
   const [tags, dispatchTags] = useReducer(tagReducer, {
     data: null,
@@ -29,9 +28,6 @@ function useData() {
       isMounted = false;
     };
   }, [tips, dispatchTips]);
-  console.group(`tags`);
-  console.log(tags);
-  console.groupEnd();
   return {
     tags,
     dispatchTags,
@@ -70,7 +66,6 @@ function useData() {
         return { data: oldDataCopy, metadata: oldMetaDataCopy };
       }
       case "REPLACE_TAGS": {
-        console.log(action.payload);
         return { data: action.payload, metadata: oldMetaDataCopy };
       }
       case "TOGGLE_SHOW_TAGS": {
@@ -105,7 +100,6 @@ function fetchFirestoreData(dispatchTags) {
   let isMounted = true;
   const tagsLocal = window.sessionStorage.getItem("tags");
   if (tagsLocal === null) {
-    console.log("starting tag fetch");
     getTagsFirestore().then((result) => {
       if (isMounted) {
         initTags(dispatchTags, result);

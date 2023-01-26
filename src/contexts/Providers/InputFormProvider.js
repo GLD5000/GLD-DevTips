@@ -138,7 +138,6 @@ function useData() {
             ...oldMetadata.existingTagsSet,
           ]),
         ];
-        console.log(oldData.tags);
 
         return { data: oldData, metadata: oldMetadata };
       }
@@ -154,7 +153,6 @@ function useData() {
       }
       case "UPDATE_NEW_TAGS": {
         const newString = action.payload;
-        console.log(newString);
         oldMetadata.newTagsArray =
           newString.length === 0
             ? []
@@ -165,7 +163,6 @@ function useData() {
             ...oldMetadata.existingTagsSet,
           ]),
         ];
-        console.log(oldData.tags);
         return { data: oldData, metadata: oldMetadata };
       }
       case "REPLACE_SECTION_DATA_FIELD": {
