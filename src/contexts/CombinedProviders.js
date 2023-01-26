@@ -1,4 +1,4 @@
-import { AuthUserProvider } from "../auth";
+import  AuthUserProvider  from "../auth";
 import TagsProvider from "./Providers/TagsProvider";
 import SearchStringProvider from "./Providers/SearchStringProvider";
 import TipsProvider from "./Providers/TipsProvider";

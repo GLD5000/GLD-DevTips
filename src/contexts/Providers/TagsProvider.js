@@ -1,9 +1,13 @@
 import { useEffect, createContext, useContext, useReducer } from "react";
 import { getTagsFirestore, addTagToFirestore } from "../../firestore";
 import { useTipsContext } from "./TipsProvider";
+import { useAuthContext } from "../../auth";
 import makeNewTag from "../../utilities/newTagMaker";
 
 function useData() {
+  const { authUser } = useAuthContext();
+  let isOwner = authUser?.isOwner || false;
+  console.log(isOwner);
   const { tips, dispatchTips } = useTipsContext();
   const [tags, dispatchTags] = useReducer(tagReducer, {
     data: null,
@@ -32,6 +36,81 @@ function useData() {
     tags,
     dispatchTags,
   };
+  function tagReducer(state, action) {
+    const oldDataCopy = { ...state.data };
+    const oldMetaDataCopy = { ...state.metadata };
+    switch (action.type) {
+      case "ACTIVATE_TAGS_FROM_URL": {
+        const tagArrayFromUrl = getTagArrayFromUrl();
+        if (tagArrayFromUrl.length > 0)
+          tagArrayFromUrl.forEach((tagId) => {
+            if (action.payload[tagId]) {
+              action.payload[tagId].active = true;
+              oldMetaDataCopy.activeTags.add(action.payload[tagId].name);
+            }
+          });
+        return { data: action.payload, metadata: oldMetaDataCopy };
+      }
+      case "COUNT_TAGS": {
+        const tagsCount = Object.values(action.payload)
+          .flatMap((x) => x.tags)
+          .reduce((acc, curr) => {
+            acc[curr] = acc[curr] ? acc[curr] + 1 : 1;
+            return acc;
+          }, {});
+        Object.keys(tagsCount).forEach((tagName) => {
+          const tagId = tagName.toLowerCase();
+          AddTagToDbConditionally(tagId, tagName);
+          oldDataCopy[tagId].count = tagsCount[tagName];
+        });
+  
+        Object.entries(oldDataCopy).forEach((entry) => {
+          if (entry[1].count === undefined) delete oldDataCopy[entry[0]];
+        });
+        oldMetaDataCopy.status = "loaded";
+        return { data: oldDataCopy, metadata: oldMetaDataCopy };
+      }
+      case "REPLACE_TAGS": {
+        console.log(action.payload);
+        return { data: action.payload, metadata: oldMetaDataCopy };
+      }
+      case "TOGGLE_SHOW_TAGS": {
+        oldMetaDataCopy.showTags = action.payload;
+        return { data: oldDataCopy, metadata: oldMetaDataCopy };
+      }
+      case "CLEAR_TAGS": {
+        Object.values(oldDataCopy).forEach((oldTag) => {
+          oldTag.active = false;
+        });
+        oldMetaDataCopy.activeTags.clear();
+        return { data: oldDataCopy, metadata: oldMetaDataCopy };
+      }
+      case "ACTIVATE_TAGS": {
+        action.payload.forEach((tagId) => {
+          oldDataCopy[tagId].active = true;
+        });
+        return { data: oldDataCopy, metadata: oldMetaDataCopy };
+      }
+      case "TOGGLE_TAG":
+      default: {
+        oldDataCopy[action.payload.name.toLowerCase()].active =
+          action.payload.active;
+        if (action.payload.active)
+          oldMetaDataCopy.activeTags.add(action.payload.name);
+        if (!action.payload.active)
+          oldMetaDataCopy.activeTags.delete(action.payload.name);
+        return { data: oldDataCopy, metadata: oldMetaDataCopy };
+      }
+    }
+  
+    function AddTagToDbConditionally(tagId, tagName) {
+      if (oldDataCopy[tagId] === undefined) {
+        oldDataCopy[tagId] = makeNewTag(tagName);
+        if (isOwner) addTagToFirestore(tagId, oldDataCopy[tagId]);
+      }
+    }
+  }
+  
 }
 
 function fetchFirestoreData(dispatchTags) {
@@ -46,9 +125,8 @@ function fetchFirestoreData(dispatchTags) {
     });
   }
   if (tagsLocal !== null) {
-
-  const payload = JSON.parse(tagsLocal);
-  initTags(dispatchTags,payload);
+    const payload = JSON.parse(tagsLocal);
+    initTags(dispatchTags, payload);
   }
   return () => {
     isMounted = false;
@@ -79,73 +157,3 @@ function getTagArrayFromUrl() {
   return tagsFromUrl;
 }
 
-function tagReducer(state, action) {
-  const oldDataCopy = { ...state.data };
-  const oldMetaDataCopy = { ...state.metadata };
-  switch (action.type) {
-    case "ACTIVATE_TAGS_FROM_URL": {
-      const tagArrayFromUrl = getTagArrayFromUrl();
-      if (tagArrayFromUrl.length > 0)
-        tagArrayFromUrl.forEach((tagId) => {
-          if (action.payload[tagId]) {
-            action.payload[tagId].active = true;
-            oldMetaDataCopy.activeTags.add(action.payload[tagId].name);
-          }
-        });
-      return { data: action.payload, metadata: oldMetaDataCopy };
-    }
-    case "COUNT_TAGS": {
-      const tagsCount = Object.values(action.payload)
-        .flatMap((x) => x.tags)
-        .reduce((acc, curr) => {
-          acc[curr] = acc[curr] ? acc[curr] + 1 : 1;
-          return acc;
-        }, {});
-      Object.keys(tagsCount).forEach((tagName) => {
-        const tagId = tagName.toLowerCase();
-        if (oldDataCopy[tagId] === undefined){
-          oldDataCopy[tagId] = makeNewTag(tagName);
-          addTagToFirestore(tagId, oldDataCopy[tagId]);
-        }
-        oldDataCopy[tagId].count = tagsCount[tagName];
-      });
-
-      Object.entries(oldDataCopy).forEach((entry) => {
-        if (entry[1].count === undefined) delete oldDataCopy[entry[0]];
-      });
-      oldMetaDataCopy.status = "loaded";
-      return { data: oldDataCopy, metadata: oldMetaDataCopy };
-    }
-    case "REPLACE_TAGS": {
-      console.log(action.payload);
-      return { data: action.payload, metadata: oldMetaDataCopy };
-    }
-    case "TOGGLE_SHOW_TAGS": {
-      oldMetaDataCopy.showTags = action.payload;
-      return { data: oldDataCopy, metadata: oldMetaDataCopy };
-    }
-    case "CLEAR_TAGS": {
-      Object.values(oldDataCopy).forEach((oldTag) => {
-        oldTag.active = false;
-      });
-      oldMetaDataCopy.activeTags.clear();
-      return { data: oldDataCopy, metadata: oldMetaDataCopy };
-    }
-    case "ACTIVATE_TAGS": {
-      action.payload.forEach((tagId) => {
-        oldDataCopy[tagId].active = true;
-      });
-      return { data: oldDataCopy, metadata: oldMetaDataCopy };
-    }
-    case "TOGGLE_TAG":
-    default: {
-      oldDataCopy[action.payload.name.toLowerCase()].active =
-        action.payload.active;
-      if (action.payload.active)
-        oldMetaDataCopy.activeTags.add(action.payload.name);
-      if (!action.payload.active)
-        oldMetaDataCopy.activeTags.delete(action.payload.name);
-      return { data: oldDataCopy, metadata: oldMetaDataCopy };
-    }
-  }
-}

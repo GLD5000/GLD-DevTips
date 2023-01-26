@@ -10,7 +10,7 @@ provider.setCustomParameters({
   prompt: "select_account",
 });
 
-export default function useFirebaseAuth() {
+function useFirebaseAuth() {
   // auth function
   const [authUser, setAuthUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -66,9 +66,9 @@ const AuthUserContext = createContext({
   isLoading: true,
   clickHandler: async () => {},
 });
-export const useAuth = () => useContext(AuthUserContext); // custom hook
+export const useAuthContext = () => useContext(AuthUserContext); // custom hook
 
-export function AuthUserProvider({ children }) {
+export default function AuthUserProvider({ children }) {
   // context provider
   // console.count("AuthUserProvider");
 

@@ -1,7 +1,7 @@
 import Button from "../../elements/Button";
-import { useAuth } from "../../auth";
+import { useAuthContext } from "../../auth";
 export default function AuthButton() {
-  const appAuth = useAuth();
+  const appAuth = useAuthContext();
   const signedIn = appAuth.authUser !== null;
   const authClickHandler = appAuth.clickHandler;
   const text = signedIn ? "Log Out " + appAuth.authUser.name : "Log In";
