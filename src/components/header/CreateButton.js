@@ -2,7 +2,7 @@ import SvgButton from "../../elements/SvgButton";
 import { useInputFormContext } from "../../contexts/Providers/InputFormProvider";
 import { useTagsContext } from "../../contexts/Providers/TagsProvider";
 const writeClasses =
-  " focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent";
+  " focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent border border-current";
 const cancelClasses =
   "bg-transparent text-pink-300 focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black";
 
