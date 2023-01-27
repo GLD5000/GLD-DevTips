@@ -53,19 +53,22 @@ export default function SaveButtons() {
   );
 
   function onSubmit() {
-    if (tips[data.id] !== undefined) {
+    console.log(tips, data, data.id);
+    if (tips.data[data.id] !== undefined) {
       let text = `
       This will overwrite:    
-      '${data.title}'
+      ID: ' ${data.id} '
+      Title: ' ${data.title} '
       Do you wish to continue?`;
       if (window.confirm(text) === false) {
         window.alert("You cancelled!");
         return;
       }
     }
+    const date = formattedDate();
     dispatchTips({
       type: "ADD_TIP",
-      payload: { tip: data, date: `Saved on: ${formattedDate()}` },
+      payload: { tip: {...data, date: date}, date: `Saved on: ${date}` },
     });
     setSearchString(data.title);
     dispatchInputForm({ type: "CLOSE_FORM" });
