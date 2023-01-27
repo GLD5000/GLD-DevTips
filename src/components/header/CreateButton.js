@@ -28,7 +28,7 @@ export default function CreateButton() {
   const AddTipText = editing ? "Cancel" : "Create";
   const type = editing ? "cancelWrite" : "add";
   return (
-    <div className="width-fit col-start-4 h-full ">
+    <div className="width-fit col-start-4 h-full">
       <SvgButton
         wide="false"
         type={type}

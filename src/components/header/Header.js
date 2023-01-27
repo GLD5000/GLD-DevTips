@@ -12,13 +12,13 @@ const Header = ({
   clearTags,
 }) => {
   return (
-    <section className="sticky top-0 left-0 right-0 z-[999] grid w-screen grid-cols-frAutoFr bg-neutral-700 p-2">
-      <header className=" col-start-2 flex w-body min-w-body max-w-body flex-wrap justify-between">
-        <div className="flex flex-wrap gap-1">
+    <section className="sticky top-0 left-0 right-0 z-[999] grid h-16 w-screen grid-cols-frAutoFr bg-neutral-700 content-center">
+      <header className=" col-start-2 flex w-body min-w-body max-w-body flex-wrap justify-between items-center align-middle  ">
+        <div className="flex flex-wrap gap-4 items-center py-4">
           <GldSvg />
           <h1>{title}</h1>
         </div>
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-4 items-center justify-center py-4 relative h-full">
           <CreateButton
             showAddTipForm={showAddTipForm}
             setShowAddTipForm={setShowAddTipForm}
