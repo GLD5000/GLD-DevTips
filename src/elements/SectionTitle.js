@@ -1,10 +1,6 @@
 const SectionTitle = ({title = null, type}) => {
-  return (<>
-    {(type === "table"|| type === "code")?
-    (<h3 style={{margin: "auto"}}>{title}</h3>):
-    (<h3>{title}</h3>)}
-  </>
-  )
+  return (<h3 className=" decoration-neutral-300 decoration-solid decoration-1 underline px-2 pt-2 pb-4 text-center w-full">{title}</h3>);
 }
+
 
 export default SectionTitle
