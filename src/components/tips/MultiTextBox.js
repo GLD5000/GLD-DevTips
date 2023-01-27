@@ -14,15 +14,12 @@ const MultiTextBox = ({ object }) => {
     table: <Table content={content} />,
     hint: <Hint content={content} />,
   };
-  if (hasTitle) {
     return (
-      <>
-        <SectionTitle title={title} type={type} />
+      <div className="p-4 border-b border-dotted">
+       {hasTitle&& <SectionTitle title={title} type={type} />}
         {typeHandler[type]}
-      </>
+      </div>
     );
-  }
-  return typeHandler[type];
 };
 
 export default MultiTextBox;
