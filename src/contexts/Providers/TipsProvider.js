@@ -47,8 +47,23 @@ function useData() {
           data: action.payload,
         };
       }
-      case "ADD_TIP":
+      case "FAKE_ADD_TIP":
       default: {
+        const tip = action.payload.tip;
+        const date = action.payload.date;
+        oldStateCopy.data[tip.id] = { ...tip, updated: date };
+
+        return {
+          metadata: {
+            status: "added",
+            tags: action.payload.tags,
+            nextTipId: getNewTipId(oldStateCopy.data),
+          },
+          data: oldStateCopy.data,
+        };
+      }
+      case "ADD_TIP":
+      {
         const tip = action.payload.tip;
         const date = action.payload.date;
         if (isOwner) addTipToFirestore(tip);

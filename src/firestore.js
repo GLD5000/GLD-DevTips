@@ -49,7 +49,7 @@ async function addTagToCollection(title, object) {
 
 export async function getUserRole(uid) {
   const rolesDoc = await getDoc(doc(rolesCollection, uid));
-  const role = await rolesDoc.data()["role"];
+  const role = rolesDoc.document? rolesDoc.data()["role"] : "unauthorised";
   return role;
 }
 

@@ -53,7 +53,6 @@ export default function SaveButtons() {
   );
 
   function onSubmit() {
-    console.log(tips, data, data.id);
     if (tips.data[data.id] !== undefined) {
       let text = `
       This will overwrite:    
@@ -77,6 +76,23 @@ export default function SaveButtons() {
     dispatchInputForm({ type: "PREVIEW_TIP" });
   }
   function signedInNonOwner() {
-    alert("You are not allowed to submit to the database- sorry!");
-  }
+    if (tips.data[data.id] !== undefined) {
+      let text = `
+      This will overwrite:    
+      ID: ' ${data.id} '
+      Title: ' ${data.title} '
+      Do you wish to continue?`;
+      if (window.confirm(text) === false) {
+        window.alert("You cancelled!");
+        return;
+      }
+    }
+    const date = formattedDate();
+    dispatchTips({
+      type: "FAKE_ADD_TIP",
+      payload: { tip: {...data, date: date}, date: `Saved on: ${date}` },
+    });
+    setSearchString(data.title);
+    dispatchInputForm({ type: "CLOSE_FORM" });
+    }
 }
