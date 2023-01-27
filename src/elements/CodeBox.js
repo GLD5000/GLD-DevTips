@@ -23,8 +23,9 @@ export default function CodeBox({ content, parse = false }) {
   const firstLineBreak = code.search(/\r?\n/);
   const isLineBreak = firstLineBreak > -1;
   const codeFileName =
-    isLineBreak && code.search(/^[*\w]+\.[*\w]+(?=(\r?\n))/) > -1
-      ? code.slice(0, firstLineBreak)
+    // isLineBreak && (code.search(/^[*\w.]+\.[*\w]+(?=(\r?\n))/) > -1)
+    isLineBreak && (code.search(/^[*\w.]+\.[*\w.:]+(?=(\r?\n))/) > -1 || code.search(/^.+:(?=(\r?\n))/) > -1)
+    ? code.slice(0, firstLineBreak).replace(":","")
       : null;
   const codeBody = codeFileName ? code.slice(firstLineBreak + 1) : code;
   return (
