@@ -55,6 +55,8 @@ export async function getUserRole(uid) {
 
 export async function addTipToFirestore(object) {
   try {
+    if (object.updated !== undefined) delete object.updated;
+
     await addTipToCollection(object.id, object);
     const tagsString = window.sessionStorage.getItem("tags");
     const tagsObject = JSON.parse(tagsString);
@@ -106,7 +108,7 @@ export async function getTipsFirestore() {
   const tipsSnapshot = await getDocs(tipsQuery);
   const tipsObject = {};
   tipsSnapshot.forEach((doc) => {
-    tipsObject[doc.id] = { ...doc.data(), visible: true };
+    tipsObject[doc.id] = doc.data();
   });
   window.sessionStorage.removeItem("tips");
   window.sessionStorage.setItem("tips", JSON.stringify(tipsObject));
