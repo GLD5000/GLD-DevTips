@@ -85,10 +85,10 @@ export default function AuthUserProvider({ children }) {
 }
 
 async function checkRole(user) {
-  // console.count("checkRole");
+  console.count("checkRole");
   const uid = user.uid;
   const role = await getUserRole(uid);
-  // console.log(`got role ${role}`);
+  console.log(`got role ${role}`);
   const isOwner = role === "owner";
   return isOwner;
 }

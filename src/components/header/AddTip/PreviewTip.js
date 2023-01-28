@@ -12,7 +12,7 @@ export default function PreviewTip() {
   } = useInputFormContext();
   const title = tip.title ? tip.title + " (preview)" : "Tip Preview";
   return (
-    <>
+    <div className="relative w-full">
       {preview && (
         <div className="border border-zinc-600 p-2 w-full flex flex-col gap-2">
           <h2 className=" w-full  rounded-none  rounded-t-lg border-b border-b-borderGrey text-center hover:bg-slate-800">
@@ -25,6 +25,6 @@ export default function PreviewTip() {
           {tip.updated && <p>{tip.updated}</p>}
         </div>
       )}
-    </>
+    </div>
   );
 }

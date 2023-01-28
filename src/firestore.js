@@ -49,8 +49,9 @@ async function addTagToCollection(title, object) {
 
 export async function getUserRole(uid) {
   const rolesDoc = await getDoc(doc(rolesCollection, uid));
-  const role = rolesDoc.document? rolesDoc.data()["role"] : "unauthorised";
-  return role;
+  console.log(rolesDoc.data());
+  const data = rolesDoc?.data();
+  if (data !== undefined) return data.role;
 }
 
 export async function addTipToFirestore(object) {
