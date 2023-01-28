@@ -13,7 +13,7 @@ export default function Tip({
   const title =
     tip.titleSuffix === undefined ? tip.title : tip.title + tip.titleSuffix;
   return (
-    <div className="p-2  flex-col gap-2 flex items-start justify-between rounded border w-body min-w-body max-w-body bg-neutral-900">
+    <div className="p-2  flex-col gap-2 flex items-start justify-between rounded border w-body min-w-body max-w-body bg-neutral-800">
       <TipTitle title={title} onClick={toggleExpanded} expanded={expanded} />
       {expanded && (
         <>

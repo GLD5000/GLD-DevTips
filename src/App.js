@@ -6,8 +6,8 @@ import CombinedProviders from "./contexts/CombinedProviders";
 export default function App() {
   return (
     <CombinedProviders>
-        <section id="page-container" className=" h-screen overflow-y-scroll text-zinc-100 border-zinc-600">
-          <h1>Hello, my name is Gareth...</h1>
+        <section id="page-container" className=" h-screen overflow-y-scroll text-zinc-100 border-zinc-600 bg-neutral-900">
+          <h1 className="bg-neutral-800">Hello, my name is Gareth...</h1>
           <Header
             title="DevTips"
           />

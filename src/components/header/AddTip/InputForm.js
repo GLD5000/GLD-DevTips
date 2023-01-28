@@ -6,7 +6,7 @@ import PreviewTip from "./PreviewTip";
 
 export default function InputForm() {
   return (
-    <div className=" mb-10 grid justify-items-center gap-4 rounded  bg-zinc-900">
+    <div className=" mb-10 grid justify-items-center gap-4">
       <div className="my-5 grid grid-cols-1 gap-2">
         <label className="grid">
           <InputTitle />

@@ -31,7 +31,7 @@ const Table = ({ content, parse = false }) => {
         <thead className=" text-lg bg-neutral-600">
           <Tr key="0" row={tableArray[0]} rowIndex="0" />
         </thead>
-        <tbody>
+        <tbody className=" bg-neutral-900">
           {tableArray.map((row, rowIndex) => rowHandler(row, rowIndex))}
         </tbody>
       </table>

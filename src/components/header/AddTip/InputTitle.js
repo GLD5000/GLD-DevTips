@@ -19,11 +19,11 @@ export default function InputTitle() {
 
   return (
     <>
-              <h2>Tip No. {id}</h2>
+              <h3>Tip No. {id}:</h3>
 
-    <input
-      className="border-zinc-600 border rounded bg-inherit  w-full h-8 p-1"
-      type="text"
+<input
+  className=" bg-neutral-700 rounded-none  w-full h-8 px-2 py-5 text-2xl text-center"
+  type="text"
       placeholder=" Add a title or topic for your tip..."
       onChange={(e) => handler(e)}
       autoComplete="off"
