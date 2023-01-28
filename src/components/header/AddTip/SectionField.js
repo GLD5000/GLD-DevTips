@@ -27,11 +27,11 @@ const informationLookup = {
 };
 
 const classNameLookup = {
-  text: "resize-y p-2 overflow-auto border-zinc-600 border rounded bg-inherit",
-  hint: "resize-y overflow-auto whitespace-pre-wrap border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black",
-  code: "resize-y p-2 bg-black text-vsGreen font-mono whitespace-pre overflow-auto border-vsGreen border rounded ",
+  text: "resize-y p-2 overflow-x-auto border-zinc-600 border rounded bg-inherit",
+  hint: "resize-y overflow-x-auto whitespace-pre-wrap border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black",
+  code: "resize-y p-2 bg-black text-vsGreen font-mono whitespace-pre overflow-x-auto border-vsGreen border rounded ",
   table:
-    "resize-y p-2 whitespace-pre overflow-auto border-zinc-600 border rounded bg-inherit",
+    "resize-y p-2 whitespace-pre overflow-x-auto border-zinc-600 border rounded bg-inherit",
 };
 
 export default function SectionField({
@@ -71,6 +71,7 @@ export default function SectionField({
         // cols="70"
         onInput={handleChange}
         value={value}
+        wrap={"hard"}
       ></textarea>
     </>
   );

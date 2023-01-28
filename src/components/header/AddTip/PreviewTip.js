@@ -12,15 +12,13 @@ export default function PreviewTip() {
   } = useInputFormContext();
   const title = tip.title ? tip.title + " (preview)" : "Tip Preview";
   return (
-    <div className="relative w-full">
+    <div className="relative ">
       {preview && (
-        <div className="border border-zinc-600 p-2 w-full flex flex-col gap-2">
-          <h2 className=" w-full  rounded-none  rounded-t-lg border-b border-b-borderGrey text-center hover:bg-slate-800">
+        <div className="border border-zinc-600 p-2 w-full flex flex-col gap-2 relative">
+          <h2 className=" w-full rounded-none rounded-t-lg border-b border-b-borderGrey text-center hover:bg-slate-800">
             {title}{" "}
           </h2>
-          <>
             <MultiTextBoxes tip={tip} />
-          </>
           <Tags tagArray={tip.tags} />
           {tip.updated && <p>{tip.updated}</p>}
         </div>

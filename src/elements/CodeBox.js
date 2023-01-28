@@ -24,12 +24,14 @@ export default function CodeBox({ content, parse = false }) {
   const isLineBreak = firstLineBreak > -1;
   const codeFileName =
     // isLineBreak && (code.search(/^[*\w.]+\.[*\w]+(?=(\r?\n))/) > -1)
-    isLineBreak && (code.search(/^[*\w.]+\.[*\w.:]+(?=(\r?\n))/) > -1 || code.search(/^.+:(?=(\r?\n))/) > -1)
-    ? code.slice(0, firstLineBreak).replace(":","")
+    isLineBreak &&
+    (code.search(/^[*\w.]+\.[*\w.:]+(?=(\r?\n))/) > -1 ||
+      code.search(/^.+:(?=(\r?\n))/) > -1)
+      ? code.slice(0, firstLineBreak).replace(":", "")
       : null;
   const codeBody = codeFileName ? code.slice(firstLineBreak + 1) : code;
   return (
-    <code className="block h-fit overflow-x-auto whitespace-pre rounded border border-solid border-neutral-500 bg-black font-mono text-vsGreen placeholder:text-vsGreen">
+    <code className="block h-fit max-w-full overflow-x-auto whitespace-pre rounded border border-solid border-neutral-500 bg-black font-mono text-vsGreen placeholder:text-vsGreen">
       {codeFileName && <h3 className="file-name p-3">{codeFileName}</h3>}
       {`${codeBody}`}
       <SvgButton

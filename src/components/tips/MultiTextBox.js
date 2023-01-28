@@ -15,7 +15,7 @@ const MultiTextBox = ({ object }) => {
     hint: <Hint content={content} />,
   };
     return (
-      <div className="p-4 border-b border-dotted">
+      <div className="p-4 border-b border-dotted w-full">
        {hasTitle&& <SectionTitle title={title} type={type} />}
         {typeHandler[type]}
       </div>
