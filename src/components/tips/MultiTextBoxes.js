@@ -1,6 +1,6 @@
 import MultiTextBox from './MultiTextBox';
 
-const MultiTextBoxes = ({ tip }) => {
+function MultiTextBoxes({ tip }) {
   return (
     <section className="relative ml-0 mb-auto flex w-full flex-col gap-4 p-2">
       {tip.sections.map((object, index) => (
@@ -8,6 +8,6 @@ const MultiTextBoxes = ({ tip }) => {
       ))}
     </section>
   );
-};
+}
 
 export default MultiTextBoxes;

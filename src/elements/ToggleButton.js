@@ -1,7 +1,7 @@
 import TickSvg from '../components/icons/TickSvg';
 import UnTickSvg from '../components/icons/UnTickSvg';
 
-let showText = true;
+const showText = true;
 function defaultOnClick(e) {
   console.log(e.target);
 }
@@ -26,7 +26,7 @@ export default function ToggleButton({
   const svg = getSvg(type)[toggle];
 
   function clickHandler(e) {
-    //return if wrong
+    // return if wrong
     clickFunction(e);
   }
   if (toggle === false) {
@@ -34,22 +34,20 @@ export default function ToggleButton({
     color = '#000000';
   }
   const styles = {
-    color: color,
-    backgroundColor: backgroundColor,
+    color,
+    backgroundColor,
   };
 
   return (
-    <>
-      <button
-        id={id}
-        name={name}
-        onClick={clickHandler}
-        className={`grid grid-cols-autoAuto items-center gap-2 border-2 border-zinc-600 px-2 py-1 hover:border-white`}
-        style={styles}
-      >
-        {showText && text}
-        {svg}
-      </button>
-    </>
+    <button
+      id={id}
+      name={name}
+      onClick={clickHandler}
+      className="grid grid-cols-autoAuto items-center gap-2 border-2 border-zinc-600 px-2 py-1 hover:border-white"
+      style={styles}
+    >
+      {showText && text}
+      {svg}
+    </button>
   );
 }

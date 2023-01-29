@@ -1,5 +1,3 @@
 export default function P({ content }) {
-  return (
-    <p >{ content }</p>
-  )
+  return <p>{content}</p>;
 }

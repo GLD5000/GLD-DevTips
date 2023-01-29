@@ -1,6 +1,7 @@
 import SvgButton from '../../elements/SvgButton';
 import { useInputFormContext } from '../../contexts/Providers/InputFormProvider';
 import { useTagsContext } from '../../contexts/Providers/TagsProvider';
+
 const writeClasses =
   ' focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent border border-current';
 const cancelClasses =
@@ -34,7 +35,7 @@ export default function CreateButton() {
         type={type}
         text={AddTipText}
         clickFunction={onCreate}
-        reverse={true}
+        reverse
         buttonClasses={editing ? cancelClasses : writeClasses}
         activeClasses="active:bg-slate-400 grid-cols-autoFr "
       />

@@ -8,7 +8,7 @@ function removeParagraphs(string) {
 function parseDataToArray(text) {
   if (Array.isArray(text)) return text;
   const rows = text.split(/\r?\n\s*/);
-  let returnArray = [];
+  const returnArray = [];
   rows.forEach((row, index) => {
     returnArray[index] = splitRow(row);
   });
@@ -25,7 +25,7 @@ function rowHandler(row, rowIndex) {
   if (rowIndex === 0) return;
   return <Tr key={rowIndex} row={row} rowIndex={rowIndex} />;
 }
-const Table = ({ content, parse = false }) => {
+function Table({ content, parse = false }) {
   if (parse) content = removeParagraphs(content);
   const tableArray = parseDataToArray(content);
   return (
@@ -40,6 +40,6 @@ const Table = ({ content, parse = false }) => {
       </table>
     </section>
   );
-};
+}
 
 export default Table;

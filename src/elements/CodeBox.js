@@ -1,6 +1,6 @@
-import SvgButton from '../elements/SvgButton';
-
 import { useState, useEffect } from 'react';
+import SvgButton from './SvgButton';
+
 function removeParagraphs(string) {
   const regex = /(PpPpEEE)|(PpPpSSS)/g;
   return string.replaceAll(regex, ``);
@@ -35,15 +35,15 @@ export default function CodeBox({ content, parse = false }) {
       {`${codeBody}`}
       <SvgButton
         type="duplicate"
-        key={1 + 'copyCode'}
+        key={`${1}copyCode`}
         text={copyButtonMessage}
         clickFunction={() => {
           if (codeBody.includes('Pp')) alert(codeBody);
           navigator.clipboard.writeText(codeBody);
           setCopyButtonMessage('Copied!');
         }}
-        wide={true}
-        showText={true}
+        wide
+        showText
         reverse={false}
         buttonClasses="border-transparent sticky left-0"
         className=" sticky left-0 bottom-0 flex w-full  items-center justify-start border-2 border-transparent border-t-neutral-600 bg-slate-900 hover:border-2 hover:border-current active:bg-slate-600"

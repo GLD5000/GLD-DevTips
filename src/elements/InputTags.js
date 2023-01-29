@@ -2,7 +2,8 @@ import InputText from './InputText';
 import TagSet from '../components/header/TagSet';
 import { useTagsContext } from '../contexts/Providers/TagsProvider';
 import { useInputFormContext } from '../contexts/Providers/InputFormProvider';
-let keyMod = 0;
+
+const keyMod = 0;
 export default function InputTags() {
   const {
     tags: { data: tags },
@@ -20,8 +21,8 @@ export default function InputTags() {
   return (
     <>
       <TagSet
-        key={keyMod + 'a'}
-        title={'Choose Tags'}
+        key={`${keyMod}a`}
+        title="Choose Tags"
         tags={tags}
         dispatchTags={dispatchInputForm}
         activeTags={existingTagsSet}
@@ -30,7 +31,7 @@ export default function InputTags() {
       <label className="grid">
         Add new tags as a List (separated by spaces or commas)
         <InputText
-          key={keyMod + 'b'}
+          key={`${keyMod}b`}
           placeholder=" E.G.: JavaScript, Fundamentals"
           onInput={updateCustomTags}
           value={newTagsString}

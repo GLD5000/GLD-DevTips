@@ -10,7 +10,7 @@ export default function UnTickSvg({ fill = 'none' }) {
             stroke: '#000000',
             strokeWidth: '1.5',
             strokeLinecap: 'round',
-            fill: fill,
+            fill,
           }}
         />
       </svg>

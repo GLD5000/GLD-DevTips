@@ -34,9 +34,9 @@ const classNameLookup = {
 };
 
 export default function SectionField({ type, changeText, name, value, id = null }) {
-  let showInformation = true;
+  const showInformation = true;
   function handleChange(e) {
-    const value = e.target.value;
+    const { value } = e.target;
     const index = e.target.name;
     changeText({
       type: 'REPLACE_SECTION_DATA_FIELD',
@@ -51,7 +51,7 @@ export default function SectionField({ type, changeText, name, value, id = null 
 
   return (
     <>
-      <label className="grid " id={id + 'info'}>
+      <label className="grid " id={`${id}info`}>
         {showInformation === true && information}
       </label>
 
@@ -64,8 +64,8 @@ export default function SectionField({ type, changeText, name, value, id = null 
         // cols='70'
         onInput={handleChange}
         value={value}
-        wrap={'hard'}
-      ></textarea>
+        wrap="hard"
+      />
     </>
   );
 }

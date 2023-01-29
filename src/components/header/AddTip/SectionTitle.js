@@ -3,15 +3,15 @@ function defaultOnInput(value) {
   Value is: ${value}`);
 }
 
-const SectionTitle = ({
+function SectionTitle({
   placeholder = 'Type here...',
   onInput = defaultOnInput,
   type = 'text',
   name = undefined,
   value = '',
-}) => {
+}) {
   const handler = (e) => {
-    const value = e.target.value;
+    const { value } = e.target;
     const index = e.target.name;
     onInput({
       type: 'REPLACE_SECTION_DATA_FIELD',
@@ -27,8 +27,8 @@ const SectionTitle = ({
       name={name}
       autoComplete="off"
       value={value}
-    ></input>
+    />
   );
-};
+}
 
 export default SectionTitle;

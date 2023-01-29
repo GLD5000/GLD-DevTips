@@ -10,7 +10,7 @@ export default function PreviewTip() {
       metadata: { preview },
     },
   } = useInputFormContext();
-  const title = tip.title ? tip.title + ' (preview)' : 'Tip Preview';
+  const title = tip.title ? `${tip.title} (preview)` : 'Tip Preview';
   return (
     <div className="relative ">
       {preview && (

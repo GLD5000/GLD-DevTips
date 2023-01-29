@@ -16,8 +16,8 @@ import BulletSvg from '../components/icons/BulletSvg';
 import NumberedSvg from '../components/icons/NumberedSvg';
 import TableSvg from '../components/icons/TableSvg';
 import HintSvg from '../components/icons/HintSvg';
-//import CollapseSvg from '../components/icons/Collapse'
-//import ExpandSvg from '../components/icons/Expand'
+// import CollapseSvg from '../components/icons/Collapse'
+// import ExpandSvg from '../components/icons/Expand'
 function defaultOnClick(e) {
   console.log(e.target);
 }
@@ -84,17 +84,15 @@ export default function SvgButton({
   const svg = getSvg(type, svgClasses);
   const content = getContent(reverse, showText, text, svg);
   return (
-    <>
-      <button
-        id={id}
-        name={name}
-        onClick={clickFunction}
-        onMouseEnter={hoverFunction}
-        className={className.replaceAll(/[\s]+/g, ' ')}
-        aria-label={name}
-      >
-        {content}
-      </button>
-    </>
+    <button
+      id={id}
+      name={name}
+      onClick={clickFunction}
+      onMouseEnter={hoverFunction}
+      className={className.replaceAll(/[\s]+/g, ' ')}
+      aria-label={name}
+    >
+      {content}
+    </button>
   );
 }

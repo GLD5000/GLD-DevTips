@@ -1,7 +1,7 @@
 import TitleButtons from './TitleButtons';
 import SearchTitle from '../../elements/SearchTitle';
 
-const TitleFilter = ({ toggleExpanded, expanded }) => {
+function TitleFilter({ toggleExpanded, expanded }) {
   const listId = 'searchTitleList';
   const title = 'Search Title';
   return (
@@ -10,6 +10,6 @@ const TitleFilter = ({ toggleExpanded, expanded }) => {
       <TitleButtons listId={listId} />
     </div>
   );
-};
+}
 
 export default TitleFilter;

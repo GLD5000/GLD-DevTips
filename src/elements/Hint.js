@@ -1,6 +1,6 @@
-import { recursiveParser } from "../utilities/markdownParser";
+import { recursiveParser } from '../utilities/markdownParser';
 
-const Hint = ({ content, parse = true }) => {
+function Hint({ content, parse = true }) {
   if (parse) {
     content = recursiveParser(content);
   }
@@ -9,6 +9,6 @@ const Hint = ({ content, parse = true }) => {
       {content}
     </div>
   );
-};
+}
 
 export default Hint;

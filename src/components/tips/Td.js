@@ -1,18 +1,16 @@
-import { recursiveParser } from "../../utilities/markdownParser";
+import { recursiveParser } from '../../utilities/markdownParser';
+
 let index = 0;
 const flagMap = new Map([
-  [/^\s?######/, { type: "h6" }],
-  [/^\s?#####(?!#)/, { type: "h5" }],
-  [/^\s?####(?!#)/, { type: "h4" }],
-  [/^\s?###(?!#)/, { type: "h3" }],
-  [/^\s?##(?!#)/, { type: "h2" }],
-  [/^\s?#(?!#)/, { type: "h1" }],
-  [
-    /\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/,
-    { closingFlag: ")", type: "link" },
-  ],
-  ["**", { closingFlag: "**", type: "bold" }],
-  ["_", { closingFlag: "_", type: "italic" }],
+  [/^\s?######/, { type: 'h6' }],
+  [/^\s?#####(?!#)/, { type: 'h5' }],
+  [/^\s?####(?!#)/, { type: 'h4' }],
+  [/^\s?###(?!#)/, { type: 'h3' }],
+  [/^\s?##(?!#)/, { type: 'h2' }],
+  [/^\s?#(?!#)/, { type: 'h1' }],
+  [/\[(?=[\w\d.*\-/\s]+\]\([\w\d.\-/:]+\))/, { closingFlag: ')', type: 'link' }],
+  ['**', { closingFlag: '**', type: 'bold' }],
+  ['_', { closingFlag: '_', type: 'italic' }],
 ]);
 
 function wrapText({ index, text, type }) {
@@ -34,24 +32,18 @@ function wrapText({ index, text, type }) {
   return typeHandler[type];
 }
 
-
 function parseLinks(cell) {
   index += 1;
   // console.group(`recursiveParser(cell, index, flagMap)`);
 
   // console.groupEnd();
-  return recursiveParser({cell, index, flagMap, wrapText});
+  return recursiveParser({ cell, index, flagMap, wrapText });
 }
 
-const Td = ({ cell }) => {
-  if (
-    cell.includes("www") ||
-    cell.includes("**") ||
-    cell.includes("_") ||
-    cell.includes("#")
-  )
+function Td({ cell }) {
+  if (cell.includes('www') || cell.includes('**') || cell.includes('_') || cell.includes('#'))
     cell = parseLinks(cell);
-  return <td className="p-1 text-center border-2 border-collapse border-neutral-400">{cell}</td>;
-};
+  return <td className="border-collapse border-2 border-neutral-400 p-1 text-center">{cell}</td>;
+}
 
 export default Td;

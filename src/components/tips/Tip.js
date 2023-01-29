@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import MultiTextBoxes from './MultiTextBoxes';
 import TipTitle from '../../elements/TipTitle';
 import EditButton from './EditButton';
 import Tags from './Tags';
-import { useState } from 'react';
+
 export default function Tip({ tip, updated }) {
   const [expanded, setExpanded] = useState(() => false);
   function toggleExpanded() {
@@ -14,7 +15,7 @@ export default function Tip({ tip, updated }) {
       <TipTitle title={title} onClick={toggleExpanded} expanded={expanded} />
       {expanded && (
         <>
-          <EditButton key={'edit' + tip.id} tipId={tip.id} />
+          <EditButton key={`edit${tip.id}`} tipId={tip.id} />
           <MultiTextBoxes tip={tip} />
         </>
       )}

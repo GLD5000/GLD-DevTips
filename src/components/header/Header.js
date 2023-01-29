@@ -1,16 +1,16 @@
+import PropTypes from 'prop-types';
 import CreateButton from './CreateButton';
 import GldSvg from '../icons/GldSvg';
-import PropTypes from 'prop-types';
 import AuthButton from './AuthButton';
 
-const Header = ({
+function Header({
   title,
   showAddTipForm,
   setShowAddTipForm,
   addObjectToInputFormState,
   setSearchQuery,
   clearTags,
-}) => {
+}) {
   return (
     <section className="sticky top-0 left-0 right-0 z-[999] grid h-16 w-screen grid-cols-frAutoFr content-center bg-neutral-800">
       <header className=" col-start-2 flex w-body min-w-body max-w-body flex-wrap items-center justify-between align-middle  ">
@@ -31,7 +31,7 @@ const Header = ({
       </header>
     </section>
   );
-};
+}
 Header.defaultProps = {
   title: 'Default Title',
 };

@@ -1,7 +1,7 @@
 import CollapseSvg from '../components/icons/CollapseSvg';
 import ExpandSvg from '../components/icons/ExpandSvg';
 
-const TipTitle = ({ title, onClick, expanded }) => {
+function TipTitle({ title, onClick, expanded }) {
   const conditionalClasses = expanded ? 'sticky top-16 py-4 z-50 ' : null;
   return (
     <button
@@ -16,6 +16,6 @@ const TipTitle = ({ title, onClick, expanded }) => {
       )}
     </button>
   );
-};
+}
 
 export default TipTitle;

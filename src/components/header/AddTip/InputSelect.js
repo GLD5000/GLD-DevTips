@@ -1,4 +1,4 @@
-const InputSelect = ({ type, name, changeType, value }) => {
+function InputSelect({ type, name, changeType, value }) {
   function makeOptionsArray() {
     const options = ['text', 'code', 'hint', 'table'];
     return options.map((option, index) => (
@@ -9,7 +9,7 @@ const InputSelect = ({ type, name, changeType, value }) => {
   }
 
   function handleChange(e) {
-    const value = e.target.value;
+    const { value } = e.target;
     const index = e.target.name;
     changeType({
       type: 'REPLACE_SECTION_DATA_FIELD',
@@ -28,6 +28,6 @@ const InputSelect = ({ type, name, changeType, value }) => {
       {optionsArray}
     </select>
   );
-};
+}
 
 export default InputSelect;

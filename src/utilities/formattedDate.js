@@ -1,11 +1,11 @@
 export default function formattedDate() {
   const dateRaw = new Date();
-  const formattedDate = `${dateRaw.getDate().toString().padStart(2, '0')}/${(dateRaw.getMonth() + 1)
+  const date = `${dateRaw.getDate().toString().padStart(2, '0')}/${(dateRaw.getMonth() + 1)
     .toString()
     .padStart(2, '0')}/${dateRaw.getFullYear()} ${dateRaw
     .getHours()
     .toString()
     .padStart(2, '0')}:${dateRaw.getMinutes().toString().padStart(2, '0')}`;
 
-  return formattedDate;
+  return date;
 }

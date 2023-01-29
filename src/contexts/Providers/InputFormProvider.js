@@ -113,11 +113,11 @@ function useData() {
         return { data: oldData, metadata: oldMetadata };
       }
       case 'REPLACE_FIELD': {
-        const field = action.payload.field;
-        const value = action.payload.value;
+        const { field } = action.payload;
+        const { value } = action.payload;
 
         oldData[field] = value;
-        const focusId = action.payload.focusId;
+        const { focusId } = action.payload;
         if (focusId !== undefined) {
           oldMetadata.focusId = focusId;
         }
@@ -143,9 +143,9 @@ function useData() {
         return { data: oldData, metadata: oldMetadata };
       }
       case 'REPLACE_SECTION_DATA_FIELD': {
-        const index = action.payload.index;
-        const value = action.payload.value;
-        const field = action.payload.field;
+        const { index } = action.payload;
+        const { value } = action.payload;
+        const { field } = action.payload;
         oldData.sections[index][field] = value;
         return { data: oldData, metadata: oldMetadata };
       }

@@ -1,6 +1,6 @@
 import Td from './Td';
 
-const Tr = ({ row, rowIndex }) => {
+function Tr({ row, rowIndex }) {
   return (
     <tr>
       {row.map((cell, cellIndex) => (
@@ -8,6 +8,6 @@ const Tr = ({ row, rowIndex }) => {
       ))}
     </tr>
   );
-};
+}
 
 export default Tr;

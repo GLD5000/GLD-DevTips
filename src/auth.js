@@ -1,9 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signOut as authSignOut } from 'firebase/auth';
+import {
+  onAuthStateChanged,
+  signOut as authSignOut,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from 'firebase/auth';
 import { auth as firebaseAuth } from './firebase';
-//additional
+// additional
 import { getUserRole } from './firestore';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
@@ -82,7 +86,7 @@ export default function AuthUserProvider({ children }) {
 
 async function checkRole(user) {
   // console.count('checkRole');
-  const uid = user.uid;
+  const { uid } = user;
   const role = await getUserRole(uid);
   // console.log(`got role ${role}`);
   const isOwner = role === 'owner';

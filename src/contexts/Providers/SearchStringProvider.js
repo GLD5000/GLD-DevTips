@@ -1,4 +1,5 @@
 import { useState, createContext, useContext } from 'react';
+
 function useData() {
   const [searchString, setSearchString] = useState(getTitleFromUrl());
   return {
@@ -15,7 +16,7 @@ const SearchString = createContext();
 export const useSearchStringContext = () => useContext(SearchString); // custom hook
 
 function getTitleFromUrl() {
-  const search = window.location.search;
+  const { search } = window.location;
   if (search === '') return '';
   const searchObject = new URLSearchParams(search);
   const searchFromUrl = searchObject.get('title');

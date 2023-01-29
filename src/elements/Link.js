@@ -3,9 +3,9 @@ function getTags(string, start, end = undefined) {
   return string.slice(start, end);
 }
 function getUrl() {
-  let href = window.location.href;
+  let { href } = window.location;
   if (href.indexOf('?') > -1) href = href.split('?')[0];
-  return href + '?';
+  return `${href}?`;
 }
 function sliceLinkLocalUrl(item) {
   const indexOfOpenBracket = item.indexOf('(');

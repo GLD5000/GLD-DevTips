@@ -1,7 +1,8 @@
 import Tip from './Tip';
 import { useFilteredTipsContext } from '../../contexts/Providers/FilteredTipsProvider';
 import { useInputFormContext } from '../../contexts/Providers/InputFormProvider';
-const Tips = ({ setTagStateFromTip, editTip, showAddTipForm }) => {
+
+function Tips({ setTagStateFromTip, editTip, showAddTipForm }) {
   const tips = useFilteredTipsContext();
   const {
     inputForm: {
@@ -23,6 +24,6 @@ const Tips = ({ setTagStateFromTip, editTip, showAddTipForm }) => {
         ))}
     </section>
   );
-};
+}
 
 export default Tips;

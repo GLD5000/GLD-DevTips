@@ -10,10 +10,10 @@ export default function InputTitle() {
   } = useInputFormContext();
 
   const handler = (e) => {
-    const value = e.target.value;
+    const { value } = e.target;
     dispatchInputForm({
       type: 'REPLACE_FIELD',
-      payload: { field: 'title', value: value },
+      payload: { field: 'title', value },
     });
   };
 
@@ -28,7 +28,7 @@ export default function InputTitle() {
         onChange={(e) => handler(e)}
         autoComplete="off"
         defaultValue={title}
-      ></input>
+      />
     </>
   );
 }

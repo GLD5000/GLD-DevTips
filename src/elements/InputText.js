@@ -3,13 +3,13 @@ function defaultOnInput(value) {
   Value is: ${value}`);
 }
 
-const InputText = ({
+function InputText({
   placeholder = 'Type here...',
   onInput = defaultOnInput,
   type = 'text',
   listId = null,
   value = '',
-}) => {
+}) {
   const handler = (value) => {
     onInput(value);
   };
@@ -24,8 +24,8 @@ const InputText = ({
       list={listId}
       autoComplete="off"
       value={value}
-    ></input>
+    />
   );
-};
+}
 
 export default InputText;

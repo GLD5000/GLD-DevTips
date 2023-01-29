@@ -11,8 +11,8 @@ export default function tagHexLookup(tag) {
     const textColour = AutoTextColour(backgroundColour);
     tagColours[lowerCaseTag] = {
       name: tag,
-      backgroundColour: backgroundColour,
-      textColour: textColour,
+      backgroundColour,
+      textColour,
     };
   }
 

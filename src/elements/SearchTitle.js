@@ -1,6 +1,6 @@
 import CollapseSvg from '../components/icons/CollapseSvg';
 import ExpandSvg from '../components/icons/ExpandSvg';
-import InputText from '../elements/InputText';
+import InputText from './InputText';
 import { useSearchStringContext } from '../contexts/Providers/SearchStringProvider';
 
 export default function SearchTitle({ title, onClick, expanded, listId }) {
@@ -25,7 +25,7 @@ export default function SearchTitle({ title, onClick, expanded, listId }) {
         type="search"
         value={searchString}
         listId={listId}
-        controlled={true}
+        controlled
       />
     </>
   );

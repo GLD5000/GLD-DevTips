@@ -4,11 +4,11 @@ import Hint from '../../elements/Hint';
 import TextBox from '../../elements/TextBox';
 import SectionTitle from '../../elements/SectionTitle';
 
-const MultiTextBox = ({ object }) => {
-  const type = object.type;
-  const title = object.title;
+function MultiTextBox({ object }) {
+  const { type } = object;
+  const { title } = object;
   const hasTitle = object.title != null;
-  const content = object.content;
+  const { content } = object;
   const typeHandler = {
     code: <CodeBox content={content} />,
     text: <TextBox text={content} />,
@@ -21,6 +21,6 @@ const MultiTextBox = ({ object }) => {
       {typeHandler[type]}
     </div>
   );
-};
+}
 
 export default MultiTextBox;

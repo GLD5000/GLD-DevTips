@@ -3,7 +3,7 @@ import Button from '../../elements/Button';
 
 export default function TagSet({ title = 'Filter Tags', tags, dispatchTags, activeTags }) {
   function handleClickTag(payload) {
-    dispatchTags({ type: 'TOGGLE_TAG', payload: payload });
+    dispatchTags({ type: 'TOGGLE_TAG', payload });
   }
   function handleClickClear() {
     dispatchTags({ type: 'CLEAR_TAGS' });
@@ -20,10 +20,10 @@ export default function TagSet({ title = 'Filter Tags', tags, dispatchTags, acti
       <Button
         name="Clear Tags"
         id="clear-tags"
-        key={'clearA0'}
-        color={'black'}
-        backgroundColor={'IndianRed'}
-        text={'Clear Tags'}
+        key="clearA0"
+        color="black"
+        backgroundColor="IndianRed"
+        text="Clear Tags"
         clickFunction={handleClickClear}
         className="bg-red-400 text-black hover:border-white"
       />,
@@ -35,7 +35,7 @@ export default function TagSet({ title = 'Filter Tags', tags, dispatchTags, acti
     <>
       <h2>{title}</h2>
       <section className="flex w-full flex-wrap items-center justify-center gap-2 p-2">
-        <>{buttonArray}</>
+        {buttonArray}
       </section>
     </>
   );

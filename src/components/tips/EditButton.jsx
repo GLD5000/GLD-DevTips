@@ -14,7 +14,7 @@ export default function EditButton({ tipId }) {
     <SvgButton
       wide="false"
       type="write"
-      key={'edit' + tipId}
+      key={`edit${tipId}`}
       id={tipId}
       buttonClasses="text-whitesmoke bg-transparent ml-auto grid-cols-autoFr"
       text="Edit"

@@ -21,8 +21,8 @@ export default function TagButton({
       id={id}
       name={name}
       onClick={clickHandler}
-      className={'border-2 py-1 px-2 hover:border-white active:bg-slate-600 ' + className}
-      style={{ color: color, backgroundColor: backgroundColor }}
+      className={`border-2 py-1 px-2 hover:border-white active:bg-slate-600 ${className}`}
+      style={{ color, backgroundColor }}
     >
       {text}
     </button>

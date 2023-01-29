@@ -102,14 +102,14 @@ function getReturnArray(type, index, AddToTextarea) {
         type={btn.type}
         color="whitesmoke"
         backgroundColor="transparent"
-        id={index + '-' + btn.text}
+        id={`${index}-${btn.text}`}
         key={btn.text}
         name={btn.text}
         text={btn.text}
         clickFunction={btn.onClick}
         marginLeft="0"
         showText={false}
-        buttonClasses={`w-fit grid grid-cols-autoAuto`}
+        buttonClasses="w-fit grid grid-cols-autoAuto"
       />
     );
   });
@@ -132,12 +132,12 @@ export default function SectionTextTools({ index, type }) {
     insertTextArea(selection, textToAdd);
   }
   function updateSelection(sectionNumber) {
-    selection.start = document.getElementById(sectionNumber + '-SectionField').selectionStart;
-    selection.end = document.getElementById(sectionNumber + '-SectionField').selectionEnd;
+    selection.start = document.getElementById(`${sectionNumber}-SectionField`).selectionStart;
+    selection.end = document.getElementById(`${sectionNumber}-SectionField`).selectionEnd;
     selection.index = sectionNumber;
   }
   function insertTextArea(selection, textToAdd) {
-    const inputElement = document.getElementById(selection.index + '-SectionField');
+    const inputElement = document.getElementById(`${selection.index}-SectionField`);
     const currentValue = inputElement.value;
     const oldContent = splitContent(selection, currentValue);
     const newContent = toggleFlags(textToAdd, oldContent, selection);
@@ -146,21 +146,21 @@ export default function SectionTextTools({ index, type }) {
     addTextareaToState(selection.index, newContent);
   }
   function getSectionIndexFromId(e) {
-    return parseInt(e.target.id.split('-')[0],10);
+    return parseInt(e.target.id.split('-')[0], 10);
   }
   function addTextareaToState(index, newContent) {
     dispatchInputForm({
       type: 'REPLACE_SECTION_DATA_FIELD',
       payload: {
         field: 'content',
-        index: index,
+        index,
         value: newContent,
       },
     });
   }
 
   function updateTextArea({ index, start, end }, content) {
-    const inputElement = document.getElementById(index + '-SectionField');
+    const inputElement = document.getElementById(`${index}-SectionField`);
     inputElement.select();
     inputElement.setRangeText(content);
     inputElement.selectionStart = start;
@@ -186,7 +186,7 @@ export default function SectionTextTools({ index, type }) {
   }
 
   function addHash(oldContent, textToAdd) {
-    const preSelection = oldContent[0] + '#';
+    const preSelection = `${oldContent[0]}#`;
     const selectedText = oldContent[1] === '' ? textToAdd[1] : oldContent[1];
     const postSelection = oldContent[2];
     selection.start = preSelection.length;
@@ -242,7 +242,7 @@ export default function SectionTextTools({ index, type }) {
       selection.start !== 0 &&
       oldContent[0][oldContent[0].length - 1] !== '\n'
     )
-      textToAdd[0] = '\n' + textToAdd[0];
+      textToAdd[0] = `\n${textToAdd[0]}`;
     return addFlags(oldContent, textToAdd);
   }
 

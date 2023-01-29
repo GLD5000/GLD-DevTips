@@ -10,7 +10,7 @@ export default function Tags({ tagArray }) {
     },
   } = useTagsContext();
   function handleClickTag(payload) {
-    dispatchTags({ type: 'TOGGLE_TAG', payload: payload });
+    dispatchTags({ type: 'TOGGLE_TAG', payload });
   }
   return (
     <div className=" flex h-min w-full  flex-wrap content-center justify-center gap-2">
