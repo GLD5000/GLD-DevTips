@@ -103,7 +103,6 @@ function wrapLists(arrayOfObjects) {
   let listType = null;
   if (Array.isArray(arrayOfObjects) === false) return arrayOfObjects;
   arrayOfObjects?.forEach((paragraph, index, arr) => {
-    console.assert(typeof paragraph === 'object', arrayOfObjects);
     if (typeof paragraph !== 'object') return;
     const wrappedObject = paragraph;
     const type = findObjectType(wrappedObject);
