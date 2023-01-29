@@ -20,34 +20,27 @@ const placeHolderObject = {
       Third Row A,Third Row B,Third Row C   `,
 };
 const informationLookup = {
-  text: "You can use some basic markdown to enhance your text, use the buttons above to help you!",
+  text: 'You can use some basic markdown to enhance your text, use the buttons above to help you!',
   hint: `Type or paste your hint here...`,
   code: `Type or paste some code here...`,
   table: `Type or paste comma separated values (CSV) here...`,
 };
 
 const classNameLookup = {
-  text: "resize-y p-2 overflow-x-auto border-zinc-600 border rounded bg-inherit",
-  hint: "resize-y overflow-x-auto whitespace-pre-wrap border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black",
-  code: "resize-y p-2 bg-black text-vsGreen font-mono whitespace-pre overflow-x-auto border-vsGreen border rounded ",
-  table:
-    "resize-y p-2 whitespace-pre overflow-x-auto border-zinc-600 border rounded bg-inherit",
+  text: 'resize-y p-2 overflow-x-auto border-zinc-600 border rounded bg-inherit',
+  hint: 'resize-y overflow-x-auto whitespace-pre-wrap border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black',
+  code: 'resize-y p-2 bg-black text-vsGreen font-mono whitespace-pre overflow-x-auto border-vsGreen border rounded ',
+  table: 'resize-y p-2 whitespace-pre overflow-x-auto border-zinc-600 border rounded bg-inherit',
 };
 
-export default function SectionField({
-  type,
-  changeText,
-  name,
-  value,
-  id = null,
-}) {
+export default function SectionField({ type, changeText, name, value, id = null }) {
   let showInformation = true;
   function handleChange(e) {
     const value = e.target.value;
     const index = e.target.name;
     changeText({
-      type: "REPLACE_SECTION_DATA_FIELD",
-      payload: { index, value, field: "content" },
+      type: 'REPLACE_SECTION_DATA_FIELD',
+      payload: { index, value, field: 'content' },
     });
   }
   const placeHolder = placeHolderObject[type];
@@ -58,7 +51,7 @@ export default function SectionField({
 
   return (
     <>
-      <label className="grid " id={id + "info"}>
+      <label className="grid " id={id + 'info'}>
         {showInformation === true && information}
       </label>
 
@@ -68,10 +61,10 @@ export default function SectionField({
         name={name}
         className={classNameLookup[type]}
         rows="12"
-        // cols="70"
+        // cols='70'
         onInput={handleChange}
         value={value}
-        wrap={"hard"}
+        wrap={'hard'}
       ></textarea>
     </>
   );

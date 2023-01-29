@@ -1,10 +1,10 @@
-import SvgButton from "../../elements/SvgButton";
-import { useInputFormContext } from "../../contexts/Providers/InputFormProvider";
-import { useTagsContext } from "../../contexts/Providers/TagsProvider";
+import SvgButton from '../../elements/SvgButton';
+import { useInputFormContext } from '../../contexts/Providers/InputFormProvider';
+import { useTagsContext } from '../../contexts/Providers/TagsProvider';
 const writeClasses =
-  " focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent border border-current";
+  ' focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent border border-current';
 const cancelClasses =
-  "bg-transparent text-pink-300 focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black";
+  'bg-transparent text-pink-300 focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black';
 
 export default function CreateButton() {
   const { dispatchTags } = useTagsContext();
@@ -19,14 +19,14 @@ export default function CreateButton() {
       onClose();
       return;
     }
-    dispatchTags({ type: "CLEAR_TAGS" });
-    dispatchInputForm({ type: "NEW_TIP" });
+    dispatchTags({ type: 'CLEAR_TAGS' });
+    dispatchInputForm({ type: 'NEW_TIP' });
   }
   function onClose() {
-    dispatchInputForm({ type: "CANCEL_TIP" });
+    dispatchInputForm({ type: 'CANCEL_TIP' });
   }
-  const AddTipText = editing ? "Cancel" : "Create";
-  const type = editing ? "cancelWrite" : "add";
+  const AddTipText = editing ? 'Cancel' : 'Create';
+  const type = editing ? 'cancelWrite' : 'add';
   return (
     <div className="width-fit col-start-4 h-full">
       <SvgButton

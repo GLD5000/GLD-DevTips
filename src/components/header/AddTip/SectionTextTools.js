@@ -1,99 +1,95 @@
-import SvgButton from "../../../elements/SvgButton";
-import { useInputFormContext } from "../../../contexts/Providers/InputFormProvider";
+import SvgButton from '../../../elements/SvgButton';
+import { useInputFormContext } from '../../../contexts/Providers/InputFormProvider';
 
 function getReturnArray(type, index, AddToTextarea) {
-  if (type === "code") return null;
+  if (type === 'code') return null;
   const buttonArraySelector = {
     text: [
-      "header",
-      "bold",
-      "italic",
-      "quote",
-      "code",
-      "link",
-      "bullet",
-      "numbered",
-      "table",
-      "hint",
+      'header',
+      'bold',
+      'italic',
+      'quote',
+      'code',
+      'link',
+      'bullet',
+      'numbered',
+      'table',
+      'hint',
     ],
-    table: ["header", "bold", "italic", "link"],
-    hint: ["header", "bold", "italic", "quote", "link", "bullet", "numbered"],
+    table: ['header', 'bold', 'italic', 'link'],
+    hint: ['header', 'bold', 'italic', 'quote', 'link', 'bullet', 'numbered'],
   };
 
   const buttonObject = {
     header: {
-      type: "header",
-      text: "Header",
+      type: 'header',
+      text: 'Header',
       onClick: (e) => {
-        AddToTextarea(e, ["\n##", "Header", ""]);
+        AddToTextarea(e, ['\n##', 'Header', '']);
       },
     },
     bold: {
-      type: "bold",
-      text: "Bold",
+      type: 'bold',
+      text: 'Bold',
       onClick: (e) => {
-        AddToTextarea(e, ["**", "Bold", "**"]);
+        AddToTextarea(e, ['**', 'Bold', '**']);
       },
     },
     italic: {
-      type: "italic",
-      text: "Italic",
+      type: 'italic',
+      text: 'Italic',
       onClick: (e) => {
-        AddToTextarea(e, ["_", "Italic", "_"]);
+        AddToTextarea(e, ['_', 'Italic', '_']);
       },
     },
     quote: {
-      type: "quote",
-      text: "Quote",
+      type: 'quote',
+      text: 'Quote',
       onClick: (e) => {
-        AddToTextarea(e, ["\n>", "Block Quote", ""]);
+        AddToTextarea(e, ['\n>', 'Block Quote', '']);
       },
     },
     code: {
-      type: "code",
-      text: "Code",
+      type: 'code',
+      text: 'Code',
       onClick: (e) => {
-        AddToTextarea(e, ["\n```", "Code\n\n  \n\n\n", "```\n"]);
+        AddToTextarea(e, ['\n```', 'Code\n\n  \n\n\n', '```\n']);
       },
     },
     link: {
-      type: "link",
-      text: "Link",
+      type: 'link',
+      text: 'Link',
       onClick: (e) => {
-        AddToTextarea(e, ["[", "Link Name", "](url)"]);
+        AddToTextarea(e, ['[', 'Link Name', '](url)']);
       },
     },
 
     bullet: {
-      type: "bullet",
-      text: "Bullet Point",
+      type: 'bullet',
+      text: 'Bullet Point',
       onClick: (e) => {
-        AddToTextarea(e, ["\n - ", "Bullet Point", ""]);
+        AddToTextarea(e, ['\n - ', 'Bullet Point', '']);
       },
     },
     numbered: {
-      type: "numbered",
-      text: "Numbered List",
+      type: 'numbered',
+      text: 'Numbered List',
       onClick: (e) => {
-        AddToTextarea(e, ["\n n. ", "Numbered List", ""]);
+        AddToTextarea(e, ['\n n. ', 'Numbered List', '']);
       },
     },
     table: {
-      type: "table",
-      text: "Table",
+      type: 'table',
+      text: 'Table',
       onClick: (e) => {
-        AddToTextarea(e, [
-          "\n|||\n",
-          "HeaderA,HeaderB\nRow1a,Row1b",
-          "\n|||\n",
-        ]);
+        AddToTextarea(e, ['\n|||\n', 'HeaderA,HeaderB\nRow1a,Row1b', '\n|||\n']);
       },
     },
     hint: {
-      type: "hint",
-      text: "hint",
+      type: 'hint',
+      text: 'hint',
       onClick: (e) => {
-        AddToTextarea(e, ["\n???\n", "Hint", "\n???\n"]);
+        AddToTextarea(e, ['\n???\n', 'Hint', '\n???\n']);
       },
     },
   };
@@ -106,7 +102,7 @@ function getReturnArray(type, index, AddToTextarea) {
         type={btn.type}
         color="whitesmoke"
         backgroundColor="transparent"
-        id={index + "-" + btn.text}
+        id={index + '-' + btn.text}
         key={btn.text}
         name={btn.text}
         text={btn.text}
@@ -119,9 +115,7 @@ function getReturnArray(type, index, AddToTextarea) {
   });
 
   return (
-    <div className="col-span-2 flex h-fit flex-row flex-wrap items-start gap-2">
-      {returnArray}
-    </div>
+    <div className="col-span-2 flex h-fit flex-row flex-wrap items-start gap-2">{returnArray}</div>
   );
 }
 
@@ -138,18 +132,12 @@ export default function SectionTextTools({ index, type }) {
     insertTextArea(selection, textToAdd);
   }
   function updateSelection(sectionNumber) {
-    selection.start = document.getElementById(
-      sectionNumber + "-SectionField"
-    ).selectionStart;
-    selection.end = document.getElementById(
-      sectionNumber + "-SectionField"
-    ).selectionEnd;
+    selection.start = document.getElementById(sectionNumber + '-SectionField').selectionStart;
+    selection.end = document.getElementById(sectionNumber + '-SectionField').selectionEnd;
     selection.index = sectionNumber;
   }
   function insertTextArea(selection, textToAdd) {
-    const inputElement = document.getElementById(
-      selection.index + "-SectionField"
-    );
+    const inputElement = document.getElementById(selection.index + '-SectionField');
     const currentValue = inputElement.value;
     const oldContent = splitContent(selection, currentValue);
     const newContent = toggleFlags(textToAdd, oldContent, selection);
@@ -158,13 +146,13 @@ export default function SectionTextTools({ index, type }) {
     addTextareaToState(selection.index, newContent);
   }
   function getSectionIndexFromId(e) {
-    return parseInt(e.target.id.split("-")[0]);
+    return parseInt(e.target.id.split('-')[0],10);
   }
   function addTextareaToState(index, newContent) {
     dispatchInputForm({
-      type: "REPLACE_SECTION_DATA_FIELD",
+      type: 'REPLACE_SECTION_DATA_FIELD',
       payload: {
-        field: "content",
+        field: 'content',
         index: index,
         value: newContent,
       },
@@ -172,7 +160,7 @@ export default function SectionTextTools({ index, type }) {
   }
 
   function updateTextArea({ index, start, end }, content) {
-    const inputElement = document.getElementById(index + "-SectionField");
+    const inputElement = document.getElementById(index + '-SectionField');
     inputElement.select();
     inputElement.setRangeText(content);
     inputElement.selectionStart = start;
@@ -181,30 +169,30 @@ export default function SectionTextTools({ index, type }) {
   }
   function removeFlags(oldContent, textToAdd, index) {
     const preSelection = oldContent[0].slice(0, index);
-    const selectedText = oldContent[1] === textToAdd[1] ? "" : oldContent[1];
+    const selectedText = oldContent[1] === textToAdd[1] ? '' : oldContent[1];
     const postSelection = oldContent[2].slice(textToAdd[2].length);
     selection.start = index;
     selection.end = selection.start + selectedText.length;
 
-    return [preSelection, selectedText, postSelection].join("");
+    return [preSelection, selectedText, postSelection].join('');
   }
   function addFlags(oldContent, textToAdd) {
     const preSelection = oldContent[0] + textToAdd[0];
-    const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
+    const selectedText = oldContent[1] === '' ? textToAdd[1] : oldContent[1];
     const postSelection = textToAdd[2] + oldContent[2];
     selection.start = preSelection.length;
     selection.end = selection.start + selectedText.length;
-    return [preSelection, selectedText, postSelection].join("");
+    return [preSelection, selectedText, postSelection].join('');
   }
 
   function addHash(oldContent, textToAdd) {
-    const preSelection = oldContent[0] + "#";
-    const selectedText = oldContent[1] === "" ? textToAdd[1] : oldContent[1];
+    const preSelection = oldContent[0] + '#';
+    const selectedText = oldContent[1] === '' ? textToAdd[1] : oldContent[1];
     const postSelection = oldContent[2];
     selection.start = preSelection.length;
     selection.end = selection.start + selectedText.length;
 
-    return [preSelection, selectedText, postSelection].join("");
+    return [preSelection, selectedText, postSelection].join('');
   }
   function findFlagIndex(string, flag) {
     const index = string.lastIndexOf(flag);
@@ -214,18 +202,15 @@ export default function SectionTextTools({ index, type }) {
 
   function toggleHeaderFlags(textToAdd, oldContent, selection) {
     const notAtStart = selection.start > 4;
-    const finalFlag = notAtStart ? "\n####" : "####";
+    const finalFlag = notAtStart ? '\n####' : '####';
 
-    const [finalFlagIsPresent, indexOfFinalFlag] = findFlagIndex(
-      oldContent[0],
-      finalFlag
-    );
+    const [finalFlagIsPresent, indexOfFinalFlag] = findFlagIndex(oldContent[0], finalFlag);
 
     if (finalFlagIsPresent) {
       return removeFlags(oldContent, textToAdd, indexOfFinalFlag);
     }
 
-    const shortFlag = "##";
+    const shortFlag = '##';
     let indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const indexOfShortFlag = oldContent[0].lastIndexOf(shortFlag);
     if (indexOfFirstFlag === -1 && indexOfShortFlag > -1) {
@@ -235,20 +220,19 @@ export default function SectionTextTools({ index, type }) {
     const shouldRemoveLineBreak =
       selection.start === 0 ||
       indexOfFirstFlag === 0 ||
-      oldContent[0][oldContent[0].length - 1] === "\n";
+      oldContent[0][oldContent[0].length - 1] === '\n';
     if (shouldRemoveLineBreak) textToAdd[0] = shortFlag;
     const firstFlagIsPresent =
       finalFlagIsPresent === false &&
       indexOfFirstFlag > -1 &&
       indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
 
-    const intermediateFlag = "###";
+    const intermediateFlag = '###';
     const indexOfIntermediateFlag = oldContent[0].lastIndexOf(intermediateFlag);
     const intermediateFlagIsPresent =
       finalFlagIsPresent === false &&
       indexOfIntermediateFlag > -1 &&
-      indexOfIntermediateFlag ===
-        oldContent[0].length - intermediateFlag.length;
+      indexOfIntermediateFlag === oldContent[0].length - intermediateFlag.length;
 
     if (firstFlagIsPresent || intermediateFlagIsPresent) {
       return addHash(oldContent, textToAdd);
@@ -256,9 +240,9 @@ export default function SectionTextTools({ index, type }) {
     if (
       textToAdd[0].length < 3 &&
       selection.start !== 0 &&
-      oldContent[0][oldContent[0].length - 1] !== "\n"
+      oldContent[0][oldContent[0].length - 1] !== '\n'
     )
-      textToAdd[0] = "\n" + textToAdd[0];
+      textToAdd[0] = '\n' + textToAdd[0];
     return addFlags(oldContent, textToAdd);
   }
 
@@ -270,8 +254,7 @@ export default function SectionTextTools({ index, type }) {
 
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const firstFlagIsPresent =
-      indexOfFirstFlag > -1 &&
-      indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
+      indexOfFirstFlag > -1 && indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
     const SecondFlagIsPresent =
       oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
 
@@ -281,18 +264,17 @@ export default function SectionTextTools({ index, type }) {
     return addFlags(oldContent, textToAdd);
   }
   function toggleFlags(textToAdd, oldContent, selection) {
-    if (textToAdd[1] === "Header") {
+    if (textToAdd[1] === 'Header') {
       return toggleHeaderFlags(textToAdd, oldContent, selection);
     }
 
-    if (textToAdd[1] === "Link Name") {
+    if (textToAdd[1] === 'Link Name') {
       return toggleLinkFlags(textToAdd, oldContent, selection);
     }
 
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
     const firstFlagIsPresent =
-      indexOfFirstFlag > -1 &&
-      indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
+      indexOfFirstFlag > -1 && indexOfFirstFlag === oldContent[0].length - textToAdd[0].length;
     const SecondFlagIsPresent =
       oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
 

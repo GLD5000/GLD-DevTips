@@ -4,11 +4,11 @@ function defaultOnInput(value) {
 }
 
 const InputText = ({
-  placeholder = "Type here...",
+  placeholder = 'Type here...',
   onInput = defaultOnInput,
-  type = "text",
+  type = 'text',
   listId = null,
-  value = "",
+  value = '',
 }) => {
   const handler = (value) => {
     onInput(value);

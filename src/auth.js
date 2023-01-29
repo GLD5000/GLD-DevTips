@@ -1,13 +1,13 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, signOut as authSignOut } from "firebase/auth";
-import { auth as firebaseAuth } from "./firebase";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { onAuthStateChanged, signOut as authSignOut } from 'firebase/auth';
+import { auth as firebaseAuth } from './firebase';
 //additional
-import { getUserRole } from "./firestore";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getUserRole } from './firestore';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
-  prompt: "select_account",
+  prompt: 'select_account',
 });
 
 function useFirebaseAuth() {
@@ -15,7 +15,7 @@ function useFirebaseAuth() {
   const [authUser, setAuthUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // console.count("useFirebaseAuth");
+  // console.count('useFirebaseAuth');
   const clear = () => {
     setAuthUser(null);
     setIsLoading(false);
@@ -24,7 +24,7 @@ function useFirebaseAuth() {
   const signOut = () => authSignOut(firebaseAuth).then(clear);
   const signIn = () => signInWithPopup(firebaseAuth, provider);
   const clickHandler = () => {
-    console.count("click handler");
+    console.count('click handler');
     if (firebaseAuth.currentUser === null) {
       signIn();
       return;
@@ -34,7 +34,7 @@ function useFirebaseAuth() {
 
   useEffect(() => {
     const authStateChanged = async (user) => {
-      // console.count("auth changed state");
+      // console.count('auth changed state');
       setIsLoading(true);
       if (!user) {
         clear();
@@ -70,25 +70,21 @@ export const useAuthContext = () => useContext(AuthUserContext); // custom hook
 
 export default function AuthUserProvider({ children }) {
   // context provider
-  // console.count("AuthUserProvider");
+  // console.count('AuthUserProvider');
 
   const appAuth = useFirebaseAuth();
 
   // console.group(`appAuth`);
 
   // console.groupEnd();
-  return (
-    <AuthUserContext.Provider value={appAuth}>
-      {children}
-    </AuthUserContext.Provider>
-  );
+  return <AuthUserContext.Provider value={appAuth}>{children}</AuthUserContext.Provider>;
 }
 
 async function checkRole(user) {
-  console.count("checkRole");
+  // console.count('checkRole');
   const uid = user.uid;
   const role = await getUserRole(uid);
-  console.log(`got role ${role}`);
-  const isOwner = role === "owner";
+  // console.log(`got role ${role}`);
+  const isOwner = role === 'owner';
   return isOwner;
 }

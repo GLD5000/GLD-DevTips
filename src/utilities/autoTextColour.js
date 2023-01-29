@@ -1,7 +1,5 @@
 const colourspace = {
-  _convertHexToSrgbArray(hex) {
-    const srgbArray = getSrgbArrayFromHexArray(hex);
-    return srgbArray;
+  convertHexToSrgbArray(hex) {
     function getSrgbArrayFromHexArray(hex) {
       const splitHex = splitHexString(hex);
       return splitHex.map((digits) => hexDigitsToDecimal(...digits));
@@ -22,8 +20,10 @@ const colourspace = {
             ];
       }
     }
+    const srgbArray = getSrgbArrayFromHexArray(hex);
+    return srgbArray;
   },
-  _convertSrgbToHslArray(srgbArray) {
+  convertSrgbToHslArray(srgbArray) {
     let [red, green, blue] = srgbArray;
 
     let cmin = Math.min(red, green, blue),
@@ -50,7 +50,7 @@ const colourspace = {
 
     return hslArray;
   },
-  _convertHslArrayToHex(hslArray) {
+  convertHslArrayToHex(hslArray) {
     let [hue, sat, lum] = hslArray;
 
     sat /= 100;
@@ -94,14 +94,14 @@ const colourspace = {
     blue = Math.round((blue + lightness) * 255).toString(16);
 
     // Prepend 0s, if necessary
-    if (red.length === 1) red = "0" + red;
-    if (green.length === 1) green = "0" + green;
-    if (blue.length === 1) blue = "0" + blue;
-    const hex = "#" + red + green + blue;
+    if (red.length === 1) red = '0' + red;
+    if (green.length === 1) green = '0' + green;
+    if (blue.length === 1) blue = '0' + blue;
+    const hex = '#' + red + green + blue;
     return hex;
   },
-  _convertSrgbToHex(srgbArray) {
-    return this._convertHslArrayToHex(this._convertSrgbToHslArray(srgbArray));
+  convertSrgbToHex(srgbArray) {
+    return this.convertHslArrayToHex(this.convertSrgbToHslArray(srgbArray));
   },
   convertSrgbToLuminance(args) {
     const modified = args.map(modifyColourValue);
@@ -109,9 +109,7 @@ const colourspace = {
     return summed;
 
     function modifyColourValue(value) {
-      return value <= 0.04045
-        ? value / 12.92
-        : Math.pow((value + 0.055) / 1.055, 2.4);
+      return value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
     }
     function sumColourValues(R, G, B) {
       const redMult = 0.2126;
@@ -122,14 +120,13 @@ const colourspace = {
   },
 
   convertHexToLuminance(hex) {
-    const srgbArray = this._convertHexToSrgbArray(hex);
+    const srgbArray = this.convertHexToSrgbArray(hex);
     const luminance = this.convertSrgbToLuminance(srgbArray);
     return luminance;
   },
   backgroundLuminanceToTextColour(backgroundLuminance) {
-    const backgroundLuminanceIsAboveCutoff =
-      luminanceAboveCutoff(backgroundLuminance);
-    const textColour = backgroundLuminanceIsAboveCutoff ? "#000000" : "#ffffff";
+    const backgroundLuminanceIsAboveCutoff = luminanceAboveCutoff(backgroundLuminance);
+    const textColour = backgroundLuminanceIsAboveCutoff ? '#000000' : '#ffffff';
     return textColour;
 
     function luminanceAboveCutoff(luminance) {
@@ -139,8 +136,7 @@ const colourspace = {
   },
   autoTextColourFromHex(hex) {
     const backgroundLuminance = colourspace.convertHexToLuminance(hex);
-    const textColour =
-      colourspace.backgroundLuminanceToTextColour(backgroundLuminance);
+    const textColour = colourspace.backgroundLuminanceToTextColour(backgroundLuminance);
     return textColour;
   },
 };

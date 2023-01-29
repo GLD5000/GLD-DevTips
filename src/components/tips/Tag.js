@@ -1,8 +1,8 @@
-import TagButton from "../../elements/TagButton";
+import TagButton from '../../elements/TagButton';
 
-export default function Tag ({ tag, handleClickTag, active}) {
-  if (tag === undefined) return (null);
-  const { backgroundColour, textColour, name} = tag;
+export default function Tag({ tag, handleClickTag, active }) {
+  if (tag === undefined) return null;
+  const { backgroundColour, textColour, name } = tag;
 
   function tagOnClick(e) {
     const name = e.target.name;
@@ -18,5 +18,4 @@ export default function Tag ({ tag, handleClickTag, active}) {
       clickFunction={tagOnClick}
     />
   );
-};
-
+}

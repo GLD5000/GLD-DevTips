@@ -1,5 +1,5 @@
-import SectionTitle from "./SectionTitle";
-import InputSelect from "./InputSelect";
+import SectionTitle from './SectionTitle';
+import InputSelect from './InputSelect';
 
 export default function SectionOptions({ index, type, changeValue, title }) {
   return (
@@ -7,7 +7,7 @@ export default function SectionOptions({ index, type, changeValue, title }) {
       <label className="grid">
         Section Type:
         <InputSelect
-          key={index + "InputSelect"}
+          key={index + 'InputSelect'}
           type={type}
           index={index}
           name={index}
@@ -18,7 +18,7 @@ export default function SectionOptions({ index, type, changeValue, title }) {
       <label className="grid">
         Section Title:
         <SectionTitle
-          key={index + "SectionTitle"}
+          key={index + 'SectionTitle'}
           placeholder=" Add Title (optional)"
           index={index}
           name={index}

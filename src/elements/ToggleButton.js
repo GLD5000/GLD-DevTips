@@ -1,20 +1,20 @@
-import TickSvg from "../components/icons/TickSvg";
-import UnTickSvg from "../components/icons/UnTickSvg";
+import TickSvg from '../components/icons/TickSvg';
+import UnTickSvg from '../components/icons/UnTickSvg';
 
 let showText = true;
 function defaultOnClick(e) {
   console.log(e.target);
 }
 export default function ToggleButton({
-  borderRadius = "4px",
-  color = "white",
-  backgroundColor = "black",
-  text = "Add",
+  borderRadius = '4px',
+  color = 'white',
+  backgroundColor = 'black',
+  text = 'Add',
   clickFunction = defaultOnClick,
   id = null,
   name = null,
-  type = "tick",
-  className = "btn",
+  type = 'tick',
+  className = 'btn',
   toggle,
 }) {
   function getSvg(type) {
@@ -30,8 +30,8 @@ export default function ToggleButton({
     clickFunction(e);
   }
   if (toggle === false) {
-    backgroundColor = "#b0b0b0";
-    color = "#000000";
+    backgroundColor = '#b0b0b0';
+    color = '#000000';
   }
   const styles = {
     color: color,

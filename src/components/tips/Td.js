@@ -15,12 +15,32 @@ const flagMap = new Map([
   ["_", { closingFlag: "_", type: "italic" }],
 ]);
 
+function wrapText({ index, text, type }) {
+  const newKey = `x${index}`;
+  const typeHandler = {
+    link: <Link key={`l${newKey}`} content={text} href="www.google.co.uk" />,
+    bold: <Bold key={`bo${newKey}`} content={text} />,
+    italic: <Italic key={`it${newKey}`} content={text} />,
+    h1: <H1 key={`h1${newKey}`} content={text} />,
+    h2: <H2 key={`h2${newKey}`} content={text} />,
+    h3: <H3 key={`h3${newKey}`} content={text} />,
+    h4: <H4 key={`h4${newKey}`} content={text} />,
+    h5: <H5 key={`h5${newKey}`} content={text} />,
+    h6: <H6 key={`h6${newKey}`} content={text} />,
+    span: <Span key={`span${newKey}`} content={text} />,
+    codeSpan: <CodeSpan key={`codeSpan${newKey}`} content={text} />,
+  };
+
+  return typeHandler[type];
+}
+
+
 function parseLinks(cell) {
   index += 1;
   // console.group(`recursiveParser(cell, index, flagMap)`);
 
   // console.groupEnd();
-  return recursiveParser(cell, index, flagMap);
+  return recursiveParser({cell, index, flagMap, wrapText});
 }
 
 const Td = ({ cell }) => {

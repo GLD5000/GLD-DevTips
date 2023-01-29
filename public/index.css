@@ -954,9 +954,14 @@ video {
   border-top-color: rgb(119 119 119 / var(--tw-border-opacity));
 }
 
-.border-b-borderGrey {
+.border-b-neutral-600 {
   --tw-border-opacity: 1;
-  border-bottom-color: rgb(119 119 119 / var(--tw-border-opacity));
+  border-bottom-color: rgb(82 82 82 / var(--tw-border-opacity));
+}
+
+.border-t-neutral-600 {
+  --tw-border-opacity: 1;
+  border-top-color: rgb(82 82 82 / var(--tw-border-opacity));
 }
 
 .bg-neutral-900 {

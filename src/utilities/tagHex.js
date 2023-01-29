@@ -1,6 +1,6 @@
-import getRandomColour from "./randomColour";
-import AutoTextColour from "./autoTextColour";
-import { tagColours } from "../App";
+import getRandomColour from './randomColour';
+import AutoTextColour from './autoTextColour';
+import { tagColours } from '../App';
 
 export default function tagHexLookup(tag) {
   const lowerCaseTag = tag.toLowerCase();

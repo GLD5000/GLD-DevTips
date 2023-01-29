@@ -1,7 +1,7 @@
-import { createContext, useContext } from "react";
-import { useTagsContext } from "./TagsProvider";
-import { useTipsContext } from "./TipsProvider";
-import { useSearchStringContext } from "./SearchStringProvider";
+import { createContext, useContext } from 'react';
+import { useTagsContext } from './TagsProvider';
+import { useTipsContext } from './TipsProvider';
+import { useSearchStringContext } from './SearchStringProvider';
 
 function useData() {
   const {
@@ -18,7 +18,7 @@ function useData() {
   const { searchString } = useSearchStringContext();
   let activeTips = [];
 
-  if (tips && status === "loaded") {
+  if (tips && status === 'loaded') {
     activeTips = getFilteredTips(tips, searchString, activeTags);
   }
 
@@ -44,8 +44,7 @@ function filterTip(tip, searchString, activeTags, stringMissing) {
   const showTitle = stringMissing
     ? false
     : tip.title.toLowerCase().includes(searchString.toLowerCase());
-  const showTags =
-    activeTags.size > 0 ? checkTagVisible(activeTags, tip.tags) : false;
+  const showTags = activeTags.size > 0 ? checkTagVisible(activeTags, tip.tags) : false;
 
   return showTitle || showTags;
 }

@@ -1,14 +1,15 @@
-import Tag from "./Tag";
-import { useTagsContext } from "../../contexts/Providers/TagsProvider";
+import Tag from './Tag';
+import { useTagsContext } from '../../contexts/Providers/TagsProvider';
 
-export default function PreviewTags ({tagArray}) {
-  const {  tags:{data: tags} } = useTagsContext();
+export default function PreviewTags({ tagArray }) {
+  const {
+    tags: { data: tags },
+  } = useTagsContext();
   return (
-    <div className=" flex w-full h-min  content-center justify-center flex-wrap gap-2">
-      {tagArray.map(tag => (
-        <Tag key={tag} tag={tags[tag.toLowerCase()]}  />
+    <div className=" flex h-min w-full  flex-wrap content-center justify-center gap-2">
+      {tagArray.map((tag) => (
+        <Tag key={tag} tag={tags[tag.toLowerCase()]} />
       ))}
     </div>
   );
-};
-
+}

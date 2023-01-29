@@ -1,7 +1,7 @@
-import ToggleButton from "../../elements/ToggleButton";
+import ToggleButton from '../../elements/ToggleButton';
 export default function TagFilter({ tag, handleClickTag, activeTags }) {
   const { backgroundColour, textColour, name, count } = tag;
-  const active = activeTags.has(name)
+  const active = activeTags.has(name);
   function tagOnClick(e) {
     const tagName = e.target.name;
     if (tagName !== undefined) handleClickTag({ name: tagName, active: !activeTags.has(tagName) });
@@ -11,7 +11,7 @@ export default function TagFilter({ tag, handleClickTag, activeTags }) {
   return (
     <ToggleButton
       name={name}
-      id={name + "filterButton"}
+      id={name + 'filterButton'}
       color={textColour}
       backgroundColor={backgroundColour}
       text={`${name} (${count})`}

@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext } from 'react';
 function useData() {
   const [searchString, setSearchString] = useState(getTitleFromUrl());
   return {
@@ -16,9 +16,8 @@ export const useSearchStringContext = () => useContext(SearchString); // custom 
 
 function getTitleFromUrl() {
   const search = window.location.search;
-  if (search === "") return "";
+  if (search === '') return '';
   const searchObject = new URLSearchParams(search);
-  const searchFromUrl = searchObject.get("title");
+  const searchFromUrl = searchObject.get('title');
   return searchFromUrl;
 }
-

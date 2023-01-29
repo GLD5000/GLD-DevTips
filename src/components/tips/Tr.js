@@ -1,13 +1,13 @@
-import Td from "./Td"
+import Td from './Td';
 
-const Tr = ({row, rowIndex}) => {
+const Tr = ({ row, rowIndex }) => {
   return (
     <tr>
       {row.map((cell, cellIndex) => (
         <Td key={`${rowIndex}${cellIndex}`} cell={cell} />
       ))}
     </tr>
-  )
-}
+  );
+};
 
-export default Tr
+export default Tr;

@@ -1,23 +1,23 @@
-import UpSvg from "../components/icons/UpSvg";
-import DownSvg from "../components/icons/DownSvg";
-import AddSvg from "../components/icons/AddSvg";
-import DeleteSvg from "../components/icons/DeleteSvg";
-import DuplicateSvg from "../components/icons/DuplicateSvg";
-import PreviewSvg from "../components/icons/PreviewSvg";
-import PencilSvg from "../components/icons/PencilSvg";
-import UnPencilSvg from "../components/icons/UnPencilSvg";
-import ItalicSvg from "../components/icons/ItalicSvg";
-import BoldSvg from "../components/icons/BoldSvg";
-import HeaderSvg from "../components/icons/HeaderSvg";
-import CodeSvg from "../components/icons/CodeSvg";
-import LinkSvg from "../components/icons/LinkSvg";
-import QuoteSvg from "../components/icons/QuoteSvg";
-import BulletSvg from "../components/icons/BulletSvg";
-import NumberedSvg from "../components/icons/NumberedSvg";
-import TableSvg from "../components/icons/TableSvg";
-import HintSvg from "../components/icons/HintSvg";
-//import CollapseSvg from "../components/icons/Collapse"
-//import ExpandSvg from "../components/icons/Expand"
+import UpSvg from '../components/icons/UpSvg';
+import DownSvg from '../components/icons/DownSvg';
+import AddSvg from '../components/icons/AddSvg';
+import DeleteSvg from '../components/icons/DeleteSvg';
+import DuplicateSvg from '../components/icons/DuplicateSvg';
+import PreviewSvg from '../components/icons/PreviewSvg';
+import PencilSvg from '../components/icons/PencilSvg';
+import UnPencilSvg from '../components/icons/UnPencilSvg';
+import ItalicSvg from '../components/icons/ItalicSvg';
+import BoldSvg from '../components/icons/BoldSvg';
+import HeaderSvg from '../components/icons/HeaderSvg';
+import CodeSvg from '../components/icons/CodeSvg';
+import LinkSvg from '../components/icons/LinkSvg';
+import QuoteSvg from '../components/icons/QuoteSvg';
+import BulletSvg from '../components/icons/BulletSvg';
+import NumberedSvg from '../components/icons/NumberedSvg';
+import TableSvg from '../components/icons/TableSvg';
+import HintSvg from '../components/icons/HintSvg';
+//import CollapseSvg from '../components/icons/Collapse'
+//import ExpandSvg from '../components/icons/Expand'
 function defaultOnClick(e) {
   console.log(e.target);
 }
@@ -59,20 +59,20 @@ function getContent(reverse, showText, text, svg) {
 }
 
 export default function SvgButton({
-  color = "whitesmoke",
-  backgroundColor = "transparent",
-  text = "Add",
+  color = 'whitesmoke',
+  backgroundColor = 'transparent',
+  text = 'Add',
   clickFunction = defaultOnClick,
   id = null,
   name = null,
-  type = "up",
+  type = 'up',
   wide = true,
   showText = true,
   reverse = false,
   hoverFunction = null,
   activeClasses = `active:bg-slate-600 `,
   buttonClasses = `grid-cols-frAutoFr w-full`,
-  svgClasses = "stroke-current fill-none stroke-1",
+  svgClasses = 'stroke-current fill-none stroke-1',
   className = `px-2 py-1
    items-center 
    hover:border-current
@@ -90,7 +90,7 @@ export default function SvgButton({
         name={name}
         onClick={clickFunction}
         onMouseEnter={hoverFunction}
-        className={className.replaceAll(/[\s]+/g, " ")}
+        className={className.replaceAll(/[\s]+/g, ' ')}
         aria-label={name}
       >
         {content}

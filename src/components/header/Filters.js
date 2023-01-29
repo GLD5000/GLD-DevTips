@@ -1,6 +1,6 @@
-import TitleFilter from "./TitleFilter";
-import TagSet from "./TagSet";
-import { useTagsContext } from "../../contexts/Providers/TagsProvider";
+import TitleFilter from './TitleFilter';
+import TagSet from './TagSet';
+import { useTagsContext } from '../../contexts/Providers/TagsProvider';
 
 export default function Filters() {
   const {
@@ -11,17 +11,13 @@ export default function Filters() {
     dispatchTags,
   } = useTagsContext();
   function toggleExpanded() {
-    dispatchTags({ type: "TOGGLE_SHOW_TAGS", payload: !showTags });
+    dispatchTags({ type: 'TOGGLE_SHOW_TAGS', payload: !showTags });
   }
   return (
     <section className="grid w-full grid-rows-2 gap-2">
       <TitleFilter toggleExpanded={toggleExpanded} expanded={showTags} />
       {showTags && tags !== null && (
-        <TagSet
-          tags={tags}
-          dispatchTags={dispatchTags}
-          activeTags={activeTags}
-        />
+        <TagSet tags={tags} dispatchTags={dispatchTags} activeTags={activeTags} />
       )}
     </section>
   );

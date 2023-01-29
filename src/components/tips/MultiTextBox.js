@@ -1,12 +1,13 @@
-import CodeBox from "../../elements/CodeBox";
-import Table from "./Table";
-import Hint from "../../elements/Hint";
-import TextBox from "../../elements/TextBox";
-import SectionTitle from "../../elements/SectionTitle";
+import CodeBox from '../../elements/CodeBox';
+import Table from './Table';
+import Hint from '../../elements/Hint';
+import TextBox from '../../elements/TextBox';
+import SectionTitle from '../../elements/SectionTitle';
+
 const MultiTextBox = ({ object }) => {
   const type = object.type;
-  const title = object["title"];
-  const hasTitle = object["title"] != null;
+  const title = object.title;
+  const hasTitle = object.title != null;
   const content = object.content;
   const typeHandler = {
     code: <CodeBox content={content} />,
@@ -14,12 +15,12 @@ const MultiTextBox = ({ object }) => {
     table: <Table content={content} />,
     hint: <Hint content={content} />,
   };
-    return (
-      <div className="p-4 border-b border-dotted w-full">
-       {hasTitle&& <SectionTitle title={title} type={type} />}
-        {typeHandler[type]}
-      </div>
-    );
+  return (
+    <div className="w-full">
+      {hasTitle && <SectionTitle title={title} type={type} />}
+      {typeHandler[type]}
+    </div>
+  );
 };
 
 export default MultiTextBox;

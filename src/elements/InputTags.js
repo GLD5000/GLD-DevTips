@@ -1,7 +1,7 @@
-import InputText from "./InputText";
-import TagSet from "../components/header/TagSet";
-import { useTagsContext } from "../contexts/Providers/TagsProvider";
-import { useInputFormContext } from "../contexts/Providers/InputFormProvider";
+import InputText from './InputText';
+import TagSet from '../components/header/TagSet';
+import { useTagsContext } from '../contexts/Providers/TagsProvider';
+import { useInputFormContext } from '../contexts/Providers/InputFormProvider';
 let keyMod = 0;
 export default function InputTags() {
   const {
@@ -16,12 +16,12 @@ export default function InputTags() {
       metadata: { newTagsArray },
     },
   } = useInputFormContext();
-  const newTagsString = newTagsArray.join(" ");
+  const newTagsString = newTagsArray.join(' ');
   return (
     <>
       <TagSet
-        key={keyMod + "a"}
-        title={"Choose Tags"}
+        key={keyMod + 'a'}
+        title={'Choose Tags'}
         tags={tags}
         dispatchTags={dispatchInputForm}
         activeTags={existingTagsSet}
@@ -30,7 +30,7 @@ export default function InputTags() {
       <label className="grid">
         Add new tags as a List (separated by spaces or commas)
         <InputText
-          key={keyMod + "b"}
+          key={keyMod + 'b'}
           placeholder=" E.G.: JavaScript, Fundamentals"
           onInput={updateCustomTags}
           value={newTagsString}
@@ -39,6 +39,6 @@ export default function InputTags() {
     </>
   );
   function updateCustomTags(value) {
-    dispatchInputForm({ type: "UPDATE_NEW_TAGS", payload: value });
+    dispatchInputForm({ type: 'UPDATE_NEW_TAGS', payload: value });
   }
 }

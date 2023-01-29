@@ -1,6 +1,3 @@
-export default function H2({content}) {
-    return (
-      <h2 className="h2">{content}</h2>
-    )
-  }
-  
+export default function H2({ content }) {
+  return <h2 className="p-2">{content}</h2>;
+}

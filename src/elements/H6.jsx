@@ -1,6 +1,3 @@
-export default function H6({content}) {
-    return (
-      <h6 className="h6">{content}</h6>
-    )
-  }
-  
+export default function H6({ content }) {
+  return <h6 className="p-2">{content}</h6>;
+}

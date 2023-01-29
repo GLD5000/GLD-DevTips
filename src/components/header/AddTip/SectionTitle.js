@@ -4,23 +4,23 @@ function defaultOnInput(value) {
 }
 
 const SectionTitle = ({
-  placeholder = "Type here...",
+  placeholder = 'Type here...',
   onInput = defaultOnInput,
-  type = "text",
+  type = 'text',
   name = undefined,
-  value = "",
+  value = '',
 }) => {
   const handler = (e) => {
     const value = e.target.value;
     const index = e.target.name;
     onInput({
-      type: "REPLACE_SECTION_DATA_FIELD",
-      payload: { index, value, field: "title" },
+      type: 'REPLACE_SECTION_DATA_FIELD',
+      payload: { index, value, field: 'title' },
     });
   };
   return (
     <input
-      className="border-zinc-600 border rounded bg-inherit"
+      className="rounded border border-zinc-600 bg-inherit"
       type={type}
       onChange={(e) => handler(e)}
       placeholder={placeholder}

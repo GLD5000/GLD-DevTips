@@ -1,24 +1,17 @@
-import TagFilter from "./TagFilter";
-import Button from "../../elements/Button";
+import TagFilter from './TagFilter';
+import Button from '../../elements/Button';
 
-export default function TagSet({
-  title = "Filter Tags",
-tags, dispatchTags, activeTags}) {
+export default function TagSet({ title = 'Filter Tags', tags, dispatchTags, activeTags }) {
   function handleClickTag(payload) {
-    dispatchTags({ type: "TOGGLE_TAG", payload: payload });
+    dispatchTags({ type: 'TOGGLE_TAG', payload: payload });
   }
   function handleClickClear() {
-    dispatchTags({ type: "CLEAR_TAGS" });
+    dispatchTags({ type: 'CLEAR_TAGS' });
   }
   function tagStateReducer(acc, tag) {
     // make first button a clear all
     acc.push(
-      <TagFilter
-        key={tag.name}
-        tag={tag}
-        handleClickTag={handleClickTag}
-        activeTags={activeTags}
-      />
+      <TagFilter key={tag.name} tag={tag} handleClickTag={handleClickTag} activeTags={activeTags} />
     );
     return acc;
   }
@@ -27,10 +20,10 @@ tags, dispatchTags, activeTags}) {
       <Button
         name="Clear Tags"
         id="clear-tags"
-        key={"clearA0"}
-        color={"black"}
-        backgroundColor={"IndianRed"}
-        text={"Clear Tags"}
+        key={'clearA0'}
+        color={'black'}
+        backgroundColor={'IndianRed'}
+        text={'Clear Tags'}
         clickFunction={handleClickClear}
         className="bg-red-400 text-black hover:border-white"
       />,
@@ -41,7 +34,7 @@ tags, dispatchTags, activeTags}) {
   return (
     <>
       <h2>{title}</h2>
-      <section className="w-full flex flex-wrap justify-center items-center gap-2 p-2">
+      <section className="flex w-full flex-wrap items-center justify-center gap-2 p-2">
         <>{buttonArray}</>
       </section>
     </>

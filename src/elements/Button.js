@@ -3,17 +3,17 @@ function defaultOnClick(e) {
 }
 
 export default function Button({
-  borderRadius = "4px",
-  color = "white",
+  borderRadius = '4px',
+  color = 'white',
   backgroundColor = null,
-  text = "Add",
+  text = 'Add',
   clickFunction = defaultOnClick,
   id = null,
   name = null,
-  className = "w-full h-full",
-  border = "1px solid var(--border-grey)",
-  activeClasses = "active:bg-slate-400",
-  conditionalClasses = null
+  className = 'w-full h-full',
+  border = '1px solid var(--border-grey)',
+  activeClasses = 'active:bg-slate-400',
+  conditionalClasses = null,
 }) {
   function clickHandler(e) {
     clickFunction(e);
@@ -23,7 +23,9 @@ export default function Button({
       id={id}
       name={name}
       onClick={clickHandler}
-      className={`border-2 py-1 px-2 active:bg-slate-300 ${activeClasses} ${className} ${backgroundColor && backgroundColor} ${conditionalClasses && conditionalClasses}`}
+      className={`border-2 py-1 px-2 active:bg-slate-300 ${activeClasses} ${className} ${
+        backgroundColor && backgroundColor
+      } ${conditionalClasses && conditionalClasses}`}
     >
       {text}
     </button>

@@ -1,9 +1,7 @@
-import { useDataContext } from "../ProviderStarter";
+import { useDataContext } from '../ProviderStarter';
 
-const {data, setData} = useDataContext();
+const { data, setData } = useDataContext();
 
 export default function ConsumerStarter() {
-  return (
-    <div>{data}</div>
-  )
+  return <div>{data}</div>;
 }

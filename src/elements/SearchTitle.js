@@ -1,20 +1,15 @@
-import CollapseSvg from "../components/icons/CollapseSvg";
-import ExpandSvg from "../components/icons/ExpandSvg";
-import InputText from "../elements/InputText";
-import { useSearchStringContext } from "../contexts/Providers/SearchStringProvider";
+import CollapseSvg from '../components/icons/CollapseSvg';
+import ExpandSvg from '../components/icons/ExpandSvg';
+import InputText from '../elements/InputText';
+import { useSearchStringContext } from '../contexts/Providers/SearchStringProvider';
 
-export default function SearchTitle({
-  title,
-  onClick,
-  expanded,
-  listId,
-}) {
+export default function SearchTitle({ title, onClick, expanded, listId }) {
   const { searchString, setSearchString } = useSearchStringContext();
-  const placeholder = " Type or select a title...";
+  const placeholder = ' Type or select a title...';
   return (
     <>
       <button
-        className="grid w-full grid-cols-frAutoFr justify-items-end rounded-none rounded-t-lg border-b border-b-borderGrey hover:bg-slate-800 active:bg-slate-600"
+        className="grid w-full grid-cols-frAutoFr justify-items-end rounded-none rounded-t-lg border-b border-b-neutral-600 hover:bg-slate-800 active:bg-slate-600"
         onClick={onClick}
       >
         <h2 className="col-start-2">{title}</h2>
