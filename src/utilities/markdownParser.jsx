@@ -52,10 +52,11 @@ function sliceFlaggedText({
 }
 
 function stringHasFlag(string, flagMap) {
+  if (typeof string !== 'string') return { type: undefined };
   const returnObject = {};
   const isEmptyString = string == null;
 
-  if (isEmptyString) return { type: 'empty' };
+  if (isEmptyString) return { type: undefined };
 
   const workingObject = { string, firstFlagIndex: string.length };
 
@@ -149,11 +150,12 @@ function wrapLists(arrayOfObjects) {
     const isLastListItem = index === arr.length - 1;
     const listItemArrayHasItems = listItemArray.length > 0;
     if (isLastListItem && listItemArrayHasItems) {
+      const key = index;
       const list =
         listType === 'O' ? (
-          <Ol key="Ol" content={listItemArray} />
+          <Ol key={`Ol&${key}`} content={listItemArray} />
         ) : (
-          <Ul key="Ul" content={listItemArray} />
+          <Ul key={`Ul&${key}`} content={listItemArray} />
         );
       returnArray.push(list);
       listItemArray = [];
@@ -162,7 +164,7 @@ function wrapLists(arrayOfObjects) {
   return returnArray;
 }
 
-export function recursiveParser({ text, indexIn, flagMap, wrapText }) {
+export function recursiveParser({ text, indexIn = 0, flagMap, wrapText }) {
   let index = indexIn;
   const { type, beforeFlag, flaggedText, afterFlag } = stringHasFlag(text, flagMap);
   if (type === undefined) return text;
@@ -173,7 +175,7 @@ export function recursiveParser({ text, indexIn, flagMap, wrapText }) {
     type !== 'link' &&
     type !== 'span';
   const processedflaggedText = shouldParse
-    ? recursiveParser({ text: flaggedText, indexIn: index })
+    ? recursiveParser({ text: flaggedText, indexIn: index, flagMap, wrapText })
     : flaggedText;
   index += 1;
 
@@ -182,7 +184,7 @@ export function recursiveParser({ text, indexIn, flagMap, wrapText }) {
   if (beforeFlag !== null) returnArray.push(beforeFlag);
   returnArray.push(wrappedFlaggedText);
   if (afterFlag !== null) {
-    const parserReturn = recursiveParser(afterFlag, index);
+    const parserReturn = recursiveParser({ text: afterFlag, indexIn: index, flagMap, wrapText });
     if (Array.isArray(parserReturn)) {
       returnArray.push(...parserReturn);
     } else {
@@ -192,15 +194,13 @@ export function recursiveParser({ text, indexIn, flagMap, wrapText }) {
   return returnArray.length === 1 ? returnArray[0] : returnArray;
 }
 
-export default function markdownParserFull({ text, flagMap, wrapText }) {
-  const index = 0;
-
+export default function markdownParserFull({ text, indexIn = 0, flagMap, wrapText }) {
   if (text === null) return null;
   const string = markParagraphs(text);
 
   const arrayOfObjects = recursiveParser({
-    string,
-    index,
+    text: string,
+    indexIn,
     wrapText,
     flagMap,
   });

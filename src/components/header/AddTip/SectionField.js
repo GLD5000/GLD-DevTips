@@ -33,7 +33,7 @@ const classNameLookup = {
   table: 'resize-y p-2 whitespace-pre overflow-x-auto border-zinc-600 border rounded bg-inherit',
 };
 
-export default function SectionField({ type, changeText, name, value, id = null }) {
+export default function SectionField({ objectType, changeText, name, content, id = null }) {
   const showInformation = true;
   function handleChange(e) {
     const { value } = e.target;
@@ -43,11 +43,11 @@ export default function SectionField({ type, changeText, name, value, id = null 
       payload: { index, value, field: 'content' },
     });
   }
-  const placeHolder = placeHolderObject[type];
+  const placeHolder = placeHolderObject[objectType];
   function getInformation(type) {
     return informationLookup[type];
   }
-  const information = getInformation(type);
+  const information = getInformation(objectType);
 
   return (
     <>
@@ -59,11 +59,11 @@ export default function SectionField({ type, changeText, name, value, id = null 
         id={id}
         placeholder={placeHolder}
         name={name}
-        className={classNameLookup[type]}
+        className={classNameLookup[objectType]}
         rows="12"
         // cols='70'
         onInput={handleChange}
-        value={value}
+        value={content}
         wrap="hard"
       />
     </>

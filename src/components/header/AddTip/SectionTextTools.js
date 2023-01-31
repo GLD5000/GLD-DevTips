@@ -119,31 +119,32 @@ function getReturnArray(type, index, AddToTextarea) {
   );
 }
 
-const selection = {};
-export default function SectionTextTools({ index, type }) {
+export default function SectionTextTools({ key, type }) {
   const { dispatchInputForm } = useInputFormContext();
 
-  const extraButtons = getReturnArray(type, index, AddToTextarea);
+  const extraButtons = getReturnArray(type, key, AddToTextarea);
   return <div className="h-min">{extraButtons}</div>;
 
   function AddToTextarea(e, textToAdd) {
     const sectionIndex = getSectionIndexFromId(e);
-    updateSelection(sectionIndex);
+    const selection = getSelection(sectionIndex);
     insertTextArea(selection, textToAdd);
   }
-  function updateSelection(sectionNumber) {
+  function getSelection(sectionNumber) {
+    const selection = {};
     selection.start = document.getElementById(`${sectionNumber}-SectionField`).selectionStart;
     selection.end = document.getElementById(`${sectionNumber}-SectionField`).selectionEnd;
     selection.index = sectionNumber;
+    return selection;
   }
   function insertTextArea(selection, textToAdd) {
     const inputElement = document.getElementById(`${selection.index}-SectionField`);
     const currentValue = inputElement.value;
     const oldContent = splitContent(selection, currentValue);
-    const newContent = toggleFlags(textToAdd, oldContent, selection);
+    const [newContent, updatedSelection] = toggleFlags(textToAdd, oldContent, selection);
 
-    updateTextArea(selection, newContent);
-    addTextareaToState(selection.index, newContent);
+    updateTextArea(updatedSelection, newContent);
+    addTextareaToState(updatedSelection.index, newContent);
   }
   function getSectionIndexFromId(e) {
     return parseInt(e.target.id.split('-')[0], 10);
@@ -167,32 +168,35 @@ export default function SectionTextTools({ index, type }) {
     inputElement.selectionEnd = end;
     inputElement.focus();
   }
-  function removeFlags(oldContent, textToAdd, index) {
+  function removeFlags(oldContent, textToAdd, index, selection) {
     const preSelection = oldContent[0].slice(0, index);
     const selectedText = oldContent[1] === textToAdd[1] ? '' : oldContent[1];
     const postSelection = oldContent[2].slice(textToAdd[2].length);
-    selection.start = index;
-    selection.end = selection.start + selectedText.length;
+    const selectionCopy = { ...selection };
+    selectionCopy.start = index;
+    selectionCopy.end = selection.start + selectedText.length;
 
-    return [preSelection, selectedText, postSelection].join('');
+    return [[preSelection, selectedText, postSelection].join(''), selectionCopy];
   }
-  function addFlags(oldContent, textToAdd) {
+  function addFlags(oldContent, textToAdd, selection) {
     const preSelection = oldContent[0] + textToAdd[0];
     const selectedText = oldContent[1] === '' ? textToAdd[1] : oldContent[1];
     const postSelection = textToAdd[2] + oldContent[2];
-    selection.start = preSelection.length;
-    selection.end = selection.start + selectedText.length;
-    return [preSelection, selectedText, postSelection].join('');
+    const selectionCopy = { ...selection };
+    selectionCopy.start = preSelection.length;
+    selectionCopy.end = selectionCopy.start + selectedText.length;
+    return [[preSelection, selectedText, postSelection].join(''), selectionCopy];
   }
 
-  function addHash(oldContent, textToAdd) {
+  function addHash(oldContent, textToAdd, selection) {
     const preSelection = `${oldContent[0]}#`;
     const selectedText = oldContent[1] === '' ? textToAdd[1] : oldContent[1];
     const postSelection = oldContent[2];
-    selection.start = preSelection.length;
-    selection.end = selection.start + selectedText.length;
+    const selectionCopy = { ...selection };
+    selectionCopy.start = preSelection.length;
+    selectionCopy.end = selectionCopy.start + selectedText.length;
 
-    return [preSelection, selectedText, postSelection].join('');
+    return [[preSelection, selectedText, postSelection].join(''), selectionCopy];
   }
   function findFlagIndex(string, flag) {
     const index = string.lastIndexOf(flag);
@@ -200,14 +204,16 @@ export default function SectionTextTools({ index, type }) {
     return [flagIsPresent, index];
   }
 
-  function toggleHeaderFlags(textToAdd, oldContent, selection) {
-    const notAtStart = selection.start > 4;
+  function toggleHeaderFlags(textToAddIn, oldContent, selectionIn) {
+    const textToAdd = textToAddIn;
+    const selectionObject = selectionIn;
+    const notAtStart = selectionObject.start > 4;
     const finalFlag = notAtStart ? '\n####' : '####';
 
     const [finalFlagIsPresent, indexOfFinalFlag] = findFlagIndex(oldContent[0], finalFlag);
 
     if (finalFlagIsPresent) {
-      return removeFlags(oldContent, textToAdd, indexOfFinalFlag);
+      return removeFlags(oldContent, textToAdd, indexOfFinalFlag, selectionIn);
     }
 
     const shortFlag = '##';
@@ -218,7 +224,7 @@ export default function SectionTextTools({ index, type }) {
       textToAdd[0] = shortFlag;
     }
     const shouldRemoveLineBreak =
-      selection.start === 0 ||
+      selectionObject.start === 0 ||
       indexOfFirstFlag === 0 ||
       oldContent[0][oldContent[0].length - 1] === '\n';
     if (shouldRemoveLineBreak) textToAdd[0] = shortFlag;
@@ -235,18 +241,18 @@ export default function SectionTextTools({ index, type }) {
       indexOfIntermediateFlag === oldContent[0].length - intermediateFlag.length;
 
     if (firstFlagIsPresent || intermediateFlagIsPresent) {
-      return addHash(oldContent, textToAdd);
+      return addHash(oldContent, textToAdd, selectionIn);
     }
     if (
       textToAdd[0].length < 3 &&
-      selection.start !== 0 &&
+      selectionObject.start !== 0 &&
       oldContent[0][oldContent[0].length - 1] !== '\n'
     )
       textToAdd[0] = `\n${textToAdd[0]}`;
-    return addFlags(oldContent, textToAdd);
+    return addFlags(oldContent, textToAdd, selectionIn);
   }
 
-  function toggleLinkFlags(textToAdd, oldContent, selection) {
+  function toggleLinkFlags(textToAdd, oldContent, selectionIn) {
     // could have selection or not
     // [text](url)
     // [title](title=title)
@@ -259,17 +265,18 @@ export default function SectionTextTools({ index, type }) {
       oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
 
     if (firstFlagIsPresent && SecondFlagIsPresent) {
-      return removeFlags(oldContent, textToAdd, indexOfFirstFlag);
+      return removeFlags(oldContent, textToAdd, indexOfFirstFlag, selectionIn);
     }
-    return addFlags(oldContent, textToAdd);
+    return addFlags(oldContent, textToAdd, selectionIn);
   }
-  function toggleFlags(textToAdd, oldContent, selection) {
+  function toggleFlags(textToAddIn, oldContent, selectionIn) {
+    const textToAdd = textToAddIn;
     if (textToAdd[1] === 'Header') {
-      return toggleHeaderFlags(textToAdd, oldContent, selection);
+      return toggleHeaderFlags(textToAdd, oldContent, selectionIn);
     }
 
     if (textToAdd[1] === 'Link Name') {
-      return toggleLinkFlags(textToAdd, oldContent, selection);
+      return toggleLinkFlags(textToAdd, oldContent, selectionIn);
     }
 
     const indexOfFirstFlag = oldContent[0].lastIndexOf(textToAdd[0]);
@@ -279,15 +286,15 @@ export default function SectionTextTools({ index, type }) {
       oldContent[2].indexOf(textToAdd[2]) === 0 || textToAdd[2].length === 0;
 
     if (firstFlagIsPresent && SecondFlagIsPresent) {
-      return removeFlags(oldContent, textToAdd, indexOfFirstFlag);
+      return removeFlags(oldContent, textToAdd, indexOfFirstFlag, selectionIn);
     }
-    return addFlags(oldContent, textToAdd);
+    return addFlags(oldContent, textToAdd, selectionIn);
   }
-  function splitContent(selection, string) {
+  function splitContent(selectionIn, stringIn) {
     return [
-      string.slice(0, selection.start),
-      string.slice(selection.start, selection.end),
-      string.slice(selection.end),
+      stringIn.slice(0, selectionIn.start),
+      stringIn.slice(selectionIn.start, selectionIn.end),
+      stringIn.slice(selectionIn.end),
     ];
   }
 }

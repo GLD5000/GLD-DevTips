@@ -6,19 +6,17 @@ import makeNewTag from '../../utilities/newTagMaker';
 
 function useData() {
   const { authUser } = useAuthContext();
-  let isOwner = authUser?.isOwner || false;
+  const isOwner = authUser?.isOwner || false;
   const { tips, dispatchTips } = useTipsContext();
   const [tags, dispatchTags] = useReducer(tagReducer, {
     data: null,
     metadata: { showTags: true, status: 'loading', activeTags: new Set() },
   });
-  useEffect(() => {
-    return fetchFirestoreData(dispatchTags);
-  }, []);
+  useEffect(() => fetchFirestoreData(dispatchTags), []);
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      const status = tips.metadata.status;
+      const { status } = tips.metadata;
       if (status === 'fetched') {
         dispatchTags({ type: 'COUNT_TAGS', payload: tips.data });
       }
@@ -125,7 +123,7 @@ const TagContext = createContext();
 export const useTagsContext = () => useContext(TagContext);
 
 function getTagArrayFromUrl() {
-  const search = window.location.search;
+  const { search } = window.location;
   if (search === '') return [];
   const searchObject = new URLSearchParams(search);
   const tags = searchObject.getAll('tags');

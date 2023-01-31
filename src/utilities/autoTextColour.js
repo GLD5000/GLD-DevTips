@@ -1,24 +1,25 @@
 const colourspace = {
   convertHexToSrgbArray(hexIn) {
     function getSrgbArrayFromHexArray(hex) {
-      const splitHex = splitHexString(hex);
-      return splitHex.map((digits) => hexDigitsToDecimal(...digits));
       function hexDigitsToDecimal(charA, charB = charA) {
         return `0x${charA}${charB}` / 255;
       }
-      function splitHexString(hex) {
-        return hex.length === 7
+      function splitHexString(string) {
+        return string.length === 7
           ? [
-              [hex[1], hex[2]],
-              [hex[3], hex[4]],
-              [hex[5], hex[6]],
+              [string[1], string[2]],
+              [string[3], string[4]],
+              [string[5], string[6]],
             ]
           : [
-              [hex[1], hex[1]],
-              [hex[2], hex[2]],
-              [hex[3], hex[3]],
+              [string[1], string[1]],
+              [string[2], string[2]],
+              [string[3], string[3]],
             ];
       }
+
+      const splitHex = splitHexString(hex);
+      return splitHex.map((digits) => hexDigitsToDecimal(...digits));
     }
     const srgbArray = getSrgbArrayFromHexArray(hexIn);
     return srgbArray;
@@ -51,7 +52,8 @@ const colourspace = {
     return hslArray;
   },
   convertHslArrayToHex(hslArray) {
-    let [hue, sat, lum] = hslArray;
+    const [hue] = hslArray;
+    let [, sat, lum] = hslArray;
 
     sat /= 100;
     lum /= 100;
@@ -104,10 +106,6 @@ const colourspace = {
     return this.convertHslArrayToHex(this.convertSrgbToHslArray(srgbArray));
   },
   convertSrgbToLuminance(args) {
-    const modified = args.map(modifyColourValue);
-    const summed = sumColourValues(...modified);
-    return summed;
-
     function modifyColourValue(value) {
       return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
     }
@@ -117,6 +115,10 @@ const colourspace = {
       const blueMult = 0.0722;
       return redMult * R + greenMult * G + blueMult * B;
     }
+
+    const modified = args.map(modifyColourValue);
+    const summed = sumColourValues(...modified);
+    return summed;
   },
 
   convertHexToLuminance(hex) {

@@ -15,26 +15,27 @@ export default function InputSections() {
 
   function makeInputArray() {
     return sections.map((object, index) => {
+      const key = index;
       const returnObject = (
-        <div key={`${index}field-container`} className="flex w-full flex-col gap-2">
-          <SectionHeader index={index} />
+        <div key={`${key}field-container`} className="flex w-full flex-col gap-2">
+          <SectionHeader index={key} />
           <SectionOptions
-            key={`${index}SectionOptions`}
+            key={`${key}SectionOptions`}
             type={object.type}
-            index={index}
+            index={key}
             changeValue={dispatchInputForm}
             title={object.title}
           />
-          <SectionTextTools type={object.type} index={index} />
+          <SectionTextTools type={object.type} index={key} />
           <SectionField
-            key={`${index}SectionField`}
-            id={`${index}-SectionField`}
-            name={index}
-            type={object.type}
-            value={object.content}
+            key={`${key}SectionField`}
+            id={`${key}-SectionField`}
+            name={key}
+            objectType={object.type}
+            content={object.content}
             changeText={dispatchInputForm}
           />
-          <SectionControls index={index} />
+          <SectionControls index={key} />
         </div>
       );
       return returnObject;

@@ -1,7 +1,32 @@
 {
-  "extends": ["airbnb", "prettier"],
+  "extends": [
+    "airbnb",
+    "prettier",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime"
+  ],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": ["error"]
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/jsx-no-bind": "off",
+    "react/prop-types": "off",
+    "no-use-before-define": ["error", {"functions": false}],
+    "react/jsx-filename-extension": "off",
+    "prettier/prettier": ["error"],
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "controlComponents": ["InputSelect", "SectionTitle", "InputTitle"],
+      "depth": 3
+    }]
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": "true"
   }
 }

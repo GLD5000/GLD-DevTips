@@ -20,7 +20,6 @@ export default function App() {
           <Tips />
         </section>
         <section id="footer" className="footer">
-          {' '}
           footer
         </section>
       </section>

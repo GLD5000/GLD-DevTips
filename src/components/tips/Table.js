@@ -22,12 +22,13 @@ function splitRow(row) {
     .map((string) => string.replaceAll('C-O-M-M-A', ','));
 }
 function rowHandler(row, rowIndex) {
-  if (rowIndex === 0) return;
+  if (rowIndex === 0) return null;
   return <Tr key={rowIndex} row={row} rowIndex={rowIndex} />;
 }
 function Table({ content, parse = false }) {
-  if (parse) content = removeParagraphs(content);
-  const tableArray = parseDataToArray(content);
+  let data = content;
+  if (parse) data = removeParagraphs(data);
+  const tableArray = parseDataToArray(data);
   return (
     <section className=" my-3 flex h-fit w-full justify-center overflow-x-auto p-2">
       <table className="border-collapse border-2 border-neutral-400 p-2 text-center">

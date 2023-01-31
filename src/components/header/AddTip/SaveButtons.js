@@ -11,14 +11,16 @@ export default function SaveButtons() {
     dispatchInputForm,
     inputForm: { data },
   } = useInputFormContext();
-  const { dispatchTips, tips } = useTipsContext();
+  const { dispatchTips } = useTipsContext();
   const { setSearchString } = useSearchStringContext();
   const appAuth = useAuthContext();
   const signedIn = appAuth.authUser !== null;
   const isOwner = signedIn === true && appAuth.authUser?.isOwner === true;
   const authClickHandler = appAuth.clickHandler;
-  const submitText = isOwner ? 'Save' : signedIn ? 'Save (Wrong User)' : 'Sign in to Save';
-  const submitFunction = isOwner ? onSubmit : signedIn ? signedInNonOwner : authClickHandler;
+  const [submitText, submitFunction] = getButtonData(isOwner, signedIn);
+
+  // const submitText = isOwner ? 'Save' : signedIn ? 'Save (Wrong User)' : 'Sign in to Save';
+  // const submitFunction = isOwner ? onSubmit : signedIn ? signedInNonOwner : authClickHandler;
   const conditionalClasses = isOwner
     ? 'bg-aquamarine text-black hover:border-zinc-300'
     : 'bg-transparent hover:bg-zinc-300 hover:text-black text-zinc-300';
@@ -43,23 +45,30 @@ export default function SaveButtons() {
       />
     </div>
   );
+  function getButtonData(owner, loggedIn) {
+    if (!loggedIn) return ['Sign in to Save', authClickHandler];
+
+    if (owner) return ['Save', onSubmit];
+
+    return ['Save (Wrong User)', signedInNonOwner];
+  }
 
   function onSubmit() {
-    if (tips.data[data.id] !== undefined) {
-      let text = `
-      This will overwrite:    
-      ID: ' ${data.id} '
-      Title: ' ${data.title} '
-      Do you wish to continue?`;
-      if (window.confirm(text) === false) {
-        window.alert('You cancelled!');
-        return;
-      }
-    }
+    // if (tips.data[data.id] !== undefined) {
+    //   const text = `
+    //   This will overwrite:
+    //   ID: ' ${data.id} '
+    //   Title: ' ${data.title} '
+    //   Do you wish to continue?`;
+    //   if (window.confirm(text) === false) {
+    //     window.alert('You cancelled!');
+    //     return;
+    //   }
+    // }
     const date = formattedDate();
     dispatchTips({
       type: 'ADD_TIP',
-      payload: { tip: { ...data, date: date }, date: `Saved on: ${date}` },
+      payload: { tip: { ...data, date }, date: `Saved on: ${date}` },
     });
     setSearchString(data.title);
     dispatchInputForm({ type: 'CLOSE_FORM' });
@@ -68,21 +77,21 @@ export default function SaveButtons() {
     dispatchInputForm({ type: 'PREVIEW_TIP' });
   }
   function signedInNonOwner() {
-    if (tips.data[data.id] !== undefined) {
-      let text = `
-      This will overwrite:    
-      ID: ' ${data.id} '
-      Title: ' ${data.title} '
-      Do you wish to continue?`;
-      if (window.confirm(text) === false) {
-        window.alert('You cancelled!');
-        return;
-      }
-    }
+    // if (tips.data[data.id] !== undefined) {
+    //   const text = `
+    //   This will overwrite:
+    //   ID: ' ${data.id} '
+    //   Title: ' ${data.title} '
+    //   Do you wish to continue?`;
+    //   if (window.confirm(text) === false) {
+    //     window.alert('You cancelled!');
+    //     return;
+    //   }
+    // }
     const date = formattedDate();
     dispatchTips({
       type: 'FAKE_ADD_TIP',
-      payload: { tip: { ...data, date: date }, date: `Saved on: ${date}` },
+      payload: { tip: { ...data, date }, date: `Saved on: ${date}` },
     });
     setSearchString(data.title);
     dispatchInputForm({ type: 'CLOSE_FORM' });

@@ -1,11 +1,14 @@
-function InputSelect({ type, name, changeType, value }) {
+function InputSelect({ type, name, changeType, value: content }) {
   function makeOptionsArray() {
     const options = ['text', 'code', 'hint', 'table'];
-    return options.map((option, index) => (
-      <option className="text-black" key={index} value={option}>
-        {option}
-      </option>
-    ));
+    return options.map((option, index) => {
+      const key = index;
+      return (
+        <option className="text-black" key={key} value={option}>
+          {option}
+        </option>
+      );
+    });
   }
 
   function handleChange(e) {
@@ -23,7 +26,7 @@ function InputSelect({ type, name, changeType, value }) {
       name={name}
       id=""
       onChange={handleChange}
-      value={value}
+      value={content}
     >
       {optionsArray}
     </select>

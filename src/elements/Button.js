@@ -1,17 +1,10 @@
-function defaultOnClick(e) {
-  console.log(e.target);
-}
-
 export default function Button({
-  borderRadius = '4px',
-  color = 'white',
   backgroundColor = null,
   text = 'Add',
-  clickFunction = defaultOnClick,
+  clickFunction,
   id = null,
   name = null,
   className = 'w-full h-full',
-  border = '1px solid var(--border-grey)',
   activeClasses = 'active:bg-slate-400',
   conditionalClasses = null,
 }) {
@@ -20,6 +13,7 @@ export default function Button({
   }
   return (
     <button
+      type="button"
       id={id}
       name={name}
       onClick={clickHandler}

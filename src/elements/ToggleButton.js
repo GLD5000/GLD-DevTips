@@ -2,44 +2,37 @@ import TickSvg from '../components/icons/TickSvg';
 import UnTickSvg from '../components/icons/UnTickSvg';
 
 const showText = true;
-function defaultOnClick(e) {
-  console.log(e.target);
-}
 export default function ToggleButton({
-  borderRadius = '4px',
-  color = 'white',
-  backgroundColor = 'black',
+  color: colourIn,
+  backgroundColor: backgroundColorIn,
   text = 'Add',
-  clickFunction = defaultOnClick,
+  clickFunction,
   id = null,
   name = null,
-  type = 'tick',
-  className = 'btn',
+  style = 'tick',
   toggle,
 }) {
-  function getSvg(type) {
-    const svgLookup = {
-      tick: { true: <TickSvg />, false: <UnTickSvg fill={backgroundColor} /> },
-    };
-    return svgLookup[type];
-  }
-  const svg = getSvg(type)[toggle];
-
   function clickHandler(e) {
     // return if wrong
     clickFunction(e);
   }
-  if (toggle === false) {
-    backgroundColor = '#b0b0b0';
-    color = '#000000';
-  }
+  const backgroundColor = toggle ? backgroundColorIn : '#b0b0b0';
+  const color = toggle ? colourIn : '#000000';
   const styles = {
-    color,
     backgroundColor,
+    color,
   };
+  const svg = getSvg(style)[toggle];
+  function getSvg(value) {
+    const svgLookup = {
+      tick: { true: <TickSvg />, false: <UnTickSvg fill={backgroundColorIn} /> },
+    };
+    return svgLookup[value];
+  }
 
   return (
     <button
+      type="button"
       id={id}
       name={name}
       onClick={clickHandler}

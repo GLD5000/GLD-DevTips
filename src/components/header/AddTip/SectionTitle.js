@@ -1,21 +1,16 @@
-function defaultOnInput(value) {
-  console.log(`No function assigned!
-  Value is: ${value}`);
-}
-
 function SectionTitle({
   placeholder = 'Type here...',
-  onInput = defaultOnInput,
+  onInput,
   type = 'text',
   name = undefined,
   value = '',
 }) {
   const handler = (e) => {
-    const { value } = e.target;
+    const { value: targetValue } = e.target;
     const index = e.target.name;
     onInput({
       type: 'REPLACE_SECTION_DATA_FIELD',
-      payload: { index, value, field: 'title' },
+      payload: { index, value: targetValue, field: 'title' },
     });
   };
   return (

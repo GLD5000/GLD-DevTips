@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
 import CreateButton from './CreateButton';
 import GldSvg from '../icons/GldSvg';
 import AuthButton from './AuthButton';
 
-function Header({
+export default function Header({
   title,
   showAddTipForm,
   setShowAddTipForm,
@@ -32,12 +31,3 @@ function Header({
     </section>
   );
 }
-Header.defaultProps = {
-  title: 'Default Title',
-};
-
-Header.propTypes = {
-  title: PropTypes.string,
-};
-
-export default Header;

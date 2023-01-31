@@ -18,9 +18,6 @@ import TableSvg from '../components/icons/TableSvg';
 import HintSvg from '../components/icons/HintSvg';
 // import CollapseSvg from '../components/icons/Collapse'
 // import ExpandSvg from '../components/icons/Expand'
-function defaultOnClick(e) {
-  console.log(e.target);
-}
 function getSvg(type, svgClasses) {
   const svgLookup = {
     italic: <ItalicSvg classes={svgClasses} />,
@@ -62,11 +59,10 @@ export default function SvgButton({
   color = 'whitesmoke',
   backgroundColor = 'transparent',
   text = 'Add',
-  clickFunction = defaultOnClick,
+  clickFunction,
   id = null,
   name = null,
   type = 'up',
-  wide = true,
   showText = true,
   reverse = false,
   hoverFunction = null,
@@ -85,6 +81,7 @@ export default function SvgButton({
   const content = getContent(reverse, showText, text, svg);
   return (
     <button
+      type="button"
       id={id}
       name={name}
       onClick={clickFunction}

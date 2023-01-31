@@ -1,4 +1,3 @@
-import TitleButtons from './TitleButtons';
 import SearchTitle from '../../elements/SearchTitle';
 
 function TitleFilter({ toggleExpanded, expanded }) {
@@ -7,7 +6,6 @@ function TitleFilter({ toggleExpanded, expanded }) {
   return (
     <div className="grid grid-rows-2 gap-2">
       <SearchTitle listId={listId} title={title} onClick={toggleExpanded} expanded={expanded} />
-      <TitleButtons listId={listId} />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import SvgButton from '../../../elements/SvgButton';
 import { useInputFormContext } from '../../../contexts/Providers/InputFormProvider';
 
-export default function SectionControls({ index }) {
+export default function SectionControls({ index: key }) {
   const {
     dispatchInputForm,
     inputForm: {
@@ -29,28 +29,28 @@ export default function SectionControls({ index }) {
       <SvgButton
         buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"
         type="up"
-        key={`${index}moveFieldUp`}
+        key={`${key}moveFieldUp`}
         text="Up"
         clickFunction={moveFieldUp}
-        id={`${index}-moveFieldUp`}
+        id={`${key}-moveFieldUp`}
       />
       <SvgButton
         buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"
         type="down"
-        key={`${index}moveFieldDown`}
+        key={`${key}moveFieldDown`}
         backgroundColor="bg-transparent"
         text="Down"
         clickFunction={moveFieldDown}
-        id={`${index}-moveFieldDown`}
+        id={`${key}-moveFieldDown`}
       />
 
       <SvgButton
         buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"
         type="duplicate"
-        key={`${index}duplicateField`}
+        key={`${key}duplicateField`}
         text="Copy"
         clickFunction={duplicateField}
-        id={`${index}-duplicatefield`}
+        id={`${key}-duplicatefield`}
         svgClasses="stroke-1 stroke-whitesmoke fill-black"
       />
       <SvgButton
@@ -59,16 +59,16 @@ export default function SectionControls({ index }) {
         key="addField"
         text="Add"
         clickFunction={addField}
-        id={`${index}-addField`}
+        id={`${key}-addField`}
       />
-      {index > 0 && (
+      {key > 0 && (
         <SvgButton
           buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"
           type="delete"
-          key={`${index}deleteIndexedField`}
+          key={`${key}deleteIndexedField`}
           text="Delete"
           clickFunction={deleteIndexedField}
-          id={`${index}-deleteIndexedField`}
+          id={`${key}-deleteIndexedField`}
         />
       )}
     </div>
@@ -125,12 +125,13 @@ export default function SectionControls({ index }) {
   }
 
   function swapArrayPositions(array, index, direction = 'up') {
+    const arrayCopy = [...array];
     const indexModifier = direction === 'down' ? 1 : -1;
     const secondIndex = index + indexModifier;
-    const indexLimit = array.length - 1;
+    const indexLimit = arrayCopy.length - 1;
     if (secondIndex > indexLimit || secondIndex < 0) return null;
-    [array[index], array[secondIndex]] = [array[secondIndex], array[index]];
-    return array;
+    [arrayCopy[index], arrayCopy[secondIndex]] = [arrayCopy[secondIndex], arrayCopy[index]];
+    return arrayCopy;
   }
 
   function addField() {

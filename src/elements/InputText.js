@@ -1,17 +1,12 @@
-function defaultOnInput(value) {
-  console.log(`No function assigned!
-  Value is: ${value}`);
-}
-
 function InputText({
   placeholder = 'Type here...',
-  onInput = defaultOnInput,
+  onInput,
   type = 'text',
   listId = null,
   value = '',
 }) {
-  const handler = (value) => {
-    onInput(value);
+  const handler = (e) => {
+    onInput(e.target.value);
   };
 
   return (
@@ -19,7 +14,7 @@ function InputText({
       className="h-8 w-full rounded border border-zinc-600 bg-inherit p-1"
       type={type}
       onFocus={(e) => e.target.select()}
-      onChange={(e) => handler(e.target.value)}
+      onChange={handler}
       placeholder={placeholder}
       list={listId}
       autoComplete="off"

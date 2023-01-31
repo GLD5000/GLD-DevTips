@@ -1,5 +1,5 @@
-import Tag from './Tag';
-import { useTagsContext } from '../../contexts/Providers/TagsProvider';
+import Tag from '../../tips/Tag';
+import { useTagsContext } from '../../../contexts/Providers/TagsProvider';
 
 export default function PreviewTags({ tagArray }) {
   const {
