@@ -7,6 +7,7 @@
     "plugin:react/jsx-runtime"
   ],
   "plugins": ["prettier"],
+  "ignorePatterns": ["*.ttf", "*.css"],
   "rules": {
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
@@ -16,7 +17,7 @@
     "react/jsx-filename-extension": "off",
     "prettier/prettier": ["error"],
     "jsx-a11y/label-has-associated-control": [ 2, {
-      "controlComponents": ["InputSelect", "SectionTitle", "InputTitle"],
+      "controlComponents": ["InputSelect", "SectionTitle", "InputTitle", "InputText"],
       "depth": 3
     }]
   },

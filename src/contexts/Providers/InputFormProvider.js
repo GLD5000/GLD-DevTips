@@ -43,25 +43,6 @@ function useData() {
     const oldMetadata = { ...state.metadata };
 
     switch (action.type) {
-      default:
-      case 'NEW_TIP': {
-        return {
-          data: {
-            title: '',
-            id: nextTipId,
-            sections: [{ type: 'text', content: '' }],
-            tags: [],
-          },
-          metadata: {
-            focusId: -1,
-            preview: false,
-            editing: true,
-            existingTagsSet: new Set(),
-            newTagsArray: [],
-            date: null,
-          },
-        };
-      }
       case 'EDIT_TIP': {
         const tipToEdit = tips[action.payload];
         oldMetadata.editing = true;
@@ -153,6 +134,25 @@ function useData() {
         oldData.sections = [...oldData.sections, { type: 'text', content: '' }];
         oldMetadata.focusId = oldData.sections.length - 1;
         return { data: oldData, metadata: oldMetadata };
+      }
+      case 'NEW_TIP':
+      default: {
+        return {
+          data: {
+            title: '',
+            id: nextTipId,
+            sections: [{ type: 'text', content: '' }],
+            tags: [],
+          },
+          metadata: {
+            focusId: -1,
+            preview: false,
+            editing: true,
+            existingTagsSet: new Set(),
+            newTagsArray: [],
+            date: null,
+          },
+        };
       }
     }
   }

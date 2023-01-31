@@ -38,7 +38,6 @@ export default function CodeBox({ content, parse = false }) {
         key={`${1}copyCode`}
         text={copyButtonMessage}
         clickFunction={() => {
-          if (codeBody.includes('Pp')) alert(codeBody);
           navigator.clipboard.writeText(codeBody);
           setCopyButtonMessage('Copied!');
         }}

@@ -3,6 +3,6 @@ import { flagMap, wrapText } from '../utilities/ParserLookups';
 
 function TextBox({ text }) {
   const returnArray = markdownParserFull({ text, flagMap, wrapText });
-  return <>{returnArray}</>;
+  return <div>{returnArray}</div>;
 }
 export default TextBox;

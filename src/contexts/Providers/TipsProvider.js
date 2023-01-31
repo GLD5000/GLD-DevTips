@@ -4,7 +4,7 @@ import { useAuthContext } from '../../auth';
 
 function useData() {
   const { authUser } = useAuthContext();
-  let isOwner = authUser?.isOwner || false;
+  const isOwner = authUser?.isOwner || false;
   const [tips, dispatchTips] = useReducer(tipsReducer, {
     data: null,
     metadata: { status: 'fetching', nextTipId: -1 },
@@ -23,13 +23,13 @@ function useData() {
     const paddedNumber = padIdNumber(number);
     return paddedNumber;
 
-    function padIdNumber(number) {
-      return number.toString(10).padStart(4, '0');
+    function padIdNumber(input) {
+      return input.toString(10).padStart(4, '0');
     }
-    function getMaxIdNumber(tips) {
+    function getMaxIdNumber(list) {
       let max = 0;
-      Object.values(tips).forEach((tip) => {
-        const integer = parseInt(tip.id,10);
+      Object.values(list).forEach((tip) => {
+        const integer = parseInt(tip.id, 10);
         if (integer > max) max = integer;
       });
       return max;
@@ -47,43 +47,28 @@ function useData() {
           data: action.payload,
         };
       }
-      case 'FAKE_ADD_TIP':
-      default: {
-        const tip = action.payload.tip;
-        const date = action.payload.date;
-        oldStateCopy.data[tip.id] = { ...tip, updated: date };
-
-        return {
-          metadata: {
-            status: 'added',
-            tags: action.payload.tags,
-            nextTipId: getNewTipId(oldStateCopy.data),
-          },
-          data: oldStateCopy.data,
-        };
-      }
       case 'ADD_TIP': {
-        const tip = action.payload.tip;
-        const date = action.payload.date;
+        const { tip } = action.payload;
+        const { date } = action.payload;
         if (isOwner) addTipToFirestore(tip);
         oldStateCopy.data[tip.id] = { ...tip, updated: date };
 
         return {
           metadata: {
             status: 'added',
-            tags: action.payload.tags,
+            tags: action.payload,
             nextTipId: getNewTipId(oldStateCopy.data),
           },
           data: oldStateCopy.data,
         };
       }
       case 'DELETE_TIP': {
-        const tags = oldStateCopy.data[action.payload.id].tags;
+        const { tags } = oldStateCopy.data[action.payload.id];
         delete oldStateCopy.data[action.payload.id];
         return {
           metadata: {
             status: 'deleted',
-            tags: tags,
+            tags,
             nextTipId: getNewTipId(oldStateCopy.data),
           },
           data: oldStateCopy.data,
@@ -92,6 +77,21 @@ function useData() {
       case 'STATUS_IDLE': {
         oldStateCopy.metadata.status = 'idle';
         return oldStateCopy;
+      }
+      case 'FAKE_ADD_TIP':
+      default: {
+        const { tip } = action.payload;
+        const { date } = action.payload;
+        oldStateCopy.data[tip.id] = { ...tip, updated: date };
+
+        return {
+          metadata: {
+            status: 'added',
+            tags: action.payload.tags,
+            nextTipId: getNewTipId(oldStateCopy.data),
+          },
+          data: oldStateCopy.data,
+        };
       }
     }
   }
@@ -109,7 +109,7 @@ function fetchFirestoreData(dispatchTips) {
   }
   if (tipsLocal !== null) {
     const payload = JSON.parse(tipsLocal);
-    dispatchTips({ type: 'INITIALISE', payload: payload });
+    dispatchTips({ type: 'INITIALISE', payload });
   }
   return () => {
     isMounted = false;
