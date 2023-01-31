@@ -11,7 +11,7 @@ export default function Tip({ tip, updated }) {
   }
   const title = tip.titleSuffix === undefined ? tip.title : tip.title + tip.titleSuffix;
   return (
-    <div className="flex  w-body min-w-body max-w-body flex-col items-start justify-between gap-2 rounded border bg-neutral-800 p-2">
+    <article className="flex  w-body min-w-body max-w-body flex-col items-start justify-between gap-2 rounded border bg-neutral-800 p-2">
       <TipTitle title={title} onClick={handleClick} expanded={expanded} />
       {expanded && (
         <>
@@ -21,6 +21,6 @@ export default function Tip({ tip, updated }) {
       )}
       <Tags tagArray={tip.tags} />
       {updated && <p>{updated}</p>}
-    </div>
+    </article>
   );
 }

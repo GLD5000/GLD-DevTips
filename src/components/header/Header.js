@@ -11,7 +11,7 @@ export default function Header({
   clearTags,
 }) {
   return (
-    <section className="sticky top-0 left-0 right-0 z-[999] grid h-16 w-screen grid-cols-frAutoFr content-center bg-neutral-800">
+    <header className="sticky top-0 left-0 right-0 z-[999] grid h-16 w-screen grid-cols-frAutoFr content-center bg-neutral-800">
       <header className=" col-start-2 flex w-body min-w-body max-w-body flex-wrap items-center justify-between align-middle  ">
         <div className="flex flex-wrap items-center gap-4 py-4">
           <GldSvg />
@@ -28,6 +28,6 @@ export default function Header({
           <AuthButton />
         </div>
       </header>
-    </section>
+    </header>
   );
 }
