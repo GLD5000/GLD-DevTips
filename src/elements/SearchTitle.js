@@ -31,13 +31,13 @@ export default function SearchTitle({ title, onClick, expanded, listId }) {
         className="grid w-full grid-cols-frAutoFr justify-items-end rounded-none rounded-t-lg border-b border-b-neutral-600 hover:bg-slate-800 active:bg-slate-600"
         onClick={onClick}
       >
-        <label id={`${listId}label`} htmlFor={listId}>
-          <h2 className="col-start-2">{title}</h2>
+        <label className="col-start-2" id={`${listId}label`} htmlFor={listId}>
+          <h2>{title}</h2>
         </label>
         {expanded ? (
-          <CollapseSvg className="tip-title-svg" />
+          <CollapseSvg className="tip-title-svg col-start-3" />
         ) : (
-          <ExpandSvg className="tip-title-svg" />
+          <ExpandSvg className="tip-title-svg col-start-3" />
         )}
       </button>
       <InputText
