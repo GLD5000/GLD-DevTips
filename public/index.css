@@ -563,14 +563,6 @@ video {
   pointer-events: none;
 }
 
-.fixed {
-  position: fixed;
-}
-
-.absolute {
-  position: absolute;
-}
-
 .relative {
   position: relative;
 }
@@ -600,10 +592,6 @@ video {
   right: 0px;
 }
 
-.top-2 {
-  top: 0.5rem;
-}
-
 .z-50 {
   z-index: 50;
 }
@@ -620,12 +608,20 @@ video {
   grid-column-start: 2;
 }
 
+.col-start-3 {
+  grid-column-start: 3;
+}
+
 .col-start-5 {
   grid-column-start: 5;
 }
 
 .col-start-4 {
   grid-column-start: 4;
+}
+
+.row-auto {
+  grid-row: auto;
 }
 
 .m-1 {
@@ -810,6 +806,10 @@ video {
 
 .grid-rows-2 {
   grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+.grid-rows-1 {
+  grid-template-rows: repeat(1, minmax(0, 1fr));
 }
 
 .flex-row {
