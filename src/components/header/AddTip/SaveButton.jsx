@@ -27,7 +27,7 @@ export default function SaveButton() {
       text={submitText}
       clickFunction={submitFunction}
       conditionalClasses={conditionalClasses}
-      className="h-full"
+      className="h-full rounded transition delay-100 duration-200 ease-in-out"
     />
   );
   function getButtonData(owner, loggedIn) {

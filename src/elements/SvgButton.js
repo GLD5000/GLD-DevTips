@@ -74,7 +74,7 @@ export default function SvgButton({
    hover:border-current
    grid     
    h-full 
-     cursor-pointer rounded border-2 border-solid whitespace-pre-wrap 
+     cursor-pointer rounded border-2 border-solid whitespace-pre-wrap transition delay-100 duration-200 ease-in-out
     ${color && color} ${backgroundColor && backgroundColor} ${buttonClasses} ${activeClasses}`,
 }) {
   const svg = getSvg(type, svgClasses);
