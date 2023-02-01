@@ -1,15 +1,17 @@
 import CreateButton from './CreateButton';
 import GldSvg from '../icons/GldSvg';
 import AuthButton from './AuthButton';
+import { useInputFormContext } from '../../contexts/Providers/InputFormProvider';
+import SaveButton from './AddTip/SaveButton';
 
-export default function Header({
-  title,
-  showAddTipForm,
-  setShowAddTipForm,
-  addObjectToInputFormState,
-  setSearchQuery,
-  clearTags,
-}) {
+export default function Header({ title }) {
+  const {
+    inputForm: {
+      metadata: { editing },
+    },
+  } = useInputFormContext();
+  console.log(editing);
+  const conditionalButton = editing ? <SaveButton /> : <AuthButton />;
   return (
     <header className="sticky top-0 left-0 right-0 z-[999] grid h-16 w-screen grid-cols-frAutoFr content-center bg-neutral-800">
       <nav className=" col-start-2 flex w-body min-w-body max-w-body flex-wrap items-center justify-between align-middle  ">
@@ -18,14 +20,8 @@ export default function Header({
           <h1>{title}</h1>
         </div>
         <div className="relative flex h-full flex-wrap items-center justify-center gap-4 py-4">
-          <CreateButton
-            showAddTipForm={showAddTipForm}
-            setShowAddTipForm={setShowAddTipForm}
-            addObjectToInputFormState={addObjectToInputFormState}
-            setSearchQuery={setSearchQuery}
-            clearTags={clearTags}
-          />
-          <AuthButton />
+          <CreateButton />
+          {conditionalButton}
         </div>
       </nav>
     </header>

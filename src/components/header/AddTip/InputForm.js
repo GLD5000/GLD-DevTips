@@ -1,8 +1,8 @@
 import InputSections from './InputSections';
 import InputTags from '../../../elements/InputTags';
 import InputTitle from './InputTitle';
-import SaveButtons from './SaveButtons';
 import PreviewTip from './PreviewTip';
+import PreviewButton from './PreviewButton';
 
 export default function InputForm() {
   return (
@@ -14,8 +14,7 @@ export default function InputForm() {
         <InputTags />
       </div>
       <InputSections />
-
-      <SaveButtons />
+      <PreviewButton />
       <PreviewTip />
     </div>
   );

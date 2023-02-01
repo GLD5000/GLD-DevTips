@@ -8,7 +8,7 @@ export default function App() {
     <CombinedProviders>
       <section
         id="page-container"
-        className=" h-screen overflow-y-scroll border-zinc-600 bg-neutral-900 text-zinc-100"
+        className=" h-screen overflow-x-hidden overflow-y-scroll border-zinc-600 bg-neutral-900 text-zinc-100"
       >
         <h1 className="bg-neutral-800">Hello, my name is Gareth...</h1>
         <Header title="DevTips" />
