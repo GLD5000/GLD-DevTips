@@ -10,7 +10,6 @@ export default function Header({ title }) {
       metadata: { editing },
     },
   } = useInputFormContext();
-  console.log(editing);
   const conditionalButton = editing ? <SaveButton /> : <AuthButton />;
   return (
     <header className="sticky top-0 left-0 right-0 z-[999] grid h-16 w-screen grid-cols-frAutoFr content-center bg-neutral-800">
