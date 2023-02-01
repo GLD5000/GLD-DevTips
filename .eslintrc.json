@@ -11,15 +11,19 @@
   "rules": {
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
+    "no-console": "off",
     "react/jsx-no-bind": "off",
     "react/prop-types": "off",
-    "no-use-before-define": ["error", {"functions": false}],
+    "no-use-before-define": ["error", { "functions": false }],
     "react/jsx-filename-extension": "off",
     "prettier/prettier": ["error"],
-    "jsx-a11y/label-has-associated-control": [ 2, {
-      "controlComponents": ["InputSelect", "SectionTitle", "InputTitle", "InputText"],
-      "depth": 3
-    }]
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "controlComponents": ["InputSelect", "SectionTitle", "InputTitle", "InputText"],
+        "depth": 3
+      }
+    ]
   },
   "parserOptions": {
     "ecmaVersion": 2022,
