@@ -612,10 +612,6 @@ video {
   grid-column-start: 3;
 }
 
-.col-start-5 {
-  grid-column-start: 5;
-}
-
 .col-start-4 {
   grid-column-start: 4;
 }
@@ -856,16 +852,8 @@ video {
   gap: 1rem;
 }
 
-.overflow-auto {
-  overflow: auto;
-}
-
 .overflow-x-auto {
   overflow-x: auto;
-}
-
-.overflow-y-auto {
-  overflow-y: auto;
 }
 
 .overflow-x-hidden {
@@ -935,6 +923,11 @@ video {
   border-color: #0000;
 }
 
+.border-zinc-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(212 212 216 / var(--tw-border-opacity));
+}
+
 .border-current {
   border-color: currentColor;
 }
@@ -947,11 +940,6 @@ video {
 .border-vsGreen {
   --tw-border-opacity: 1;
   border-color: rgb(140 241 124 / var(--tw-border-opacity));
-}
-
-.border-zinc-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(212 212 216 / var(--tw-border-opacity));
 }
 
 .border-x-neutral-600 {
@@ -1034,14 +1022,14 @@ video {
   background-color: rgb(64 64 64 / var(--tw-bg-opacity));
 }
 
-.bg-aquamarine {
-  --tw-bg-opacity: 1;
-  background-color: rgb(126 185 135 / var(--tw-bg-opacity));
-}
-
 .bg-mediumPurple {
   --tw-bg-opacity: 1;
   background-color: rgb(153 51 221 / var(--tw-bg-opacity));
+}
+
+.bg-aquamarine {
+  --tw-bg-opacity: 1;
+  background-color: rgb(126 185 135 / var(--tw-bg-opacity));
 }
 
 .fill-black {
@@ -1199,6 +1187,12 @@ video {
   text-decoration-thickness: 1px;
 }
 
+.blur {
+  --tw-blur: blur(8px);
+  -webkit-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+          filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 .filter {
   -webkit-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
           filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -1212,16 +1206,8 @@ video {
   transition-duration: 150ms;
 }
 
-.delay-150 {
-  transition-delay: 150ms;
-}
-
 .delay-100 {
   transition-delay: 100ms;
-}
-
-.duration-300 {
-  transition-duration: 300ms;
 }
 
 .duration-200 {
