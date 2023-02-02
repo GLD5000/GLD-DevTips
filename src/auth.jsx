@@ -53,12 +53,12 @@ function useFirebaseAuth() {
         clear();
         return;
       }
-
       setAuthUser({
         uid: user.uid,
         email: user.email,
         isOwner: await checkRole(user),
         name: user.displayName,
+        photoUrl: user.photoURL,
       });
       setIsLoading(false);
     };
