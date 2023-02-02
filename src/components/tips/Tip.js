@@ -21,7 +21,12 @@ export default function Tip({ tip, updated, shouldExpand }) {
   const title = tip.titleSuffix === undefined ? tip.title : tip.title + tip.titleSuffix;
   return (
     <article className="flex  w-body min-w-body max-w-body flex-col items-start justify-between gap-2 rounded border bg-neutral-800 p-2">
-      <TipTitle title={title} onClick={handleClick} expanded={expanded} />
+      <TipTitle
+        id={`${tip.id}: ${title}`}
+        title={title}
+        onClick={handleClick}
+        expanded={expanded}
+      />
       {expanded && (
         <>
           <EditButton key={`edit${tip.id}`} tipId={tip.id} />
