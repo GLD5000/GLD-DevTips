@@ -46,7 +46,6 @@ export default function SearchTitle({ title, onClick, expanded, listId }) {
         type="search"
         value={searchString}
         listId={listId}
-        controlled
       />
       <datalist className="datalist" id={listId}>
         {titleSet.map((tip) => {

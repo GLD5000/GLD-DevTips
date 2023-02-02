@@ -8,6 +8,10 @@ function InputText({
   const handler = (e) => {
     onInput(e.target.value);
   };
+  const handleEnter = (e) => {
+    if (e.code !== 'Enter') return;
+    e.target.blur();
+  };
 
   return (
     <input
@@ -15,6 +19,7 @@ function InputText({
       type={type}
       onFocus={(e) => e.target.select()}
       onChange={handler}
+      onKeyDown={handleEnter}
       placeholder={placeholder}
       list={listId}
       autoComplete="off"
