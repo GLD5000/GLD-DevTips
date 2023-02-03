@@ -7,7 +7,7 @@ export default function Li({ content, type = 'bullet' }) {
   const style = styles[type];
 
   return (
-    <li className="li" style={style}>
+    <li className="m-2" style={style}>
       {content}
     </li>
   );

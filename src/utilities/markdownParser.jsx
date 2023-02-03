@@ -111,13 +111,14 @@ function wrapLists(arrayOfObjects) {
     if (nonListItem) {
       const wasListItem = listType !== type && listType !== null;
       if (wasListItem) {
+        const key = index;
         // list type just changed
         // make ol or ul object
         const wasOrderedList = listType === 'O';
         const list = wasOrderedList ? (
-          <Ol content={listItemArray} />
+          <Ol key={`${key}-Ol`} content={listItemArray} />
         ) : (
-          <Ul content={listItemArray} />
+          <Ul key={`${key}-Ul`} content={listItemArray} />
         );
         returnArray.push(list);
         listType = type;
@@ -128,9 +129,9 @@ function wrapLists(arrayOfObjects) {
     const isOrderedListItem = type === 'O';
     if (isOrderedListItem) {
       if (listType !== type && listItemArray.length > 0) {
-        const pindex = index * 1;
+        const key = index;
 
-        returnArray.push(<Ul key={`Ol${pindex}`} content={listItemArray} />);
+        returnArray.push(<Ul key={`Ol${key}`} content={listItemArray} />);
         listItemArray = [];
       }
       listType = type;
@@ -139,8 +140,8 @@ function wrapLists(arrayOfObjects) {
     const isUnorderedListItem = type === 'U';
     if (isUnorderedListItem) {
       if (listType !== type && listItemArray.length > 0) {
-        const pindex = index * 1;
-        returnArray.push(<Ol key={`Ol${pindex}`} content={listItemArray} />);
+        const key = index;
+        returnArray.push(<Ol key={`Ol${key}`} content={listItemArray} />);
         listItemArray = [];
       }
 
