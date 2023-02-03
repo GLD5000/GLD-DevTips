@@ -24,7 +24,8 @@ export const flagMap = new Map([
   [/(PpPpSSS)\s?[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: 'liOl' }],
   [/\[(?=[^\]]+\]\([\w\d.\-/:?&=,]+\))/, { closingFlag: ')', type: 'link' }],
   [/`/, { closingFlag: /`/, type: 'codeSpan' }],
-  [/'(?=.+')/, { closingFlag: /'/, type: 'span' }],
+  [/'(?=.+')/, { closingFlag: /'/, type: 'singleQuote' }],
+  [/"(?=.+")/, { closingFlag: /"/, type: 'doubleQuote' }],
   ['**', { closingFlag: '**', type: 'bold' }],
   ['_', { closingFlag: '_', type: 'italic' }],
 ]);
@@ -42,7 +43,8 @@ export function wrapText({ index, text, type }) {
   const newKey = `x${index}`;
   const typeHandler = {
     link: <Link key={`l${newKey}`} content={text} href="www.google.co.uk" />,
-    span: <Span key={`span${newKey}`} content={text} />,
+    singleQuote: <Span key={`span${newKey}`} content={text} type="single" />,
+    doubleQuote: <Span key={`span${newKey}`} content={text} type="double" />,
     codeSpan: <CodeSpan key={`codeSpan${newKey}`} content={text} />,
     bold: <Bold key={`bo${newKey}`} content={text} />,
     italic: <Italic key={`it${newKey}`} content={text} />,
