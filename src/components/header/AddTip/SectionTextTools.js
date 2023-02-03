@@ -119,7 +119,7 @@ function getReturnArray(type, index, AddToTextarea) {
   );
 }
 
-export default function SectionTextTools({ key, type }) {
+export default function SectionTextTools({ index: key, type }) {
   const { dispatchInputForm } = useInputFormContext();
 
   const extraButtons = getReturnArray(type, key, AddToTextarea);

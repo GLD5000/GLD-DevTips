@@ -50,10 +50,9 @@ async function addTagToCollection(title, objectIn) {
 
 export async function getUserRole(uid) {
   const rolesDoc = await getDoc(doc(rolesCollection, uid));
-  // console.log(rolesDoc.data());
   const data = rolesDoc?.data();
   if (data !== undefined) return data.role;
-  return undefined; // will mess it up
+  return undefined;
 }
 export async function addTagToFirestore(lowerCaseTagName, tag) {
   const tagsString = window.sessionStorage.getItem('tags');

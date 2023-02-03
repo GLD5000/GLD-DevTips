@@ -10,10 +10,8 @@ import { auth as firebaseAuth } from './firebase';
 import { getUserRole } from './firestore';
 
 async function checkRole(user) {
-  // console.count('checkRole');
   const { uid } = user;
   const role = await getUserRole(uid);
-  // console.log(`got role ${role}`);
   const isOwner = role === 'owner';
   return isOwner;
 }

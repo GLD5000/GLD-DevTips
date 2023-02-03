@@ -12,7 +12,6 @@ export default function ImageButton({
   function clickHandler(e) {
     clickFunction(e);
   }
-  console.log(`imageUrl ${imageUrl}`);
 
   return (
     <button
