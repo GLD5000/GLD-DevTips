@@ -27,7 +27,12 @@ export default function ImageButton({
       {imageUrl && (
         <>
           Log Out
-          <img className="aspect-square h-8 rounded-full" alt="User Profile" src={imageUrl} />
+          <img
+            referrerPolicy="no-referrer"
+            className="aspect-square h-8 rounded-full"
+            alt="User Profile"
+            src={imageUrl}
+          />
         </>
       )}
     </button>
