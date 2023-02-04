@@ -41,12 +41,16 @@ function checkTagVisible(activeTags, tipTags) {
   return returnBoolean;
 }
 function filterTip(tip, searchString, activeTags, stringMissing) {
-  const showTitle = stringMissing
-    ? false
-    : tip.title.toLowerCase().includes(searchString.toLowerCase());
+  const showTitle = stringMissing ? false : testTitle(tip.title, searchString);
   const showTags = activeTags.size > 0 ? checkTagVisible(activeTags, tip.tags) : false;
 
   return showTitle || showTags;
+}
+function testTitle(title, searchString) {
+  const searchArray = searchString.split(' ');
+  const lowerCaseTitle = title.toLowerCase();
+  const testResult = searchArray.every((word) => lowerCaseTitle.includes(word.toLowerCase()));
+  return testResult;
 }
 function getFilteredTips(tips, searchString, activeTags) {
   const stringMissing = !searchString || searchString.length < 1;

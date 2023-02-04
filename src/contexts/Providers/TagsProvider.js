@@ -131,6 +131,6 @@ function getTagArrayFromUrl() {
   const searchObject = new URLSearchParams(search);
   const tags = searchObject.getAll('tags');
   const tagsFromUrl =
-    tags.length === 0 ? null : searchObject.getAll('tags').map((x) => x.toLowerCase());
+    tags.length === 0 ? [] : searchObject.getAll('tags').map((x) => x.toLowerCase());
   return tagsFromUrl;
 }

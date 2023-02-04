@@ -4,7 +4,7 @@ function getTags(string, start, end = undefined) {
 }
 function getUrl() {
   const { href } = window.location;
-  if (href.indexOf('?') > -1) return `${href.split('?')[0]}?`;
+  if (href.indexOf('?') > -1) return href.split('?')[0];
   return href;
 }
 function sliceLinkLocalUrl(item) {
@@ -13,26 +13,38 @@ function sliceLinkLocalUrl(item) {
   const urlField = item.slice(startSlice).replace('&', '');
 
   let url = getUrl();
+  console.log(url);
   const titleFlag = 'title=';
   let titleIndex = urlField.indexOf(titleFlag);
   titleIndex = titleIndex > -1 && titleIndex;
   const tagsFlag = 'tags=';
   let tagIndex = urlField.indexOf(tagsFlag);
   tagIndex = tagIndex > -1 && tagIndex;
-  if (tagIndex !== false)
+  const gotTags = tagIndex !== false;
+  const gotTitle = titleIndex !== false;
+  if (gotTags || gotTitle) url += '?';
+  console.log(url);
+
+  if (gotTags)
     url += getTags(urlField, tagIndex, (titleIndex > tagIndex && titleIndex) || undefined);
-  if (tagIndex !== false && titleIndex !== false) url += '&';
-  if (titleIndex !== false)
-    url += urlField.slice(titleIndex, (tagIndex > titleIndex && tagIndex) || undefined);
+  console.log(url);
+
+  if (gotTags && gotTitle) url += '&';
+  console.log(url);
+
+  if (gotTitle) url += getTitle(urlField, titleIndex, tagIndex);
 
   const indexOfClosedSquareBracket = item.indexOf(']');
   const text = item.slice(0, indexOfClosedSquareBracket);
-
+  console.log(url);
   return (
     <a className=" inline text-blue-700" href={url}>
       {text}
     </a>
   );
+}
+function getTitle(urlField, titleIndex, tagIndex) {
+  return urlField.slice(titleIndex, (tagIndex > titleIndex && tagIndex) || undefined);
 }
 function sliceLinkSimple(item) {
   const indexOfOpenBracket = item.indexOf('(');
