@@ -49,7 +49,7 @@ export const flagMap = new Map([
   [/(PpPpSSS)\s?-\s+/, { closingFlag: lineEndRegex, type: 'liUl' }],
   [/(PpPpSSS)\s?[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: 'liOl' }],
   [/(PpPpSSS)(?!#)/, { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: 'paragraph' }],
-  [/\[(?=[^\]]+\]\([\w\d.\-/:?&=,]+\))/, { closingFlag: ')', type: 'link' }],
+  [/\[(?=[^\]]+\]\([^)]+\))/, { closingFlag: ')', type: 'link' }],
   [/`/, { closingFlag: /`/, type: 'codeSpan' }],
   [/'(?=.+')/, { closingFlag: /'/, type: 'singleQuote' }],
   [/"(?=.+")/, { closingFlag: /"/, type: 'doubleQuote' }],
@@ -61,7 +61,7 @@ export function getFlagMap(include) {
   if (include === undefined) return flagMap;
   const returnMap = new Map();
   flagMap.forEach((value, key) => {
-    if (include.includes(value.type)) returnMap.set([key, value]);
+    if (include.includes(value.type)) returnMap.set(key, value);
   });
   return returnMap;
 }
