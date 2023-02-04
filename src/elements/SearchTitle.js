@@ -28,7 +28,7 @@ export default function SearchTitle({ title, onClick, expanded, listId }) {
     <>
       <button
         type="button"
-        className=" grid w-full grid-cols-frAutoFr justify-items-end rounded-none rounded-t-lg border-b border-b-neutral-600 px-2 hover:bg-slate-800 active:bg-slate-600"
+        className=" grid w-full grid-cols-frAutoFr justify-items-end rounded-b-none border-2 border-transparent border-b-neutral-600 bg-inherit px-2 delay-100 duration-200 ease-in-out hover:border-2 hover:border-neutral-200 active:border-neutral-200"
         onClick={onClick}
       >
         <label className="col-start-2" id={`${listId}label`} htmlFor={listId}>
