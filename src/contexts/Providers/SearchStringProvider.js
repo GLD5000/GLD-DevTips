@@ -19,6 +19,6 @@ function getTitleFromUrl() {
   const { search } = window.location;
   if (search === '') return '';
   const searchObject = new URLSearchParams(search);
-  const searchFromUrl = searchObject.get('title');
+  const searchFromUrl = searchObject.get('title').replaceAll(/[ ]+/g, ' ');
   return searchFromUrl;
 }
