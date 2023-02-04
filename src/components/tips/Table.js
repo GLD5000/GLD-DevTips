@@ -30,7 +30,7 @@ function Table({ content, parse = false }) {
   if (parse) data = removeParagraphs(data);
   const tableArray = parseDataToArray(data);
   return (
-    <section className=" my-3 flex h-fit w-full justify-center overflow-x-auto p-2">
+    <section className=" my-3 flex h-fit w-full justify-center overflow-x-auto">
       <table className="border-collapse border-2 border-neutral-400 p-2 text-center">
         <thead className=" bg-neutral-600 text-lg">
           <Tr key="0" row={tableArray[0]} rowIndex="0" />

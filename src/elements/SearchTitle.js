@@ -28,7 +28,7 @@ export default function SearchTitle({ title, onClick, expanded, listId }) {
     <>
       <button
         type="button"
-        className="grid w-full grid-cols-frAutoFr justify-items-end rounded-none rounded-t-lg border-b border-b-neutral-600 hover:bg-slate-800 active:bg-slate-600"
+        className=" grid w-full grid-cols-frAutoFr justify-items-end rounded-none rounded-t-lg border-b border-b-neutral-600 px-2 hover:bg-slate-800 active:bg-slate-600"
         onClick={onClick}
       >
         <label className="col-start-2" id={`${listId}label`} htmlFor={listId}>
@@ -40,28 +40,30 @@ export default function SearchTitle({ title, onClick, expanded, listId }) {
           <ExpandSvg className="tip-title-svg col-start-3" />
         )}
       </button>
-      <InputText
-        placeholder={placeholder}
-        onInput={setSearchString}
-        type="search"
-        value={searchString}
-        listId={listId}
-      />
-      <datalist className="datalist" id={listId}>
-        {titleSet.map((tip) => {
-          const { title: value, id } = tip;
-          const object = (
-            <option
-              aria-labelledby={`${listId}label`}
-              className="text-black"
-              key={id}
-              value={value}
-            />
-          );
+      <div className="px-2">
+        <InputText
+          placeholder={placeholder}
+          onInput={setSearchString}
+          type="search"
+          value={searchString}
+          listId={listId}
+        />
+        <datalist className="datalist" id={listId}>
+          {titleSet.map((tip) => {
+            const { title: value, id } = tip;
+            const object = (
+              <option
+                aria-labelledby={`${listId}label`}
+                className="text-black"
+                key={id}
+                value={value}
+              />
+            );
 
-          return object;
-        })}
-      </datalist>
+            return object;
+          })}
+        </datalist>
+      </div>
     </>
   );
 }

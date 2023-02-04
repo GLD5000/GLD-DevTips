@@ -14,8 +14,8 @@ export default function PreviewTip() {
   return (
     <div className="relative ">
       {preview && (
-        <div className="relative flex w-full flex-col gap-2 border border-zinc-600 p-2">
-          <h2 className=" w-full rounded-none rounded-t-lg border-b border-b-neutral-600 text-center hover:bg-slate-800">
+        <div className="relative flex w-full flex-col gap-2 border border-zinc-600">
+          <h2 className=" w-full rounded-none rounded-t-lg border-b border-b-neutral-600 px-2 text-center">
             {title}
           </h2>
           <MultiTextBoxes tip={tip} />

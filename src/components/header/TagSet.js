@@ -32,11 +32,11 @@ export default function TagSet({ title = 'Filter Tags', tags, dispatchTags, acti
   const buttonArray = makeButtonArray();
 
   return (
-    <>
-      <h2>{title}</h2>
+    <div className="px-2">
+      <h2 className="text-center">{title}</h2>
       <section className="flex w-full flex-wrap items-center justify-center gap-2 p-2">
         {buttonArray}
       </section>
-    </>
+    </div>
   );
 }

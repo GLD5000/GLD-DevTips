@@ -639,6 +639,11 @@ video {
   margin-bottom: 1.25rem;
 }
 
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .ml-auto {
   margin-left: auto;
 }
@@ -653,6 +658,10 @@ video {
 
 .mb-10 {
   margin-bottom: 2.5rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
 }
 
 .block {
@@ -906,6 +915,16 @@ video {
   border-top-right-radius: 0.5rem;
 }
 
+.rounded-b {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.rounded-b-none {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
 .border-2 {
   border-width: 2px;
 }
@@ -1150,6 +1169,10 @@ video {
   padding-bottom: 1rem;
 }
 
+.pr-2 {
+  padding-right: 0.5rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1378,6 +1401,10 @@ h6 {
   border-width: 2px;
 }
 
+.hover\:border:hover {
+  border-width: 1px;
+}
+
 .hover\:border-current:hover {
   border-color: currentColor;
 }
@@ -1460,6 +1487,15 @@ h6 {
 .focus\:text-black:focus {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.active\:border:active {
+  border-width: 1px;
+}
+
+.active\:border-neutral-200:active {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 229 229 / var(--tw-border-opacity));
 }
 
 .active\:bg-slate-400:active {
