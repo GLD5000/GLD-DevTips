@@ -17,7 +17,7 @@ function useData() {
     let isMounted = true;
     if (isMounted) {
       const { status } = tips.metadata;
-      if (status === 'fetched') {
+      if (status === 'fetched' || status === 'added') {
         dispatchTags({ type: 'COUNT_TAGS', payload: tips.data });
       }
     }
@@ -45,6 +45,9 @@ function useData() {
         return { data: action.payload, metadata: oldMetaDataCopy };
       }
       case 'COUNT_TAGS': {
+        Object.keys(oldDataCopy).forEach((key) => {
+          oldDataCopy[key].count = undefined;
+        });
         const tagsCount = Object.values(action.payload)
           .flatMap((x) => x.tags)
           .reduce((acc, curr) => {

@@ -12,7 +12,6 @@ function useData() {
   useEffect(() => {
     fetchFirestoreData(dispatchTips);
   }, []);
-
   return {
     tips,
     dispatchTips,
