@@ -16,7 +16,7 @@ function MultiTextBox({ object }) {
     hint: <Hint content={content} />,
   };
   return (
-    <div className="w-full">
+    <div className="my-2 w-full">
       {hasTitle && <SectionTitle title={title} type={type} />}
       {typeHandler[type]}
     </div>
