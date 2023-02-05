@@ -16,7 +16,7 @@ export default function EditButton({ tipId }) {
       type="write"
       key={`edit${tipId}`}
       id={tipId}
-      buttonClasses="text-whitesmoke bg-transparent ml-auto grid-cols-autoFr mr-2"
+      buttonClasses="text-whitesmoke bg-transparent ml-auto grid-cols-autoFr mr-2 my-2"
       text="Edit"
       clickFunction={editTip}
       svgClasses="stroke-whitesmoke stroke-1 fill-none"

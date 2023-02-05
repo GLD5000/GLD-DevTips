@@ -13,7 +13,7 @@ export default function Tags({ tagArray }) {
     dispatchTags({ type: 'TOGGLE_TAG', payload });
   }
   return (
-    <div className=" flex h-min w-full  flex-wrap content-center justify-center gap-2 px-2">
+    <div className=" my-2 flex h-min  w-full flex-wrap content-center justify-center gap-2 px-2">
       {tagArray.map((tag) => {
         const active = activeTags.has(tag);
         return (
