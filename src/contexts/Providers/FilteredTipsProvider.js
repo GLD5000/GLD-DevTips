@@ -55,9 +55,9 @@ function testTitle(title, searchString) {
 function getFilteredTips(tips, searchString, activeTags) {
   const stringMissing = !searchString || searchString.length < 1;
   const tagsMissing = activeTags.size === 0;
-  if (stringMissing && tagsMissing) return Object.values(tips);
+  if (stringMissing && tagsMissing) return Object.values(tips).reverse();
 
-  return Object.values(tips).filter((tip) =>
-    filterTip(tip, searchString, activeTags, stringMissing)
-  );
+  return Object.values(tips)
+    .reverse()
+    .filter((tip) => filterTip(tip, searchString, activeTags, stringMissing));
 }

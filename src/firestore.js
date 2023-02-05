@@ -94,7 +94,7 @@ export async function addTipToFirestore(objectIn) {
 }
 
 export async function getTipsFirestore() {
-  const tipsQuery = query(tipsCollection, orderBy('id', 'desc'));
+  const tipsQuery = query(tipsCollection, orderBy('id', 'asc'));
   const tipsSnapshot = await getDocs(tipsQuery);
   const tipsObject = {};
   tipsSnapshot.forEach((document) => {
