@@ -6,11 +6,9 @@ import PreviewButton from './PreviewButton';
 
 export default function InputForm() {
   return (
-    <div className=" mb-10 flex w-full flex-col justify-items-center gap-4">
+    <div className=" mb-10 flex w-full flex-col items-center justify-items-center gap-4 px-2">
       <div className="my-5 grid grid-cols-1 gap-2">
-        <label className="grid">
-          <InputTitle />
-        </label>
+        <InputTitle />
         <InputTags />
       </div>
       <InputSections />

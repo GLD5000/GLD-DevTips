@@ -1,5 +1,6 @@
 import SvgButton from '../../../elements/SvgButton';
 import { useInputFormContext } from '../../../contexts/Providers/InputFormProvider';
+import InputSelect from './InputSelect';
 
 function getReturnArray(type, index, AddToTextarea) {
   if (type === 'code') return null;
@@ -109,21 +110,35 @@ function getReturnArray(type, index, AddToTextarea) {
         clickFunction={btn.onClick}
         marginLeft="0"
         showText={false}
-        buttonClasses="w-fit grid grid-cols-autoAuto"
+        buttonClasses="w-12 h-10 grid grid-cols-autoAuto place-content-center"
       />
     );
   });
 
-  return (
-    <div className="col-span-2 flex h-fit flex-row flex-wrap items-start gap-2">{returnArray}</div>
-  );
+  return returnArray;
 }
 
-export default function SectionTextTools({ index: key, type }) {
+export default function SectionTextTools({ index: key, type, changeValue }) {
   const { dispatchInputForm } = useInputFormContext();
 
   const extraButtons = getReturnArray(type, key, AddToTextarea);
-  return <div className="h-min">{extraButtons}</div>;
+  return (
+    <div className="flex h-fit flex-row flex-wrap gap-2 self-start">
+      <label className="flex items-center gap-2 text-lg">
+        Type:
+        <InputSelect
+          key={`${key}InputSelect`}
+          type={type}
+          index={key}
+          name={key}
+          changeType={changeValue}
+          value={type}
+        />
+      </label>
+
+      {extraButtons}
+    </div>
+  );
 
   function AddToTextarea(e, textToAdd) {
     const sectionIndex = getSectionIndexFromId(e);

@@ -27,7 +27,7 @@ export default function SectionControls({ index: key }) {
   return (
     <div className="flex h-min w-full flex-wrap gap-2">
       <SvgButton
-        buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"
+        buttonClasses="w-auto h-10 place-content-center grid grid-cols-frAutoFr flex-grow flex-shrink"
         type="up"
         key={`${key}moveFieldUp`}
         text="Up"
@@ -35,7 +35,7 @@ export default function SectionControls({ index: key }) {
         id={`${key}-moveFieldUp`}
       />
       <SvgButton
-        buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"
+        buttonClasses="w-auto h-10 place-content-center grid grid-cols-frAutoFr flex-grow flex-shrink"
         type="down"
         key={`${key}moveFieldDown`}
         backgroundColor="bg-transparent"
@@ -45,7 +45,7 @@ export default function SectionControls({ index: key }) {
       />
 
       <SvgButton
-        buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"
+        buttonClasses="w-auto h-10 place-content-center grid grid-cols-frAutoFr flex-grow flex-shrink"
         type="duplicate"
         key={`${key}duplicateField`}
         text="Copy"
@@ -54,7 +54,7 @@ export default function SectionControls({ index: key }) {
         svgClasses="stroke-1 stroke-whitesmoke fill-black"
       />
       <SvgButton
-        buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"
+        buttonClasses="w-auto h-10 place-content-center grid grid-cols-frAutoFr flex-grow flex-shrink"
         type="add"
         key="addField"
         text="Add"

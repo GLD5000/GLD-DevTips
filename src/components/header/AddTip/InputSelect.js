@@ -22,7 +22,7 @@ function InputSelect({ type, name, changeType, value: content }) {
   const optionsArray = makeOptionsArray(type);
   return (
     <select
-      className="w-full rounded border border-zinc-600 bg-inherit"
+      className="h-10 w-fit rounded border-2 border-zinc-600 bg-inherit p-2 transition delay-100 duration-200 ease-in-out hover:border-current"
       name={name}
       id=""
       onChange={handleChange}
