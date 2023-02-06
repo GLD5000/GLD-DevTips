@@ -6,7 +6,6 @@ import Ul from '../elements/Ul';
 export function markParagraphs(string) {
   if (typeof string !== 'string') return string;
   const regex = /[\r\n]+/g;
-  console.log(string);
   const returnString = `PpPpSSS${string.replaceAll(regex, 'PpPpEEE\r\nPpPpSSS')}PpPpEEE`;
   return returnString;
 }

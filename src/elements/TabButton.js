@@ -10,7 +10,6 @@ export default function TabButton({
   currentTab,
 }) {
   const active = currentTab === id;
-  console.log(active, currentTab, id);
   function clickHandler(e) {
     clickFunction(e);
   }
