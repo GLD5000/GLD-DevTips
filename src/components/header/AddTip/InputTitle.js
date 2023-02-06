@@ -18,7 +18,7 @@ export default function InputTitle() {
   };
 
   return (
-    <label className="sticky top-16 grid bg-neutral-800 pb-2">
+    <label className="grid w-full bg-neutral-800 pb-2">
       <h3>Tip No. {id}:</h3>
 
       <input

@@ -20,7 +20,7 @@ export default function Tip({ tip, updated, shouldExpand }) {
   }, [shouldExpand]);
   const title = tip.titleSuffix === undefined ? tip.title : tip.title + tip.titleSuffix;
   return (
-    <article className="flex  w-body min-w-body max-w-body flex-col items-start justify-between rounded border bg-neutral-800">
+    <article className="flex w-body min-w-body max-w-body flex-col items-start justify-between bg-neutral-800">
       <TipTitle
         id={`${tip.id}: ${title}`}
         title={title}
