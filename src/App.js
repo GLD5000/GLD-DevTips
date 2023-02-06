@@ -12,7 +12,7 @@ export default function App() {
       >
         <h1 className="bg-neutral-800">Hello, my name is Gareth...</h1>
         <Header title="DevTips" />
-        <main id="body-container" className=" grid h-fit w-screen justify-items-center gap-2 pt-2">
+        <main id="body-container" className=" grid h-fit w-screen justify-items-center gap-8 pt-2">
           <TopSection />
           <Tips />
         </main>
