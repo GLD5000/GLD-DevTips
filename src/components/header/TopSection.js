@@ -9,7 +9,7 @@ export default function TopSection() {
     },
   } = useInputFormContext();
   return (
-    <div id="top-section" className="w-body min-w-body max-w-body rounded border bg-neutral-800">
+    <div id="top-section" className="w-body min-w-body max-w-body bg-neutral-800">
       {editing && <InputForm />}
       {!editing && <Filters />}
     </div>
