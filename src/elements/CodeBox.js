@@ -30,9 +30,9 @@ export default function CodeBox({ content, parse = false }) {
       : null;
   const codeBody = codeFileName ? code.slice(firstLineBreak + 1) : code;
   return (
-    <code className="my-2 block h-fit max-w-full overflow-x-auto whitespace-pre rounded border border-solid border-neutral-500 bg-black font-mono text-vsGreen placeholder:text-vsGreen">
+    <code className="my-2 block h-fit max-w-full overflow-x-auto whitespace-pre rounded border-solid border-neutral-500 bg-black font-mono text-vsGreen placeholder:text-vsGreen">
       {codeFileName && (
-        <h3 className="file-name rounded-none bg-neutral-800 px-1 text-right text-neutral-300">
+        <h3 className="file-name rounded-none bg-neutral-700 px-1 text-right text-neutral-300">
           {codeFileName}
         </h3>
       )}
@@ -49,9 +49,9 @@ export default function CodeBox({ content, parse = false }) {
         showText
         reverse={false}
         buttonClasses="border-transparent sticky left-0"
-        className=" sticky left-0 bottom-0 flex w-full items-center  justify-center rounded-none border-2 border-transparent bg-neutral-800 text-neutral-200 transition delay-100 duration-200 ease-in-out hover:border-2 hover:border-current active:bg-slate-600"
+        className=" sticky left-0 bottom-0 flex w-full items-center  justify-center rounded-none border-2 border-transparent bg-neutral-700 text-neutral-200 transition delay-100 duration-200 ease-in-out hover:border-2 hover:border-current active:bg-slate-600"
         // marginLeft='auto'
-        svgClasses="stroke-1 fill-neutral-800 stroke-whitesmoke"
+        svgClasses="stroke-1 fill-neutral-700 stroke-whitesmoke"
       />
     </code>
   );
