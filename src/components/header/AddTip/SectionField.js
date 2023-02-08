@@ -61,7 +61,7 @@ export default function SectionField({ objectType, changeText, name, content, id
         placeholder={placeHolder}
         name={name}
         className={classNameLookup[objectType]}
-        rows="10"
+        rows="7"
         // cols='70'
         onInput={handleChange}
         value={content}
