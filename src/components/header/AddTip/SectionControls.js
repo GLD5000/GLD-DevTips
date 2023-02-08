@@ -51,7 +51,7 @@ export default function SectionControls({ index: key }) {
         text="Copy"
         clickFunction={duplicateField}
         id={`${key}-duplicatefield`}
-        svgClasses="stroke-1 stroke-whitesmoke fill-black"
+        svgClasses="stroke-1 stroke-current fill-neutral-800"
       />
       <SvgButton
         buttonClasses="w-auto h-10 place-content-center grid grid-cols-frAutoFr flex-grow flex-shrink"

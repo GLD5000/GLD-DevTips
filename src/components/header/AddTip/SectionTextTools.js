@@ -101,7 +101,7 @@ function getReturnArray(type, index, AddToTextarea) {
       <SvgButton
         wide="false"
         type={btn.type}
-        color="whitesmoke"
+        color="current"
         backgroundColor="transparent"
         id={`${index}-${btn.text}`}
         key={btn.text}
@@ -125,7 +125,7 @@ export default function SectionTextTools({ index: key, type, changeValue }) {
   return (
     <div className="flex h-fit flex-row flex-wrap gap-2 self-start">
       <label className="flex items-center gap-2 text-lg">
-        Type:
+        Mode:
         <InputSelect
           key={`${key}InputSelect`}
           type={type}

@@ -56,7 +56,7 @@ function getContent(reverse, showText, text, svg) {
 }
 
 export default function SvgButton({
-  color = 'whitesmoke',
+  color = 'current',
   backgroundColor = 'transparent',
   text = 'Add',
   clickFunction,
