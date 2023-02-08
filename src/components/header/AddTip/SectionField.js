@@ -1,15 +1,17 @@
 const placeHolderObject = {
   text: `  
-  Type or paste some text here...`,
+  Type or paste some text here...
+  
+  Use the buttons above to help you add text effects etc...`,
   hint: `  
-  Type or paste some text here...`,
+  Type or paste some text here...
+  
+  Use the buttons above to help you add text effects etc...`,
   code: `
   Type or paste some code here e.g:
 
       function add(a, b){
-
           return a + b;
-          
       }`,
   table: `
   Type or paste comma separated values (CSV) here e.g.
