@@ -7,18 +7,19 @@ import SectionControls from './SectionControls';
 export default function InputSections() {
   const {
     inputForm: {
-      data: { sections },
+      data: { sections, title },
     },
     dispatchInputForm,
   } = useInputFormContext();
 
   function makeInputArray() {
     return (
-      <>
+      <div className="w-full px-2">
         {sections.map((object, index) => {
           const key = index;
           const returnObject = (
             <div key={`${key}field-container`} className="flex w-full flex-col items-center gap-2">
+              <h2>{title}</h2>
               <SectionHeader index={key} />
               <SectionTextTools type={object.type} index={key} changeValue={dispatchInputForm} />
               <SectionField
@@ -34,7 +35,7 @@ export default function InputSections() {
           );
           return returnObject;
         })}
-      </>
+      </div>
     );
   }
   const inputArray = makeInputArray();

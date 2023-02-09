@@ -8,6 +8,9 @@ module.exports = {
         autoAuto: "auto auto",
         autoFr: "auto 1fr",
       },
+      gridTemplateRows:{
+        autoFr: "auto 1fr",
+      },
       minWidth:{
         body: "240px",
       },

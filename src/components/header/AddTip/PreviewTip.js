@@ -9,7 +9,7 @@ export default function PreviewTip() {
   } = useInputFormContext();
   const title = tip.title ? `${tip.title} (preview)` : 'Tip Preview';
   return (
-    <div className="relative w-full">
+    <div className="relative w-full px-2">
       <div className="relative flex w-full flex-col gap-2 border border-zinc-600">
         <h2 className=" w-full rounded-none rounded-t-lg border-b border-b-neutral-600 px-2 text-center">
           {title}

@@ -3,9 +3,9 @@ import { useInputFormContext } from '../../contexts/Providers/InputFormProvider'
 import { useTagsContext } from '../../contexts/Providers/TagsProvider';
 
 const writeClasses =
-  ' focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent border border-current';
+  ' focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent border border-current h-full';
 const cancelClasses =
-  'bg-transparent text-pink-300 focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black';
+  'bg-transparent text-pink-300 focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black h-full';
 
 export default function CreateButton() {
   const { dispatchTags } = useTagsContext();

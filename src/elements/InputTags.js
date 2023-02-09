@@ -28,7 +28,7 @@ export default function InputTags() {
         activeTags={existingTagsSet}
       />
 
-      <label className="grid">
+      <label className="grid w-full px-2">
         Add new tags as a List (separated by spaces or commas)
         <InputText
           key={`${keyMod}b`}

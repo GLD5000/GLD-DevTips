@@ -63,7 +63,7 @@ export default function SectionControls({ index: key }) {
       />
       {key > 0 && (
         <SvgButton
-          buttonClasses="w-auto h-auto grid grid-cols-frAutoFr flex-grow flex-shrink"
+          buttonClasses="w-auto h-10 place-content-center grid grid-cols-frAutoFr flex-grow flex-shrink"
           type="delete"
           key={`${key}deleteIndexedField`}
           text="Delete"
