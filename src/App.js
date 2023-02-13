@@ -1,5 +1,5 @@
 import Header from './components/header/Header';
-import TopSection from './components/header/TopSection';
+import Body from './components/header/Body';
 import CombinedProviders from './contexts/CombinedProviders';
 
 export default function App() {
@@ -11,7 +11,7 @@ export default function App() {
       >
         <h1 className="bg-neutral-800">Hello, my name is Gareth...</h1>
         <Header title="DevTips" />
-        <TopSection />
+        <Body />
         <footer id="footer" className=" h-10 flex-grow-0">
           footer
         </footer>

@@ -3,7 +3,7 @@ import InputForm from './AddTip/InputForm';
 import { useInputFormContext } from '../../contexts/Providers/InputFormProvider';
 import Tips from '../tips/Tips';
 
-export default function TopSection() {
+export default function Body() {
   const {
     inputForm: {
       metadata: { editing },
