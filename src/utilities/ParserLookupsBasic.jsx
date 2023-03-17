@@ -10,6 +10,7 @@ import H6 from '../elements/H6';
 import Li from '../elements/Li';
 import Span from '../elements/Span';
 import CodeSpan from '../elements/CodeSpan';
+import P from '../elements/P';
 
 const lineEndRegex = /PpPpEEE(\r\n)?/;
 
@@ -22,6 +23,8 @@ export const flagMap = new Map([
   [/(PpPpSSS)\s?#(?!#)/, { closingFlag: lineEndRegex, type: 'h1' }],
   [/(PpPpSSS)\s?-\s+/, { closingFlag: lineEndRegex, type: 'liUl' }],
   [/(PpPpSSS)\s?[0-9n]+\.\s+/, { closingFlag: lineEndRegex, type: 'liOl' }],
+  [/(PpPpSSS)(?!#)/, { closingFlag: /PpPpEEE(\s*\n*\r\s*)*/, type: 'paragraph' }],
+
   [/\[(?=[^\]]+\]\([^)]+\))/, { closingFlag: ')', type: 'link' }],
   [/`/, { closingFlag: /`/, type: 'codeSpan' }],
   [/'(?=.+')/, { closingFlag: /'/, type: 'singleQuote' }],
@@ -54,6 +57,8 @@ export function wrapText({ index, text, type }) {
     h4: <H4 key={`h4${newKey}`} content={text} />,
     h5: <H5 key={`h5${newKey}`} content={text} />,
     h6: <H6 key={`h6${newKey}`} content={text} />,
+    paragraph: <P key={`pa${newKey}`} content={text} />,
+
     liUl: <Li key={`Ul${newKey}`} content={text} />,
     liOl: <Li key={`Ol${newKey}`} content={text} type="number" />,
   };

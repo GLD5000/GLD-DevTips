@@ -170,11 +170,15 @@ export function recursiveParser({ text, indexIn = 0, flagMap, wrapText }) {
   let index = indexIn;
   const { type, beforeFlag, flaggedText, afterFlag } = stringHasFlag(text, flagMap);
   if (type === undefined) return text;
+  console.log('type:', type);
   const shouldParse =
     type !== 'codeSpan' &&
     type !== 'code' &&
     type !== 'table' &&
     type !== 'link' &&
+    type !== 'hint' &&
+    type !== 'singleQuote' &&
+    type !== 'doubleQuote' &&
     type !== 'span';
   const processedflaggedText = shouldParse
     ? recursiveParser({ text: flaggedText, indexIn: index, flagMap, wrapText })
