@@ -18,7 +18,7 @@ function getReturnArray(type, index, AddToTextarea) {
       'hint',
     ],
     table: ['header', 'bold', 'italic', 'link'],
-    hint: ['header', 'bold', 'italic', 'quote', 'link', 'bullet', 'numbered'],
+    hint: ['header', 'bold', 'italic', 'link', 'bullet', 'numbered'],
   };
 
   const buttonObject = {
