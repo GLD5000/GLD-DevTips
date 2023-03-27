@@ -83,7 +83,7 @@ export function wrapText({ index, text, type }) {
     h6: <H6 key={`h6${newKey}`} content={text} />,
     liUl: <Li key={`Ul${newKey}`} content={text} />,
     liOl: <Li key={`Ol${newKey}`} content={text} type="number" />,
-    paragraph: <P key={`pa${newKey}`} content={text} />,
+    paragraph: <P key={`pa${newKey}`} content={text} className="mb-4" />,
     quote: <BlockQuote key={`qb${newKey}`} content={text} />,
     code: <CodeBox key={`cb${newKey}`} content={text} parse />,
     table: <Table key={`table${newKey}`} content={text} parse />,

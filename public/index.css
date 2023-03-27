@@ -660,6 +660,10 @@ video {
   margin-bottom: 2.5rem;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .block {
   display: block;
 }
@@ -1396,10 +1400,6 @@ h5 {
 
 h6 {
   font-size: 0.85rem;
-}
-
-p {
-  margin-bottom: 2rem;
 }
 
 .placeholder\:text-vsGreen::-webkit-input-placeholder {
