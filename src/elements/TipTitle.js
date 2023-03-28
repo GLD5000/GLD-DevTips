@@ -2,7 +2,7 @@ import CollapseSvg from '../components/icons/CollapseSvg';
 import ExpandSvg from '../components/icons/ExpandSvg';
 
 function TipTitle({ title, onClick, expanded, id }) {
-  const conditionalClasses = expanded ? 'sticky top-16 py-4 z-50 ' : null;
+  const conditionalClasses = expanded ? 'sticky top-16 z-50 ' : null;
   const name = expanded ? `Collapse Tip` : `Expand Tip`;
   return (
     <button

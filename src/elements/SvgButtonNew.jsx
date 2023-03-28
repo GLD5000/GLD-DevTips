@@ -27,7 +27,7 @@ export default function SvgButtonNew({
   className = `px-2 py-1
    hover:border-current
    grid     
-      rounded border-2 border-solid whitespace-pre-wrap hover:transition
+      rounded border border-solid whitespace-pre-wrap hover:transition
     `,
 }) {
   const [showText, setShowText] = useState(showTextIn || false);

@@ -12,7 +12,7 @@ function Td({ cell }) {
   let content = cell;
   if (cell.includes('www') || cell.includes('**') || cell.includes('_') || cell.includes('#'))
     content = parseLinks(cell);
-  return <td className="border-collapse border-2 border-neutral-400 p-1 text-center">{content}</td>;
+  return <td className="border-collapse border border-neutral-400 p-1 text-center">{content}</td>;
 }
 
 export default Td;

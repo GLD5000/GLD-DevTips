@@ -17,7 +17,7 @@ export default function Button({
       id={id}
       name={name}
       onClick={clickHandler}
-      className={`border-2 py-1 px-2 hover:transition focus:transition active:bg-slate-300 ${activeClasses} ${className} ${
+      className={`border py-1 px-2 hover:transition focus:transition active:bg-slate-300 ${activeClasses} ${className} ${
         backgroundColor && backgroundColor
       } ${conditionalClasses && conditionalClasses}`}
     >

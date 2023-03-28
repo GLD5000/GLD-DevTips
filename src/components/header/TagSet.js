@@ -1,7 +1,7 @@
 import TagFilter from './TagFilter';
 import Button from '../../elements/Button';
 
-export default function TagSet({ title = 'Filter Tags', tags, dispatchTags, activeTags }) {
+export default function TagSet({ title = 'Click Tags to Filter', tags, dispatchTags, activeTags }) {
   function handleClickTag(payload) {
     dispatchTags({ type: 'TOGGLE_TAG', payload });
   }
@@ -25,7 +25,7 @@ export default function TagSet({ title = 'Filter Tags', tags, dispatchTags, acti
         backgroundColor="IndianRed"
         text="Clear Tags"
         clickFunction={handleClickClear}
-        className="bg-red-400 text-black hover:border-white"
+        className="rounded bg-red-400 text-sm text-black hover:border-white"
       />,
     ]);
   }
@@ -33,7 +33,7 @@ export default function TagSet({ title = 'Filter Tags', tags, dispatchTags, acti
 
   return (
     <div className="px-2">
-      <h2 className="text-center">{title}</h2>
+      <h2 className="text-center text-lg">{title}</h2>
       <section className="flex w-full flex-wrap items-center justify-center gap-2 p-2">
         {buttonArray}
       </section>
