@@ -27,7 +27,7 @@ export default function Footer() {
         ]}
       />
 
-      <p className=" text-txt-mid dark:text-txt-mid-dk mb-0 w-fit">🄯 2023 Gareth L Devlin</p>
+      <p className=" mb-0 w-fit text-txt-mid dark:text-txt-mid-dk">🄯 2023 Gareth L Devlin</p>
     </footer>
   );
 }
