@@ -24,7 +24,7 @@ export default function InputTitle() {
       <input
         className=" h-8 w-full rounded-none bg-neutral-700 px-2 py-5 text-center text-3xl"
         type="text"
-        placeholder=" Add a title or topic for your tip..."
+        placeholder=" Add title..."
         onChange={(e) => handler(e)}
         autoComplete="off"
         defaultValue={title}

@@ -27,11 +27,11 @@ export default function SaveButton() {
       text={submitText}
       clickFunction={submitFunction}
       conditionalClasses={conditionalClasses}
-      className="h-full rounded hover:transition focus:transition"
+      className=" h-12 w-32 rounded hover:transition focus:transition"
     />
   );
   function getButtonData(owner, loggedIn) {
-    if (!loggedIn) return ['Sign in to Save', authClickHandler];
+    if (!loggedIn) return ['Sign In', authClickHandler];
 
     if (owner) return ['Save', onSubmit];
 

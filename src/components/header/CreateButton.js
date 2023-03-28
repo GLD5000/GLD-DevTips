@@ -29,16 +29,13 @@ export default function CreateButton() {
   const AddTipText = editing ? 'Cancel' : 'Create';
   const type = editing ? 'cancelWrite' : 'add';
   return (
-    <div className="width-fit col-start-4 h-full">
-      <SvgButton
-        wide="false"
-        type={type}
-        text={AddTipText}
-        clickFunction={onCreate}
-        reverse
-        buttonClasses={editing ? cancelClasses : writeClasses}
-        activeClasses="active:bg-slate-400 grid-cols-autoFr "
-      />
-    </div>
+    <SvgButton
+      wide="false"
+      type={type}
+      text={AddTipText}
+      clickFunction={onCreate}
+      buttonClasses={editing ? cancelClasses : writeClasses}
+      activeClasses="active:bg-slate-400 h-12 w-32 grid-cols-autoFr "
+    />
   );
 }
