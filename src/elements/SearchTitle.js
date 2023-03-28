@@ -17,7 +17,10 @@ import { useFilteredTipsContext } from '../contexts/Providers/FilteredTipsProvid
 //   });
 // }
 
-export default function SearchTitle({ title, onClick, expanded, listId }) {
+export default function SearchTitle({ onClick, expanded }) {
+  const listId = 'searchTitleList';
+  const title = 'Search & Filter';
+
   const { searchString, setSearchString } = useSearchStringContext();
   const placeholder = ' Type or select a title...';
   // const buttonArray = makeButtonArray();
@@ -28,17 +31,13 @@ export default function SearchTitle({ title, onClick, expanded, listId }) {
     <>
       <button
         type="button"
-        className=" grid w-full grid-cols-frAutoFr justify-items-end rounded-b-none border-2 border-transparent border-b-neutral-600 bg-inherit px-2 delay-100 duration-200 ease-in-out hover:border-2 hover:border-neutral-200 active:border-neutral-200"
+        className=" grid w-full grid-cols-frAutoFr justify-items-end rounded-b-none border border-transparent border-b-border bg-inherit px-2 hover:border hover:border-neutral-200 hover:transition focus:transition active:border-neutral-200 dark:border-b-border-dk"
         onClick={onClick}
       >
         <label className="col-start-2" id={`${listId}label`} htmlFor={listId}>
-          <h2>{title}</h2>
+          <h2 className="text-2xl font-bold">{title}</h2>
         </label>
-        {expanded ? (
-          <CollapseSvg className="tip-title-svg col-start-3" />
-        ) : (
-          <ExpandSvg className="tip-title-svg col-start-3" />
-        )}
+        {expanded ? <CollapseSvg /> : <ExpandSvg />}
       </button>
       <div className="px-2">
         <InputText

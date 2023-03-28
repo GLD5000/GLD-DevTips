@@ -1,21 +1,34 @@
-import Header from './components/header/Header';
+// import Header from './components/header/Header';
+import { useState } from 'react';
 import Body from './components/header/Body';
 import CombinedProviders from './contexts/CombinedProviders';
+import Footer from './components/footer/Footer';
+import HeaderB from './components/header/HeaderB';
+
+function setThemeToLocalStorage(themeBoolean) {
+  localStorage.setItem('theme', themeBoolean.toString());
+}
 
 export default function App() {
+  const [colourTheme, setColourTheme] = useState(localStorage.getItem('theme') !== 'false');
+  function toggleColourTheme() {
+    setColourTheme((currentTheme) => !currentTheme);
+    setThemeToLocalStorage(!colourTheme);
+  }
+
   return (
     <CombinedProviders>
-      <section
-        id="page-container"
-        className="flex h-screen flex-col overflow-y-auto overflow-x-hidden border-zinc-600 bg-neutral-900 text-zinc-100"
-      >
-        <h1 className="bg-neutral-800">Hello, my name is Gareth...</h1>
-        <Header title="DevTips" />
-        <Body />
-        <footer id="footer" className=" h-10 flex-grow-0">
-          footer
-        </footer>
-      </section>
+      <div id="theme-wrapper" className={colourTheme ? 'dark' : undefined}>
+        <section
+          id="page-container"
+          className="flex h-screen flex-col overflow-y-auto overflow-x-hidden border-border bg-bg text-txt-main dark:border-border-dk dark:bg-bg-dk dark:text-txt-main-dk"
+        >
+          {/* <Header title="DevTips" /> */}
+          <HeaderB toggleColourTheme={toggleColourTheme} colourTheme={colourTheme} />
+          <Body />
+          <Footer />
+        </section>
+      </div>
     </CombinedProviders>
   );
 }
