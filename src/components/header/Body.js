@@ -12,7 +12,7 @@ export default function Body() {
   } = useInputFormContext();
   return (
     <main
-      id="body-container"
+      id="main-content"
       className=" mb-20 grid h-fit w-screen flex-grow grid-rows-autoFr justify-items-center gap-10 pt-2"
     >
       <div id="top-section" className="w-body min-w-body max-w-body">

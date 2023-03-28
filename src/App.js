@@ -4,6 +4,7 @@ import Body from './components/header/Body';
 import CombinedProviders from './contexts/CombinedProviders';
 import Footer from './components/footer/Footer';
 import HeaderB from './components/header/HeaderB';
+import MainContentLink from './components/header/MainContentLink';
 
 function setThemeToLocalStorage(themeBoolean) {
   localStorage.setItem('theme', themeBoolean.toString());
@@ -21,9 +22,10 @@ export default function App() {
       <div id="theme-wrapper" className={colourTheme ? 'dark' : undefined}>
         <section
           id="page-container"
-          className="flex h-screen flex-col overflow-y-auto overflow-x-hidden border-border bg-bg text-txt-main dark:border-border-dk dark:bg-bg-dk dark:text-txt-main-dk"
+          className="relative flex h-screen flex-col overflow-y-auto overflow-x-hidden border-border bg-bg text-txt-main dark:border-border-dk dark:bg-bg-dk dark:text-txt-main-dk"
         >
           {/* <Header title="DevTips" /> */}
+          <MainContentLink />
           <HeaderB toggleColourTheme={toggleColourTheme} colourTheme={colourTheme} />
           <Body />
           <Footer />
