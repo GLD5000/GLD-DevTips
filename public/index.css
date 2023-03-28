@@ -1592,6 +1592,14 @@ h6 {
   color: rgb(140 241 124 / var(--tw-text-opacity));
 }
 
+.backdrop\:bg-transparent::-webkit-backdrop{
+  background-color: transparent;
+}
+
+.backdrop\:bg-transparent::backdrop{
+  background-color: transparent;
+}
+
 .hover\:border-2:hover{
   border-width: 2px;
 }

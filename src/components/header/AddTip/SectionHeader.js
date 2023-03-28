@@ -21,7 +21,7 @@ export default function SectionHeader({ index: key }) {
     });
   };
 
-  const placeholder = 'Write optional title here...';
+  const placeholder = 'Add optional title...';
 
   return (
     <div className="flex w-full items-center overflow-x-auto rounded-none border-t-2 bg-neutral-800 pt-4 pb-2 text-left text-xl">
