@@ -25,10 +25,10 @@ export default function SectionHeader({ index: key }) {
 
   return (
     <div className="flex w-full items-center overflow-x-auto rounded-none border-t-2 bg-neutral-800 pt-4 pb-2 text-left text-xl">
-      <label className=" flex h-8 w-full gap-2 whitespace-nowrap rounded-none bg-neutral-700 pl-2 pr-1 text-left text-2xl">
+      <label className=" flex h-8 w-full gap-2 whitespace-nowrap rounded-none bg-neutral-700 pl-2 pr-1 text-left text-xl">
         {`Section ${key + 1}:`}
         <input
-          className=" h-8 w-full rounded-none border-none bg-transparent text-center text-2xl"
+          className=" h-8 w-full rounded-none border-none bg-transparent text-center text-xl"
           type="text"
           onChange={(e) => handler(e)}
           placeholder={placeholder}

@@ -22,7 +22,7 @@ export default function InputTitle() {
       <h3>Tip No. {id}:</h3>
 
       <input
-        className=" h-8 w-full rounded-none bg-neutral-700 px-2 py-5 text-center text-2xl"
+        className=" h-8 w-full rounded-none bg-neutral-700 px-2 py-5 text-center text-xl"
         type="text"
         placeholder=" Add title..."
         onChange={(e) => handler(e)}

@@ -21,19 +21,24 @@ export default function Tip({ tip, updated, shouldExpand }) {
   const title = tip.titleSuffix === undefined ? tip.title : tip.title + tip.titleSuffix;
   return (
     <article className="flex w-body min-w-body max-w-body flex-col items-start justify-between">
-      <TipTitle
-        id={`${tip.id}: ${title}`}
-        title={title}
-        onClick={handleClick}
-        expanded={expanded}
-      />
+      <div
+        className={`sticky top-16 z-50 grid w-full ${expanded && 'border-b'} bg-bg dark:bg-bg-dk`}
+      >
+        <TipTitle
+          id={`${tip.id}: ${title}`}
+          title={title}
+          onClick={handleClick}
+          expanded={expanded}
+        />
+        <Tags tagArray={tip.tags} />
+      </div>
+
       {expanded && (
         <>
           <EditButton key={`edit${tip.id}`} tipId={tip.id} />
           <MultiTextBoxes tip={tip} />
         </>
       )}
-      <Tags tagArray={tip.tags} />
       {updated && <p>{updated}</p>}
     </article>
   );
