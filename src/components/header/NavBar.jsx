@@ -55,7 +55,7 @@ export default function NavBar({ toggleColourTheme, colourTheme, toggleMenu }) {
           showTextIn={undefined}
           clickFunction={toggleColourTheme}
           reverse={false}
-          id="colour-theme-button"
+          id="colour-theme-button-main"
           name="Dark Mode Button"
           className="relative rounded text-xs"
           buttonClasses="w-fit h-fit overflow-visible flex-col hidden xs:flex  text-txt-mid hover:text-txt-main    hover:transition focus:text-txt-main  focus:transition dark:text-txt-mid-dk dark:hover:text-txt-main-dk dark:focus:text-txt-main-dk pb-4 pt-1 mt-3 px-2"
@@ -70,7 +70,7 @@ export default function NavBar({ toggleColourTheme, colourTheme, toggleMenu }) {
           showTextIn={undefined}
           clickFunction={toggleMenu}
           reverse={false}
-          id="colour-theme-button"
+          id="menu-button"
           name="Dark Mode Button"
           className="rounded text-xs"
           buttonClasses=" text-txt-mid hover:text-txt-main hover:underline hover:decoration-current hover:underline-offset-2 hover:transition focus:text-txt-main focus:underline focus:decoration-current  focus:underline-offset-2 focus:transition dark:text-txt-mid-dk dark:hover:text-txt-main-dk dark:focus:text-txt-main-dk "
