@@ -12,7 +12,15 @@ function useData() {
     data: null,
     metadata: { showTags: true, status: 'loading', activeTags: new Set() },
   });
-  useEffect(() => fetchFirestoreData(dispatchTags), []);
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      fetchFirestoreData(dispatchTags);
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {

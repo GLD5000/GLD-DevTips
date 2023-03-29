@@ -44,6 +44,11 @@ function useFirebaseAuth() {
   };
 
   useEffect(() => {
+    let isMounted = true;
+    if (!isMounted)
+      return () => {
+        isMounted = false;
+      };
     const authStateChanged = async (user) => {
       // console.count('auth changed state');
       setIsLoading(true);
@@ -62,7 +67,10 @@ function useFirebaseAuth() {
     };
 
     const unsubscribe = onAuthStateChanged(firebaseAuth, authStateChanged);
-    return () => unsubscribe();
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
   }, []);
   return {
     authUser,

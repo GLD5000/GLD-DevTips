@@ -10,7 +10,14 @@ function useData() {
     metadata: { status: 'fetching', nextTipId: -1 },
   });
   useEffect(() => {
-    fetchFirestoreData(dispatchTips);
+    let run = true;
+    if (run) {
+      fetchFirestoreData(dispatchTips);
+    }
+
+    return () => {
+      run = false;
+    };
   }, []);
   return {
     tips,
