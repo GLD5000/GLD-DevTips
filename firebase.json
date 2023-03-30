@@ -3,12 +3,12 @@
     "site": "glddevtips",
     "public": "build",
     "headers": [
-      {"source" : "**/*.@(eot|otf|ttf|ttc|woff|css|js)",
+      {"source" : "**/*.@(eot|otf|ttf|ttc|woff|css)",
       "headers" : [
           {"key" : "Access-Control-Allow-Origin",
-          "value" : "max-age=30672000"}]
+          "value" : "*"}]
       }, 
-      {"source" : "**/*.@(jpg|jpeg|gif|png)",
+      {"source" : "**/*.@(jpg|jpeg|gif|png|css|js)",
       "headers" : [
           {"key" : "Cache-Control",
           "value" : "max-age=30672000"
