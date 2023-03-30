@@ -5,7 +5,7 @@ import { useTagsContext } from '../../contexts/Providers/TagsProvider';
 export default function Filters() {
   const {
     tags: {
-      metadata: { showTags, activeTags },
+      metadata: { showTags, activeTags, status },
     },
     tags: { data: tags },
     dispatchTags,
@@ -18,7 +18,14 @@ export default function Filters() {
   return (
     <section className="grid w-full grid-rows-2 gap-2">
       <TitleFilter toggleExpanded={toggleExpanded} expanded={showTags} />
-      {showTags && <TagSet tags={tags} dispatchTags={dispatchTags} activeTags={activeTags} />}
+      {showTags && (
+        <TagSet
+          tags={tags}
+          dispatchTags={dispatchTags}
+          activeTags={activeTags}
+          tagStatus={status}
+        />
+      )}
     </section>
   );
 }

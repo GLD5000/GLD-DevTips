@@ -6,6 +6,9 @@ import { useInputFormContext } from '../contexts/Providers/InputFormProvider';
 const keyMod = 0;
 export default function InputTags() {
   const {
+    tags: {
+      metadata: { status },
+    },
     tags: { data: tags },
   } = useTagsContext();
   const {
@@ -25,6 +28,7 @@ export default function InputTags() {
         tags={tags}
         dispatchTags={dispatchInputForm}
         activeTags={existingTagsSet}
+        tagStatus={status}
       />
 
       <label className="grid w-full px-2">

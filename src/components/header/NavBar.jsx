@@ -18,7 +18,7 @@ function getDarkToggleIcon(isDark) {
 
 export default function NavBar({ toggleColourTheme, colourTheme, toggleMenu }) {
   return (
-    <nav className="relative flex h-16 flex-wrap items-center justify-center gap-8 ">
+    <nav className="relative flex h-16 w-fit flex-wrap items-center gap-8 ">
       <ExternalLink
         mediaVisibility="hidden sm:flex"
         link="https://gld-portfolio.vercel.app/"

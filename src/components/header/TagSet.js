@@ -1,7 +1,8 @@
 import TagFilter from './TagFilter';
 import Button from '../../elements/Button';
 
-export default function TagSet({ tags, dispatchTags, activeTags }) {
+export default function TagSet({ tags, dispatchTags, activeTags, tagStatus }) {
+  if (tags === undefined || tagStatus !== 'loaded') return null;
   function handleClickTag(payload) {
     dispatchTags({ type: 'TOGGLE_TAG', payload });
   }
@@ -16,7 +17,9 @@ export default function TagSet({ tags, dispatchTags, activeTags }) {
     return acc;
   }
   function makeButtonArray() {
-    return Object.values(tags).reduce(tagStateReducer, [
+    const values = Object.values(tags);
+    if (values.length === 0) return null;
+    return values.reduce(tagStateReducer, [
       <Button
         name="Clear Tags"
         id="clear-tags"
@@ -30,12 +33,12 @@ export default function TagSet({ tags, dispatchTags, activeTags }) {
     ]);
   }
   const buttonArray = makeButtonArray();
-
+  if (!buttonArray) return null;
   return (
     <div className="px-2">
       <h2 className="text-center text-lg">Choose Tags</h2>
       <section className="flex w-full flex-wrap items-center justify-center gap-2 p-2">
-        {buttonArray}
+        {buttonArray && buttonArray}
       </section>
     </div>
   );
