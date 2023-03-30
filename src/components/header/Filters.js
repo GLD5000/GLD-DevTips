@@ -13,12 +13,12 @@ export default function Filters() {
   function toggleExpanded() {
     dispatchTags({ type: 'TOGGLE_SHOW_TAGS', payload: !showTags });
   }
+
+  if (!tags) return null;
   return (
     <section className="grid w-full grid-rows-2 gap-2">
       <TitleFilter toggleExpanded={toggleExpanded} expanded={showTags} />
-      {showTags && tags !== null && (
-        <TagSet tags={tags} dispatchTags={dispatchTags} activeTags={activeTags} />
-      )}
+      {showTags && <TagSet tags={tags} dispatchTags={dispatchTags} activeTags={activeTags} />}
     </section>
   );
 }

@@ -22,7 +22,6 @@ export default function InputTags() {
     <>
       <TagSet
         key={`${keyMod}a`}
-        title="Choose Tags"
         tags={tags}
         dispatchTags={dispatchInputForm}
         activeTags={existingTagsSet}

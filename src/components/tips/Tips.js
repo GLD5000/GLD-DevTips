@@ -9,6 +9,7 @@ function Tips() {
       metadata: { editing },
     },
   } = useInputFormContext();
+  if (!tips) return null;
   const shouldExpand = tips.length === 1;
   return (
     <section id="tip-container" className="grid w-full grid-cols-1 justify-items-center gap-8 ">
