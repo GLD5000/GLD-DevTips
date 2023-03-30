@@ -2,6 +2,24 @@
   "hosting": {
     "site": "glddevtips",
     "public": "build",
+    "headers": [
+      {"source" : "**/*.@(eot|otf|ttf|ttc|woff|css|js)",
+      "headers" : [
+          {"key" : "Access-Control-Allow-Origin",
+          "value" : "*"}]
+      }, 
+      {"source" : "**/*.@(jpg|jpeg|gif|png)",
+      "headers" : [
+          {"key" : "Cache-Control",
+          "value" : "max-age=30672000"
+          }]
+      }, 
+      {"source" : "404.html",
+      "headers" : [
+          {"key" : "Cache-Control",
+          "value" : "max-age=300"
+          }]
+      }],
     "ignore": [
       "firebase.json",
       "**/.*",
