@@ -4,7 +4,7 @@ import TipTitle from '../../elements/TipTitle';
 import EditButton from './EditButton';
 import Tags from './Tags';
 
-export default function Tip({ tip, updated, shouldExpand }) {
+export default function Tip({ tip, updated, shouldExpand, tipNumber }) {
   const [expanded, setExpanded] = useState(shouldExpand);
   function handleClick() {
     setExpanded(!expanded);
@@ -26,7 +26,7 @@ export default function Tip({ tip, updated, shouldExpand }) {
       >
         <TipTitle
           id={`${tip.id}: ${title}`}
-          title={title}
+          title={`${tipNumber + 1})  ${title}`}
           onClick={handleClick}
           expanded={expanded}
         />

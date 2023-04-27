@@ -30,12 +30,12 @@ export default function CodeBox({ content, parse = false }) {
       : null;
   const codeBody = codeFileName ? code.slice(firstLineBreak + 1) : code;
   return (
-    <code className="font-mono relative my-2 mx-auto block h-fit w-fit max-w-full overflow-x-auto whitespace-pre rounded border-solid border-neutral-500 bg-black text-vsGreen placeholder:text-vsGreen">
+    <code className="font-mono relative my-2 mx-auto block h-fit w-full overflow-x-auto whitespace-pre rounded border-solid border-neutral-500 bg-black text-vsGreen placeholder:text-vsGreen">
       <div className="p-2">
         {codeFileName && (
-          <h3 className="file-name rounded-none bg-black px-1 text-right text-neutral-300">
+          <h4 className="file-name rounded-none bg-black px-1 text-right text-sm text-neutral-300">
             {codeFileName}
-          </h3>
+          </h4>
         )}
         <pre className="p-2">{`${codeBody}`}</pre>
       </div>

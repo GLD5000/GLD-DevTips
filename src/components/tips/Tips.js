@@ -14,8 +14,14 @@ function Tips() {
   return (
     <section id="tip-container" className="grid w-full grid-cols-1 justify-items-center gap-8 ">
       {!editing &&
-        tips.map((tip) => (
-          <Tip key={tip.id} tip={tip} updated={tip.updated} shouldExpand={shouldExpand} />
+        tips.map((tip, number) => (
+          <Tip
+            key={tip.id}
+            tip={tip}
+            updated={tip.updated}
+            shouldExpand={shouldExpand}
+            tipNumber={number}
+          />
         ))}
     </section>
   );
