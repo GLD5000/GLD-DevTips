@@ -37,7 +37,7 @@ export default function ToggleButton({
       id={id}
       name={name}
       onClick={clickHandler}
-      className={`grid grid-cols-autoAuto items-center gap-2 border border-zinc-600 px-2 py-1 text-sm hover:border-white hover:transition focus:transition ${className}`}
+      className={`grid grid-cols-autoAuto items-center gap-2 border-2 border-zinc-600 px-2 py-1 text-sm hover:border-white hover:transition focus:transition ${className}`}
       style={styles}
     >
       {showText && text}

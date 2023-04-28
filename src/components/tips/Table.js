@@ -31,7 +31,7 @@ function Table({ content, parse = false }) {
   const tableArray = parseDataToArray(data);
   return (
     <section className=" my-3 flex h-fit w-full justify-center overflow-x-auto">
-      <table className="border-collapse border border-neutral-400 p-2 text-center text-neutral-200">
+      <table className="border-collapse border-2 border-neutral-400 p-2 text-center text-neutral-200">
         <thead className=" bg-neutral-600 text-lg">
           <Tr key="0" row={tableArray[0]} rowIndex="0" />
         </thead>

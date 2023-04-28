@@ -29,11 +29,11 @@ const placeHolderObject = {
 // };
 
 const classNameLookup = {
-  text: 'resize-y p-2 overflow-x-auto w-full border-zinc-600 border rounded bg-inherit',
-  hint: 'resize-y overflow-x-auto whitespace-pre-wrap w-full border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black',
-  code: 'resize-y p-2 bg-black text-vsGreen font-mono w-full whitespace-pre overflow-x-auto border-vsGreen border rounded ',
+  text: 'resize-y p-2 overflow-x-auto w-full border-zinc-600 border-2 rounded bg-inherit',
+  hint: 'resize-y overflow-x-auto whitespace-pre-wrap w-full border-l-8 border-x-hintYellow bg-cornsilk p-2 text-black rounded',
+  code: 'resize-y p-2 bg-black text-vsGreen font-mono w-full whitespace-pre overflow-x-auto border-vsGreen border-2 rounded ',
   table:
-    'resize-y p-2 whitespace-pre overflow-x-auto w-full border-zinc-600 border rounded bg-inherit',
+    'resize-y p-2 whitespace-pre overflow-x-auto w-full border-zinc-600 border-2 rounded bg-inherit',
 };
 
 export default function SectionField({ objectType, changeText, name, content, id = null }) {

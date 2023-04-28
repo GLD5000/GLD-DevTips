@@ -19,7 +19,7 @@ export default function TabButton({
       id={id}
       name={name}
       onClick={clickHandler}
-      className={`rounded-none border border-transparent py-1 px-2 hover:transition focus:transition active:bg-slate-300 ${activeClasses} ${className} ${
+      className={`rounded-none border-2 border-transparent py-1 px-2 hover:transition focus:transition active:bg-slate-300 ${activeClasses} ${className} ${
         backgroundColor && backgroundColor
       } ${active && conditionalClasses}`}
     >
