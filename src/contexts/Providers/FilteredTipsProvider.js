@@ -47,7 +47,7 @@ function filterTip(tip, searchString, activeTags, stringMissing) {
   return showTitle || showTags;
 }
 function testTitle(title, searchString) {
-  const searchArray = searchString.split(' ');
+  const searchArray = searchString.trim().split(' ');
   const lowerCaseTitle = title.toLowerCase();
   const testResult = searchArray.every((word) => lowerCaseTitle.includes(word.toLowerCase()));
   return testResult;

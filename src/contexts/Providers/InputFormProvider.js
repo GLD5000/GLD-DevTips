@@ -119,7 +119,7 @@ function useData() {
       }
       case 'UPDATE_NEW_TAGS': {
         const newString = action.payload;
-        oldMetadata.newTagsArray = newString.length === 0 ? [] : [...new Set(newString.split(' '))];
+        oldMetadata.newTagsArray = newString.length === 0 ? [] : [...new Set(newString.trim().split(' '))];
         oldData.tags = [...new Set([...oldMetadata.newTagsArray, ...oldMetadata.existingTagsSet])];
         return { data: oldData, metadata: oldMetadata };
       }
