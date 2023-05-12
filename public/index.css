@@ -1268,6 +1268,10 @@ video {
   stroke-width: 1;
 }
 
+.stroke-2{
+  stroke-width: 2;
+}
+
 .p-2{
   padding: 0.5rem;
 }
