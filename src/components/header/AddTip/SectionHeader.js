@@ -24,8 +24,8 @@ export default function SectionHeader({ index: key }) {
   const placeholder = 'Add optional title...';
 
   return (
-    <div className="flex w-full items-center overflow-x-auto rounded-none border-t-2 bg-neutral-800 pt-4 pb-2 text-left text-xl">
-      <label className=" flex h-8 w-full gap-2 whitespace-nowrap rounded-none bg-neutral-700 pl-2 pr-1 text-left text-xl">
+    <div className="flex w-full items-center overflow-x-auto rounded-none border-t-2 pt-4 pb-2 text-left text-xl dark:bg-neutral-800">
+      <label className=" flex h-8 w-full gap-2 whitespace-nowrap rounded-none pl-2 pr-1 text-left text-xl dark:bg-neutral-700">
         {`Section ${key + 1}:`}
         <input
           className=" h-8 w-full rounded-none border-none bg-transparent text-center text-xl"

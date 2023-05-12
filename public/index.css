@@ -1043,12 +1043,12 @@ video {
   border-top-right-radius: 0.5rem;
 }
 
-.border{
-  border-width: 1px;
-}
-
 .border-2{
   border-width: 2px;
+}
+
+.border{
+  border-width: 1px;
 }
 
 .border-l-8{
@@ -1188,6 +1188,11 @@ video {
   background-color: rgb(23 23 23 / var(--tw-bg-opacity));
 }
 
+.bg-neutral-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(212 212 212 / var(--tw-bg-opacity));
+}
+
 .bg-neutral-800{
   --tw-bg-opacity: 1;
   background-color: rgb(38 38 38 / var(--tw-bg-opacity));
@@ -1208,6 +1213,11 @@ video {
   background-color: rgb(126 185 135 / var(--tw-bg-opacity));
 }
 
+.bg-neutral-200{
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 229 229 / var(--tw-bg-opacity));
+}
+
 .fill-black{
   fill: #000;
 }
@@ -1222,6 +1232,10 @@ video {
 
 .fill-neutral-800{
   fill: #262626;
+}
+
+.fill-neutral-100{
+  fill: #f5f5f5;
 }
 
 .stroke-neutral-200{
@@ -1449,6 +1463,11 @@ video {
   color: inherit;
 }
 
+.text-pink-100{
+  --tw-text-opacity: 1;
+  color: rgb(252 231 243 / var(--tw-text-opacity));
+}
+
 .underline{
   text-decoration-line: underline;
 }
@@ -1571,6 +1590,16 @@ h6 {
   color: rgb(140 241 124 / var(--tw-text-opacity));
 }
 
+.placeholder\:text-neutral-700::-webkit-input-placeholder{
+  --tw-text-opacity: 1;
+  color: rgb(64 64 64 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-neutral-700::placeholder{
+  --tw-text-opacity: 1;
+  color: rgb(64 64 64 / var(--tw-text-opacity));
+}
+
 .hover\:border-2:hover{
   border-width: 2px;
 }
@@ -1612,11 +1641,6 @@ h6 {
 .hover\:bg-pink-300:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(249 168 212 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-neutral-700:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(64 64 64 / var(--tw-bg-opacity));
 }
 
 .hover\:text-black:hover{
@@ -1738,6 +1762,29 @@ h6 {
   background-color: rgb(31 31 31 / var(--tw-bg-opacity));
 }
 
+.dark .dark\:bg-neutral-800{
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 38 38 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-neutral-900{
+  --tw-bg-opacity: 1;
+  background-color: rgb(23 23 23 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-neutral-700{
+  --tw-bg-opacity: 1;
+  background-color: rgb(64 64 64 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-transparent{
+  background-color: transparent;
+}
+
+.dark .dark\:fill-neutral-800{
+  fill: #262626;
+}
+
 .dark .dark\:stroke-border-dk{
   stroke: #6b6b6b;
 }
@@ -1752,9 +1799,49 @@ h6 {
   color: rgb(171 171 171 / var(--tw-text-opacity));
 }
 
+.dark .dark\:text-pink-300{
+  --tw-text-opacity: 1;
+  color: rgb(249 168 212 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-zinc-300{
+  --tw-text-opacity: 1;
+  color: rgb(212 212 216 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-white{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-black{
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.dark .dark\:placeholder\:text-neutral-400::-webkit-input-placeholder{
+  --tw-text-opacity: 1;
+  color: rgb(163 163 163 / var(--tw-text-opacity));
+}
+
+.dark .dark\:placeholder\:text-neutral-400::placeholder{
+  --tw-text-opacity: 1;
+  color: rgb(163 163 163 / var(--tw-text-opacity));
+}
+
 .dark .dark\:hover\:border-neutral-200:hover{
   --tw-border-opacity: 1;
   border-color: rgb(229 229 229 / var(--tw-border-opacity));
+}
+
+.dark .dark\:hover\:bg-neutral-700:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(64 64 64 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:hover\:bg-pink-300:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 168 212 / var(--tw-bg-opacity));
 }
 
 .dark .dark\:hover\:text-txt-main-dk:hover{
@@ -1762,9 +1849,24 @@ h6 {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.dark .dark\:hover\:text-black:hover{
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.dark .dark\:focus\:bg-pink-300:focus{
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 168 212 / var(--tw-bg-opacity));
+}
+
 .dark .dark\:focus\:text-txt-main-dk:focus{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.dark .dark\:focus\:text-black:focus{
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 @media (min-width: 420px){

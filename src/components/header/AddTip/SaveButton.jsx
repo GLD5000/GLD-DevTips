@@ -19,7 +19,7 @@ export default function SaveButton() {
   const [submitText, submitFunction] = getButtonData(isOwner, signedIn);
   const conditionalClasses = isOwner
     ? 'bg-aquamarine text-black hover:border-zinc-300'
-    : 'bg-transparent hover:bg-zinc-300 hover:text-black text-zinc-300';
+    : 'bg-transparent hover:bg-zinc-300 hover:text-black text-black dark:text-zinc-300';
 
   return (
     <Button

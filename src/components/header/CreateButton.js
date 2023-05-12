@@ -5,7 +5,7 @@ import { useTagsContext } from '../../contexts/Providers/TagsProvider';
 const writeClasses =
   ' focus:bg-aquamarine focus:text-black hover:bg-aquamarine hover:text-black text-aquamarine bg-transparent border-2 border-current h-full';
 const cancelClasses =
-  'bg-transparent text-pink-300 focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black h-full';
+  'bg-transparent text-black focus:bg-pink-300 focus:text-black hover:bg-pink-300 hover:text-black dark:bg-transparent dark:text-pink-300 dark:focus:bg-pink-300 dark:focus:text-black dark:hover:bg-pink-300 dark:hover:text-black h-full';
 
 export default function CreateButton() {
   const { dispatchTags } = useTagsContext();

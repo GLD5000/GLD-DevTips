@@ -18,11 +18,11 @@ export default function InputTitle() {
   };
 
   return (
-    <label className="grid w-full bg-neutral-800 p-2">
+    <label className="grid w-full p-2 dark:bg-neutral-800">
       <h3>Tip No. {id}:</h3>
 
       <input
-        className=" h-8 w-full rounded-none bg-neutral-700 px-2 py-5 text-center text-xl"
+        className=" h-8 w-full rounded-none bg-neutral-200 px-2 py-5 text-center text-xl placeholder:text-neutral-700 dark:bg-neutral-700 dark:placeholder:text-neutral-400"
         type="text"
         placeholder=" Add title..."
         onChange={(e) => handler(e)}

@@ -3,15 +3,15 @@ import TabButton from '../../../elements/TabButton';
 export default function InputTabs({ tab, setTab }) {
   function handleClick(e) {
     const { id } = e.target;
-    document.body.scrollTop = 44; // For Safari
-    document.getElementById('page-container').scrollTop = 44;
+    // document.body.scrollTop = 44; // For Safari
+    // document.getElementById('page-container').scrollTop = 44;
     if (tab !== id) {
       setTab(id);
     }
   }
 
   return (
-    <div className="sticky top-16 z-50 grid w-full grid-cols-3 gap-1 rounded-none bg-neutral-800 pb-2 text-lg">
+    <div className="sticky top-16 z-50 grid w-full grid-cols-3 gap-1 rounded-none pb-2 text-lg dark:bg-neutral-800">
       <TabButton
         name="Set Tags"
         id="set-tags"
@@ -19,8 +19,8 @@ export default function InputTabs({ tab, setTab }) {
         color="black"
         text="Set Tags"
         clickFunction={handleClick}
-        className="bg-neutral-900 text-current hover:bg-neutral-700"
-        conditionalClasses="border-b-current bg-neutral-800"
+        className="text-current dark:bg-neutral-900 dark:hover:bg-neutral-700"
+        conditionalClasses="border-b-current  dark:bg-neutral-800"
         currentTab={tab}
       />
       <TabButton
@@ -30,8 +30,8 @@ export default function InputTabs({ tab, setTab }) {
         color="black"
         text="Write Sections"
         clickFunction={handleClick}
-        className="bg-neutral-900 text-current hover:bg-neutral-700"
-        conditionalClasses="border-b-current bg-neutral-800"
+        className="text-current dark:bg-neutral-900 dark:hover:bg-neutral-700"
+        conditionalClasses="border-b-current  dark:bg-neutral-800"
         currentTab={tab}
       />
       <TabButton
@@ -41,8 +41,8 @@ export default function InputTabs({ tab, setTab }) {
         color="black"
         text="Preview Tip"
         clickFunction={handleClick}
-        className="bg-neutral-900 text-current hover:bg-neutral-700"
-        conditionalClasses="border-b-current  bg-neutral-800"
+        className="text-current dark:bg-neutral-900 dark:hover:bg-neutral-700"
+        conditionalClasses="border-b-current   dark:bg-neutral-800"
         currentTab={tab}
       />
     </div>
