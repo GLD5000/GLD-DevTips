@@ -26,7 +26,7 @@ function getSvg(type, svgClasses) {
     down: <DownSvg classes={svgClasses} />,
     add: <AddSvg classes={svgClasses} />,
     delete: <DeleteSvg classes={svgClasses} />,
-    duplicate: <DuplicateSvg classes={svgClasses} />,
+    duplicate: <DuplicateSvg />,
     preview: <PreviewSvg classes={svgClasses} />,
     write: <PencilSvg classes={svgClasses} />,
     cancelWrite: <UnPencilSvg classes={svgClasses} />,
