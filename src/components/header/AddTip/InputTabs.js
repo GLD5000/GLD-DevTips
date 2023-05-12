@@ -11,7 +11,7 @@ export default function InputTabs({ tab, setTab }) {
   }
 
   return (
-    <div className="sticky top-16 z-50 grid w-full grid-cols-3 gap-1 rounded-none pb-2 text-lg dark:bg-neutral-800">
+    <div className="sticky top-16 z-50 grid w-full grid-cols-3 gap-1 rounded-none bg-white pb-2 text-lg dark:bg-neutral-800">
       <TabButton
         name="Set Tags"
         id="set-tags"
