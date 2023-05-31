@@ -19,6 +19,7 @@ import { useFilteredTipsContext } from '../contexts/Providers/FilteredTipsProvid
 
 export default function SearchTitle({ onClick, expanded }) {
   const listId = 'searchTitleList';
+  const inputId = 'searchTitle';
   const title = 'Search & Filter';
 
   const { searchString, setSearchString } = useSearchStringContext();
@@ -34,13 +35,14 @@ export default function SearchTitle({ onClick, expanded }) {
         className=" grid w-full grid-cols-frAutoFr justify-items-end rounded-b-none border-2 border-transparent border-b-border bg-inherit px-2 hover:border-2 hover:border-neutral-200 hover:transition focus:transition active:border-neutral-200 dark:border-b-border-dk dark:hover:border-neutral-200"
         onClick={onClick}
       >
-        <label className="col-start-2" id={`${listId}label`} htmlFor={listId}>
+        <label className="col-start-2" id={`${listId}label`} htmlFor={inputId}>
           <h2 className="text-2xl font-bold">{title}</h2>
         </label>
         {expanded ? <CollapseSvg /> : <ExpandSvg />}
       </button>
       <div className="px-2">
         <InputText
+        idIn={inputId}
           placeholder={placeholder}
           onInput={setSearchString}
           type="search"

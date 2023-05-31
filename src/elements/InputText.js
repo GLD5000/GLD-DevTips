@@ -4,6 +4,7 @@ function InputText({
   type = 'text',
   listId = null,
   value = '',
+  idIn = null
 }) {
   const handler = (e) => {
     onInput(e.target.value);
@@ -15,6 +16,7 @@ function InputText({
 
   return (
     <input
+    id={idIn}
       className="h-8 w-full rounded border border-zinc-600 bg-inherit p-1"
       type={type}
       onFocus={(e) => e.target.select()}
