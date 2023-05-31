@@ -1094,9 +1094,9 @@ video {
   border-color: currentColor;
 }
 
-.border-zinc-300{
+.border-black{
   --tw-border-opacity: 1;
-  border-color: rgb(212 212 216 / var(--tw-border-opacity));
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .border-neutral-400{
@@ -1107,11 +1107,6 @@ video {
 .border-vsGreen{
   --tw-border-opacity: 1;
   border-color: rgb(140 241 124 / var(--tw-border-opacity));
-}
-
-.border-black{
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .border-x-neutral-600{
@@ -1599,6 +1594,11 @@ h6 {
   border-color: rgb(212 212 216 / var(--tw-border-opacity));
 }
 
+.hover\:bg-bg-var:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-zinc-300:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(212 212 216 / var(--tw-bg-opacity));
@@ -1612,6 +1612,11 @@ h6 {
 .hover\:bg-pink-300:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(249 168 212 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-neutral-200:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 229 229 / var(--tw-bg-opacity));
 }
 
 .hover\:text-black:hover{
@@ -1810,6 +1815,11 @@ h6 {
   background-color: rgb(64 64 64 / var(--tw-bg-opacity));
 }
 
+.dark .hover\:dark\:text-black:hover{
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
 .dark .dark\:hover\:text-black:hover{
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -1820,19 +1830,14 @@ h6 {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.dark .hover\:dark\:text-zinc-300:hover{
-  --tw-text-opacity: 1;
-  color: rgb(212 212 216 / var(--tw-text-opacity));
-}
-
-.dark .hover\:dark\:text-black:hover{
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
 .dark .dark\:focus\:bg-pink-300:focus{
   --tw-bg-opacity: 1;
   background-color: rgb(249 168 212 / var(--tw-bg-opacity));
+}
+
+.dark .focus\:dark\:text-black:focus{
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .dark .dark\:focus\:text-black:focus{
@@ -1843,11 +1848,6 @@ h6 {
 .dark .dark\:focus\:text-txt-main-dk:focus{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.dark .focus\:dark\:text-black:focus{
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 @media (min-width: 420px){
