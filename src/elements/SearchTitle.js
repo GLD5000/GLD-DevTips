@@ -42,7 +42,7 @@ export default function SearchTitle({ onClick, expanded }) {
       </button>
       <div className="px-2">
         <InputText
-        idIn={inputId}
+          idIn={inputId}
           placeholder={placeholder}
           onInput={setSearchString}
           type="search"
