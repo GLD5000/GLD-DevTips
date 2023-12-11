@@ -1,2 +1,1 @@
-# verbose-carnival
-React App
+# Tips and Tricks for Devs
